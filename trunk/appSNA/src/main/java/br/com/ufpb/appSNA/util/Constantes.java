@@ -6,4 +6,5 @@ public class Constantes {
 	public static final String tokenSecret = "XdP1pB5lt3llmwM8BSKSQFVmpiU0tvDQrgpCNCFRU";
 	public static final String consumerToken = "9D8Q5IFh9KDSUpFgFwVEZg";
 	public static final String consumerSecret = "amWG2soLvbc5Uk9hXYck185cHH4qVZ2vI803avAQw";
+	public static final String ipRedis = "";
 }

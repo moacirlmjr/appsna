@@ -11,7 +11,7 @@ public class AppSNALog {
 
 	static {
 		try {
-			logger = Logger.getLogger("br.com.avaty.web.granero");
+			logger = Logger.getLogger("br.com.ufpb.appSNA");
 		} catch (Exception e) {
 			System.out.println("Não foi possível criar o mecanismo de log.");
 		}

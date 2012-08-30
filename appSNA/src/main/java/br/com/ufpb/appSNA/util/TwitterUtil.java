@@ -27,10 +27,10 @@ public class TwitterUtil {
 	public static TwitterFactory createTwitterFactory(){
 		ConfigurationBuilder cb = new ConfigurationBuilder();
     	cb.setDebugEnabled(true)
-    	  .setOAuthConsumerKey(Constantes.consumerToken)
-    	  .setOAuthConsumerSecret(Constantes.consumerSecret)
-    	  .setOAuthAccessToken(Constantes.accessToken)
-    	  .setOAuthAccessTokenSecret(Constantes.tokenSecret);
+    	  .setOAuthConsumerKey(Constantes.consumerTokenMoacir)
+    	  .setOAuthConsumerSecret(Constantes.consumerSecretMoacir)
+    	  .setOAuthAccessToken(Constantes.accessTokenMoacir)
+    	  .setOAuthAccessTokenSecret(Constantes.tokenSecretMoacir);
     	TwitterFactory tf = new TwitterFactory(cb.build());
     	return tf;
 	}

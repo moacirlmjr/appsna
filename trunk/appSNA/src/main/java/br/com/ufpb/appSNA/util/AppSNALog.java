@@ -13,7 +13,7 @@ public class AppSNALog {
 		try {
 			logger = Logger.getLogger("br.com.ufpb.appSNA");
 		} catch (Exception e) {
-			System.out.println("NÃ£o foi possÃ­vel criar o mecanismo de log.");
+			System.out.println("Não foi possível criar o mecanismo de log.");
 		}
 	}
 

@@ -4,7 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import twitter4j.IDs;
+import twitter4j.Relationship;
 import twitter4j.Twitter;
+import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
 import twitter4j.conf.ConfigurationBuilder;
@@ -16,7 +18,8 @@ public class TwitterUtil {
 		Twitter twitter = createTwitterFactory().getInstance();
 		List<User> listUsers = new LinkedList<User>();
 		IDs ids = twitter.getFriendsIDs(screenName, -1);
-		//TODO Funciona mas é improdutivo Ainda realiza inumeras requisições, procurar metodo ou serviço que possa retornar os dados em uma requisição excede o RATE LIMIT
+		//Funciona mas é improdutivo Ainda realiza inumeras requisições, procurar metodo ou 
+		//serviço que possa retornar os dados em uma requisição excede o RATE LIMIT
 		for(long id : ids.getIDs()){
 			listUsers.add(twitter.showUser(id));
 		}
@@ -35,9 +38,40 @@ public class TwitterUtil {
     	return tf;
 	}
 	
+	public static boolean isFollowed(String source, String target) throws TwitterException{
+		Twitter twitter = createTwitterFactory().getInstance();
+		Relationship b = twitter.showFriendship(source, target);
+		return b.isSourceFollowedByTarget();
+	}
+	
+	public static boolean isBlocking(String source, String target) throws TwitterException{
+		Twitter twitter = createTwitterFactory().getInstance();
+		Relationship b = twitter.showFriendship(source, target);
+		return b.isSourceBlockingTarget();
+	}
+	
+	public static boolean isFollowing(String source, String target) throws TwitterException{
+		Twitter twitter = createTwitterFactory().getInstance();
+		Relationship b = twitter.showFriendship(source, target);
+		return b.isSourceFollowingTarget();
+	}
+	
+	public static boolean isNotificationEnabled(String source, String target) throws TwitterException{
+		Twitter twitter = createTwitterFactory().getInstance();
+		Relationship b = twitter.showFriendship(source, target);
+		return b.isSourceNotificationsEnabled();
+	}
+	
+	public static boolean isRelationship(String source, String target) throws TwitterException{
+		Twitter twitter = createTwitterFactory().getInstance();
+		boolean b = twitter.existsFriendship(source, target);
+		return b;
+	}
+	
+		
 	public static void main(String[] args) {
 		try {
-			TwitterUtil.retornarListaAmigos("@moacirlmjr");
+			System.out.println(TwitterUtil.retornarListaAmigos("@moacirlmjr"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

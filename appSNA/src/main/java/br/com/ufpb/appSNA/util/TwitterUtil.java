@@ -18,7 +18,7 @@ public class TwitterUtil {
 		Twitter twitter = createTwitterFactory().getInstance();
 		List<User> listUsers = new LinkedList<User>();
 		IDs ids = twitter.getFriendsIDs(screenName, -1);
-		//Funciona mas é improdutivo Ainda realiza inumeras requisições, procurar metodo ou 
+		//TODO Funciona mas é improdutivo Ainda realiza inumeras requisições, procurar metodo ou 
 		//serviço que possa retornar os dados em uma requisição excede o RATE LIMIT
 		for(long id : ids.getIDs()){
 			listUsers.add(twitter.showUser(id));

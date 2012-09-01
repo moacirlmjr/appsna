@@ -38,31 +38,31 @@ public class TwitterUtil {
     	return tf;
 	}
 	
-	public static boolean isFollowed(String source, String target) throws TwitterException{
+	public static boolean isFollowed(String source, String target) throws Exception{
 		Twitter twitter = createTwitterFactory().getInstance();
 		Relationship b = twitter.showFriendship(source, target);
 		return b.isSourceFollowedByTarget();
 	}
 	
-	public static boolean isBlocking(String source, String target) throws TwitterException{
+	public static boolean isBlocking(String source, String target) throws Exception{
 		Twitter twitter = createTwitterFactory().getInstance();
 		Relationship b = twitter.showFriendship(source, target);
 		return b.isSourceBlockingTarget();
 	}
 	
-	public static boolean isFollowing(String source, String target) throws TwitterException{
+	public static boolean isFollowing(String source, String target) throws Exception{
 		Twitter twitter = createTwitterFactory().getInstance();
 		Relationship b = twitter.showFriendship(source, target);
 		return b.isSourceFollowingTarget();
 	}
 	
-	public static boolean isNotificationEnabled(String source, String target) throws TwitterException{
+	public static boolean isNotificationEnabled(String source, String target) throws Exception{
 		Twitter twitter = createTwitterFactory().getInstance();
 		Relationship b = twitter.showFriendship(source, target);
 		return b.isSourceNotificationsEnabled();
 	}
 	
-	public static boolean isRelationship(String source, String target) throws TwitterException{
+	public static boolean isRelationship(String source, String target) throws Exception{
 		Twitter twitter = createTwitterFactory().getInstance();
 		boolean b = twitter.existsFriendship(source, target);
 		return b;

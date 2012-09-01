@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import twitter4j.IDs;
-import twitter4j.Relationship;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
@@ -41,34 +40,24 @@ public class TwitterUtil {
     	return tf;
 	}
 	
-	public static boolean isFollowed(String source, String target) throws Exception{
-		Twitter twitter = createTwitterFactory().getInstance();
-		Relationship b = twitter.showFriendship(source, target);
-		return b.isSourceFollowedByTarget();
+	public static boolean isFollowed(String source, String target, Twitter twitter) throws Exception{
+		return twitter.showFriendship(source, target).isSourceFollowedByTarget();
 	}
 	
-	public static boolean isBlocking(String source, String target) throws Exception{
-		Twitter twitter = createTwitterFactory().getInstance();
-		Relationship b = twitter.showFriendship(source, target);
-		return b.isSourceBlockingTarget();
+	public static boolean isBlocking(String source, String target, Twitter twitter) throws Exception{
+		return twitter.showFriendship(source, target).isSourceBlockingTarget();
 	}
 	
-	public static boolean isFollowing(String source, String target) throws Exception{
-		Twitter twitter = createTwitterFactory().getInstance();
-		Relationship b = twitter.showFriendship(source, target);
-		return b.isSourceFollowingTarget();
+	public static boolean isFollowing(String source, String target, Twitter twitter) throws Exception{
+		return twitter.showFriendship(source, target).isSourceFollowingTarget();
 	}
 	
-	public static boolean isNotificationEnabled(String source, String target) throws Exception{
-		Twitter twitter = createTwitterFactory().getInstance();
-		Relationship b = twitter.showFriendship(source, target);
-		return b.isSourceNotificationsEnabled();
+	public static boolean isNotificationEnabled(String source, String target, Twitter twitter) throws Exception{
+		return twitter.showFriendship(source, target).isSourceNotificationsEnabled();
 	}
 	
-	public static boolean isRelationship(String source, String target) throws Exception{
-		Twitter twitter = createTwitterFactory().getInstance();
-		boolean b = twitter.existsFriendship(source, target);
-		return b;
+	public static boolean isRelationship(String source, String target, Twitter twitter) throws Exception{
+		return twitter.existsFriendship(source, target);
 	}
 	
 		

@@ -12,7 +12,9 @@ import twitter4j.User;
 import twitter4j.conf.ConfigurationBuilder;
 
 public class TwitterUtil {
-
+//TODO tratar a exceção twitter exception e fazer um algoritmo para realizar a troca de chaves quando isso ocorrer
+//TODO fazendo com que cada metodo tnha como parametro o bean Twitter
+	
 	public static List<User> retornarListaAmigos(String screenName) throws Exception{
 		
 		Twitter twitter = createTwitterFactory().getInstance();

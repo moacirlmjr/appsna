@@ -6,14 +6,15 @@ import java.util.List;
 import twitter4j.IDs;
 import twitter4j.Relationship;
 import twitter4j.Twitter;
-import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
 import twitter4j.conf.ConfigurationBuilder;
 
 public class TwitterUtil {
 //TODO tratar a exceção twitter exception e fazer um algoritmo para realizar a troca de chaves quando isso ocorrer
-//TODO fazendo com que cada metodo tnha como parametro o bean Twitter
+//TODO fazer com que cada metodo tenha como parametro o bean Twitter
+//TODO fazer metodo para pesuisar sobre a query desejada na timeline de algum usuario
+//TODO verificar durante a analise a eliminação de dados já analizados
 	
 	public static List<User> retornarListaAmigos(String screenName) throws Exception{
 		

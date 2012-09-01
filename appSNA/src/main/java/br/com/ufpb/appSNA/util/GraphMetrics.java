@@ -5,8 +5,9 @@ import java.util.List;
 import java.util.Map;
 import org.apache.commons.collections15.Transformer;
 import org.apache.commons.collections15.Factory;
-import br.com.ufpb.appSNA.model.beans.comum.MyLink;
-import br.com.ufpb.appSNA.model.beans.comum.MyNode;
+
+import br.com.ufpb.appSNA.model.beans.MyLink;
+import br.com.ufpb.appSNA.model.beans.MyNode;
 import edu.uci.ics.jung.algorithms.flows.EdmondsKarpMaxFlow;
 import edu.uci.ics.jung.algorithms.scoring.BetweennessCentrality;
 import edu.uci.ics.jung.algorithms.scoring.ClosenessCentrality;

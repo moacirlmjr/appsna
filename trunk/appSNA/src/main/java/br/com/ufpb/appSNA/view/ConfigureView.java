@@ -3,8 +3,9 @@ package br.com.ufpb.appSNA.view;
 import java.awt.Dimension;
 import java.awt.Frame;
 import javax.swing.JFrame;
-import br.com.ufpb.appSNA.model.beans.comum.MyLink;
-import br.com.ufpb.appSNA.model.beans.comum.MyNode;
+
+import br.com.ufpb.appSNA.model.beans.MyLink;
+import br.com.ufpb.appSNA.model.beans.MyNode;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;

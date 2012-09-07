@@ -1,19 +1,21 @@
 package br.com.ufpb.appSNA.model.thread;
 
 import twitter4j.FilterQuery;
-import twitter4j.StatusListener;
 import twitter4j.TwitterStream;
+import br.com.ufpb.appSNA.model.listener.ElectionStatusListener;
 
 public class TwitterStreamElection2012 implements Runnable {
 
 	private TwitterStream twitterStream;
 	private FilterQuery filterQuery;
-	private StatusListener statusListener;
+	private ElectionStatusListener statusListener;
+	private String nomeArq;
 
 	@Override
 	public void run() {
-        twitterStream.addListener(statusListener);
-        twitterStream.filter(filterQuery);
+		statusListener.openFile(nomeArq);
+		twitterStream.addListener(statusListener);
+		twitterStream.filter(filterQuery);
 	}
 
 	public TwitterStream getTwitterStream() {
@@ -32,12 +34,20 @@ public class TwitterStreamElection2012 implements Runnable {
 		this.filterQuery = filterQuery;
 	}
 
-	public StatusListener getStatusListener() {
+	public ElectionStatusListener getStatusListener() {
 		return statusListener;
 	}
 
-	public void setStatusListener(StatusListener statusListener) {
+	public void setStatusListener(ElectionStatusListener statusListener) {
 		this.statusListener = statusListener;
+	}
+
+	public String getNomeArq() {
+		return nomeArq;
+	}
+
+	public void setNomeArq(String nomeArq) {
+		this.nomeArq = nomeArq;
 	}
 
 }

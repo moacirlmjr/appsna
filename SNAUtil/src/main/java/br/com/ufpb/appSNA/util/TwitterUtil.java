@@ -35,6 +35,20 @@ public class TwitterUtil {
 		return listUsers;
 	}
 
+	public static IDs retornarListaAmigosIds(String screenName)
+			throws Exception {
+
+		Twitter twitter = createTwitterFactory().getInstance();
+		List<User> listUsers = new LinkedList<User>();
+		IDs ids = twitter.getFriendsIDs(screenName, -1);
+		// TODO Funciona mas é improdutivo Ainda realiza inumeras requisições,
+		// procurar metodo ou
+		// serviço que possa retornar os dados em uma requisição excede o RATE
+		// LIMIT
+
+		return ids;
+	}
+
 	public static TwitterFactory createTwitterFactory() {
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
@@ -59,58 +73,60 @@ public class TwitterUtil {
 
 	public static boolean isFollowed(String source, String target,
 			Twitter twitter) throws Exception {
-		try{
+		try {
 			return twitter.showFriendship(source, target)
-				   .isSourceFollowedByTarget();
-			
-		}catch(TwitterException	e){
+					.isSourceFollowedByTarget();
+
+		} catch (TwitterException e) {
 			AppSNALog.error(e.toString());
-			//TODO buscar uma nova autenticação e chamar o metodo novamente
+			// TODO buscar uma nova autenticação e chamar o metodo novamente
 			return isFollowed(source, target, twitter);
 		}
 	}
 
 	public static boolean isBlocking(String source, String target,
 			Twitter twitter) throws Exception {
-		try{
-			return twitter.showFriendship(source, target).isSourceBlockingTarget();
-		}catch(TwitterException	e){
+		try {
+			return twitter.showFriendship(source, target)
+					.isSourceBlockingTarget();
+		} catch (TwitterException e) {
 			AppSNALog.error(e.toString());
-			//TODO buscar uma nova autenticação e chamar o metodo novamente
+			// TODO buscar uma nova autenticação e chamar o metodo novamente
 			return isBlocking(source, target, twitter);
 		}
 	}
 
 	public static boolean isFollowing(String source, String target,
 			Twitter twitter) throws Exception {
-		try{
-			return twitter.showFriendship(source, target).isSourceFollowingTarget();
-		}catch(TwitterException	e){
+		try {
+			return twitter.showFriendship(source, target)
+					.isSourceFollowingTarget();
+		} catch (TwitterException e) {
 			AppSNALog.error(e.toString());
-			//TODO buscar uma nova autenticação e chamar o metodo novamente
+			// TODO buscar uma nova autenticação e chamar o metodo novamente
 			return isFollowing(source, target, twitter);
 		}
 	}
 
 	public static boolean isNotificationEnabled(String source, String target,
 			Twitter twitter) throws Exception {
-		try{
+		try {
 			return twitter.showFriendship(source, target)
-			.isSourceNotificationsEnabled();
-		}catch(TwitterException	e){
+					.isSourceNotificationsEnabled();
+		} catch (TwitterException e) {
 			AppSNALog.error(e.toString());
-			//TODO buscar uma nova autenticação e chamar o metodo novamente
+			// TODO buscar uma nova autenticação e chamar o metodo novamente
 			return isNotificationEnabled(source, target, twitter);
 		}
 	}
 
 	public static boolean isRelationship(String source, String target,
 			Twitter twitter) throws Exception {
-		try{
+		try {
 			return twitter.existsFriendship(source, target);
-		}catch(TwitterException	e){
+		} catch (TwitterException e) {
 			AppSNALog.error(e.toString());
-			//TODO buscar uma nova autenticação e chamar o metodo novamente
+			// TODO buscar uma nova autenticação e chamar o metodo novamente
 			return isRelationship(source, target, twitter);
 		}
 	}

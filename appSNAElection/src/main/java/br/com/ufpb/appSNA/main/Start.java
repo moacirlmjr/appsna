@@ -1,14 +1,12 @@
 package br.com.ufpb.appSNA.main;
 
+import twitter4j.FilterQuery;
+import twitter4j.TwitterStream;
+import twitter4j.TwitterStreamFactory;
 import br.com.ufpb.appSNA.model.enumeration.AuthEnum;
 import br.com.ufpb.appSNA.model.listener.ElectionStatusListener;
 import br.com.ufpb.appSNA.model.thread.TwitterStreamElection2012;
 import br.com.ufpb.appSNA.util.TwitterUtil;
-import twitter4j.FilterQuery;
-import twitter4j.StatusListener;
-import twitter4j.TwitterStream;
-import twitter4j.TwitterStreamFactory;
-import twitter4j.conf.ConfigurationBuilder;
 
 public class Start {
 

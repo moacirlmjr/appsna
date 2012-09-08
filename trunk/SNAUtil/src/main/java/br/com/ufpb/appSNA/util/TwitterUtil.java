@@ -41,7 +41,6 @@ public class TwitterUtil {
 			throws Exception {
 
 		Twitter twitter = createTwitterFactory(authEnum).getInstance();
-		List<User> listUsers = new LinkedList<User>();
 		IDs ids = twitter.getFriendsIDs(screenName, -1);
 
 		return ids;

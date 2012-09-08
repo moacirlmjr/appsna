@@ -8,7 +8,9 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
+import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
+import br.com.ufpb.appSNA.model.enumeration.AuthEnum;
 
 public class TwitterUtil {
 	// TODO tratar a exceção twitter exception e fazer um algoritmo para
@@ -18,10 +20,10 @@ public class TwitterUtil {
 	// algum usuario
 	// TODO verificar durante a analise a eliminação de dados já analizados
 
-	public static List<User> retornarListaAmigos(String screenName)
+	public static List<User> retornarListaAmigos(String screenName,AuthEnum authEnum)
 			throws Exception {
 
-		Twitter twitter = createTwitterFactory().getInstance();
+		Twitter twitter = createTwitterFactory(authEnum).getInstance();
 		List<User> listUsers = new LinkedList<User>();
 		IDs ids = twitter.getFriendsIDs(screenName, -1);
 		// TODO Funciona mas é improdutivo Ainda realiza inumeras requisições,
@@ -35,40 +37,28 @@ public class TwitterUtil {
 		return listUsers;
 	}
 
-	public static IDs retornarListaAmigosIds(String screenName)
+	public static IDs retornarListaAmigosIds(String screenName,AuthEnum authEnum)
 			throws Exception {
 
-		Twitter twitter = createTwitterFactory().getInstance();
+		Twitter twitter = createTwitterFactory(authEnum).getInstance();
 		List<User> listUsers = new LinkedList<User>();
 		IDs ids = twitter.getFriendsIDs(screenName, -1);
-		// TODO Funciona mas é improdutivo Ainda realiza inumeras requisições,
-		// procurar metodo ou
-		// serviço que possa retornar os dados em uma requisição excede o RATE
-		// LIMIT
 
 		return ids;
 	}
 
-	public static TwitterFactory createTwitterFactory() {
-		ConfigurationBuilder cb = new ConfigurationBuilder();
-		cb.setDebugEnabled(true)
-				.setOAuthConsumerKey(Constantes.consumerTokenMoacir)
-				.setOAuthConsumerSecret(Constantes.consumerSecretMoacir)
-				.setOAuthAccessToken(Constantes.accessTokenMoacir)
-				.setOAuthAccessTokenSecret(Constantes.tokenSecretMoacir);
-		TwitterFactory tf = new TwitterFactory(cb.build());
+	public static TwitterFactory createTwitterFactory(AuthEnum authEnum) throws Exception{
+		TwitterFactory tf = new TwitterFactory(createConfigurationBuilder(authEnum));
 		return tf;
 	}
-
-	public static TwitterFactory createTwitterFactory(String consumerToken,
-			String consumerSecret, String acessToken, String tokenSecret) {
+	
+	public static Configuration createConfigurationBuilder(AuthEnum authEnum) throws Exception{
 		ConfigurationBuilder cb = new ConfigurationBuilder();
-		cb.setDebugEnabled(true).setOAuthConsumerKey(consumerToken)
-				.setOAuthConsumerSecret(consumerSecret)
-				.setOAuthAccessToken(acessToken)
-				.setOAuthAccessTokenSecret(tokenSecret);
-		TwitterFactory tf = new TwitterFactory(cb.build());
-		return tf;
+		cb.setDebugEnabled(true).setOAuthConsumerKey(authEnum.getConsumerToken())
+				.setOAuthConsumerSecret(authEnum.getConsumerSecret())
+				.setOAuthAccessToken(authEnum.getAccessToken())
+				.setOAuthAccessTokenSecret(authEnum.getAccessSecret());
+		return cb.build();
 	}
 
 	public static boolean isFollowed(String source, String target,
@@ -131,11 +121,4 @@ public class TwitterUtil {
 		}
 	}
 
-	public static void main(String[] args) {
-		try {
-			System.out.println(TwitterUtil.retornarListaAmigos("@moacirlmjr"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 }

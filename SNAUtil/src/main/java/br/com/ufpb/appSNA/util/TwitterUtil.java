@@ -67,7 +67,7 @@ public class TwitterUtil {
 					.isSourceFollowedByTarget();
 
 		} catch (TwitterException e) {
-			e.printStackTrace();
+			AppSNALog.error(e);
 			// TODO buscar uma nova autenticação e chamar o metodo novamente
 			return isFollowed(source, target, twitter);
 		}
@@ -79,7 +79,7 @@ public class TwitterUtil {
 			return twitter.showFriendship(source, target)
 					.isSourceBlockingTarget();
 		} catch (TwitterException e) {
-			e.printStackTrace();
+			AppSNALog.error(e);
 			// TODO buscar uma nova autenticação e chamar o metodo novamente
 			return isBlocking(source, target, twitter);
 		}
@@ -91,7 +91,7 @@ public class TwitterUtil {
 			return twitter.showFriendship(source, target)
 					.isSourceFollowingTarget();
 		} catch (TwitterException e) {
-			e.printStackTrace();
+			AppSNALog.error(e);
 			// TODO buscar uma nova autenticação e chamar o metodo novamente
 			return isFollowing(source, target, twitter);
 		}
@@ -103,7 +103,7 @@ public class TwitterUtil {
 			return twitter.showFriendship(source, target)
 					.isSourceNotificationsEnabled();
 		} catch (TwitterException e) {
-			e.printStackTrace();
+			AppSNALog.error(e);
 			// TODO buscar uma nova autenticação e chamar o metodo novamente
 			return isNotificationEnabled(source, target, twitter);
 		}
@@ -114,7 +114,7 @@ public class TwitterUtil {
 		try {
 			return twitter.existsFriendship(source, target);
 		} catch (TwitterException e) {
-			e.printStackTrace();
+			AppSNALog.error(e);
 			// TODO buscar uma nova autenticação e chamar o metodo novamente
 			return isRelationship(source, target, twitter);
 		}

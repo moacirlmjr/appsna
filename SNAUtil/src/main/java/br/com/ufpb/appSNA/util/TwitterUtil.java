@@ -23,8 +23,8 @@ public class TwitterUtil {
 	// algum usuario
 	// TODO verificar durante a analise a eliminação de dados já analizados
 
-	public static List<User> retornarListaAmigos(String screenName,AuthEnum authEnum)
-			throws Exception {
+	public static List<User> retornarListaAmigos(String screenName,
+			AuthEnum authEnum) throws Exception {
 
 		Twitter twitter = createTwitterFactory(authEnum).getInstance();
 		List<User> listUsers = new LinkedList<User>();
@@ -40,34 +40,52 @@ public class TwitterUtil {
 		return listUsers;
 	}
 
-	public static IDs retornarListaAmigosIds(String screenName,AuthEnum authEnum)
-			throws Exception {
+	public static IDs retornarListaAmigosIds(String screenName,
+			AuthEnum authEnum) throws Exception {
 
 		Twitter twitter = createTwitterFactory(authEnum).getInstance();
 		IDs ids = twitter.getFriendsIDs(screenName, -1);
 
 		return ids;
 	}
-	
-	public static Map<String, Long> retornarUserId(List<String> list, AuthEnum authEnum) throws Exception{
-		Map<String, Long> users = new LinkedHashMap<String, Long>();
+
+	public static List<Long> retornarListaAmigosIdsList(String screenName,
+			AuthEnum authEnum) throws Exception {
+
 		Twitter twitter = createTwitterFactory(authEnum).getInstance();
-		
-		for(String screenName : list){
-			users.put(screenName, twitter.showUser(screenName).getId());
+		IDs ids = twitter.getFriendsIDs(screenName, -1);
+		List<Long> list = new ArrayList<Long>();
+		for (long id : ids.getIDs()) {
+			list.add(id);
 		}
 		
+		return list;
+	}
+
+	public static Map<String, Long> retornarUserId(List<String> list,
+			AuthEnum authEnum) throws Exception {
+		Map<String, Long> users = new LinkedHashMap<String, Long>();
+		Twitter twitter = createTwitterFactory(authEnum).getInstance();
+
+		for (String screenName : list) {
+			users.put(screenName, twitter.showUser(screenName).getId());
+		}
+
 		return users;
 	}
 
-	public static TwitterFactory createTwitterFactory(AuthEnum authEnum) throws Exception{
-		TwitterFactory tf = new TwitterFactory(createConfigurationBuilder(authEnum));
+	public static TwitterFactory createTwitterFactory(AuthEnum authEnum)
+			throws Exception {
+		TwitterFactory tf = new TwitterFactory(
+				createConfigurationBuilder(authEnum));
 		return tf;
 	}
-	
-	public static Configuration createConfigurationBuilder(AuthEnum authEnum) throws Exception{
+
+	public static Configuration createConfigurationBuilder(AuthEnum authEnum)
+			throws Exception {
 		ConfigurationBuilder cb = new ConfigurationBuilder();
-		cb.setDebugEnabled(true).setOAuthConsumerKey(authEnum.getConsumerToken())
+		cb.setDebugEnabled(true)
+				.setOAuthConsumerKey(authEnum.getConsumerToken())
 				.setOAuthConsumerSecret(authEnum.getConsumerSecret())
 				.setOAuthAccessToken(authEnum.getAccessToken())
 				.setOAuthAccessTokenSecret(authEnum.getAccessSecret());
@@ -133,12 +151,12 @@ public class TwitterUtil {
 			return isRelationship(source, target, twitter);
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		List<String> list = new ArrayList<String>();
 		list.add("moacirlmjr");
 		list.add("Danyllo_Wagner");
-		
+
 		try {
 			TwitterUtil.retornarUserId(list, AuthEnum.MOACIR_KEY);
 		} catch (Exception e) {

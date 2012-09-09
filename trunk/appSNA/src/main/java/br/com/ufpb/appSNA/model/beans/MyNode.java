@@ -8,11 +8,21 @@ public class MyNode {
 		private int id;
 		private String nome;
 		private List<Long> listadeAmigos;
+		
 
 		public MyNode(int id, String nome, List<Long> list ) {
 			this.id = id;
 			this.nome=nome;
 			this.listadeAmigos = list;
+		}
+		
+		public MyNode(int id, String nome) {
+			this.id = id;
+			this.nome=nome;			
+		}
+		
+		public MyNode(int id ) {
+			this.id = id;			
 		}
 		
 		

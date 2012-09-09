@@ -1,7 +1,10 @@
 package br.com.ufpb.appSNA.util;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import twitter4j.IDs;
 import twitter4j.Twitter;
@@ -44,6 +47,17 @@ public class TwitterUtil {
 		IDs ids = twitter.getFriendsIDs(screenName, -1);
 
 		return ids;
+	}
+	
+	public static Map<String, Long> retornarUserId(List<String> list, AuthEnum authEnum) throws Exception{
+		Map<String, Long> users = new LinkedHashMap<String, Long>();
+		Twitter twitter = createTwitterFactory(authEnum).getInstance();
+		
+		for(String screenName : list){
+			users.put(screenName, twitter.showUser(screenName).getId());
+		}
+		
+		return users;
 	}
 
 	public static TwitterFactory createTwitterFactory(AuthEnum authEnum) throws Exception{
@@ -117,6 +131,18 @@ public class TwitterUtil {
 			AppSNALog.error(e);
 			// TODO buscar uma nova autenticação e chamar o metodo novamente
 			return isRelationship(source, target, twitter);
+		}
+	}
+	
+	public static void main(String[] args) {
+		List<String> list = new ArrayList<String>();
+		list.add("moacirlmjr");
+		list.add("Danyllo_Wagner");
+		
+		try {
+			TwitterUtil.retornarUserId(list, AuthEnum.MOACIR_KEY);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

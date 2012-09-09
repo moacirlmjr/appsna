@@ -17,6 +17,18 @@ import edu.uci.ics.jung.graph.DirectedSparseGraph;
 public class GraphMetrics {
 
 	private DirectedSparseGraph<MyNode, MyLink> g;
+	
+	public GraphMetrics(){
+		super();
+	}
+	
+	public DirectedSparseGraph<MyNode, MyLink> getG() {
+		return g;
+	}
+
+	public void setG(DirectedSparseGraph<MyNode, MyLink> g) {
+		this.g = g;
+	}
 
 	public void calcUnweightedShortestPath(MyNode n1, MyNode n2) {
 		DijkstraShortestPath<MyNode, MyLink> alg = new DijkstraShortestPath<MyNode, MyLink>(

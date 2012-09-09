@@ -1,15 +1,13 @@
 package br.com.ufpb.appSNA.main;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import twitter4j.FilterQuery;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
-import br.com.ufpb.appSNA.model.beans.to.EntradaTO;
 import br.com.ufpb.appSNA.model.enumeration.AuthEnum;
 import br.com.ufpb.appSNA.model.listener.ElectionStatusListener;
-import br.com.ufpb.appSNA.model.thread.TwitterStreamElection2012;
 import br.com.ufpb.appSNA.util.EntradaConfiguration;
 import br.com.ufpb.appSNA.util.TwitterUtil;
 
@@ -24,50 +22,44 @@ public class Start {
 					.getInstance();
 
 			EntradaConfiguration ec = new EntradaConfiguration();
-			List<EntradaTO> listEntradaTO = new LinkedList<EntradaTO>();
-			EntradaTO to = new EntradaTO();
+			
+			String termosAll = "";
+			List<Long> follow = new ArrayList<Long>();
+
 			for (String key : ec.getKeys()) {
-				if ((to.getScreen_name() != null && !to.getScreen_name()
-						.equals(""))
-						&& (to.getTermos() != null && !to.getTermos()
-								.equals("")) && to.getUserId() != 0) {
-					listEntradaTO.add(to);
-					to = new EntradaTO();
-				}
 
 				String valor = ec.getEntrada(key);
 				if (key.contains("screenName")) {
-					to.setScreen_name(valor);
+					termosAll += valor + ",";
+					termosAll += valor.toLowerCase() + ",";
 				} else if (key.contains("userid")) {
-					to.setUserId(Long.parseLong(valor));
+					follow.add(Long.parseLong(valor));
 				} else if (key.contains("termos")) {
-					to.setTermos(valor);
+					termosAll += valor+",";
 				}
+
 			}
+			
+			int count = 0;
+			long[] followArray = new long[follow.size()];
+			String[] track = new String[termosAll.split(",").length];
+			count = 0;
+			for(Long l : follow){
+				followArray[count++] = l.longValue();
+			}
+			
+			track = termosAll.split(",");
 
 			FilterQuery filterQuery = new FilterQuery();
 			ElectionStatusListener statusListener = new ElectionStatusListener();
-			TwitterStreamElection2012 thread = new TwitterStreamElection2012();
 
-			for (EntradaTO eTo : listEntradaTO) {
-				String track[] = eTo.getTermos().split(",");
-				long follow[] = { eTo.getUserId() };
+			filterQuery.follow(followArray);
+			filterQuery.track(track);
 
-				filterQuery.follow(follow);
-				filterQuery.track(track);
+			statusListener.setTermos(track);
 
-				statusListener.setTermos(track);
-
-				thread.setFilterQuery(filterQuery);
-				thread.setStatusListener(statusListener);
-				thread.setTwitterStream(twitterStream);
-				thread.setNomeArq(eTo.getScreen_name() + ".csv");
-				thread.run();
-
-				filterQuery = new FilterQuery();
-				statusListener = new ElectionStatusListener();
-				thread = new TwitterStreamElection2012();
-			}
+			twitterStream.addListener(statusListener);
+			twitterStream.filter(filterQuery);
 
 		} catch (Exception e) {
 			e.printStackTrace();

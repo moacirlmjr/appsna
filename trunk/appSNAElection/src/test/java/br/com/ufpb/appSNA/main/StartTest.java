@@ -21,10 +21,11 @@ public class StartTest {
 			String track[] = { "Luciano_Cartaxo", "Luciano Cartaxo",
 					"luciano_cartaxo", "luciano cartaxo", "#VOTE13","#Vote13",
 					"zé maranhão", "Zé Maranhão", "Zé_Maranhão", "ze_maranhão", "#Equipe15", "zemaranhaojp",
-					"Cicero Lucena", "Cicero_lucena", "cicero_lucena", "cicero_lucena" , "#Cicero45",
-					"Estela Izabel", "estela izabel", "Estela_Izabel", "estela_izabel","#Estela40", "Estelizabel"};
+					"Cicero Lucena", "Cicero_lucena", "cicero_lucena", "cicero_lucena" , "#Cicero45","cicerolucena",
+					"Estela Izabel", "estela izabel", "Estela_Izabel", "estela_izabel","#Estela40", "cicerolucena"};
 			long follow[] = { 128031815L,395489108L,49632512L,165390440L };
-
+			
+			
 			FilterQuery filterQuery = new FilterQuery();
 			filterQuery.follow(follow);
 			filterQuery.track(track);
@@ -32,12 +33,8 @@ public class StartTest {
 			ElectionStatusListener statusListener = new ElectionStatusListener();
 			statusListener.setTermos(track);
 
-			TwitterStreamElection2012 thread = new TwitterStreamElection2012();
-			thread.setFilterQuery(filterQuery);
-			thread.setStatusListener(statusListener);
-			thread.setTwitterStream(twitterStream);
-			thread.setNomeArq("resultado.csv");
-			thread.run();
+			twitterStream.addListener(statusListener);
+			twitterStream.filter(filterQuery);
 
 		} catch (Exception e) {
 			e.printStackTrace();

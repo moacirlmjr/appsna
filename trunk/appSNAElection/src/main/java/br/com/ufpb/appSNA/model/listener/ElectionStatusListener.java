@@ -35,7 +35,7 @@ public class ElectionStatusListener implements StatusListener {
 
 				}
 			}
-			resultado += status.getCreatedAt().toString() + ";\n";
+			resultado += status.getCreatedAt().getTime() + ";\n";
 			this.openFile(fileName);
 			file.append(resultado);
 			file.flush();

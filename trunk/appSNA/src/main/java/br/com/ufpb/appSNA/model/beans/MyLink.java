@@ -7,7 +7,7 @@ public class MyLink {
 	static int edgeCount = 0; 	
 	private int id;
 
-	public MyLink(double weight, double capacity) {
+	public MyLink() {
 		this.id = edgeCount++;		
 	}	
 

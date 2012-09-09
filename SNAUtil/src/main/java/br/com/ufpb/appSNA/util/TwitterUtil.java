@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import twitter4j.IDs;
 import twitter4j.Twitter;
@@ -14,6 +15,7 @@ import twitter4j.User;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 import br.com.ufpb.appSNA.model.enumeration.AuthEnum;
+import br.com.ufpb.appSNA.model.thread.AccountThread;
 
 public class TwitterUtil {
 	// TODO tratar a exceção twitter exception e fazer um algoritmo para
@@ -22,6 +24,8 @@ public class TwitterUtil {
 	// TODO fazer metodo para pesquisar sobre a query desejada na timeline de
 	// algum usuario
 	// TODO verificar durante a analise a eliminação de dados já analizados
+	
+	private static AtomicBoolean mutex;
 
 	public static List<User> retornarListaAmigos(String screenName,
 			AuthEnum authEnum) throws Exception {
@@ -58,20 +62,42 @@ public class TwitterUtil {
 		for (long id : ids.getIDs()) {
 			list.add(id);
 		}
-		
+
 		return list;
 	}
 
-	public static Map<String, Long> retornarUserId(List<String> list,
-			AuthEnum authEnum) throws Exception {
-		Map<String, Long> users = new LinkedHashMap<String, Long>();
-		Twitter twitter = createTwitterFactory(authEnum).getInstance();
+	public static Map<String, Long> retornarUserId(List<String> list) throws Exception {
+		Twitter twitter = null;
+		try {
+			Map<String, Long> users = new LinkedHashMap<String, Long>();
+			twitter = AccountCarrousel.CURRENT_ACCOUNT;
 
-		for (String screenName : list) {
-			users.put(screenName, twitter.showUser(screenName).getId());
+			for (String screenName : list) {
+				users.put(screenName, twitter.showUser(screenName).getId());
+			}
+
+			return users;
+
+		} catch (TwitterException e) {
+			AppSNALog.error(e.toString());
+			// TODO buscar uma nova autenticação e chamar o metodo novamente
+
+			Long timeRemaining = ((long) e.getRateLimitStatus()
+					.getResetTimeInSeconds() * 1000);
+			mutex = new AtomicBoolean();
+			mutex.set(true);
+			AccountThread at = new AccountThread();
+			synchronized (mutex) {
+				at.setAccount(twitter);
+				at.setMutex(mutex);
+				at.setTimeRemaining(timeRemaining);
+				at.start();
+				
+				mutex.wait();
+			}
+
+			return retornarUserId(list);
 		}
-
-		return users;
 	}
 
 	public static TwitterFactory createTwitterFactory(AuthEnum authEnum)
@@ -101,6 +127,15 @@ public class TwitterUtil {
 		} catch (TwitterException e) {
 			AppSNALog.error(e);
 			// TODO buscar uma nova autenticação e chamar o metodo novamente
+
+			Long timeRemaining = ((long) e.getRateLimitStatus()
+					.getResetTimeInSeconds() * 1000);
+
+			AccountThread at = new AccountThread();
+			at.setAccount(twitter);
+			at.setTimeRemaining(timeRemaining);
+			at.start();
+
 			return isFollowed(source, target, twitter);
 		}
 	}
@@ -156,9 +191,11 @@ public class TwitterUtil {
 		List<String> list = new ArrayList<String>();
 		list.add("moacirlmjr");
 		list.add("Danyllo_Wagner");
-
 		try {
-			TwitterUtil.retornarUserId(list, AuthEnum.MOACIR_KEY);
+			AccountCarrousel.startCurrentAccount(AuthEnum.DANYLLO_KEY);
+			AccountCarrousel.startListReady();
+			TwitterUtil.retornarUserId(list);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

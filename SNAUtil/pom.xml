@@ -24,7 +24,7 @@
 			<url>epo1.maven.org/maven2/</url>
 		</repository>
 	</repositories>
-	
+
 	<dependencies>
 
 		<dependency>
@@ -109,6 +109,23 @@
 					<source>1.6</source>
 					<target>1.6</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestFile>src/main/resources/META-INF/MANIFEST.MF
+                        </manifestFile>
+						<manifest>
+							<addDefaultSpecificationEntries>true
+                            </addDefaultSpecificationEntries>
+							<addDefaultImplementationEntries>true
+                            </addDefaultImplementationEntries>
+						</manifest>
+					</archive>
+				</configuration>
+				<version>2.4</version>
 			</plugin>
 		</plugins>
 	</build>

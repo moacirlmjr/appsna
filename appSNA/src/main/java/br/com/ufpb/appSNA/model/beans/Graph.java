@@ -80,12 +80,21 @@ public class Graph {
 		
 		MyNode amigo = null;
 		
-		for(MyNode n : listaNodes){
+		/*for(MyNode n : listaNodes){
 			for(Long amigoId : n.getListadeAmigos()){
 				amigo = new MyNode(amigoId.intValue(), "A"+ amigoId);
 				g.addEdge(new MyLink(), n, amigo, EdgeType.DIRECTED);
 			}
-		}		
+		}
+		*/		
+		
+		for(MyNode n : listaNodes){
+				Long amigoId = n.getListadeAmigos().get(0);
+				amigo = new MyNode(amigoId.intValue(), "A"+ amigoId);
+				g.addEdge(new MyLink(), n, amigo, EdgeType.DIRECTED);
+			
+		}
+		
 		
 												
 	}

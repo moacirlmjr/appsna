@@ -27,7 +27,7 @@ public class ElectionStatusListener implements StatusListener {
 
 			if (termos.length != 0) {
 				for (String termo : termos) {
-					if (status.getText().contains(termo)) {
+					if (status.getText().toLowerCase().contains(termo.toLowerCase())) {
 						fileName = ec.getScreenNameCandidatoByTermo(termo) + ".csv"; 
 						resultado += termo + ";";
 						break;

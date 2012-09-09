@@ -1,18 +1,18 @@
 package br.com.ufpb.appSNA.model.beans;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class MyNode {
 
 		private int id;
 		private String nome;
-		private ArrayList<Long> listadeAmigos;
+		private List<Long> listadeAmigos;
 
-		public MyNode(int id, String nome ) {
+		public MyNode(int id, String nome, List<Long> list ) {
 			this.id = id;
 			this.nome=nome;
-			this.listadeAmigos = new ArrayList<Long>();
+			this.listadeAmigos = list;
 		}
 		
 		
@@ -34,6 +34,17 @@ public class MyNode {
 
 		public void setNome(String nome) {
 			this.nome = nome;
+		}
+				
+
+
+		public List<Long> getListadeAmigos() {
+			return listadeAmigos;
+		}
+
+
+		public void setListadeAmigos(List<Long> listadeAmigos) {
+			this.listadeAmigos = listadeAmigos;
 		}
 
 

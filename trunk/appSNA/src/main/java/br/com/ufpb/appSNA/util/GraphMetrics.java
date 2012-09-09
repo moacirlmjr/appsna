@@ -30,7 +30,7 @@ public class GraphMetrics {
 	public void calcWeightedShortestPath(MyNode n1, MyNode n2) {
 		Transformer<MyLink, Double> wtTransformer = new Transformer<MyLink, Double>() {
 			public Double transform(MyLink link) {
-				return link.getWeight();
+				return (double) link.getWeight();
 			}
 		};
 		DijkstraShortestPath<MyNode, MyLink> alg = new DijkstraShortestPath<MyNode, MyLink>(

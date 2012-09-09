@@ -16,7 +16,7 @@ import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 
 public class ConfigureView {
 	
-	public Frame configuration (DirectedSparseGraph<MyNode, MyLink> g){
+	public static Frame configuration (DirectedSparseGraph<MyNode, MyLink> g){
 		
 		// Layout<V, E>, VisualizationComponent<V,E> pega o FRLayout,
 		// StaticLayout, CircleLayout e KKLayout,
@@ -46,7 +46,7 @@ public class ConfigureView {
 		vv.setGraphMouse(gm);
 
 		// Ajustes de janela
-		JFrame frame = new JFrame("AppSNA - Projeto de Teste ");
+		JFrame frame = new JFrame("AppSNA - Projeto de Teste SERASA");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(vv);
 		frame.pack();

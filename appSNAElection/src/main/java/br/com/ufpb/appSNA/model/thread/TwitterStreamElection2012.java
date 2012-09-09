@@ -9,11 +9,9 @@ public class TwitterStreamElection2012 implements Runnable {
 	private TwitterStream twitterStream;
 	private FilterQuery filterQuery;
 	private ElectionStatusListener statusListener;
-	private String nomeArq;
 
 	@Override
 	public void run() {
-		statusListener.openFile(nomeArq);
 		twitterStream.addListener(statusListener);
 		twitterStream.filter(filterQuery);
 	}
@@ -40,14 +38,6 @@ public class TwitterStreamElection2012 implements Runnable {
 
 	public void setStatusListener(ElectionStatusListener statusListener) {
 		this.statusListener = statusListener;
-	}
-
-	public String getNomeArq() {
-		return nomeArq;
-	}
-
-	public void setNomeArq(String nomeArq) {
-		this.nomeArq = nomeArq;
 	}
 
 }

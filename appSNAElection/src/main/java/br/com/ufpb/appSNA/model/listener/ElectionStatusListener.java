@@ -3,16 +3,14 @@ package br.com.ufpb.appSNA.model.listener;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import br.com.ufpb.appSNA.util.AppSNALog;
-
 import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
 import twitter4j.StatusListener;
+import br.com.ufpb.appSNA.util.AppSNALog;
+import br.com.ufpb.appSNA.util.EntradaConfiguration;
 
 public class ElectionStatusListener implements StatusListener {
-
-	public static final Object LOCK = new Object();
 
 	private FileWriter file;
 	private String termos[];
@@ -23,19 +21,25 @@ public class ElectionStatusListener implements StatusListener {
 		String resultado = "@" + status.getUser().getScreenName() + ";";
 		AppSNALog.info("@" + status.getUser().getScreenName() + " - "
 				+ status.getText());
-		if (termos.length != 0) {
-			for (String termo : termos) {
-				if (status.getText().contains(termo)) {
-					resultado += termo + ";";
-					break;
-				}
-
-			}
-		}
-		resultado += status.getCreatedAt().toString() + ";\n";
 		try {
+			EntradaConfiguration ec = new EntradaConfiguration();
+			String fileName = "";
+
+			if (termos.length != 0) {
+				for (String termo : termos) {
+					if (status.getText().contains(termo)) {
+						fileName = ec.getScreenNameCandidatoByTermo(termo) + ".csv"; 
+						resultado += termo + ";";
+						break;
+					}
+
+				}
+			}
+			resultado += status.getCreatedAt().toString() + ";\n";
+			this.openFile(fileName);
 			file.append(resultado);
 			file.flush();
+			this.closeFile();
 		} catch (IOException e) {
 			AppSNALog.error(e.toString());
 		}
@@ -52,8 +56,8 @@ public class ElectionStatusListener implements StatusListener {
 	@Override
 	public void onTrackLimitationNotice(int numberOfLimitedStatuses) {
 		// TODO - NOTHING TO DO
-		AppSNALog.info("Got track limitation notice:"
-				+ numberOfLimitedStatuses);
+		AppSNALog
+				.info("Got track limitation notice:" + numberOfLimitedStatuses);
 	}
 
 	@Override

@@ -29,4 +29,27 @@ public class EntradaConfiguration {
 		return resource.getString(key);
 	}
 
+	public String getScreenNameCandidatoByTermo(String termo) {
+		Enumeration<String> e = resource.getKeys();
+		List<String> list = new ArrayList<String>();
+		while (e.hasMoreElements()) {
+			list.add(e.nextElement());
+		}
+		Collections.sort(list);
+		String screenName = "";
+		for (String key : list) {
+			String valor = this.getEntrada(key);
+			if (key.contains("screenName")) {
+				screenName = valor;
+				if(screenName.equalsIgnoreCase(termo)){
+					return screenName;
+				}
+			} else if (key.contains("termos") && valor.contains(termo)) {
+				return screenName;
+			}
+		}
+
+		return "";
+	}
+
 }

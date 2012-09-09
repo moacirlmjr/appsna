@@ -1,6 +1,11 @@
 package br.com.ufpb.appSNA.model.beans;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import br.com.ufpb.appSNA.model.enumeration.AuthEnum;
+import br.com.ufpb.appSNA.util.TwitterUtil;
 
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.util.EdgeType;
@@ -29,45 +34,59 @@ public class Graph {
 	
 	private DirectedSparseGraph<MyNode, MyLink> g;
 	
-	public Graph(){
+	public Graph() throws Exception{
+		
+		List<String> listaDeNomes = new ArrayList<String>();
+		listaDeNomes.add("AIRTONGTORRES");
+		listaDeNomes.add("alamorocha");
+		listaDeNomes.add("ale_patricio");
+		listaDeNomes.add("ALLYSONDINIZ");
+		listaDeNomes.add("DEZINHAJPA");
+		listaDeNomes.add("ARTHURFERRO");
+		listaDeNomes.add("atila_jp");
+		listaDeNomes.add("AYLTONJR");
+		listaDeNomes.add("ELVISREI");
+		listaDeNomes.add("evaldodesousa");
+		listaDeNomes.add("fabianovidaltur");
+		listaDeNomes.add("BRASILTONY");
+		listaDeNomes.add("CHIQUELMEBATERA");
+		listaDeNomes.add("FLUGARCEZ");
+		listaDeNomes.add("IVANILDOPB");
+		listaDeNomes.add("KellylopesLOPES");
+		listaDeNomes.add("GALVAOJPA");
+		listaDeNomes.add("luanadepaulane1");
+		listaDeNomes.add("lucasduartereal");
+		listaDeNomes.add("Mariacristin339");
+		listaDeNomes.add("ONAMEN");
+		listaDeNomes.add("jricardoamorim");
+		listaDeNomes.add("RINALDOPESSOA");
+		listaDeNomes.add("RIQUELSON");
+		listaDeNomes.add("NTURISMO_JPPB");
+		listaDeNomes.add("ThiagoADVJP");
+		
 		
 		g = new DirectedSparseGraph<MyNode, MyLink>();
 		
 		listaNodes = new ArrayList<MyNode>();
-		
-		n1 = new MyNode(1);
-		n2 = new MyNode(2);
-		n3 = new MyNode(3);
-		n4 = new MyNode(4);
-		n5 = new MyNode(5);
-		
-		listaNodes.add(n1);
-		listaNodes.add(n2);		
-		listaNodes.add(n3);
-		listaNodes.add(n4);
-		listaNodes.add(n5);
-		
-		
-		
-		listaLinks = new ArrayList<MyLink>();
-		
-		l1 = new MyLink(2.0, 48);
-		l2 = new MyLink(2.0, 48);
-		l3 = new MyLink(3.0, 192);
-		l4 = new MyLink(2.0, 48);
-		l5 = new MyLink(2.0, 48);
-		l6 = new MyLink(2.0, 48);
-		l7 = new MyLink(10.0, 48);	
-		
-		
 
-		g.addEdge(l1, n1, n2, EdgeType.DIRECTED); 																	
-		g.addEdge(l2, n2, n3, EdgeType.DIRECTED);
-		g.addEdge(l3, n3, n5, EdgeType.DIRECTED);
-		g.addEdge(l4, n5, n4, EdgeType.DIRECTED); 																	
-		g.addEdge(l5, n4, n2, EdgeType.DIRECTED); 
-		g.addEdge(l6, n3, n1, EdgeType.DIRECTED); 
-		g.addEdge(l7, n2, n5, EdgeType.DIRECTED);
+		Map<String, Long> mapUsers = TwitterUtil.retornarUserId(listaDeNomes, AuthEnum.DANYLLO_KEY);
+		
+		MyNode node = null;
+		
+		for(String key : mapUsers.keySet()){
+			node = new MyNode(mapUsers.get(key).intValue(), key, TwitterUtil.retornarListaAmigosIdsList(key,AuthEnum.DANYLLO_KEY));
+			listaNodes.add(node);
+		}
+		
+		MyNode amigo = null;
+		l1 = new MyLink();
+		for(MyNode n : listaNodes){
+			for(Long amigoId : n.getListadeAmigos()){
+				amigo = new MyNode(amigoId.intValue(), "A"+ amigoId);
+				g.addEdge(l1, n, amigo, EdgeType.DIRECTED);
+			}
+		}		
+		
 												
 	}
 	

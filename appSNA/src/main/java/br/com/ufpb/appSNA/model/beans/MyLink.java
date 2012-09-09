@@ -4,38 +4,12 @@ package br.com.ufpb.appSNA.model.beans;
 
 public class MyLink {
 	
-	static int edgeCount = 0; 
-	
-	private double capacity;
-	private double weight;
+	static int edgeCount = 0; 	
 	private int id;
 
 	public MyLink(double weight, double capacity) {
-		this.id = edgeCount++;
-		this.weight = weight;
-		this.capacity = capacity;
+		this.id = edgeCount++;		
 	}	
-	
-
-	public double getCapacity() {
-		return capacity;
-	}
-
-
-	public void setCapacity(double capacity) {
-		this.capacity = capacity;
-	}
-
-
-	public double getWeight() {
-		return weight;
-	}
-
-
-	public void setWeight(double weight) {
-		this.weight = weight;
-	}
-
 
 	public int getId() {
 		return id;
@@ -56,7 +30,7 @@ public class MyLink {
 	}
 	
 	public String imprimePesoId() {		
-		return "E" + id + " = " + this.weight;
+		return "E" + id;
 	}
 
 

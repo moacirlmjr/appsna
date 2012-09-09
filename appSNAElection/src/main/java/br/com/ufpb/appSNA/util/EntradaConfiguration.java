@@ -44,7 +44,7 @@ public class EntradaConfiguration {
 				if(screenName.equalsIgnoreCase(termo)){
 					return screenName;
 				}
-			} else if (key.contains("termos") && valor.contains(termo)) {
+			} else if (key.contains("termos") && valor.toLowerCase().contains(termo.toLowerCase())) {
 				return screenName;
 			}
 		}

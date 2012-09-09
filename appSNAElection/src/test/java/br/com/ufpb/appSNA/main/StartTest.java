@@ -5,7 +5,6 @@ import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 import br.com.ufpb.appSNA.model.enumeration.AuthEnum;
 import br.com.ufpb.appSNA.model.listener.ElectionStatusListener;
-import br.com.ufpb.appSNA.model.thread.TwitterStreamElection2012;
 import br.com.ufpb.appSNA.util.TwitterUtil;
 
 public class StartTest {

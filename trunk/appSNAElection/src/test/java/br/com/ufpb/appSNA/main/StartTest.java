@@ -3,9 +3,9 @@ package br.com.ufpb.appSNA.main;
 import twitter4j.FilterQuery;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
-import br.com.ufpb.appSNA.model.enumeration.AuthEnum;
-import br.com.ufpb.appSNA.model.listener.ElectionStatusListener;
-import br.com.ufpb.appSNA.util.TwitterUtil;
+import br.com.ufpb.appSNAElection.model.listener.ElectionStatusListener;
+import br.com.ufpb.appSNAUtil.model.enumeration.AuthEnum;
+import br.com.ufpb.appSNAUtil.util.TwitterUtil;
 
 public class StartTest {
 

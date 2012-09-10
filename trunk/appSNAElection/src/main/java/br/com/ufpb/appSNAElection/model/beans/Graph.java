@@ -1,4 +1,4 @@
-package br.com.ufpb.appSNA.model.beans;
+package br.com.ufpb.appSNAElection.model.beans;
 
 import java.util.ArrayList;
 

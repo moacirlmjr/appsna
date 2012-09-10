@@ -1,4 +1,4 @@
-package br.com.ufpb.appSNA.util;
+package br.com.ufpb.appSNAUtil.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

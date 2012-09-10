@@ -1,4 +1,4 @@
-package br.com.ufpb.appSNA.model.enumeration;
+package br.com.ufpb.appSNAUtil.model.enumeration;
 
 public enum AuthEnum {
 	

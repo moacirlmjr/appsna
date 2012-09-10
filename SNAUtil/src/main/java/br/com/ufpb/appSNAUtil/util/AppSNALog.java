@@ -1,4 +1,4 @@
-package br.com.ufpb.appSNA.util;
+package br.com.ufpb.appSNAUtil.util;
 
 import org.apache.log4j.Logger;
 
@@ -11,7 +11,7 @@ public class AppSNALog {
 
 	static {
 		try {
-			logger = Logger.getLogger("br.com.ufpb.appSNA");
+			logger = Logger.getLogger("br.com.ufpb");
 		} catch (Exception e) {
 			System.out.println("Não foi possível criar o mecanismo de log.");
 		}

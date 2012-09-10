@@ -1,9 +1,9 @@
-package br.com.ufpb.appSNA.util;
+package br.com.ufpb.appSNAUtil.util;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.ufpb.appSNA.model.enumeration.AuthEnum;
+import br.com.ufpb.appSNAUtil.model.enumeration.AuthEnum;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;

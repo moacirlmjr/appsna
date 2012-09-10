@@ -13,7 +13,7 @@
  *
  */
 
-package br.com.ufpb.appSNA.model.beans.comum;
+package br.com.ufpb.appSNAUtil.model.beans.comum;
 
 import java.io.Serializable;
 

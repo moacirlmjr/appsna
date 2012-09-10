@@ -1,4 +1,4 @@
-package br.com.ufpb.appSNA.model.cache;
+package br.com.ufpb.appSNAUtil.model.cache;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -8,7 +8,7 @@ import java.io.ObjectOutputStream;
 import java.util.List;
 
 import redis.clients.jedis.Jedis;
-import br.com.ufpb.appSNA.util.Constantes;
+import br.com.ufpb.appSNAUtil.util.Constantes;
 
 public class Cache<T> {
 	private static final String APP_SNA_KEY_RESULTS = "appSna:election:";

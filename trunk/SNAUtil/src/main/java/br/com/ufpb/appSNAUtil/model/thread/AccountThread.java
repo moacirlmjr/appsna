@@ -1,11 +1,11 @@
-package br.com.ufpb.appSNA.model.thread;
+package br.com.ufpb.appSNAUtil.model.thread;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
-import br.com.ufpb.appSNA.util.AccountCarrousel;
+import br.com.ufpb.appSNAUtil.util.AccountCarrousel;
 
 public class AccountThread extends Thread {
 

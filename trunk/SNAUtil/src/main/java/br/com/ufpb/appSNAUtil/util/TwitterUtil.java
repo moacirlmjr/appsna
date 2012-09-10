@@ -1,4 +1,4 @@
-package br.com.ufpb.appSNA.util;
+package br.com.ufpb.appSNAUtil.util;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -14,8 +14,8 @@ import twitter4j.TwitterFactory;
 import twitter4j.User;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
-import br.com.ufpb.appSNA.model.enumeration.AuthEnum;
-import br.com.ufpb.appSNA.model.thread.AccountThread;
+import br.com.ufpb.appSNAUtil.model.enumeration.AuthEnum;
+import br.com.ufpb.appSNAUtil.model.thread.AccountThread;
 
 public class TwitterUtil {
 	// TODO tratar a exceção twitter exception e fazer um algoritmo para

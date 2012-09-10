@@ -1,4 +1,4 @@
-package br.com.ufpb.appSNA.model.beans.to;
+package br.com.ufpb.appSNAElection.model.beans.to;
 
 public class EntradaTO {
 

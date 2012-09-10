@@ -1,4 +1,4 @@
-package br.com.ufpb.appSNA.util;
+package br.com.ufpb.appSNAElection.util;
 
 import java.io.IOException;
 import java.util.ArrayList;

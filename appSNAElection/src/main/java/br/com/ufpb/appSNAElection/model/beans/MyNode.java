@@ -1,4 +1,4 @@
-package br.com.ufpb.appSNA.model.beans;
+package br.com.ufpb.appSNAElection.model.beans;
 
 
 public class MyNode {

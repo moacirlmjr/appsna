@@ -1,4 +1,4 @@
-package br.com.ufpb.appSNA.model.listener;
+package br.com.ufpb.appSNAElection.model.listener;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,8 +7,8 @@ import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
 import twitter4j.StatusListener;
-import br.com.ufpb.appSNA.util.AppSNALog;
-import br.com.ufpb.appSNA.util.EntradaConfiguration;
+import br.com.ufpb.appSNAElection.util.EntradaConfiguration;
+import br.com.ufpb.appSNAUtil.util.AppSNALog;
 
 public class ElectionStatusListener implements StatusListener {
 

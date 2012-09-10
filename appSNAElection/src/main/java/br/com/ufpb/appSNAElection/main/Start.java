@@ -1,4 +1,4 @@
-package br.com.ufpb.appSNA.main;
+package br.com.ufpb.appSNAElection.main;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,10 +6,10 @@ import java.util.List;
 import twitter4j.FilterQuery;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
-import br.com.ufpb.appSNA.model.enumeration.AuthEnum;
-import br.com.ufpb.appSNA.model.listener.ElectionStatusListener;
-import br.com.ufpb.appSNA.util.EntradaConfiguration;
-import br.com.ufpb.appSNA.util.TwitterUtil;
+import br.com.ufpb.appSNAElection.model.listener.ElectionStatusListener;
+import br.com.ufpb.appSNAElection.util.EntradaConfiguration;
+import br.com.ufpb.appSNAUtil.model.enumeration.AuthEnum;
+import br.com.ufpb.appSNAUtil.util.TwitterUtil;
 
 public class Start {
 

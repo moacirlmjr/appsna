@@ -9,6 +9,7 @@ import twitter4j.StatusDeletionNotice;
 import twitter4j.StatusListener;
 import br.com.ufpb.appSNAElection.util.EntradaConfiguration;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
+import br.com.ufpb.appSNAUtil.util.Constantes;
 
 public class ElectionStatusListener implements StatusListener {
 
@@ -36,7 +37,7 @@ public class ElectionStatusListener implements StatusListener {
 				}
 			}
 			resultado += status.getCreatedAt().getTime() + ";\n";
-			this.openFile(fileName);
+			this.openFile(Constantes.DIR_APPSNA + fileName);
 			file.append(resultado);
 			file.flush();
 			this.closeFile();

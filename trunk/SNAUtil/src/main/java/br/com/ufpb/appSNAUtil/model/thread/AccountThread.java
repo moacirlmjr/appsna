@@ -10,7 +10,7 @@ import br.com.ufpb.appSNAUtil.util.AccountCarrousel;
 public class AccountThread extends Thread {
 
 	private Long timeRemaining;
-	private Twitter account;
+	private Long accountId;
 
 	private AtomicBoolean mutex;
 
@@ -19,8 +19,9 @@ public class AccountThread extends Thread {
 		// TODO tirar de current accont depois colocar na lista de wait, buscar
 		// nova account e coloca-la em current
 		try {
+			
 			synchronized (mutex) {
-
+				accountId = AccountCarrousel.CURRENT_ACCOUNT.getId();
 				AccountCarrousel.LIST_ACOUNTS_WAIT
 						.add(AccountCarrousel.CURRENT_ACCOUNT);
 				if (AccountCarrousel.LIST_ACOUNTS_READY.size() != 0) {
@@ -35,7 +36,7 @@ public class AccountThread extends Thread {
 			List<Twitter> listAux = AccountCarrousel.LIST_ACOUNTS_WAIT;
 			int index = 0;
 			for (Twitter t : listAux) {
-				if (t.getId() == account.getId()) {
+				if (t.getId() == accountId) {
 					AccountCarrousel.LIST_ACOUNTS_WAIT.remove(index);
 					AccountCarrousel.LIST_ACOUNTS_READY.add(t);
 				}
@@ -57,14 +58,6 @@ public class AccountThread extends Thread {
 
 	public void setTimeRemaining(Long timeRemaining) {
 		this.timeRemaining = timeRemaining;
-	}
-
-	public Twitter getAccount() {
-		return account;
-	}
-
-	public void setAccount(Twitter account) {
-		this.account = account;
 	}
 
 	public AtomicBoolean getMutex() {

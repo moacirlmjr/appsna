@@ -23,6 +23,12 @@ public class XMLUtil {
            arquivo.append("\n\t\t<node id=\"").append(userId).append("\">\n\t\t\t").append(
            "<data key=\"name\">").append(name).append("</data>\n\t\t\t<data key=\"gender\">").append(gender).append("</data>\n\t\t</node>");
     }
+    
+    //Método sobrescrito.    
+    public static void generateNodes(long userId, String name){
+    	   arquivo.append("\n\t\t<node id=\"").append(userId).append("\">\n\t\t\t").append(
+           "<data key=\"name\">").append(name).append("</data>\n\t\t</node>");
+    }
 
    
 
@@ -31,7 +37,14 @@ public class XMLUtil {
            arquivo.append("\n\t\t<edge source=\"").append(idSource).append("\" target=\"").append(idTarget).append("\"></edge>\n\t\t\t");
     }
 
-   
+    
+    //Metodo sobrescrito
+    public static void generateEdges(int idSource, int idTarget, double weight, double capacity){
+           arquivo.append("\n\t\t<edge source=\"").append(idSource).append("\" target=\"").append(idTarget)
+           .append("<data key=\"weight\">").append(weight).append("</data>\n\t\t</node>")
+           .append("<data key=\"capacity\">").append(capacity).append("</data>\n\t\t</node>")
+           .append("\"></edge>\n\t\t\t");
+    }
 
 	//Metodo para fechar o arquivo
     public static void fechaArquivo(){

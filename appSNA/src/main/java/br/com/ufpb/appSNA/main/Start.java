@@ -1,18 +1,16 @@
 package br.com.ufpb.appSNA.main;
 
-import java.awt.Frame;
-
 import br.com.ufpb.appSNA.model.beans.Graph;
-import br.com.ufpb.appSNA.view.ConfigureView;
+import br.com.ufpb.appSNAUtil.util.AccountCarrousel;
 
 public class Start {
 	
 	public static void main(String[] args) {
 		
 		try {
+			AccountCarrousel.startListReady();
 			Graph myGraph = new Graph();
-			Frame myFrame = ConfigureView.configuration(myGraph.getG());
-			myFrame.setVisible(true);
+			myGraph.getG();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

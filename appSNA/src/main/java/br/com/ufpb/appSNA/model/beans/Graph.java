@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import br.com.ufpb.appSNA.model.enumeration.AuthEnum;
-import br.com.ufpb.appSNA.util.TwitterUtil;
-
+import br.com.ufpb.appSNAUtil.model.enumeration.AuthEnum;
+import br.com.ufpb.appSNAUtil.util.TwitterUtil;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.util.EdgeType;
 
@@ -69,7 +68,7 @@ public class Graph {
 		
 		listaNodes = new ArrayList<MyNode>();
 
-		Map<String, Long> mapUsers = TwitterUtil.retornarUserId(listaDeNomes, AuthEnum.DANYLLO_KEY);
+		Map<String, Long> mapUsers = TwitterUtil.retornarUserId(listaDeNomes);
 		
 		MyNode node = null;
 		
@@ -80,20 +79,15 @@ public class Graph {
 		
 		MyNode amigo = null;
 		
-		/*for(MyNode n : listaNodes){
+		for(MyNode n : listaNodes){
 			for(Long amigoId : n.getListadeAmigos()){
 				amigo = new MyNode(amigoId.intValue(), "A"+ amigoId);
 				g.addEdge(new MyLink(), n, amigo, EdgeType.DIRECTED);
 			}
 		}
-		*/		
 		
-		for(MyNode n : listaNodes){
-				Long amigoId = n.getListadeAmigos().get(0);
-				amigo = new MyNode(amigoId.intValue(), "A"+ amigoId);
-				g.addEdge(new MyLink(), n, amigo, EdgeType.DIRECTED);
-			
-		}
+		
+		
 		
 		
 												

@@ -19,6 +19,7 @@ public enum AuthEnum {
 	private String accessToken;
 	private String accessSecret;
 	
+	
 	private AuthEnum(String consumerToken, String consumerSecret,
 			String accessToken, String accessSecret) {
 		this.consumerToken = consumerToken;

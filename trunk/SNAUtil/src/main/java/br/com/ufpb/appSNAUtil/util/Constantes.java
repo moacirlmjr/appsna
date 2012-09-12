@@ -4,8 +4,8 @@ public class Constantes {
 
 	public static final String ipRedis = "200.162.143.40";
 	//Linux
-	public static final String DIR_APPSNA = "/usr/local/appSNA/";
+//	public static final String DIR_APPSNA = "/usr/local/appSNA/";
 	
 	//windows
-//	public static final String DIR_APPSNA = "C:\\appsna\\";
+	public static final String DIR_APPSNA = "C:\\appsna\\";
 }

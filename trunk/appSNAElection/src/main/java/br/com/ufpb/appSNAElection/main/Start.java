@@ -18,7 +18,7 @@ public class Start {
 		TwitterStream twitterStream;
 		try {
 			twitterStream = new TwitterStreamFactory(
-					TwitterUtil.createConfigurationBuilder(AuthEnum.MOACIR_KEY))
+					TwitterUtil.createConfigurationBuilder(AuthEnum.DANYLLO_KEY))
 					.getInstance();
 
 			EntradaConfiguration ec = new EntradaConfiguration();

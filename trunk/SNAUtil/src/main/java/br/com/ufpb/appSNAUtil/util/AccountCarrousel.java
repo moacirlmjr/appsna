@@ -20,27 +20,21 @@ public class AccountCarrousel {
 	public static void startListReady() {
 		LIST_ACOUNTS_READY = new ArrayList<Twitter>();
 		LIST_ACOUNTS_WAIT = new ArrayList<Twitter>();
+		int count = 0;
 		try {
 			for (AuthEnum auth : AuthEnum.values()) {
-				Twitter twitter = TwitterUtil.createTwitterFactory(auth)
-						.getInstance();
-				LIST_ACOUNTS_READY.add(twitter);
+				if (count == 0) {
+					CURRENT_ACCOUNT = TwitterUtil.createTwitterFactory(auth)
+							.getInstance();
+				} else {
+					Twitter twitter = TwitterUtil.createTwitterFactory(auth)
+							.getInstance();
+					LIST_ACOUNTS_READY.add(twitter);
+				}
+				count++;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
-	public static void startCurrentAccount(AuthEnum authEnum) {
-		ConfigurationBuilder cb = new ConfigurationBuilder();
-		cb.setDebugEnabled(true)
-				.setOAuthConsumerKey(authEnum.getConsumerToken())
-				.setOAuthConsumerSecret(authEnum.getConsumerSecret())
-				.setOAuthAccessToken(authEnum.getAccessToken())
-				.setOAuthAccessTokenSecret(authEnum.getAccessSecret());
-
-		TwitterFactory tf = new TwitterFactory(cb.build());
-		CURRENT_ACCOUNT = tf.getInstance();
-	}
-
 }

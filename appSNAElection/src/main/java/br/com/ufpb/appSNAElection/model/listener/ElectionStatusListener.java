@@ -36,7 +36,12 @@ public class ElectionStatusListener implements StatusListener {
 
 				}
 			}
-			resultado += status.getCreatedAt().getTime() + ";\n";
+			resultado += status.getCreatedAt().getTime() + ";";
+			if(status.getGeoLocation() != null){
+				resultado += status.getGeoLocation().toString() + ";\n";
+			}else{
+				resultado += "NULL;\n";
+			}
 			this.openFile(Constantes.DIR_APPSNA + fileName);
 			file.append(resultado);
 			file.flush();

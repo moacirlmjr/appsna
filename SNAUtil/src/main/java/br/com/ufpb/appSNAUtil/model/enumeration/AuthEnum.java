@@ -29,8 +29,7 @@ public enum AuthEnum {
 	JANSE_KEY2("vQ7Y3oz5dhDjWSL1EjAAg", "CEheY2H5XWjXEpsCKHmhor4hxvRTug75391gTFP2P5w",
 			"803947891-Ry4W7HLG7GCJgvAgoHCLsWRayJhhL89Mv2axWIIE", "ZUzTyhNwffRLryIRJGn7ZWCK1Bw43NOyNpKPWlQ4"),	
 	JANSE_KEY3("7nnYMAfXqcqvOaKxrVpcA", "3kmzHby0e14zZZP3YghlArEg5ST4RsTJsamrFSb8U", 
-			"817565840-lL3cN69UaEKvlfQlqL8dzI9bTQAM4YOTbAsboVlX", "RhzsL7Oxrl8wkFSCxiGznmKDu8d6C3ooOfKRWWQMsQ"),
-	ALISSON_KEY("","","","");
+			"817565840-lL3cN69UaEKvlfQlqL8dzI9bTQAM4YOTbAsboVlX", "RhzsL7Oxrl8wkFSCxiGznmKDu8d6C3ooOfKRWWQMsQ");
 	
 	private String consumerToken;
 	private String consumerSecret;

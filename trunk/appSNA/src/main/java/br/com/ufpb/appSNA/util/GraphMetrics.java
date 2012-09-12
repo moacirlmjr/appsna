@@ -3,8 +3,9 @@ package br.com.ufpb.appSNA.util;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.collections15.Transformer;
+
 import org.apache.commons.collections15.Factory;
+import org.apache.commons.collections15.Transformer;
 
 import br.com.ufpb.appSNA.model.beans.MyLink;
 import br.com.ufpb.appSNA.model.beans.MyNode;

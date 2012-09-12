@@ -5,12 +5,12 @@ import java.util.List;
 
 public class MyNode {
 
-		private int id;
+		private long id;
 		private String nome;
 		private List<Long> listadeAmigos;
 		
 
-		public MyNode(int id, String nome, List<Long> list ) {
+		public MyNode(long id, String nome, List<Long> list ) {
 			this.id = id;
 			this.nome=nome;
 			this.listadeAmigos = list;
@@ -26,13 +26,13 @@ public class MyNode {
 		}
 		
 		
-		public int getId() {
+		public long getId() {
 			return id;
 		}
 
 
 
-		public void setId(int id) {
+		public void setId(long id) {
 			this.id = id;
 		}
 		

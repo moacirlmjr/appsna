@@ -33,7 +33,7 @@ public class XMLUtil {
    
 
     //Nessa método serão construídos as arestas correspondes ao id do usuário de origem (idSource) ao id do usuário de destino (idTarget).
-    public static void generateEdges(int idSource, int idTarget){
+    public static void generateEdges(long idSource, long idTarget){
            arquivo.append("\n\t\t<edge source=\"").append(idSource).append("\" target=\"").append(idTarget).append("\"></edge>\n\t\t\t");
     }
 

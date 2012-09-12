@@ -40,21 +40,14 @@
         <system>Jira</system>
         <url>http://twitter4j.org/jira/browse/TFJ</url>
     </issueManagement>
-    <distributionManagement>
+    <repositories>
         <repository>
             <id>sonatype-nexus-staging</id>
             <name>Nexus Release Repository</name>
             <uniqueVersion>false</uniqueVersion>
-            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2/
-            </url>
+            <url>http://twitter4j.org/maven2</url>
         </repository>
-        <snapshotRepository>
-            <id>org.twitter4j</id>
-            <name>twitter4j.org Repository</name>
-            <uniqueVersion>false</uniqueVersion>
-            <url>file:${user.home}/maven2/</url>
-        </snapshotRepository>
-    </distributionManagement>
+    </repositories>
     <profiles>
         <profile>
             <id>release-sign-artifacts</id>

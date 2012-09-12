@@ -73,7 +73,7 @@ public class Graph {
 		MyNode node = null;
 		
 		for(String key : mapUsers.keySet()){
-			node = new MyNode(mapUsers.get(key).intValue(), key, TwitterUtil.retornarListaAmigosIdsList(key,AuthEnum.DANYLLO_KEY));
+			node = new MyNode(mapUsers.get(key).intValue(), key, TwitterUtil.retornarListaAmigosIdsList(key));
 			listaNodes.add(node);
 		}
 		

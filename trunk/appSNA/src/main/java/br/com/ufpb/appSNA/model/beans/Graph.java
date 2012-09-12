@@ -1,34 +1,19 @@
 package br.com.ufpb.appSNA.model.beans;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import br.com.ufpb.appSNAUtil.model.enumeration.AuthEnum;
 import br.com.ufpb.appSNAUtil.util.TwitterUtil;
+import br.com.ufpb.appSNAUtil.util.XMLUtil;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
-import edu.uci.ics.jung.graph.util.EdgeType;
 
 
 public class Graph {
 	
 	public ArrayList<MyNode> listaNodes;
 	public ArrayList<MyLink> listaLinks;
-	
-	public MyNode n1;
-	public MyNode n2;
-	public MyNode n3;
-	public MyNode n4;
-	public MyNode n5;
-	
-	
-	public MyLink l1;
-	public MyLink l2;
-	public MyLink l3;
-	public MyLink l4;
-	public MyLink l5;
-	public MyLink l6;
-	public MyLink l7;
 	
 	
 	private DirectedSparseGraph<MyNode, MyLink> g;
@@ -67,30 +52,75 @@ public class Graph {
 		g = new DirectedSparseGraph<MyNode, MyLink>();
 		
 		listaNodes = new ArrayList<MyNode>();
+		Map<Long,Long> listaNodesAmigos = new HashMap<Long,Long>();
 
 		Map<String, Long> mapUsers = TwitterUtil.retornarUserId(listaDeNomes);
 		
 		MyNode node = null;
 		
+		List<Long> listaAux = new ArrayList<Long>();
+		MyNode nodeSerasa;
+		
 		for(String key : mapUsers.keySet()){
-			node = new MyNode(mapUsers.get(key).intValue(), key, TwitterUtil.retornarListaAmigosIdsList(key));
-			listaNodes.add(node);
+			List<Long> listAmigoId = TwitterUtil.retornarListaAmigosIdsList(key);
+			node = new MyNode(mapUsers.get(key), key, listAmigoId);
+			listaNodes.add(node);	
 		}
 		
-		MyNode amigo = null;
+		for(MyNode nodefor : listaNodes){
+			
+			listaAux.add(nodefor.getId());
+			
+			XMLUtil.generateNodes(nodefor.getId(), nodefor.getNome());
+			for(Long amigoId : nodefor.getListadeAmigos()){
+				if(!verificar(amigoId)){
+					listaNodesAmigos.put(amigoId, amigoId);
+				}
+			}
+			
+		}
+		
+		nodeSerasa = new MyNode(1, "serasa", listaAux );
+		XMLUtil.generateNodes(1, "serasa");
+		
+		listaNodes.add(nodeSerasa);
+		
+		for(Long amigo : listaNodesAmigos.keySet()){
+			if(amigo == 101412628){
+				System.out.println("");
+			}
+			XMLUtil.generateNodes(amigo, amigo.toString());
+		}
+		
+		//MyNode amigo = null;
 		
 		for(MyNode n : listaNodes){
 			for(Long amigoId : n.getListadeAmigos()){
-				amigo = new MyNode(amigoId.intValue(), "A"+ amigoId);
-				g.addEdge(new MyLink(), n, amigo, EdgeType.DIRECTED);
+				//amigo = new MyNode(amigoId.intValue(), "A"+ amigoId);
+				//g.addEdge(new MyLink(), n, amigo, EdgeType.DIRECTED);
+				XMLUtil.generateEdges(n.getId(), amigoId);
 			}
 		}
 		
-		
+		XMLUtil.fechaArquivo();
+		XMLUtil.salvarXML("grafo2.xml");
 		
 		
 		
 												
+	}
+
+
+	private boolean verificar(Long amigoId){
+		
+		boolean resultado = false;
+		for(MyNode teste: listaNodes){
+			if(amigoId.longValue() == teste.getId()){
+				resultado = true;	
+			}
+		}
+		
+		return resultado;
 	}
 	
 

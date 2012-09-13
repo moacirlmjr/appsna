@@ -19,7 +19,19 @@ public class XMLUtil {
 				append("\n\t\t<key id=\"gender\" for=\"node\" attr.name=\"gender\" attr.type=\"string\"/>").
 				append("\n\n\t\t<!-- Nos -->  ");			
 	}
-
+	
+	//Método utilizado para gerar o cabecalho do XML
+	public static void generateHeader(String field1, String typeOfField1, 
+				String field2, String typeOfField2, boolean isDirected){
+			
+			arquivo.append("\n\t<graph edgedefault=\"").append(isDirected == true ? "Directed" : "Undirected").append("\">").
+					append("\n\n\t\t<!-- Esquema de Dados -->").
+					append("\n\t\t<key id=\"").append(field1).append("\" for=\"node\" attr.name=\"").append(field1).
+					append("\" attr.type=\"").append(typeOfField1).append("\"/>").
+					append("\n\t\t<key id=\"").append(field2).append("\" for=\"node\" attr.name=\"").append(field2).
+					append("\" attr.type=\"").append(typeOfField2).append("\"/>").
+					append("\n\n\t\t<!-- Nos -->  ");			
+		}
    
 
     //Método utilizado para gerar os nodos, será passado um id, para correlação nas arestas.    
@@ -67,7 +79,6 @@ public class XMLUtil {
     	}
     	
     }
-
    
 
     //Método utilizado para salvar o arquivo no disco     

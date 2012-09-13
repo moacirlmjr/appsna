@@ -62,7 +62,7 @@ public class MeuGrafo {
 
 	public static void main(String[] args) {
 		
-		new MeuGrafo("grafo5.xml", "C:\\Users\\David\\Desktop\\grafo5.xml", false);
+		new MeuGrafo("grafo6.xml", "C:\\Users\\David\\Desktop\\grafo6.xml", false);
 
 	}
 }

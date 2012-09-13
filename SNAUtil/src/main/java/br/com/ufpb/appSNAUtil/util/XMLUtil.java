@@ -12,12 +12,12 @@ public class XMLUtil {
 	
 	
 	//Método utilizado para gerar o cabecalho do XML
-	public void generateHeader(boolean isDirected){		
+	public static void generateHeader(boolean isDirected){		
 		arquivo.append("\n\t<graph edgedefault=\"").append(isDirected == true ? "Directed" : "Undirected").append("\">").
-				append("\n\n\t\t<!-- data schema -->").
+				append("\n\n\t\t<!-- Esquema de Dados -->").
 				append("\n\t\t<key id=\"name\" for=\"node\" attr.name=\"name\" attr.type=\"string\"/>").
 				append("\n\t\t<key id=\"gender\" for=\"node\" attr.name=\"gender\" attr.type=\"string\"/>").
-				append("\n\n\t\t<!-- nodes -->  ");			
+				append("\n\n\t\t<!-- Nos -->  ");			
 	}
 
    
@@ -56,6 +56,16 @@ public class XMLUtil {
 	//Metodo para fechar o arquivo
     public static void fechaArquivo(){
            arquivo.append("\n\n\t</graph>\n</graphml>");
+    }
+    
+    
+    //Metodo para adicionar um espaco
+    public static void addSpace(int num){
+    	
+    	for(int n=0; n<num; n++){
+           arquivo.append("\n");
+    	}
+    	
     }
 
    

@@ -3,8 +3,13 @@ package br.com.ufpb.appSNAUtil.util;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
+
+import br.com.ufpb.appSNAUtil.model.beans.to.XmlTO;
 
 public class XMLUtil {
+	
+	
 	
 	public static StringBuffer arquivo = new StringBuffer("<?xml version=\"1.0\" encoding=\"UTF-8\"?>").
 			append("\n<!-- GraphML gerado automaticamente pela AppSNA -->").
@@ -12,12 +17,17 @@ public class XMLUtil {
 	
 	
 	//Método utilizado para gerar o cabecalho do XML
-	public static void generateHeader(boolean isDirected){		
-		arquivo.append("\n\t<graph edgedefault=\"").append(isDirected == true ? "Directed" : "Undirected").append("\">").
-				append("\n\n\t\t<!-- Esquema de Dados -->").
-				append("\n\t\t<key id=\"name\" for=\"node\" attr.name=\"name\" attr.type=\"string\"/>").
-				append("\n\t\t<key id=\"gender\" for=\"node\" attr.name=\"gender\" attr.type=\"string\"/>").
-				append("\n\n\t\t<!-- Nos -->  ");			
+	public static void generateHeader(List<XmlTO> listaDeCampos, boolean isDirected){		
+		arquivo.append("\n\t<graph edgedefault=\"").append(isDirected ? "Directed" : "Undirected").append("\">").
+				append("\n\n\t\t<!-- Esquema de Dados -->");
+				for(XmlTO to : listaDeCampos){
+					arquivo.append("\n\t\t<key id=\"").append(to.getAttrId()).
+					append("\" for=\"").append(to.isForNode()? "node" : "edge").
+					append("\" attr.name=\"").append(to.getAttrName()).
+					append("\" attr.type=\"").append(to.getAttrType().getType()).
+					append("\"/>");					
+				}				
+				arquivo.append("\n\n\t\t<!-- Nos -->  ");						
 	}
 	
 	//Método utilizado para gerar o cabecalho do XML

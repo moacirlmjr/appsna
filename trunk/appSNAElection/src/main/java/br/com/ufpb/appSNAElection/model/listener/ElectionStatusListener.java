@@ -18,7 +18,6 @@ public class ElectionStatusListener implements StatusListener {
 
 	@Override
 	public void onStatus(Status status) {
-		// TODO - PERSISTIR
 		String resultado = "@" + status.getUser().getScreenName() + ";";
 		AppSNALog.info("@" + status.getUser().getScreenName() + " - "
 				+ status.getText());

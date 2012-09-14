@@ -9,6 +9,7 @@ import twitter4j.TwitterStreamFactory;
 import br.com.ufpb.appSNAElection.model.listener.ElectionStatusListener;
 import br.com.ufpb.appSNAElection.util.EntradaConfiguration;
 import br.com.ufpb.appSNAUtil.model.enumeration.AuthEnum;
+import br.com.ufpb.appSNAUtil.util.AppSNALog;
 import br.com.ufpb.appSNAUtil.util.TwitterUtil;
 
 public class Start {
@@ -18,7 +19,7 @@ public class Start {
 		TwitterStream twitterStream;
 		try {
 			twitterStream = new TwitterStreamFactory(
-					TwitterUtil.createConfigurationBuilder(AuthEnum.DANYLLO_KEY))
+					TwitterUtil.createConfigurationBuilder(AuthEnum.MOACIR_KEY))
 					.getInstance();
 
 			EntradaConfiguration ec = new EntradaConfiguration();
@@ -62,7 +63,7 @@ public class Start {
 			twitterStream.filter(filterQuery);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			AppSNALog.error(e.toString());
 		}
 
 	}

@@ -13,6 +13,12 @@ public class UsuarioTO {
 
 	}
 
+	public UsuarioTO(User twitterUser, List<AmigoTO> listAmigos) {
+		super();
+		this.twitterUser = twitterUser;
+		this.listAmigos = listAmigos;
+	}
+
 	public User getTwitterUser() {
 		return twitterUser;
 	}

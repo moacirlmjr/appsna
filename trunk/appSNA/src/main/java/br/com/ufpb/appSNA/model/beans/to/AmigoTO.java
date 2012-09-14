@@ -14,6 +14,12 @@ public class AmigoTO {
 
 	}
 
+	public AmigoTO(User twitterFriendUser, List<Status> listTwitters) {
+		super();
+		this.twitterFriendUser = twitterFriendUser;
+		this.listTwitters = listTwitters;
+	}
+
 	public User getTwitterFriendUser() {
 		return twitterFriendUser;
 	}

@@ -1,5 +1,10 @@
 package br.com.ufpb.appSNAUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.ufpb.appSNAUtil.model.beans.to.XmlTO;
+import br.com.ufpb.appSNAUtil.model.enumeration.TypeEnum;
 import br.com.ufpb.appSNAUtil.util.XMLUtil;
 
 public class MeuGrafo {
@@ -20,7 +25,16 @@ public class MeuGrafo {
 	
 	
 	public void criaCabecalho(boolean direcionado){
-		XMLUtil.generateHeader(direcionado);
+		XmlTO field1 = new XmlTO("name", true, "name", TypeEnum.STRING_TYPE);
+		XmlTO field2 = new XmlTO("gender", true, "gender", TypeEnum.STRING_TYPE);
+		
+		List<XmlTO> listaTO = new ArrayList<XmlTO>();
+		listaTO.add(field1);
+		listaTO.add(field2);
+
+		
+		
+		XMLUtil.generateHeader(listaTO, direcionado);
 	}
 
 	private void criarNodos() {
@@ -62,7 +76,7 @@ public class MeuGrafo {
 
 	public static void main(String[] args) {
 		
-		new MeuGrafo("grafo.xml", "C:\\Users\\David\\Desktop\\grafo.xml", false);
+		new MeuGrafo("grafoTeste.xml", "C:\\Users\\User\\Desktop\\grafoTeste.xml", false);
 
 	}
 }

@@ -29,7 +29,7 @@ public class ElectionStatusListener implements StatusListener {
 			if (termos.length != 0) {
 				for (String termo : termos) {
 					if (status.getText().toLowerCase().contains(termo.toLowerCase())) {
-						fileName = ec.getScreenNameCandidatoByTermo(termo) + ".csv"; 
+						fileName = ec.getScreenNameCandidatoByTermo(termo.toLowerCase()) + ".csv"; 
 						resultado += termo + ";";
 						break;
 					}
@@ -38,7 +38,7 @@ public class ElectionStatusListener implements StatusListener {
 			}
 			resultado += status.getCreatedAt().getTime() + ";";
 			if(status.getGeoLocation() != null){
-				resultado += status.getGeoLocation().toString() + ";\n";
+				resultado += status.getGeoLocation().getLatitude()+","+ status.getGeoLocation().getLongitude() + ";\n";
 			}else{
 				resultado += "NULL;\n";
 			}

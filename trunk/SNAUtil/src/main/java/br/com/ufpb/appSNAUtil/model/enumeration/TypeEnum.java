@@ -6,9 +6,21 @@ public enum TypeEnum {
 	DOUBLE_TYPE("double"),
 	INT_TYPE("int"),
 	CHAR_TYPE("char"),
-	BOOELAN_TYPE("boolean");
+	BOOLEAN_TYPE("boolean");
 	
-	private String type;
+	private final String type;
+	
+	
+	private TypeEnum(String type) {
+		this.type=type;
+		
+	}
+
+	public String getType() {
+		return type;
+	}
+	
+	
 	
 	
 	

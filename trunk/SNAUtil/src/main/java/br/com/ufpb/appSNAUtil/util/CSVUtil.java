@@ -6,12 +6,12 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 
 public class CSVUtil {
-	
-	private static FileWriter fw;	
-	
-	public static void criaArquivo(String local, Boolean isConstant){
+
+	private static FileWriter fw;
+
+	public static void criaArquivo(String local, Boolean isConstant) {
 		try {
-			fw= new FileWriter(local, isConstant);
+			fw = new FileWriter(local, isConstant);
 			JOptionPane.showMessageDialog(null, "Arquivo gerado com sucesso",
 					"Concluído", JOptionPane.INFORMATION_MESSAGE);
 		} catch (IOException e) {
@@ -20,8 +20,7 @@ public class CSVUtil {
 		}
 	}
 
-
-	public static void escreveNoArquivo(String conteudo){
+	public static void escreveNoArquivo(String conteudo) {
 		try {
 			fw.write(conteudo);
 		} catch (IOException e) {
@@ -29,10 +28,17 @@ public class CSVUtil {
 					JOptionPane.WARNING_MESSAGE);
 		}
 	}
-		
-	public static void quebraLinha(int num){		
+
+	public static void criarCabecalho(String[] conteudo) {
+		for (String n : conteudo) {
+			CSVUtil.escreveNoArquivo(n);
+			CSVUtil.quebra();
+		}
+	}
+
+	public static void quebraLinha(int num) {
 		try {
-			for(int x=0; x<num; x++){
+			for (int x = 0; x < num; x++) {
 				fw.write("\n");
 			}
 		} catch (IOException e) {
@@ -40,10 +46,10 @@ public class CSVUtil {
 					JOptionPane.WARNING_MESSAGE);
 		}
 	}
-	
-	public static void inserirTabulacao(int num){		
+
+	public static void inserirTabulacao(int num) {
 		try {
-			for(int x=0; x<num; x++){
+			for (int x = 0; x < num; x++) {
 				fw.write("\r");
 			}
 		} catch (IOException e) {
@@ -51,8 +57,8 @@ public class CSVUtil {
 					JOptionPane.WARNING_MESSAGE);
 		}
 	}
-	
-	public static void quebra(){		
+
+	public static void quebra() {
 		try {
 			fw.write(";");
 		} catch (IOException e) {
@@ -60,8 +66,8 @@ public class CSVUtil {
 					JOptionPane.WARNING_MESSAGE);
 		}
 	}
-		
-	public static void salvarArquivo(){
+
+	public static void salvarArquivo() {
 		try {
 			fw.close();
 			JOptionPane.showMessageDialog(null, "Arquivo gravado com sucesso",
@@ -72,7 +78,6 @@ public class CSVUtil {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Atenção",
 					JOptionPane.WARNING_MESSAGE);
 		}
-}
-
+	}
 
 }

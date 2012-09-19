@@ -8,12 +8,12 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import twitter4j.IDs;
-import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
+import br.com.ufpb.appSNAUtil.model.beans.to.UserTO;
 import br.com.ufpb.appSNAUtil.model.enumeration.AuthEnum;
 import br.com.ufpb.appSNAUtil.model.thread.AccountThread;
 
@@ -197,27 +197,26 @@ public class TwitterUtil {
 		}
 	}
 
-	public static LinkedHashMap<String, String> getUserData(long idUser) throws Exception {
-
-		LinkedHashMap<String, String> userData = new LinkedHashMap<String, String>();
+	public static UserTO getUserData(long idUser) throws Exception {
+		
 		try{
 			User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(idUser);
-			userData.put("Nome", u.getName());
-			userData.put("Screename", u.getScreenName());
-			userData.put("Biografia", u.getDescription());
-			userData.put("Localização", u.getLocation());
-			String totalFollower = String.valueOf(u.getFollowersCount());
-			userData.put("TotalFollowers", totalFollower);
-			String friendsCount = String.valueOf(u.getFriendsCount());
-			userData.put("TotalFollowing", friendsCount);
-			String totalTweets = String.valueOf(u.getStatusesCount());
-			userData.put("TotalTweets", totalTweets);
-			userData.put("Status", u.getStatus().getText());
-			userData.put("URL", u.getURL().getHost());
-			userData.put("TimeZone", u.getTimeZone());
-			userData.put("Linguagem", u.getLang());
+			UserTO uto = new UserTO();
+
+			uto.setNome(u.getName());
+			uto.setScreename(u.getScreenName());
+			uto.setBiografia(u.getDescription());
+			uto.setLocalização(u.getLocation());
+			uto.setTotalFollowers(String.valueOf(u.getFollowersCount()));
+			uto.setTotalFollowing(String.valueOf(u.getFriendsCount()));
+			uto.setTotalTweets(String.valueOf(u.getStatusesCount()));
+			uto.setStatus(u.getStatus().getText());
+			uto.setURL(u.getURL().getHost());
+			uto.setTimeZone(u.getTimeZone());
+			uto.setLinguagem(u.getLang());
+
+			return uto;		
 			
-			return userData;
 		}catch (TwitterException e) {
 			AppSNALog.error(e.toString());
 			tratarTwitterException(e);
@@ -226,26 +225,23 @@ public class TwitterUtil {
 
 	}
 
-	public static LinkedHashMap<String, String> getUserData(User u) {
+	public static UserTO getUserData(User u) {
 
-		LinkedHashMap<String, String> userData = new LinkedHashMap<String, String>();
+		UserTO uto = new UserTO();
 
-		userData.put("Nome", u.getName());
-		userData.put("Screename", u.getScreenName());
-		userData.put("Biografia", u.getDescription());
-		userData.put("Localização", u.getLocation());
-		String totalFollower = String.valueOf(u.getFollowersCount());
-		userData.put("TotalFollowers", totalFollower);
-		String friendsCount = String.valueOf(u.getFriendsCount());
-		userData.put("TotalFollowing", friendsCount);
-		String totalTweets = String.valueOf(u.getStatusesCount());
-		userData.put("TotalTweets", totalTweets);
-		userData.put("Status", u.getStatus().getText());
-		userData.put("URL", u.getURL().getHost());
-		userData.put("TimeZone", u.getTimeZone());
-		userData.put("Linguagem", u.getLang());
+		uto.setNome(u.getName());
+		uto.setScreename(u.getScreenName());
+		uto.setBiografia(u.getDescription());
+		uto.setLocalização(u.getLocation());
+		uto.setTotalFollowers(String.valueOf(u.getFollowersCount()));
+		uto.setTotalFollowing(String.valueOf(u.getFriendsCount()));
+		uto.setTotalTweets(String.valueOf(u.getStatusesCount()));
+		uto.setStatus(u.getStatus().getText());
+		uto.setURL(u.getURL().getHost());
+		uto.setTimeZone(u.getTimeZone());
+		uto.setLinguagem(u.getLang());
 
-		return userData;
+		return uto;
 	}
 
 	private static void tratarTwitterException(TwitterException e)

@@ -7,7 +7,7 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
 import twitter4j.conf.ConfigurationBuilder;
-import br.com.ufpb.appSNAUtil.util.CSVUtil;
+import br.com.ufpb.appSNAUtil.util.FileUtil;
 import br.com.ufpb.appSNAUtil.util.TwitterUtil;
 
 public class TesteCSV {
@@ -34,27 +34,27 @@ public class TesteCSV {
 		String local = "C:\\Users\\User\\Desktop\\teste3.csv";
 
 		// o true significa q o arquivo será constante
-		CSVUtil.criaArquivo(local, true);
+		FileUtil.criaArquivo(local, true);
 		
 		
 		
 		String[] cabecalho = {"Nome", "Screename", "Biografia", "Localização", "TotalFollowers", "TotalFollowing", 
 				"TotalTweets","Status", "URL", "TimeZone","Linguagem"};
 		
-		CSVUtil.criarCabecalho(cabecalho);		
+		FileUtil.criarCabecalho(cabecalho);		
 
 
 		// quebra de linha basica
-		CSVUtil.quebraLinha(1);
+		FileUtil.quebraLinha(1);
 
 		// varre o LinkedHashMap com os valores
 		for (Entry<String, String> entry : dadosDoUsuario.entrySet()) {
-			CSVUtil.escreveNoArquivo(entry.getValue());
-			CSVUtil.quebra();
+			FileUtil.escreveNoArquivo(entry.getValue());
+			FileUtil.quebra();
 		}
 
 		// fecha o arquivo
-		CSVUtil.salvarArquivo();
+		FileUtil.salvarArquivo();
 		
 	}
 	// em caso de erro apresenta mensagem abaixo

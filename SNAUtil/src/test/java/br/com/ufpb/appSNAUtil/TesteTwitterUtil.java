@@ -40,7 +40,7 @@ public class TesteTwitterUtil {
 		}
 
 		
-		String local = "C:\\Users\\David\\Desktop\\teste.csv";
+		String local = "C:\\Users\\User\\Desktop\\teste.csv";
 		
 		try {
 			// o true significa q o arquivo será constante

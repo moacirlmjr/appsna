@@ -48,12 +48,16 @@ public final class VerifyCredentials {
             
             //Como pegar dados de um usuario para criação do relatorio
             User u = twitter.showUser(312660739);
+            System.out.println("Remaining hits: " + u.getRateLimitStatus().getRemainingHits());
+            System.out.println("");
+            System.out.println("relatorio de dados do usuario");
             System.out.println("");
             System.out.println("biografia: " + u.getDescription());            
             System.out.println("Nome: " + u.getName());
             System.out.println("Localização: " + u.getLocation());
-            System.out.println("Screen name: " + u.getScreenName());           
-            System.out.println("Total Followers: " + u.getFollowersCount());
+            System.out.println("Screen name: " + u.getScreenName());   
+            String te = String.valueOf(u.getFollowersCount());
+            System.out.println("Total Followers: " + te);
             System.out.println("Total Following: " + u.getFriendsCount());
             System.out.println("Total de tweet: " + u.getStatusesCount());          
             System.out.println("Status: " + u.getStatus().getText());
@@ -61,6 +65,11 @@ public final class VerifyCredentials {
             System.out.println("Listed Count: " + u.getListedCount());
             System.out.println("TimeZone: " + u.getTimeZone());
             System.out.println("Linguagem: " + u.getLang());
+            System.out.println("URL Image");
+            System.out.println("UTC" + u.getUtcOffset());
+            System.out.println("");
+            System.out.println("");
+            System.out.println("Remaining hits: " + u.getRateLimitStatus().getRemainingHits());
             
             System.out.println("Successfully verified credentials of " + user.getScreenName());
             System.exit(0);

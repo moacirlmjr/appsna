@@ -16,10 +16,12 @@
 
 package twitter4j.examples.account;
 
+import twitter4j.AccountSettings;
 import twitter4j.AccountTotals;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.conf.ConfigurationBuilder;
 
 /**
  * Gets account totals.
@@ -34,12 +36,21 @@ public final class GetAccountTotals {
      */
     public static void main(String[] args) {
         try {
-            Twitter twitter = new TwitterFactory().getInstance();
+        	ConfigurationBuilder cb = new ConfigurationBuilder();
+        	cb.setDebugEnabled(true)
+        	  .setOAuthConsumerKey("PEwerwPBLopBrxrdWCdCHQ")
+        	  .setOAuthConsumerSecret("oLGCU3gRTNboUPi1VjCORHKyp2h93YnodZpNqekIOOU")
+        	  .setOAuthAccessToken("312660739-pFFGuPbuZBzOn7yJZJkt6LpVMJs8jhz71eXrwke8")
+        	  .setOAuthAccessTokenSecret("JY4MtWT4VFivqnKU0OZR3pa2KK6akRsFIvy94B3SY");
+        	
+        	TwitterFactory tf = new TwitterFactory(cb.build());
+        	Twitter twitter = tf.getInstance();
+        	
             AccountTotals totals = twitter.getAccountTotals();
             System.out.println("Updates: " + totals.getUpdates());
             System.out.println("Followers: " + totals.getFollowers());
             System.out.println("Favorites: " + totals.getFavorites());
-            System.out.println("Friends: " + totals.getFriends());
+            System.out.println("Friends: " + totals.getFriends());           
             System.exit(0);
         } catch (TwitterException te) {
             te.printStackTrace();

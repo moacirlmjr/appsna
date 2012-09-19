@@ -54,13 +54,12 @@ public class TesteCSV {
 			listaCsv = verificar(listaCsv, listAmigoId);
 		}
 		
-		FileUtil.criaArquivo(Constantes.DIR_DESKTOP_DANYLLO, true);
+		FileUtil.criaArquivo(Constantes.DIR_APPSNA + "\\arquivo.csv", true);
 		
 		String[] cabecalho = {"Nome", "Screename", "Biografia", "Localização", "TotalFollowers", "TotalFollowing", 
 				"TotalTweets","Status", "URL", "TimeZone","Linguagem"};
-		
 		FileUtil.criarCabecalho(cabecalho);	
-		
+		FileUtil.refreash();
 		
 		for (Long amigoId : listaCsv) {
 			UserTO amigo = TwitterUtil.getUserData(amigoId);
@@ -69,9 +68,9 @@ public class TesteCSV {
 			FileUtil.quebra();
 			FileUtil.escreveNoArquivo(amigo.getScreename());
 			FileUtil.quebra();
-			FileUtil.escreveNoArquivo(amigo.getLocalização());
-			FileUtil.quebra();
 			FileUtil.escreveNoArquivo(amigo.getBiografia());
+			FileUtil.quebra();
+			FileUtil.escreveNoArquivo(amigo.getLocalização());
 			FileUtil.quebra();
 			FileUtil.escreveNoArquivo(amigo.getTotalFollowers());
 			FileUtil.quebra();
@@ -87,6 +86,7 @@ public class TesteCSV {
 			FileUtil.quebra();
 			FileUtil.escreveNoArquivo(amigo.getLinguagem());
 			FileUtil.quebraLinha(1);
+			FileUtil.refreash();
 		}
 
 		FileUtil.salvarArquivo();
@@ -101,6 +101,7 @@ public class TesteCSV {
 				for (Long idCsv : listAux) {
 					if (amigoId.longValue() != idCsv.longValue()) {
 						listCsv.add(amigoId);
+						break;
 					}
 				}
 			}else{

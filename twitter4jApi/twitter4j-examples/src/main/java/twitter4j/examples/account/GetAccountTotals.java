@@ -50,7 +50,8 @@ public final class GetAccountTotals {
             System.out.println("Updates: " + totals.getUpdates());
             System.out.println("Followers: " + totals.getFollowers());
             System.out.println("Favorites: " + totals.getFavorites());
-            System.out.println("Friends: " + totals.getFriends());           
+            System.out.println("Friends: " + totals.getFriends());  
+            System.out.println("id: " + twitter.getId());
             System.exit(0);
         } catch (TwitterException te) {
             te.printStackTrace();

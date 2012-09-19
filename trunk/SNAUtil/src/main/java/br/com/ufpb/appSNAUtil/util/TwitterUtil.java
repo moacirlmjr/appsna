@@ -203,23 +203,24 @@ public class TwitterUtil {
 			User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(idUser);
 			UserTO uto = new UserTO();
 
-			uto.setNome(u.getName());
-			uto.setScreename(u.getScreenName());
-			uto.setBiografia(u.getDescription());
-			uto.setLocalização(u.getLocation());
-			uto.setTotalFollowers(String.valueOf(u.getFollowersCount()));
-			uto.setTotalFollowing(String.valueOf(u.getFriendsCount()));
-			uto.setTotalTweets(String.valueOf(u.getStatusesCount()));
-			uto.setStatus(u.getStatus().getText());
-			uto.setURL(u.getURL().getHost());
-			uto.setTimeZone(u.getTimeZone());
-			uto.setLinguagem(u.getLang());
+			uto.setNome(u.getName() == null ? "não informado": u.getName());
+			uto.setScreename(u.getScreenName()== null ? "não informado": u.getScreenName());
+			uto.setBiografia(u.getDescription() == null ? "não informado": u.getDescription());
+			uto.setLocalização(u.getLocation() == null ? "não informado": u.getLocation());
+			uto.setTotalFollowers(String.valueOf(u.getFollowersCount()) == null ? "não informado": u.getFollowersCount()+"");
+			uto.setTotalFollowing(String.valueOf(u.getFriendsCount())== null ? "não informado": u.getFriendsCount() + "");
+			uto.setTotalTweets(String.valueOf(u.getStatusesCount()) == null ? "não informado": u.getStatusesCount() + "");
+			uto.setStatus(u.getStatus() == null ? "não informado": u.getStatus().getText());
+			uto.setURL(u.getURL()!= null ? u.getURL().getHost(): "não informado");
+			uto.setTimeZone(u.getTimeZone()== null ? "não informado": u.getTimeZone());
+			uto.setLinguagem(u.getLang() == null ? "não informado": u.getLang());
 
 			return uto;		
 			
 		}catch (TwitterException e) {
 			AppSNALog.error(e.toString());
 			tratarTwitterException(e);
+
 			return getUserData(idUser);
 		}
 

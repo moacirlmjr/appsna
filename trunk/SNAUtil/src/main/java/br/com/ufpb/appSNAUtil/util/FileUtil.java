@@ -15,6 +15,14 @@ public class FileUtil {
 			AppSNALog.error(e.toString());
 		}
 	}
+	
+	public static void refreash() {
+		try {
+			fw.flush();
+		} catch (IOException e) {
+			AppSNALog.error(e.toString());
+		}
+	}
 
 	public static void escreveNoArquivo(String conteudo) {
 		try {

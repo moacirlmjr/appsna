@@ -1,6 +1,7 @@
 package br.com.ufpb.appSNAUtil.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import twitter4j.IDs;
+import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
@@ -194,6 +196,52 @@ public class TwitterUtil {
 
 			return isRelationship(source, target);
 		}
+	}
+
+	public static HashMap<String, String> getUserData(Twitter twitter,
+			long idUser) throws TwitterException {
+
+		HashMap<String, String> userData = new HashMap<String, String>();
+		User u = twitter.showUser(idUser);
+		
+		userData.put("Nome", u.getName());
+		userData.put("Screename", u.getScreenName());
+		userData.put("Biografia", u.getDescription());		
+		userData.put("Localização", u.getLocation());
+		String totalFollower = String.valueOf(u.getFollowersCount());
+		userData.put("TotalFollowers", totalFollower);
+		String friendsCount = String.valueOf(u.getFriendsCount());
+		userData.put("TotalFollowing", friendsCount );
+		String totalTweets = String.valueOf(u.getStatusesCount());
+		userData.put("TotalTweets", totalTweets );
+		userData.put("Status", u.getStatus().getText());
+		userData.put("URL", u.getURL().getHost());
+		userData.put("TimeZone", u.getTimeZone());
+		userData.put("Linguagem", u.getLang());
+
+		return userData;
+	}
+
+	public static HashMap<String, String> getUserData(User u){
+
+		HashMap<String, String> userData = new HashMap<String, String>();
+
+		userData.put("Nome", u.getName());
+		userData.put("Screename", u.getScreenName());
+		userData.put("Biografia", u.getDescription());		
+		userData.put("Localização", u.getLocation());
+		String totalFollower = String.valueOf(u.getFollowersCount());
+		userData.put("TotalFollowers", totalFollower);
+		String friendsCount = String.valueOf(u.getFriendsCount());
+		userData.put("TotalFollowing", friendsCount );
+		String totalTweets = String.valueOf(u.getStatusesCount());
+		userData.put("TotalTweets", totalTweets );
+		userData.put("Status", u.getStatus().getText());
+		userData.put("URL", u.getURL().getHost());
+		userData.put("TimeZone", u.getTimeZone());
+		userData.put("Linguagem", u.getLang());
+
+		return userData;
 	}
 
 	private static void tratarTwitterException(TwitterException e)

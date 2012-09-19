@@ -20,6 +20,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
+import twitter4j.conf.ConfigurationBuilder;
 
 /**
  * Verifies credentials.
@@ -34,8 +35,32 @@ public final class VerifyCredentials {
      */
     public static void main(String[] args) {
         try {
-            Twitter twitter = new TwitterFactory().getInstance();
+        	ConfigurationBuilder cb = new ConfigurationBuilder();
+        	cb.setDebugEnabled(true)
+        	  .setOAuthConsumerKey("PEwerwPBLopBrxrdWCdCHQ")
+        	  .setOAuthConsumerSecret("oLGCU3gRTNboUPi1VjCORHKyp2h93YnodZpNqekIOOU")
+        	  .setOAuthAccessToken("312660739-pFFGuPbuZBzOn7yJZJkt6LpVMJs8jhz71eXrwke8")
+        	  .setOAuthAccessTokenSecret("JY4MtWT4VFivqnKU0OZR3pa2KK6akRsFIvy94B3SY");
+        	
+        	TwitterFactory tf = new TwitterFactory(cb.build());
+        	Twitter twitter = tf.getInstance();
             User user = twitter.verifyCredentials();
+            
+            //Como pegar dados de um usuario para criação do relatorio
+            User u = twitter.showUser(312660739);
+            System.out.println("biografia: " + u.getDescription());            
+            System.out.println("Nome: " + u.getName());
+            System.out.println("Localização: " + u.getLocation());
+            System.out.println("Screen name: " + u.getScreenName());           
+            System.out.println("Total Followers: " + u.getFollowersCount());
+            System.out.println("Total Following: " + u.getFriendsCount());
+            System.out.println("Total de tweet: " + u.getStatusesCount());          
+            System.out.println("Status: " + u.getStatus().getText());
+            System.out.println("URL: " + u.getURL());
+            System.out.println("Listed Count: " + u.getListedCount());
+            System.out.println("TimeZone: " + u.getTimeZone());
+            System.out.println("Linguagem: " + u.getLang());
+            
             System.out.println("Successfully verified credentials of " + user.getScreenName());
             System.exit(0);
         } catch (TwitterException te) {

@@ -1,6 +1,5 @@
 package br.com.ufpb.appSNAUtil;
 
-import java.lang.reflect.Array;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import twitter4j.Twitter;

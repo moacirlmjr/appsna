@@ -57,7 +57,7 @@ public class TesteCSV {
 		FileUtil.criaArquivo(Constantes.DIR_APPSNA + "\\arquivo.csv", true);
 		
 		String[] cabecalho = {"Nome", "Screename", "Biografia", "Localização", "TotalFollowers", "TotalFollowing", 
-				"TotalTweets","Status", "URL", "TimeZone","Linguagem"};
+				"TotalTweets", "URL", "TimeZone","Linguagem"};
 		FileUtil.criarCabecalho(cabecalho);	
 		FileUtil.refreash();
 		
@@ -68,17 +68,15 @@ public class TesteCSV {
 			FileUtil.quebra();
 			FileUtil.escreveNoArquivo(amigo.getScreename());
 			FileUtil.quebra();
-			FileUtil.escreveNoArquivo(amigo.getBiografia());
+			FileUtil.escreveNoArquivo(amigo.getBiografia().replaceAll(";", " "));
 			FileUtil.quebra();
-			FileUtil.escreveNoArquivo(amigo.getLocalização());
+			FileUtil.escreveNoArquivo(amigo.getLocalização().replaceAll(";", " "));
 			FileUtil.quebra();
 			FileUtil.escreveNoArquivo(amigo.getTotalFollowers());
 			FileUtil.quebra();
 			FileUtil.escreveNoArquivo(amigo.getTotalFollowing());
 			FileUtil.quebra();
 			FileUtil.escreveNoArquivo(amigo.getTotalTweets());
-			FileUtil.quebra();
-			FileUtil.escreveNoArquivo(amigo.getStatus());
 			FileUtil.quebra();
 			FileUtil.escreveNoArquivo(amigo.getURL());
 			FileUtil.quebra();

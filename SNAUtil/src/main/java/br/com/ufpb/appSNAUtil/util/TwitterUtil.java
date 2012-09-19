@@ -197,28 +197,33 @@ public class TwitterUtil {
 		}
 	}
 
-	public static LinkedHashMap<String, String> getUserData(Twitter twitter,
-			long idUser) throws TwitterException {
+	public static LinkedHashMap<String, String> getUserData(long idUser) throws Exception {
 
 		LinkedHashMap<String, String> userData = new LinkedHashMap<String, String>();
-		User u = twitter.showUser(idUser);
+		try{
+			User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(idUser);
+			userData.put("Nome", u.getName());
+			userData.put("Screename", u.getScreenName());
+			userData.put("Biografia", u.getDescription());
+			userData.put("Localização", u.getLocation());
+			String totalFollower = String.valueOf(u.getFollowersCount());
+			userData.put("TotalFollowers", totalFollower);
+			String friendsCount = String.valueOf(u.getFriendsCount());
+			userData.put("TotalFollowing", friendsCount);
+			String totalTweets = String.valueOf(u.getStatusesCount());
+			userData.put("TotalTweets", totalTweets);
+			userData.put("Status", u.getStatus().getText());
+			userData.put("URL", u.getURL().getHost());
+			userData.put("TimeZone", u.getTimeZone());
+			userData.put("Linguagem", u.getLang());
+			
+			return userData;
+		}catch (TwitterException e) {
+			AppSNALog.error(e.toString());
+			tratarTwitterException(e);
+			return getUserData(idUser);
+		}
 
-		userData.put("Nome", u.getName());
-		userData.put("Screename", u.getScreenName());
-		userData.put("Biografia", u.getDescription());
-		userData.put("Localização", u.getLocation());
-		String totalFollower = String.valueOf(u.getFollowersCount());
-		userData.put("TotalFollowers", totalFollower);
-		String friendsCount = String.valueOf(u.getFriendsCount());
-		userData.put("TotalFollowing", friendsCount);
-		String totalTweets = String.valueOf(u.getStatusesCount());
-		userData.put("TotalTweets", totalTweets);
-		userData.put("Status", u.getStatus().getText());
-		userData.put("URL", u.getURL().getHost());
-		userData.put("TimeZone", u.getTimeZone());
-		userData.put("Linguagem", u.getLang());
-
-		return userData;
 	}
 
 	public static LinkedHashMap<String, String> getUserData(User u) {

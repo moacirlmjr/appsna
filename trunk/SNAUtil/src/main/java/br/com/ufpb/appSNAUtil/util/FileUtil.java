@@ -3,20 +3,16 @@ package br.com.ufpb.appSNAUtil.util;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import javax.swing.JOptionPane;
-
-public class CSVUtil {
+public class FileUtil {
 
 	private static FileWriter fw;
 
 	public static void criaArquivo(String local, Boolean isConstant) {
 		try {
 			fw = new FileWriter(local, isConstant);
-			JOptionPane.showMessageDialog(null, "Arquivo gerado com sucesso",
-					"Concluído", JOptionPane.INFORMATION_MESSAGE);
+			AppSNALog.info("Arquivo gerado com sucesso");
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Atenção",
-					JOptionPane.WARNING_MESSAGE);
+			AppSNALog.error(e.toString());
 		}
 	}
 
@@ -24,15 +20,14 @@ public class CSVUtil {
 		try {
 			fw.write(conteudo);
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Atenção",
-					JOptionPane.WARNING_MESSAGE);
+			AppSNALog.error(e.toString());
 		}
 	}
 
 	public static void criarCabecalho(String[] conteudo) {
 		for (String n : conteudo) {
-			CSVUtil.escreveNoArquivo(n);
-			CSVUtil.quebra();
+			FileUtil.escreveNoArquivo(n);
+			FileUtil.quebra();
 		}
 	}
 
@@ -42,8 +37,7 @@ public class CSVUtil {
 				fw.write("\n");
 			}
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Atenção",
-					JOptionPane.WARNING_MESSAGE);
+			AppSNALog.error(e.toString());
 		}
 	}
 
@@ -53,8 +47,7 @@ public class CSVUtil {
 				fw.write("\r");
 			}
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Atenção",
-					JOptionPane.WARNING_MESSAGE);
+			AppSNALog.error(e.toString());
 		}
 	}
 
@@ -62,21 +55,18 @@ public class CSVUtil {
 		try {
 			fw.write(";");
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Atenção",
-					JOptionPane.WARNING_MESSAGE);
+			AppSNALog.error(e.toString());
 		}
 	}
 
 	public static void salvarArquivo() {
 		try {
 			fw.close();
-			JOptionPane.showMessageDialog(null, "Arquivo gravado com sucesso",
-					"Concluído", JOptionPane.INFORMATION_MESSAGE);
+			AppSNALog.info("Arquivo gravado com sucesso");
 		}
 		// em caso de erro apresenta mensagem abaixo
 		catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Atenção",
-					JOptionPane.WARNING_MESSAGE);
+			AppSNALog.error(e.toString());
 		}
 	}
 

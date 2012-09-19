@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  An excerpt of an egocentric social network  -->
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+	<graph edgedefault="undirected">
+		<!-- data schema -->
+		<key id="name" for="node" attr.name="name" attr.type="string"/>
+		<key id="gender" for="node" attr.name="gender" attr.type="string"/>
+
+		<!-- nodes -->  
+		<node id="1">
+			<data key="name">Samuel</data>
+			<data key="gender">M</data>
+		</node>
+		<node id="101">
+			<data key="name">Alba</data>
+			<data key="gender">F</data>
+		</node>
+		<node id="201">
+			<data key="name">Tux</data>
+			<data key="gender">M</data>
+		</node>
+		<node id="301">
+			<data key="name">Mili</data>
+			<data key="gender">F</data>
+		</node>
+		<node id="401">
+			<data key="name">Duke</data>
+			<data key="gender">M</data>
+		</node>
+		<node id="501">
+			<data key="name">KK</data>
+			<data key="gender">F</data>
+		</node>
+		<node id="601">
+			<data key="name">Sun</data>
+			<data key="gender">M</data>
+		</node>
+		<node id="701">
+			<data key="name">Lua</data>
+			<data key="gender">F</data>
+		</node>
+		<node id="5">
+			<data key="name">Dijk</data>
+			<data key="gender">M</data>
+		</node>
+		<node id="105">
+			<data key="name">Tannen</data>
+			<data key="gender">M</data>
+		</node>
+		<node id="205">
+			<data key="name">Linu</data>
+			<data key="gender">M</data>
+		</node>
+		<node id="305">
+			<data key="name">Richard</data>
+			<data key="gender">M</data>
+		</node>
+		<node id="405">
+			<data key="name">Bill</data>
+			<data key="gender">M</data>
+		</node>
+		<node id="505">
+			<data key="name">C.S.Lewi</data>
+			<data key="gender">M</data>
+		</node>
+		<edge source="1" target="5"></edge>
+			
+		<edge source="1" target="105"></edge>
+			
+		<edge source="1" target="205"></edge>
+			
+		<edge source="1" target="305"></edge>
+			
+		<edge source="1" target="405"></edge>
+			
+		<edge source="1" target="505"></edge>
+			
+		<edge source="101" target="5"></edge>
+			
+		<edge source="101" target="105"></edge>
+			
+		<edge source="101" target="205"></edge>
+			
+		<edge source="101" target="305"></edge>
+			
+		<edge source="101" target="405"></edge>
+			
+		<edge source="101" target="505"></edge>
+			
+		<edge source="201" target="5"></edge>
+			
+		<edge source="201" target="105"></edge>
+			
+		<edge source="201" target="205"></edge>
+			
+		<edge source="201" target="305"></edge>
+			
+		<edge source="201" target="405"></edge>
+			
+		<edge source="201" target="505"></edge>
+			
+		<edge source="301" target="5"></edge>
+			
+		<edge source="301" target="105"></edge>
+			
+		<edge source="301" target="205"></edge>
+			
+		<edge source="301" target="305"></edge>
+			
+		<edge source="301" target="405"></edge>
+			
+		<edge source="301" target="505"></edge>
+			
+		<edge source="401" target="5"></edge>
+			
+		<edge source="401" target="105"></edge>
+			
+		<edge source="401" target="205"></edge>
+			
+		<edge source="401" target="305"></edge>
+			
+		<edge source="401" target="405"></edge>
+			
+		<edge source="401" target="505"></edge>
+			
+		<edge source="501" target="5"></edge>
+			
+		<edge source="501" target="105"></edge>
+			
+		<edge source="501" target="205"></edge>
+			
+		<edge source="501" target="305"></edge>
+			
+		<edge source="501" target="405"></edge>
+			
+		<edge source="501" target="505"></edge>
+			
+		<edge source="601" target="5"></edge>
+			
+		<edge source="601" target="105"></edge>
+			
+		<edge source="601" target="205"></edge>
+			
+		<edge source="601" target="305"></edge>
+			
+		<edge source="601" target="405"></edge>
+			
+		<edge source="601" target="505"></edge>
+			
+		<edge source="701" target="5"></edge>
+			
+		<edge source="701" target="105"></edge>
+			
+		<edge source="701" target="205"></edge>
+			
+		<edge source="701" target="305"></edge>
+			
+		<edge source="701" target="405"></edge>
+			
+		<edge source="701" target="505"></edge>
+			
+
+	</graph>
+</graphml>

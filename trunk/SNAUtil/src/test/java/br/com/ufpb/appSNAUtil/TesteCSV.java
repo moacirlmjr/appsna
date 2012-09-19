@@ -1,5 +1,6 @@
 package br.com.ufpb.appSNAUtil;
 
+import java.lang.reflect.Array;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import twitter4j.Twitter;
@@ -35,12 +36,22 @@ public class TesteCSV {
 
 		// o true significa q o arquivo será constante
 		CSVUtil.criaArquivo(local, true);
-
-		// cria o cabeçalho do arquivo
-		CSVUtil.escreveNoArquivo("Nome" + ";" + "Screename" + ";" + "Biografia" + ";"
-				+ "Localização" + ";" + "TotalFollowers" + ";"
-				+ "TotalFollowing" + ";" + "TotalTweets" + ";" + "Status" + ";"
-				+ "URL" + ";" + "TimeZone" + ";" + "Linguagem");
+		
+		
+		
+		String[] cabecalho = {"Nome", "Screename", "Biografia", "Localização", "TotalFollowers", "TotalFollowing", 
+				"TotalTweets","Status", "URL", "TimeZone","Linguagem"};
+		
+		for(String n: cabecalho){
+			CSVUtil.escreveNoArquivo(n);
+			CSVUtil.quebra();
+		}
+		
+//		// cria o cabeçalho do arquivo
+//		CSVUtil.escreveNoArquivo("Nome" + ";" + "Screename" + ";" + "Biografia" + ";"
+//				+ "Localização" + ";" + "TotalFollowers" + ";"
+//				+ "TotalFollowing" + ";" + "TotalTweets" + ";" + "Status" + ";"
+//				+ "URL" + ";" + "TimeZone" + ";" + "Linguagem");
 
 		// quebra de linha basica
 		CSVUtil.quebraLinha(1);

@@ -210,7 +210,6 @@ public class TwitterUtil {
 			uto.setTotalFollowers(String.valueOf(u.getFollowersCount()) == null ? "não informado": u.getFollowersCount()+"");
 			uto.setTotalFollowing(String.valueOf(u.getFriendsCount())== null ? "não informado": u.getFriendsCount() + "");
 			uto.setTotalTweets(String.valueOf(u.getStatusesCount()) == null ? "não informado": u.getStatusesCount() + "");
-			uto.setStatus(u.getStatus() == null ? "não informado": u.getStatus().getText());
 			uto.setURL(u.getURL()!= null ? u.getURL().getHost(): "não informado");
 			uto.setTimeZone(u.getTimeZone()== null ? "não informado": u.getTimeZone());
 			uto.setLinguagem(u.getLang() == null ? "não informado": u.getLang());
@@ -249,6 +248,9 @@ public class TwitterUtil {
 			throws InterruptedException {
 		Long timeRemaining = ((long) e.getRateLimitStatus()
 				.getResetTimeInSeconds() * 1000);
+		if(AccountCarrousel.LIST_ACOUNTS_READY.size() == 0){
+			Thread.sleep(((Float)(timeRemaining/4f)).intValue());
+		}
 		mutex = new AtomicBoolean();
 		mutex.set(true);
 		AccountThread at = new AccountThread();

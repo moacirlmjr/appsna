@@ -10,7 +10,7 @@ import br.com.ufpb.appSNAUtil.util.AccountCarrousel;
 public class AccountThread extends Thread {
 
 	private Long timeRemaining;
-	private Long accountId;
+	private Twitter accountId;
 
 	private AtomicBoolean mutex;
 
@@ -21,7 +21,7 @@ public class AccountThread extends Thread {
 		try {
 			
 			synchronized (mutex) {
-				accountId = AccountCarrousel.CURRENT_ACCOUNT.getId();
+				accountId = AccountCarrousel.CURRENT_ACCOUNT;
 				AccountCarrousel.LIST_ACOUNTS_WAIT
 						.add(AccountCarrousel.CURRENT_ACCOUNT);
 				if (AccountCarrousel.LIST_ACOUNTS_READY.size() != 0) {
@@ -36,7 +36,7 @@ public class AccountThread extends Thread {
 			List<Twitter> listAux = AccountCarrousel.LIST_ACOUNTS_WAIT;
 			int index = 0;
 			for (Twitter t : listAux) {
-				if (t.getId() == accountId) {
+				if (t.getId() == accountId.getId()) {
 					AccountCarrousel.LIST_ACOUNTS_WAIT.remove(index);
 					AccountCarrousel.LIST_ACOUNTS_READY.add(t);
 				}

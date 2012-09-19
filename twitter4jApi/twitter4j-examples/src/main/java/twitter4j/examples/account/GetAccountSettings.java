@@ -17,6 +17,7 @@
 package twitter4j.examples.account;
 
 import twitter4j.*;
+import twitter4j.conf.ConfigurationBuilder;
 
 /**
  * Gets account settings.
@@ -31,7 +32,16 @@ public final class GetAccountSettings {
      */
     public static void main(String[] args) {
         try {
-            Twitter twitter = new TwitterFactory().getInstance();
+        	ConfigurationBuilder cb = new ConfigurationBuilder();
+        	cb.setDebugEnabled(true)
+        	  .setOAuthConsumerKey("PEwerwPBLopBrxrdWCdCHQ")
+        	  .setOAuthConsumerSecret("oLGCU3gRTNboUPi1VjCORHKyp2h93YnodZpNqekIOOU")
+        	  .setOAuthAccessToken("312660739-pFFGuPbuZBzOn7yJZJkt6LpVMJs8jhz71eXrwke8")
+        	  .setOAuthAccessTokenSecret("JY4MtWT4VFivqnKU0OZR3pa2KK6akRsFIvy94B3SY");
+        	
+        	TwitterFactory tf = new TwitterFactory(cb.build());
+        	Twitter twitter = tf.getInstance();
+        	
             AccountSettings settings = twitter.getAccountSettings();
             System.out.println("Sleep time enabled: " + settings.isSleepTimeEnabled());
             System.out.println("Sleep end time: " + settings.getSleepEndTime());

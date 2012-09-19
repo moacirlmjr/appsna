@@ -25,21 +25,18 @@ public class MeuGrafo {
 	
 	
 	public void criaCabecalho(boolean direcionado){
+		
 		XmlTO field1 = new XmlTO("name", true, "name", TypeEnum.STRING_TYPE);
 		XmlTO field2 = new XmlTO("gender", true, "gender", TypeEnum.STRING_TYPE);
 		
 		List<XmlTO> listaTO = new ArrayList<XmlTO>();
 		listaTO.add(field1);
-		listaTO.add(field2);
-
-		
+		listaTO.add(field2);		
 		
 		XMLUtil.generateHeader(listaTO, direcionado);
 	}
 
-	private void criarNodos() {
-		
-		
+	private void criarNodos() {	
 
 		// Vamos criar os nodos dos "amigos"
 		for (int i = 0; i < amigos.length; i++) {

@@ -6,9 +6,9 @@ public class UserTO {
 	private String Screename;
 	private String Biografia;
 	private String Localização;
-	private int TotalFollowers;
-	private int TotalFollowing;
-	private int TotalTweets;
+	private String TotalFollowers;
+	private String TotalFollowing;
+	private String TotalTweets;
 	private String Status; 
 	private String URL;
 	private String TimeZone;
@@ -21,8 +21,8 @@ public class UserTO {
 
 
 	public UserTO(String nome, String screename, String biografia,
-			String localização, int totalFollowers, int totalFollowing,
-			int totalTweets, String status, String uRL, String timeZone,
+			String localização, String totalFollowers, String totalFollowing,
+			String totalTweets, String status, String uRL, String timeZone,
 			String linguagem) {
 		super();
 		Nome = nome;
@@ -79,32 +79,32 @@ public class UserTO {
 	}
 
 
-	public int getTotalFollowers() {
+	public String getTotalFollowers() {
 		return TotalFollowers;
 	}
 
 
-	public void setTotalFollowers(int totalFollowers) {
+	public void setTotalFollowers(String totalFollowers) {
 		TotalFollowers = totalFollowers;
 	}
 
 
-	public int getTotalFollowing() {
+	public String getTotalFollowing() {
 		return TotalFollowing;
 	}
 
 
-	public void setTotalFollowing(int totalFollowing) {
+	public void setTotalFollowing(String totalFollowing) {
 		TotalFollowing = totalFollowing;
 	}
 
 
-	public int getTotalTweets() {
+	public String getTotalTweets() {
 		return TotalTweets;
 	}
 
 
-	public void setTotalTweets(int totalTweets) {
+	public void setTotalTweets(String totalTweets) {
 		TotalTweets = totalTweets;
 	}
 
@@ -148,6 +148,9 @@ public class UserTO {
 		Linguagem = linguagem;
 	}
 	
+	
+
+
 	
 	
 	

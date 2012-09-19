@@ -1,6 +1,5 @@
 package br.com.ufpb.appSNAElection.model.listener;
 
-import java.io.FileWriter;
 import java.io.IOException;
 
 import twitter4j.StallWarning;
@@ -10,10 +9,10 @@ import twitter4j.StatusListener;
 import br.com.ufpb.appSNAElection.util.EntradaConfiguration;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
 import br.com.ufpb.appSNAUtil.util.Constantes;
+import br.com.ufpb.appSNAUtil.util.FileUtil;
 
 public class ElectionStatusListener implements StatusListener {
 
-	private FileWriter file;
 	private String termos[];
 
 	@Override
@@ -27,8 +26,10 @@ public class ElectionStatusListener implements StatusListener {
 
 			if (termos.length != 0) {
 				for (String termo : termos) {
-					if (status.getText().toLowerCase().contains(termo.toLowerCase())) {
-						fileName = ec.getScreenNameCandidatoByTermo(termo.toLowerCase()) + ".csv"; 
+					if (status.getText().toLowerCase()
+							.contains(termo.toLowerCase())) {
+						fileName = ec.getScreenNameCandidatoByTermo(termo
+								.toLowerCase()) + ".csv";
 						resultado += termo + ";";
 						break;
 					}
@@ -36,15 +37,16 @@ public class ElectionStatusListener implements StatusListener {
 				}
 			}
 			resultado += status.getCreatedAt().getTime() + ";";
-			if(status.getGeoLocation() != null){
-				resultado += status.getGeoLocation().getLatitude()+","+ status.getGeoLocation().getLongitude() + ";\n";
-			}else{
-				resultado += "NULL;\n";
+			if (status.getGeoLocation() != null) {
+				resultado += status.getGeoLocation().getLatitude() + ","
+						+ status.getGeoLocation().getLongitude() + ";";
+			} else {
+				resultado += "NULL;";
 			}
-			this.openFile(Constantes.DIR_APPSNA + fileName);
-			file.append(resultado);
-			file.flush();
-			this.closeFile();
+			FileUtil.criaArquivo(Constantes.DIR_APPSNA + fileName, true);
+			FileUtil.escreveNoArquivo(resultado);
+			FileUtil.quebra();
+			FileUtil.salvarArquivo();
 		} catch (IOException e) {
 			AppSNALog.error(e.toString());
 		}
@@ -81,41 +83,6 @@ public class ElectionStatusListener implements StatusListener {
 	@Override
 	public void onException(Exception ex) {
 		AppSNALog.error(ex.toString());
-	}
-
-	public void openFile(String fileName) {
-		try {
-			file = new FileWriter(fileName, true);
-		} catch (Exception e) {
-			AppSNALog.error(e.toString());
-		}
-	}
-
-	public void write(String text) {
-		try {
-			file.write(text);
-
-		} catch (Exception e) {
-			AppSNALog.error(e.toString());
-		}
-	}
-
-	public void closeFile() {
-		try {
-			file.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			AppSNALog.error(e.toString());
-		}
-
-	}
-
-	public FileWriter getFile() {
-		return file;
-	}
-
-	public void setFile(FileWriter file) {
-		this.file = file;
 	}
 
 	public String[] getTermos() {

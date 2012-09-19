@@ -5,6 +5,7 @@ public class ElectionTO {
 	private String screen_name;
 	private String termo;
 	private String data;
+	private String location;
 
 	public String getScreen_name() {
 		return screen_name;
@@ -28,6 +29,14 @@ public class ElectionTO {
 
 	public void setData(String data) {
 		this.data = data;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 }

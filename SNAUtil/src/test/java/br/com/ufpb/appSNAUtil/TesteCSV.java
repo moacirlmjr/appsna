@@ -31,7 +31,7 @@ public class TesteCSV {
 		
 		LinkedHashMap<String, String> dadosDoUsuario = TwitterUtil.getUserData(u);
 
-		String local = "C:\\Users\\David\\Desktop\\teste.csv";
+		String local = "C:\\Users\\User\\Desktop\\teste3.csv";
 
 		// o true significa q o arquivo será constante
 		CSVUtil.criaArquivo(local, true);
@@ -41,16 +41,8 @@ public class TesteCSV {
 		String[] cabecalho = {"Nome", "Screename", "Biografia", "Localização", "TotalFollowers", "TotalFollowing", 
 				"TotalTweets","Status", "URL", "TimeZone","Linguagem"};
 		
-		for(String n: cabecalho){
-			CSVUtil.escreveNoArquivo(n);
-			CSVUtil.quebra();
-		}
-		
-//		// cria o cabeçalho do arquivo
-//		CSVUtil.escreveNoArquivo("Nome" + ";" + "Screename" + ";" + "Biografia" + ";"
-//				+ "Localização" + ";" + "TotalFollowers" + ";"
-//				+ "TotalFollowing" + ";" + "TotalTweets" + ";" + "Status" + ";"
-//				+ "URL" + ";" + "TimeZone" + ";" + "Linguagem");
+		CSVUtil.criarCabecalho(cabecalho);		
+
 
 		// quebra de linha basica
 		CSVUtil.quebraLinha(1);

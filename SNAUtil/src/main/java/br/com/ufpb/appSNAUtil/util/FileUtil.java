@@ -29,6 +29,7 @@ public class FileUtil {
 			FileUtil.escreveNoArquivo(n);
 			FileUtil.quebra();
 		}
+		FileUtil.quebraLinha(1);
 	}
 
 	public static void quebraLinha(int num) {

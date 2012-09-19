@@ -1,8 +1,8 @@
 package br.com.ufpb.appSNAUtil;
 
 import java.io.FileWriter;
-import java.util.LinkedHashMap;
-import java.util.Map.Entry;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -11,6 +11,7 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
 import twitter4j.conf.ConfigurationBuilder;
+import br.com.ufpb.appSNAUtil.model.beans.to.UserTO;
 import br.com.ufpb.appSNAUtil.util.TwitterUtil;
 
 public class TesteTwitterUtil {
@@ -31,16 +32,11 @@ public class TesteTwitterUtil {
 		Twitter twitter = tf.getInstance();
 
 		User u = twitter.showUser(312660739);
-
-		LinkedHashMap<String, String> dadosDoUsuario = TwitterUtil
-				.getUserData(u);
-
-		for (Entry<String, String> entry : dadosDoUsuario.entrySet()) {
-			System.out.println(entry.getKey() + ": " + entry.getValue());
-		}
-
+		UserTO uto = TwitterUtil.getUserData(u);
+		String local = "C:\\Users\\User\\Desktop\\testeMil.csv";
 		
-		String local = "C:\\Users\\User\\Desktop\\teste.csv";
+		List<UserTO> listaTO = new ArrayList<UserTO>();
+		listaTO.add(uto);
 		
 		try {
 			// o true significa q o arquivo será constante
@@ -54,9 +50,28 @@ public class TesteTwitterUtil {
 			x.write("\n");
 			
 			//varre o LinkedHashMap com os valores
-			for (Entry<String, String> entry : dadosDoUsuario.entrySet()) {
-				x.write(entry.getValue());
+			for (UserTO user : listaTO) {
+				x.write(user.getNome());
 				x.write(";");
+				x.write(user.getScreename());
+				x.write(";");
+				x.write(user.getLocalização());
+				x.write(";");
+				x.write(user.getBiografia());
+				x.write(";");
+				x.write(user.getTotalFollowers());
+				x.write(";");
+				x.write(user.getTotalFollowing());
+				x.write(";");
+				x.write(user.getTotalTweets());
+				x.write(";");
+				x.write(user.getStatus());
+				x.write(";");
+				x.write(user.getURL());
+				x.write(";");
+				x.write(user.getTimeZone());
+				x.write(";");
+				x.write(user.getLinguagem());
 			}
 			
 			// cria o arquivo
@@ -70,3 +85,10 @@ public class TesteTwitterUtil {
 	}
 
 }
+
+
+
+
+
+
+

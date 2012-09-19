@@ -48,6 +48,7 @@ public final class VerifyCredentials {
             
             //Como pegar dados de um usuario para criação do relatorio
             User u = twitter.showUser(312660739);
+            System.out.println("");
             System.out.println("biografia: " + u.getDescription());            
             System.out.println("Nome: " + u.getName());
             System.out.println("Localização: " + u.getLocation());

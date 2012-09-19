@@ -1,11 +1,14 @@
 package br.com.ufpb.appSNAElection.model.beans.to;
 
+import java.util.Date;
+
 public class ElectionTO {
 
 	private String screen_name;
 	private String termo;
-	private String data;
-	private String location;
+	private Date data;
+	private long latitude;
+	private long longitude;
 
 	public String getScreen_name() {
 		return screen_name;
@@ -23,20 +26,28 @@ public class ElectionTO {
 		this.termo = termo;
 	}
 
-	public String getData() {
+	public Date getData() {
 		return data;
 	}
 
-	public void setData(String data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 
-	public String getLocation() {
-		return location;
+	public long getLatitude() {
+		return latitude;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
+	public void setLatitude(long latitude) {
+		this.latitude = latitude;
+	}
+
+	public long getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(long longitude) {
+		this.longitude = longitude;
 	}
 
 }

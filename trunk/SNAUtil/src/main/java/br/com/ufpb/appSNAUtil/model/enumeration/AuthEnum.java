@@ -43,6 +43,9 @@ public enum AuthEnum {
 			
 	MONIQUE_KEY("agNRXrU45rAyrl89sDMXvQ", "cRpQSlhyksKtSGs6yEcMyDr7T41yZt1Vyjd1kyea9U", 
 			"107083501-mrt56eHcMFfhw4Cu3zRQYFqoEEltgnuc8k7jbj3k", "54DyuffiZBGwRD9WTBkZ5N6RQTs7DyZEHFI67GNdOG4"),
+			
+	THIAGO_KEY("pKPaLdk6DofC7bfNNA1qw", "Ks5QO1enyC8Co5My1BVoSN9HVFDhFi8PKsfivr0Xs", 
+			"pKPaLdk6DofC7bfNNA1qw", "Ks5QO1enyC8Co5My1BVoSN9HVFDhFi8PKsfivr0Xs"),
 	
 	MARCELE_KEY("Yd58ckvPgimamGDzHYV3w", "z1q3oiZzQM0H7dxYVkoQbGK7NFo5HoutDqkI8dn5sqc", 	
 			"42036600-UBhzX4V4MDFcLNjTujfSd5WWeMqbg7mWC4eOyFHhE", "OwN2lfKBrwxF1xDZ5FSY1hStB9niCIDyXDi5NWMM");

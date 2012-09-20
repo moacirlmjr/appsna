@@ -213,7 +213,7 @@ public class TwitterUtil {
 			uto.setURL(u.getURL()!= null ? u.getURL().getHost(): "não informado");
 			uto.setTimeZone(u.getTimeZone()== null ? "não informado": u.getTimeZone());
 			uto.setLinguagem(u.getLang() == null ? "não informado": u.getLang());
-			uto.setDataDeCriacao((String) (u.getCreatedAt() == null ? "não informado": u.getCreatedAt()));
+			uto.setDataDeCriacao( (u.getCreatedAt() == null ? "não informado": String.valueOf(u.getCreatedAt())));
 			uto.setURLImage(u.getProfileBackgroundImageUrl() == null ? "não informado": u.getProfileBackgroundImageUrl());
 			
 			return uto;		

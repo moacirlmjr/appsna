@@ -44,7 +44,7 @@ public final class VerifyCredentials {
         	
         	TwitterFactory tf = new TwitterFactory(cb.build());
         	Twitter twitter = tf.getInstance();
-            User user = twitter.verifyCredentials();
+           // User user = twitter.verifyCredentials();
             
             //Como pegar dados de um usuario para criação do relatorio
             User u = twitter.showUser(312660739);
@@ -69,9 +69,9 @@ public final class VerifyCredentials {
             System.out.println("UTC" + u.getUtcOffset());
             System.out.println("");
             System.out.println("");
-            System.out.println("Remaining hits: " + u.getRateLimitStatus().getRemainingHits());
             
-            System.out.println("Successfully verified credentials of " + user.getScreenName());
+            
+           // System.out.println("Successfully verified credentials of " + user.getScreenName());
             System.exit(0);
         } catch (TwitterException te) {
             te.printStackTrace();

@@ -18,24 +18,25 @@ public class TesteCSV {
 
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
-				.setOAuthConsumerKey("PEwerwPBLopBrxrdWCdCHQ")
+				.setOAuthConsumerKey("agNRXrU45rAyrl89sDMXvQ")
 				.setOAuthConsumerSecret(
-						"oLGCU3gRTNboUPi1VjCORHKyp2h93YnodZpNqekIOOU")
+						"cRpQSlhyksKtSGs6yEcMyDr7T41yZt1Vyjd1kyea9U")
 				.setOAuthAccessToken(
-						"312660739-pFFGuPbuZBzOn7yJZJkt6LpVMJs8jhz71eXrwke8")
+						"107083501-mrt56eHcMFfhw4Cu3zRQYFqoEEltgnuc8k7jbj3k")
 				.setOAuthAccessTokenSecret(
-						"JY4MtWT4VFivqnKU0OZR3pa2KK6akRsFIvy94B3SY");
+						"54DyuffiZBGwRD9WTBkZ5N6RQTs7DyZEHFI67GNdOG4");
 
 		TwitterFactory tf = new TwitterFactory(cb.build());
 		Twitter twitter = tf.getInstance();
 
-		User u = twitter.showUser(312660739);		
+
+		User u = twitter.showUser("PadreDjacy");		
 		UserTO uto = TwitterUtil.getUserData(u);
 		
 		List<UserTO> listaTO = new ArrayList<UserTO>();
 		listaTO.add(uto);
 		
-		String local = "C:\\Users\\User\\Desktop\\teste3.csv";
+		String local = "C:\\Users\\David\\Desktop\\teste3.csv";
 
 		// o true significa q o arquivo será constante
 		FileUtil.criaArquivo(local, true);
@@ -43,7 +44,7 @@ public class TesteCSV {
 		
 		
 		String[] cabecalho = {"Nome", "Screename", "Biografia", "Localização", "TotalFollowers", "TotalFollowing", 
-				"TotalTweets","Status", "URL", "TimeZone","Linguagem"};
+				"TotalTweets","URL", "TimeZone","Linguagem", "Data de Criacao", "URL Imagem"};
 		
 		FileUtil.criarCabecalho(cabecalho);		
 
@@ -53,26 +54,25 @@ public class TesteCSV {
 
 		for (UserTO user : listaTO) {
 			FileUtil.escreveNoArquivo(user.getNome());
-			FileUtil.quebraLinha(1);
+			FileUtil.quebra();
 			FileUtil.escreveNoArquivo(user.getScreename());
-			FileUtil.quebraLinha(1);
+			FileUtil.quebra();
 			FileUtil.escreveNoArquivo(user.getLocalização());
-			FileUtil.quebraLinha(1);
+			FileUtil.quebra();
 			FileUtil.escreveNoArquivo(user.getBiografia());
-			FileUtil.quebraLinha(1);
+			FileUtil.quebra();
 			FileUtil.escreveNoArquivo(user.getTotalFollowers());
-			FileUtil.quebraLinha(1);
+			FileUtil.quebra();
 			FileUtil.escreveNoArquivo(user.getTotalFollowing());
-			FileUtil.quebraLinha(1);
+			FileUtil.quebra();
 			FileUtil.escreveNoArquivo(user.getTotalTweets());
-			FileUtil.quebraLinha(1);
-			FileUtil.escreveNoArquivo(user.getStatus());
-			FileUtil.quebraLinha(1);
+			FileUtil.quebra();			
 			FileUtil.escreveNoArquivo(user.getURL());
-			FileUtil.quebraLinha(1);
+			FileUtil.quebra();
 			FileUtil.escreveNoArquivo(user.getTimeZone());
-			FileUtil.quebraLinha(1);
+			FileUtil.quebra();
 			FileUtil.escreveNoArquivo(user.getLinguagem());
+			FileUtil.quebraLinha(1);
 		}
 
 		// fecha o arquivo

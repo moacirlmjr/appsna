@@ -20,20 +20,20 @@ public class TesteTwitterUtil {
 
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
-				.setOAuthConsumerKey("PEwerwPBLopBrxrdWCdCHQ")
+				.setOAuthConsumerKey("agNRXrU45rAyrl89sDMXvQ")
 				.setOAuthConsumerSecret(
-						"oLGCU3gRTNboUPi1VjCORHKyp2h93YnodZpNqekIOOU")
+						"cRpQSlhyksKtSGs6yEcMyDr7T41yZt1Vyjd1kyea9U")
 				.setOAuthAccessToken(
-						"312660739-pFFGuPbuZBzOn7yJZJkt6LpVMJs8jhz71eXrwke8")
+						"107083501-mrt56eHcMFfhw4Cu3zRQYFqoEEltgnuc8k7jbj3k")
 				.setOAuthAccessTokenSecret(
-						"JY4MtWT4VFivqnKU0OZR3pa2KK6akRsFIvy94B3SY");
+						"54DyuffiZBGwRD9WTBkZ5N6RQTs7DyZEHFI67GNdOG4");
 
 		TwitterFactory tf = new TwitterFactory(cb.build());
 		Twitter twitter = tf.getInstance();
 
-		User u = twitter.showUser(312660739);
+		User u = twitter.showUser("@PadreDjacy");
 		UserTO uto = TwitterUtil.getUserData(u);
-		String local = "C:\\Users\\User\\Desktop\\testeMil.csv";
+		String local = "C:\\Users\\David\\Desktop\\teste3.csv";
 		
 		List<UserTO> listaTO = new ArrayList<UserTO>();
 		listaTO.add(uto);
@@ -44,34 +44,45 @@ public class TesteTwitterUtil {
 			
 			//cria o cabeçalho do arquivo
 			x.write("Nome"+ ";" +"Screename"+ ";" +"Biografia"+ ";" +"Localização"+ ";" +"TotalFollowers"+ ";" +
-			"TotalFollowing"+ ";" +"TotalTweets"+ ";" +"Status"+ ";" +"URL"+ ";" +"TimeZone"+ ";" +"Linguagem");
+				"TotalFollowing"+ ";" +"TotalTweets"+ ";" + "URL"+ ";" +"TimeZone"+ ";" +"Linguagem" + 
+				";" + "Data de Criacao"+ ";" + "URL Imagem");
 			
 			//quebra de linha basica
 			x.write("\n");
+			x.flush();
 			
 			//varre o LinkedHashMap com os valores
 			for (UserTO user : listaTO) {
 				x.write(user.getNome());
 				x.write(";");
-				x.write(user.getScreename());
+				x.flush();
+				String sc = user.getScreename().replace("\r", "$").replace("\n", "$");
+				x.write(sc);
 				x.write(";");
-				x.write(user.getLocalização());
+				x.flush();
+				String controle = user.getBiografia().replace("\r", "$").replace("\n", "$");
+				x.write(controle);
 				x.write(";");
-				x.write(user.getBiografia());
+				x.flush();
+				String lc = user.getLocalização().replace("\r", "$").replace("\n", "$");
+				x.write(lc);
 				x.write(";");
+				x.flush();
 				x.write(user.getTotalFollowers());
 				x.write(";");
 				x.write(user.getTotalFollowing());
 				x.write(";");
 				x.write(user.getTotalTweets());
-				x.write(";");
-				x.write(user.getStatus());
-				x.write(";");
+				x.write(";");				
 				x.write(user.getURL());
 				x.write(";");
 				x.write(user.getTimeZone());
 				x.write(";");
 				x.write(user.getLinguagem());
+				x.write(";");
+				x.write(user.getDataDeCriacao());
+				x.write(";");
+				x.write(user.getURLImage());
 			}
 			
 			// cria o arquivo

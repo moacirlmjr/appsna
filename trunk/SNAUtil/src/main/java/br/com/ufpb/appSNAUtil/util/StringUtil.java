@@ -7,5 +7,14 @@ public class StringUtil {
 		nova = anterior.replace("\r", "$").replace("\n", "$").replace(";", "$");
 		return nova;
 	}
+	
+	public static boolean wordVerification(String word){
+		
+		if(word==null || word==""){
+			return false;
+		}
+		return true;
+		
+	}
 
 }

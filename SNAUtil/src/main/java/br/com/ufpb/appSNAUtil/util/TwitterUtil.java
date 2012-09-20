@@ -202,11 +202,11 @@ public class TwitterUtil {
 		try{
 			User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(idUser);
 			UserTO uto = new UserTO();
-
+			
+			uto.setId(String.valueOf(u.getId()));
 			uto.setNome(u.getName() == null ? "não informado": u.getName());
 			uto.setScreename(u.getScreenName()== null ? "não informado": u.getScreenName());
 			uto.setBiografia(u.getDescription() == null ? "não informado": u.getDescription());
-			//uto.setLocalização(u.getLocation() == null ? u.getLocation() : "não informado");
 			uto.setLocalização(u.getLocation() == null ? "não informado": u.getLocation() );
 			uto.setTotalFollowers(String.valueOf(u.getFollowersCount()) == null ? "não informado": u.getFollowersCount()+"");
 			uto.setTotalFollowing(String.valueOf(u.getFriendsCount())== null ? "não informado": u.getFriendsCount() + "");
@@ -215,7 +215,7 @@ public class TwitterUtil {
 			uto.setTimeZone(u.getTimeZone()== null ? "não informado": u.getTimeZone());
 			uto.setLinguagem(u.getLang() == null ? "não informado": u.getLang());
 			uto.setDataDeCriacao( (u.getCreatedAt() == null ? "não informado": String.valueOf(u.getCreatedAt())));
-			uto.setURLImage(u.getProfileBackgroundImageUrl() == null ? "não informado": u.getProfileBackgroundImageUrl());
+			uto.setURLImage((u.getProfileImageURL()== null ? "não informado": String.valueOf(u.getProfileImageURL())));
 			
 			return uto;		
 			
@@ -232,10 +232,10 @@ public class TwitterUtil {
 
 		UserTO uto = new UserTO();
 
+		uto.setId(String.valueOf(u.getId()));
 		uto.setNome(u.getName() == null ? "não informado": u.getName());
 		uto.setScreename(u.getScreenName()== null ? "não informado": u.getScreenName());
 		uto.setBiografia(u.getDescription() == null ? "não informado": u.getDescription());
-		//uto.setLocalização(u.getLocation() == null ? u.getLocation(): "não informado");
 		uto.setLocalização(u.getLocation() == null ? "não informado": u.getLocation() );
 		uto.setTotalFollowers(String.valueOf(u.getFollowersCount()) == null ? "não informado": u.getFollowersCount()+"");
 		uto.setTotalFollowing(String.valueOf(u.getFriendsCount())== null ? "não informado": u.getFriendsCount() + "");
@@ -243,9 +243,9 @@ public class TwitterUtil {
 		uto.setURL(u.getURL()!= null ? u.getURL().getHost(): "não informado");
 		uto.setTimeZone(u.getTimeZone()== null ? "não informado": u.getTimeZone());
 		uto.setLinguagem(u.getLang() == null ? "não informado": u.getLang());
-		uto.setDataDeCriacao((u.getCreatedAt() == null ? "não informado": String.valueOf(u.getCreatedAt())));
-		uto.setURLImage(u.getProfileBackgroundImageUrl() == null ? "não informado": u.getProfileBackgroundImageUrl());
-
+		uto.setDataDeCriacao( (u.getCreatedAt() == null ? "não informado": String.valueOf(u.getCreatedAt())));
+		uto.setURLImage((u.getProfileImageURL()== null ? "não informado": String.valueOf(u.getProfileImageURL())));
+		
 		return uto;
 	}
 

@@ -206,7 +206,8 @@ public class TwitterUtil {
 			uto.setNome(u.getName() == null ? "não informado": u.getName());
 			uto.setScreename(u.getScreenName()== null ? "não informado": u.getScreenName());
 			uto.setBiografia(u.getDescription() == null ? "não informado": u.getDescription());
-			uto.setLocalização(u.getLocation() == null ? u.getLocation() : "não informado");
+			//uto.setLocalização(u.getLocation() == null ? u.getLocation() : "não informado");
+			uto.setLocalização(u.getLocation() == null ? "não informado": u.getLocation() );
 			uto.setTotalFollowers(String.valueOf(u.getFollowersCount()) == null ? "não informado": u.getFollowersCount()+"");
 			uto.setTotalFollowing(String.valueOf(u.getFriendsCount())== null ? "não informado": u.getFriendsCount() + "");
 			uto.setTotalTweets(String.valueOf(u.getStatusesCount()) == null ? "não informado": u.getStatusesCount() + "");
@@ -234,7 +235,8 @@ public class TwitterUtil {
 		uto.setNome(u.getName() == null ? "não informado": u.getName());
 		uto.setScreename(u.getScreenName()== null ? "não informado": u.getScreenName());
 		uto.setBiografia(u.getDescription() == null ? "não informado": u.getDescription());
-		uto.setLocalização(u.getLocation() == null ? u.getLocation(): "não informado");
+		//uto.setLocalização(u.getLocation() == null ? u.getLocation(): "não informado");
+		uto.setLocalização(u.getLocation() == null ? "não informado": u.getLocation() );
 		uto.setTotalFollowers(String.valueOf(u.getFollowersCount()) == null ? "não informado": u.getFollowersCount()+"");
 		uto.setTotalFollowing(String.valueOf(u.getFriendsCount())== null ? "não informado": u.getFriendsCount() + "");
 		uto.setTotalTweets(String.valueOf(u.getStatusesCount()) == null ? "não informado": u.getStatusesCount() + "");

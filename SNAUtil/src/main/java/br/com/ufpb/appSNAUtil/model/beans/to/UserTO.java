@@ -44,7 +44,7 @@ public class UserTO {
 	}
 
 
-	public void setNome(String nome) {
+	public void setNome(String nome) {	
 		Nome = nome;
 	}
 
@@ -135,7 +135,12 @@ public class UserTO {
 
 
 	public void setTimeZone(String timeZone) {
-		TimeZone = timeZone;
+		if(timeZone != null){
+			TimeZone = timeZone;
+		}else{
+			timeZone="não informado";
+		}
+		
 	}
 
 

@@ -8,8 +8,7 @@ public class UserTO {
 	private String Localização;
 	private String TotalFollowers;
 	private String TotalFollowing;
-	private String TotalTweets;
-	private String Status; 
+	private String TotalTweets;	
 	private String URL;
 	private String TimeZone;
 	private String Linguagem;
@@ -24,7 +23,7 @@ public class UserTO {
 
 	public UserTO(String nome, String screename, String biografia,
 			String localização, String totalFollowers, String totalFollowing,
-			String totalTweets, String status, String uRL, String timeZone,
+			String totalTweets, String uRL, String timeZone,
 			String linguagem, String dataDeCriacao, String uRLImage) {
 		super();
 		Nome = nome;
@@ -33,8 +32,7 @@ public class UserTO {
 		Localização = localização;
 		TotalFollowers = totalFollowers;
 		TotalFollowing = totalFollowing;
-		TotalTweets = totalTweets;
-		Status = status;
+		TotalTweets = totalTweets;		
 		URL = uRL;
 		TimeZone = timeZone;
 		Linguagem = linguagem;
@@ -96,14 +94,6 @@ public class UserTO {
 
 	public void setTotalTweets(String totalTweets) {
 		TotalTweets = totalTweets;
-	}
-
-	public String getStatus() {
-		return Status;
-	}
-
-	public void setStatus(String status) {
-		Status = status;
 	}
 
 	public String getURL() {

@@ -9,13 +9,7 @@ public enum AuthEnum {
 	DANYLLO_KEY("l7ONDm41KV2BVfTMEPQ","SdwHfyMFfNsevFYeoNCCOshHUZEqEcEq6BFqaAZIgw",
 			"312660739-lZCZardTnDmFQR1AtmOOeEMO2kIsdtzgMJsRjxcA","n0p2ehUDDN2tfGGJxmfYA4ewtUv22kggWxplIussI"),
 	DANYLLO_KEY2("X84jdsF1ngIEB9DONMY0Uw","HT463HXtE0D89UfJfq1qJ7blKwsdR7cqhtC48SJ1o",
-			"153829744-cvtw2SmiiTxu153Qpd50AvumKJaYm3u1XApwbpNL","UpCaOka3zyADEXtbLe1mAbnyWbOZy1K5KscWUPh68"),
-	
-	//Cabe o comentario de que a autenticação abaixo consome as mesmas requisições de DANYLLO_KEY
-			
-	/*DANYLLO_KEY3("PEwerwPBLopBrxrdWCdCHQ","oLGCU3gRTNboUPi1VjCORHKyp2h93YnodZpNqekIOOU",
-			"312660739-pFFGuPbuZBzOn7yJZJkt6LpVMJs8jhz71eXrwke8","JY4MtWT4VFivqnKU0OZR3pa2KK6akRsFIvy94B3SY"),*/
-			
+			"153829744-cvtw2SmiiTxu153Qpd50AvumKJaYm3u1XApwbpNL","UpCaOka3zyADEXtbLe1mAbnyWbOZy1K5KscWUPh68"),	
 	ROBERTO_KEY("4oAq4OFALcmPYFfPIYtYw","kHOhrvkY9b8vSpSJsfVLZ1zhE8C8bQjwDVj6x5u6o",
 			"308693165-DpE0xj7SC2N8B2WBM13QsEdcS1lkUhzUFW4kxTtk","2Hi6WBOtjy9NJwOOJwRDHVXIx9MJ4aCL0V52Qsj2A"),
 	ROBERTO_KEY2("lJQyCKlxDI24tVtGatUHCQ","GgqBUWdXeRNwAzUnhYE1xMs6eVe093Pp6OUYmZU",
@@ -29,7 +23,12 @@ public enum AuthEnum {
 	JANSE_KEY2("vQ7Y3oz5dhDjWSL1EjAAg", "CEheY2H5XWjXEpsCKHmhor4hxvRTug75391gTFP2P5w",
 			"803947891-Ry4W7HLG7GCJgvAgoHCLsWRayJhhL89Mv2axWIIE", "ZUzTyhNwffRLryIRJGn7ZWCK1Bw43NOyNpKPWlQ4"),	
 	JANSE_KEY3("7nnYMAfXqcqvOaKxrVpcA", "3kmzHby0e14zZZP3YghlArEg5ST4RsTJsamrFSb8U", 
-			"817565840-lL3cN69UaEKvlfQlqL8dzI9bTQAM4YOTbAsboVlX", "RhzsL7Oxrl8wkFSCxiGznmKDu8d6C3ooOfKRWWQMsQ");
+			"817565840-lL3cN69UaEKvlfQlqL8dzI9bTQAM4YOTbAsboVlX", "RhzsL7Oxrl8wkFSCxiGznmKDu8d6C3ooOfKRWWQMsQ"),
+	SILVANIA_KEY ("2hGIjEU5DWNtonF2iGQWg","QdreNw50BfyJN9n5q8OujBRES9OpRODnA8AlldyWn8",
+			"66871197-GvhzuC5QitIPXUTNvW5miTtKDd81l9x4uTWbFM", "MTApbDDQ1vAYqMvdZqjezbcvNEbKRBAHGVKehFRs9hg"),
+	MONIQUE_KEY("agNRXrU45rAyrl89sDMXvQ", "cRpQSlhyksKtSGs6yEcMyDr7T41yZt1Vyjd1kyea9U", 
+			"107083501-mrt56eHcMFfhw4Cu3zRQYFqoEEltgnuc8k7jbj3k", "54DyuffiZBGwRD9WTBkZ5N6RQTs7DyZEHFI67GNdOG4");
+
 	
 	private String consumerToken;
 	private String consumerSecret;

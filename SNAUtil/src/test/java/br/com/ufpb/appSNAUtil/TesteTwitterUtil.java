@@ -20,18 +20,20 @@ public class TesteTwitterUtil {
 
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
-				.setOAuthConsumerKey("agNRXrU45rAyrl89sDMXvQ")
+				.setOAuthConsumerKey("pKPaLdk6DofC7bfNNA1qw")
 				.setOAuthConsumerSecret(
-						"cRpQSlhyksKtSGs6yEcMyDr7T41yZt1Vyjd1kyea9U")
+						"Ks5QO1enyC8Co5My1BVoSN9HVFDhFi8PKsfivr0Xs")
 				.setOAuthAccessToken(
-						"107083501-mrt56eHcMFfhw4Cu3zRQYFqoEEltgnuc8k7jbj3k")
+						"131686365-iWIbKNxKlgUK4Wa2gMx6Ojjsu62aKZNUDvNfbBN2")
 				.setOAuthAccessTokenSecret(
-						"54DyuffiZBGwRD9WTBkZ5N6RQTs7DyZEHFI67GNdOG4");
+						"2kPLmaJiDNEAplKIAlJz8Jhxf7JXgp0E00EoCjQi0");		
+		
+		
 
 		TwitterFactory tf = new TwitterFactory(cb.build());
 		Twitter twitter = tf.getInstance();
 
-		User u = twitter.showUser("@PadreDjacy");
+		User u = twitter.showUser("@Danyllo_Wagner");
 		UserTO uto = TwitterUtil.getUserData(u);
 		String local = "C:\\Users\\David\\Desktop\\teste3.csv";
 		

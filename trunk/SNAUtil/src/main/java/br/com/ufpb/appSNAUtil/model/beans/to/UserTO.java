@@ -69,11 +69,7 @@ public class UserTO {
 	}
 
 	public void setLocalização(String localização) {
-		if(localização!=""){
-			Localização = localização;
-		} else{
-			this.Localização="não informado";
-		}
+		this.Localização=localização;
 	}
 
 	public String getTotalFollowers() {

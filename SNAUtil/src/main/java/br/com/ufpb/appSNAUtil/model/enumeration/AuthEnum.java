@@ -42,7 +42,10 @@ public enum AuthEnum {
 			"66871197-GvhzuC5QitIPXUTNvW5miTtKDd81l9x4uTWbFM", "MTApbDDQ1vAYqMvdZqjezbcvNEbKRBAHGVKehFRs9hg"),
 			
 	MONIQUE_KEY("agNRXrU45rAyrl89sDMXvQ", "cRpQSlhyksKtSGs6yEcMyDr7T41yZt1Vyjd1kyea9U", 
-			"107083501-mrt56eHcMFfhw4Cu3zRQYFqoEEltgnuc8k7jbj3k", "54DyuffiZBGwRD9WTBkZ5N6RQTs7DyZEHFI67GNdOG4");
+			"107083501-mrt56eHcMFfhw4Cu3zRQYFqoEEltgnuc8k7jbj3k", "54DyuffiZBGwRD9WTBkZ5N6RQTs7DyZEHFI67GNdOG4"),
+	
+	MARCELE_KEY("Yd58ckvPgimamGDzHYV3w", "z1q3oiZzQM0H7dxYVkoQbGK7NFo5HoutDqkI8dn5sqc", 	
+			"42036600-UBhzX4V4MDFcLNjTujfSd5WWeMqbg7mWC4eOyFHhE", "OwN2lfKBrwxF1xDZ5FSY1hStB9niCIDyXDi5NWMM");
 
 	
 	private String consumerToken;

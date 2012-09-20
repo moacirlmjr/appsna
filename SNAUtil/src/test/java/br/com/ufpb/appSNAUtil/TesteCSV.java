@@ -36,14 +36,14 @@ public class TesteCSV {
 		List<UserTO> listaTO = new ArrayList<UserTO>();
 		listaTO.add(uto);
 		
-		String local = "C:\\Users\\David\\Desktop\\teste3.csv";
+		String local = "C:\\Users\\David\\Desktop\\testeJSON.txt";
 
 		// o true significa q o arquivo será constante
 		FileUtil.criaArquivo(local, true);
 		
 		
 		
-		String[] cabecalho = {"Nome", "Screename", "Biografia", "Localização", "TotalFollowers", "TotalFollowing", 
+		String[] cabecalho = {"Id", "Nome", "Screename", "Biografia", "Localização", "TotalFollowers", "TotalFollowing", 
 				"TotalTweets","URL", "TimeZone","Linguagem", "Data de Criacao", "URL Imagem"};
 		
 		FileUtil.criarCabecalho(cabecalho);		

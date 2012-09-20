@@ -2,6 +2,7 @@ package br.com.ufpb.appSNAUtil.model.beans.to;
 
 public class UserTO {
 	
+	private String Id;	
 	private String Nome;
 	private String Screename;
 	private String Biografia;
@@ -21,11 +22,12 @@ public class UserTO {
 		super();		
 	}
 
-	public UserTO(String nome, String screename, String biografia,
+	public UserTO(String id, String nome, String screename, String biografia,
 			String localização, String totalFollowers, String totalFollowing,
 			String totalTweets, String uRL, String timeZone,
 			String linguagem, String dataDeCriacao, String uRLImage) {
 		super();
+		Id=id;
 		Nome = nome;
 		Screename = screename;
 		Biografia = biografia;
@@ -38,6 +40,15 @@ public class UserTO {
 		Linguagem = linguagem;
 		DataDeCriacao = dataDeCriacao;
 		URLImage = uRLImage;
+	}
+
+	
+	public String getId() {
+		return Id;
+	}
+
+	public void setId(String id) {
+		Id = id;
 	}
 
 	public String getNome() {

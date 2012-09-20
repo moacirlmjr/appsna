@@ -57,13 +57,16 @@ public class TesteGeracaoRelatorio {
 		
 		FileUtil.criaArquivo(Constantes.DIR_APPSNA + "\\arquivo.csv", true);
 		
-		String[] cabecalho = {"Nome", "Screename", "Biografia", "Localização", "TotalFollowers", "TotalFollowing", 
+		String[] cabecalho = {"Id", "Nome", "Screename", "Biografia", "Localização", "TotalFollowers", "TotalFollowing", 
 				"TotalTweets", "URL", "TimeZone","Linguagem", "Data de Criação", "URL Imagem"};
 		FileUtil.criarCabecalho(cabecalho);	
-		FileUtil.refreash();
+		FileUtil.refresh();
 		
 		for (Long amigoId : listaCsv) {
 			UserTO amigo = TwitterUtil.getUserData(amigoId);
+			
+			FileUtil.escreveNoArquivo(amigo.getId());
+			FileUtil.quebra();
 			
 			FileUtil.escreveNoArquivo(StringUtil.stringProcessing(amigo.getNome()));
 			FileUtil.quebra();
@@ -101,7 +104,7 @@ public class TesteGeracaoRelatorio {
 			FileUtil.escreveNoArquivo(StringUtil.stringProcessing(amigo.getURLImage()));
 			FileUtil.quebraLinha(1);
 			
-			FileUtil.refreash();
+			FileUtil.refresh();
 		}
 
 		FileUtil.salvarArquivo();

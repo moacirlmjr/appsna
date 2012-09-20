@@ -16,7 +16,7 @@ public class FileUtil {
 		}
 	}
 	
-	public static void refreash() {
+	public static void refresh() {
 		try {
 			fw.flush();
 		} catch (IOException e) {

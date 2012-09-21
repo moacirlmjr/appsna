@@ -7,11 +7,11 @@ import br.com.ufpb.appSNAUtil.model.beans.comum.AppSNAEntityMaster;
 public class Resultado extends AppSNAEntityMaster {
 
 	private String screen_name;
-	private String termo;
+	private long termo_id;
 	private Date data;
 	private long latitude;
 	private long longitude;
-	private Long monitorado_id;
+	private long monitorado_id;
 
 	public String getScreen_name() {
 		return screen_name;
@@ -21,12 +21,12 @@ public class Resultado extends AppSNAEntityMaster {
 		this.screen_name = screen_name;
 	}
 
-	public String getTermo() {
-		return termo;
+	public long getTermoId() {
+		return termo_id;
 	}
 
-	public void setTermo(String termo) {
-		this.termo = termo;
+	public void setTermoId(long termo) {
+		this.termo_id = termo;
 	}
 
 	public Date getData() {

@@ -7,24 +7,24 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import br.com.ufpb.appSNAElection.model.beans.Monitorado;
+import br.com.ufpb.appSNAElection.model.beans.Termo;
 import br.com.ufpb.appSNAElection.util.BDUtil;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
 import br.com.ufpb.appSNAUtil.util.DAOUtil;
 
-public class MonitoradoDAOImpl implements MonitoradoDAO {
+public class TermoDAOImpl implements TermoDAO {
 
 	@Override
-	public void create(Monitorado objeto) throws Exception {
-		String query = "Insert into monitorado values(?,?);";
+	public void create(Termo objeto) throws Exception {
+		String query = "Insert into termo values(?,?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
-			stmt.setLong(1, objeto.getTwitterId());
-			stmt.setString(2, objeto.getScreen_name());
+			stmt.setLong(1, objeto.getMonitorado_id());
+			stmt.setString(2, objeto.getConteudo());
 			stmt.execute();
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
@@ -35,17 +35,17 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 	}
 
 	@Override
-	public void update(Monitorado objeto) throws Exception {
-		String query = "update monitorado set twitterId = ?, screen_name = ? where id = ?;";
+	public void update(Termo objeto) throws Exception {
+		String query = "update termo set conteudo = ? where id = ? and monitorado_id = ?;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
-			stmt.setLong(1, objeto.getTwitterId());
-			stmt.setString(2, objeto.getScreen_name());
-			stmt.setLong(3, objeto.getId());
+			stmt.setString(1, objeto.getConteudo());
+			stmt.setLong(2, objeto.getId());
+			stmt.setLong(3, objeto.getMonitorado_id());
 			stmt.execute();
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
@@ -56,24 +56,24 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 	}
 
 	@Override
-	public Monitorado findById(Long id) throws Exception {
-		String query = "select * from monitorado where id = ?;";
+	public Termo findById(Long id) throws Exception {
+		String query = "select * from termo where id = ?;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		ResultSet rs = null;
-		Monitorado monitorado = new Monitorado();
-
+		Termo termo = new Termo();
+		
 		try {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, id);
 			rs = stmt.getResultSet();
-
-			while (rs.next()) {
-				monitorado.setId(rs.getLong(0));
-				monitorado.setScreen_name(rs.getString(1));
-				monitorado.setTwitterId(rs.getLong(2));
+			
+			while(rs.next()){
+				termo.setId(rs.getLong(0));
+				termo.setMonitorado_id(rs.getLong(1));
+				termo.setConteudo(rs.getString(2));
 			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
@@ -81,29 +81,29 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 			conn.close();
 		}
 
-		return monitorado;
+		return termo;
 	}
 
 	@Override
-	public List<Monitorado> list() throws Exception {
-		String query = "select * from monitorado;";
+	public List<Termo> list() throws Exception {
+		String query = "select * from termo;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		ResultSet rs = null;
-		Monitorado monitorado = new Monitorado();
-		List<Monitorado> listMonitorado = new LinkedList<Monitorado>();
+		Termo termo = new Termo();
+		List<Termo> listTermo = new LinkedList<Termo>();
 		try {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			rs = stmt.getResultSet();
-
-			while (rs.next()) {
-				monitorado = new Monitorado();
-				monitorado.setId(rs.getLong(0));
-				monitorado.setScreen_name(rs.getString(1));
-				monitorado.setTwitterId(rs.getLong(2));
-				listMonitorado.add(monitorado);
+			
+			while(rs.next()){
+				termo = new Termo();
+				termo.setId(rs.getLong(0));
+				termo.setMonitorado_id(rs.getLong(1));
+				termo.setConteudo(rs.getString(2));
+				listTermo.add(termo);
 			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
@@ -111,12 +111,12 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 			conn.close();
 		}
 
-		return listMonitorado;
+		return listTermo;
 	}
 
 	@Override
-	public void remove(Monitorado objeto) throws Exception {
-		String query = "delete from monitorado where id = ?;";
+	public void remove(Termo objeto) throws Exception {
+		String query = "delete from termo where id = ?;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -133,8 +133,8 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 	}
 
 	@Override
-	public void create(List<Monitorado> objeto) throws Exception {
-		String query = "Insert into monitorado values(?,?);";
+	public void create(List<Termo> objeto) throws Exception {
+		String query = "Insert into termo values(?,?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -144,9 +144,9 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 			// run sql objects
 			stmt = conn.prepareStatement(query);
 			int count = 0;
-			for (Monitorado monitorado : objeto) {
-				stmt.setLong(1, monitorado.getTwitterId());
-				stmt.setString(2, monitorado.getScreen_name());
+			for (Termo termo : objeto) {
+				stmt.setLong(1, termo.getMonitorado_id());
+				stmt.setString(2, termo.getConteudo());
 				stmt.addBatch();
 				if (++count % objeto.size() == 0) {
 					stmt.executeBatch();

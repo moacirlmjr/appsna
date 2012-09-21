@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import br.com.ufpb.appSNAElection.model.beans.Resultado;
+import br.com.ufpb.appSNAElection.util.BDUtil;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
 import br.com.ufpb.appSNAUtil.util.DAOUtil;
 
@@ -21,7 +22,7 @@ public class ResultadoDAOImpl implements ResultadoDAO{
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection("", "", "");
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);			
 			stmt.setString(1, objeto.getScreen_name());
 			stmt.setLong(2, objeto.getTermoId());
@@ -45,7 +46,7 @@ public class ResultadoDAOImpl implements ResultadoDAO{
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection("", "", "");
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			conn.setAutoCommit(false);
 			// run sql objects
 			stmt = conn.prepareStatement(query);
@@ -80,7 +81,7 @@ public class ResultadoDAOImpl implements ResultadoDAO{
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection("", "", "");
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setString(1, objeto.getScreen_name());
 			stmt.setLong(2, objeto.getTermoId());
@@ -109,7 +110,7 @@ public class ResultadoDAOImpl implements ResultadoDAO{
 		Resultado result = new Resultado();
 		
 		try {
-			conn = DAOUtil.returnConnection("", "", "");
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, id);
 			rs = stmt.getResultSet();
@@ -143,7 +144,7 @@ public class ResultadoDAOImpl implements ResultadoDAO{
 		Resultado result = new Resultado();
 		List<Resultado> listResult = new LinkedList<Resultado>();
 		try {
-			conn = DAOUtil.returnConnection("", "", "");
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			rs = stmt.getResultSet();
 			
@@ -174,7 +175,7 @@ public class ResultadoDAOImpl implements ResultadoDAO{
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection("", "", "");
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, objeto.getId());
 			stmt.execute();

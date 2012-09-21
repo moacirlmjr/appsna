@@ -13,30 +13,36 @@ import br.com.ufpb.appSNAElection.util.BDUtil;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
 import br.com.ufpb.appSNAUtil.util.DAOUtil;
 
-public class ResultadoDAOImpl implements ResultadoDAO{
+public class ResultadoDAOImpl implements ResultadoDAO {
 
 	@Override
-	public void create(Resultado objeto) throws Exception {
+	public Long create(Resultado objeto) throws Exception {
 		String query = "Insert into resultado values(?,?,?,?,?,?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
+		Long result = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
-			stmt = conn.prepareStatement(query);			
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
+			stmt = conn.prepareStatement(query);
 			stmt.setString(1, objeto.getScreen_name());
 			stmt.setLong(2, objeto.getTermoId());
 			stmt.setDate(3, (Date) objeto.getData());
 			stmt.setLong(4, objeto.getLatitude());
 			stmt.setLong(5, objeto.getLongitude());
 			stmt.setLong(6, objeto.getMonitorado_id());
-			stmt.execute();
+			stmt.executeUpdate();
+			ResultSet rs = stmt.getGeneratedKeys();
+			while (rs.next()) {
+				result = rs.getLong(1);
+			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
 		} finally {
 			conn.close();
 		}
-		
+		return result;
 	}
 
 	@Override
@@ -46,7 +52,8 @@ public class ResultadoDAOImpl implements ResultadoDAO{
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			conn.setAutoCommit(false);
 			// run sql objects
 			stmt = conn.prepareStatement(query);
@@ -70,18 +77,18 @@ public class ResultadoDAOImpl implements ResultadoDAO{
 			conn.close();
 		}
 	}
-		
-	
 
 	@Override
-	public void update(Resultado objeto) throws Exception {
-		String query = "update resultado set screen_name = ?, termo_id = ?," +
-				" data = ?, latitude = ? , longitude = ?, monitorado_id = ? where id = ?;";		
-		
+	public Long update(Resultado objeto) throws Exception {
+		String query = "update resultado set screen_name = ?, termo_id = ?,"
+				+ " data = ?, latitude = ? , longitude = ?, monitorado_id = ? where id = ?;";
+
 		PreparedStatement stmt = null;
 		Connection conn = null;
+		Long result = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setString(1, objeto.getScreen_name());
 			stmt.setLong(2, objeto.getTermoId());
@@ -90,14 +97,18 @@ public class ResultadoDAOImpl implements ResultadoDAO{
 			stmt.setLong(5, objeto.getLongitude());
 			stmt.setLong(6, objeto.getMonitorado_id());
 			stmt.setLong(7, objeto.getId());
-			stmt.execute();
+			stmt.executeUpdate();
+			ResultSet rs = stmt.getGeneratedKeys();
+			while (rs.next()) {
+				result = rs.getLong(1);
+			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
 		} finally {
 			conn.close();
 		}
 
-		
+		return result;
 	}
 
 	@Override
@@ -108,14 +119,15 @@ public class ResultadoDAOImpl implements ResultadoDAO{
 		Connection conn = null;
 		ResultSet rs = null;
 		Resultado result = new Resultado();
-		
+
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, id);
 			rs = stmt.getResultSet();
-			
-			while(rs.next()){			
+
+			while (rs.next()) {
 				result.setId(rs.getLong(0));
 				result.setScreen_name(rs.getString(1));
 				result.setTermoId(rs.getLong(2));
@@ -123,7 +135,7 @@ public class ResultadoDAOImpl implements ResultadoDAO{
 				result.setLatitude(rs.getLong(4));
 				result.setLongitude(rs.getLong(5));
 				result.setMonitorado_id(rs.getLong(6));
-				
+
 			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
@@ -144,11 +156,12 @@ public class ResultadoDAOImpl implements ResultadoDAO{
 		Resultado result = new Resultado();
 		List<Resultado> listResult = new LinkedList<Resultado>();
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			rs = stmt.getResultSet();
-			
-			while(rs.next()){
+
+			while (rs.next()) {
 				result = new Resultado();
 				result.setId(rs.getLong(0));
 				result.setScreen_name(rs.getString(1));
@@ -175,7 +188,8 @@ public class ResultadoDAOImpl implements ResultadoDAO{
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, objeto.getId());
 			stmt.execute();
@@ -184,7 +198,7 @@ public class ResultadoDAOImpl implements ResultadoDAO{
 		} finally {
 			conn.close();
 		}
-		
+
 	}
 
 }

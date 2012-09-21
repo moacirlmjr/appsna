@@ -15,44 +15,57 @@ import br.com.ufpb.appSNAUtil.util.DAOUtil;
 public class TermoDAOImpl implements TermoDAO {
 
 	@Override
-	public void create(Termo objeto) throws Exception {
+	public Long create(Termo objeto) throws Exception {
 		String query = "Insert into termo values(?,?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
+		Long result = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, objeto.getMonitorado_id());
 			stmt.setString(2, objeto.getConteudo());
-			stmt.execute();
+			stmt.executeUpdate();
+			ResultSet rs = stmt.getGeneratedKeys();
+			while (rs.next()) {
+				result = rs.getLong(1);
+			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
 		} finally {
 			conn.close();
 		}
-
+		return result;
 	}
 
 	@Override
-	public void update(Termo objeto) throws Exception {
+	public Long update(Termo objeto) throws Exception {
 		String query = "update termo set conteudo = ? where id = ? and monitorado_id = ?;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
+		Long result = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setString(1, objeto.getConteudo());
 			stmt.setLong(2, objeto.getId());
 			stmt.setLong(3, objeto.getMonitorado_id());
-			stmt.execute();
+			stmt.executeUpdate();
+			ResultSet rs = stmt.getGeneratedKeys();
+			while (rs.next()) {
+				result = rs.getLong(1);
+			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
 		} finally {
 			conn.close();
 		}
 
+		return result;
 	}
 
 	@Override
@@ -63,14 +76,15 @@ public class TermoDAOImpl implements TermoDAO {
 		Connection conn = null;
 		ResultSet rs = null;
 		Termo termo = new Termo();
-		
+
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, id);
 			rs = stmt.getResultSet();
-			
-			while(rs.next()){
+
+			while (rs.next()) {
 				termo.setId(rs.getLong(0));
 				termo.setMonitorado_id(rs.getLong(1));
 				termo.setConteudo(rs.getString(2));
@@ -94,11 +108,12 @@ public class TermoDAOImpl implements TermoDAO {
 		Termo termo = new Termo();
 		List<Termo> listTermo = new LinkedList<Termo>();
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			rs = stmt.getResultSet();
-			
-			while(rs.next()){
+
+			while (rs.next()) {
 				termo = new Termo();
 				termo.setId(rs.getLong(0));
 				termo.setMonitorado_id(rs.getLong(1));
@@ -121,7 +136,8 @@ public class TermoDAOImpl implements TermoDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, objeto.getId());
 			stmt.execute();
@@ -139,7 +155,8 @@ public class TermoDAOImpl implements TermoDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			conn.setAutoCommit(false);
 			// run sql objects
 			stmt = conn.prepareStatement(query);

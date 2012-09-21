@@ -12,47 +12,64 @@ import br.com.ufpb.appSNAElection.util.BDUtil;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
 import br.com.ufpb.appSNAUtil.util.DAOUtil;
 
+import com.mysql.jdbc.Statement;
+
 public class MonitoradoDAOImpl implements MonitoradoDAO {
 
 	@Override
-	public void create(Monitorado objeto) throws Exception {
-		String query = "Insert into monitorado values(?,?);";
+	public Long create(Monitorado objeto) throws Exception {
+		String query = "Insert into monitorado(twitter_id, screen_name) values(?,?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
+		Monitorado monitorado = new Monitorado();
+		Long result = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
-			stmt = conn.prepareStatement(query);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
+			stmt = conn
+					.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			stmt.setLong(1, objeto.getTwitterId());
 			stmt.setString(2, objeto.getScreen_name());
-			stmt.execute();
+			stmt.executeUpdate();
+			ResultSet rs = stmt.getGeneratedKeys();
+			while (rs.next()) {
+				result = rs.getLong(1);
+			}
+
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
 		} finally {
 			conn.close();
 		}
-
+		return result;
 	}
 
 	@Override
-	public void update(Monitorado objeto) throws Exception {
+	public Long update(Monitorado objeto) throws Exception {
 		String query = "update monitorado set twitterId = ?, screen_name = ? where id = ?;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
+		Long result = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, objeto.getTwitterId());
 			stmt.setString(2, objeto.getScreen_name());
 			stmt.setLong(3, objeto.getId());
-			stmt.execute();
+			stmt.executeUpdate();
+			ResultSet rs = stmt.getGeneratedKeys();
+			while (rs.next()) {
+				result = rs.getLong(1);
+			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
 		} finally {
 			conn.close();
 		}
-
+		return result;
 	}
 
 	@Override
@@ -65,7 +82,8 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 		Monitorado monitorado = new Monitorado();
 
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, id);
 			rs = stmt.getResultSet();
@@ -94,7 +112,8 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 		Monitorado monitorado = new Monitorado();
 		List<Monitorado> listMonitorado = new LinkedList<Monitorado>();
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			rs = stmt.getResultSet();
 
@@ -121,7 +140,8 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, objeto.getId());
 			stmt.execute();
@@ -139,7 +159,8 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			conn.setAutoCommit(false);
 			// run sql objects
 			stmt = conn.prepareStatement(query);

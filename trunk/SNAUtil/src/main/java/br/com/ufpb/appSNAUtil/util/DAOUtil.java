@@ -8,10 +8,9 @@ public class DAOUtil {
 
 	public static Connection returnConnection(String url, String user,
 			String senha) throws Exception {
-		Connection conn = null;
 		Class.forName(driver);
 		Connection con = DriverManager.getConnection(url, user, senha);
 
-		return conn;
+		return con;
 	}
 }

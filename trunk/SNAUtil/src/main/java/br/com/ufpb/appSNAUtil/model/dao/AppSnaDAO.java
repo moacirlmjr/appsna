@@ -9,7 +9,7 @@ public interface AppSnaDAO<T> extends Serializable {
 	
 	public abstract void create(List<T> objeto) throws Exception;
 	
-	public abstract void update(T objeto) throws Exception;
+	public abstract Long update(T objeto) throws Exception;
 
 	public abstract T findById(Long id) throws Exception;
 

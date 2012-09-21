@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import br.com.ufpb.appSNAElection.model.beans.Resultado;
+import br.com.ufpb.appSNAElection.model.beans.to.ElectionTO;
 
 public class ParserElectionCsv {
 
@@ -18,14 +18,14 @@ public class ParserElectionCsv {
 	private static final int LATITUDE = 0;
 	private static final int LONGITUDE = 1;
 	
-	public static List<Resultado> realizarParserArquivoCDR(File cdr) throws Exception{
-		List<Resultado> list = new ArrayList<Resultado>();
+	public static List<ElectionTO> realizarParserArquivoCDR(File cdr) throws Exception{
+		List<ElectionTO> list = new ArrayList<ElectionTO>();
 		
 		FileReader fr = new FileReader(cdr);
 		BufferedReader in = new BufferedReader(fr);
 		String line;
 		while ((line = in.readLine()) != null) {
-			Resultado eTO = new Resultado();
+			ElectionTO eTO = new ElectionTO();
 			
 			String lineArray[] = line.split(";");
 			

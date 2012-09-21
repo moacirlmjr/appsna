@@ -6,7 +6,6 @@ public class Monitorado extends AppSNAEntityMaster {
 
 	private Long twitterId;
 	private String screen_name;
-	private String termos;
 
 	public Long getTwitterId() {
 		return twitterId;
@@ -22,14 +21,6 @@ public class Monitorado extends AppSNAEntityMaster {
 
 	public void setScreen_name(String screen_name) {
 		this.screen_name = screen_name;
-	}
-
-	public String getTermos() {
-		return termos;
-	}
-
-	public void setTermos(String termos) {
-		this.termos = termos;
 	}
 
 }

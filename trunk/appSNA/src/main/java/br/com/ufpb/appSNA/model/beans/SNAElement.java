@@ -18,6 +18,7 @@ public class SNAElement extends AppSNAEntityMaster {
 	private String Linguagem;
 	private Date dataDeCriacao;
 	private String URLImagem;
+	
 	public long getId() {
 		return id;
 	}

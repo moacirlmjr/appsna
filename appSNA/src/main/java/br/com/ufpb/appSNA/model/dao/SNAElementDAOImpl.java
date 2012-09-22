@@ -28,7 +28,7 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 		Long result = null;
 		try {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
-			stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);			
+			stmt = conn.prepareStatement(query, com.mysql.jdbc.Statement.RETURN_GENERATED_KEYS);			
 			
 			stmt.setString(1, objeto.getNome());
 			stmt.setString(2, objeto.getScreename());

@@ -1,33 +1,26 @@
 package br.com.ufpb.appSNAElection.main;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ufpb.appSNAElection.model.beans.Monitorado;
-import br.com.ufpb.appSNAElection.model.beans.Resultado;
 import br.com.ufpb.appSNAElection.model.beans.Termo;
-import br.com.ufpb.appSNAElection.model.beans.to.ElectionTO;
 import br.com.ufpb.appSNAElection.model.dao.MonitoradoDAO;
 import br.com.ufpb.appSNAElection.model.dao.MonitoradoDAOImpl;
-import br.com.ufpb.appSNAElection.model.dao.ResultadoDAO;
-import br.com.ufpb.appSNAElection.model.dao.ResultadoDAOImpl;
 import br.com.ufpb.appSNAElection.model.dao.TermoDAO;
 import br.com.ufpb.appSNAElection.model.dao.TermoDAOImpl;
 import br.com.ufpb.appSNAElection.util.EntradaConfiguration;
-import br.com.ufpb.appSNAElection.util.ParserElectionCsv;
-import br.com.ufpb.appSNAUtil.util.Constantes;
-import br.com.ufpb.appSNAUtil.util.FileUtil;
 
 public class PersistirBase {
 	public static void main(String[] args) {
 		try {
-			EntradaConfiguration ec = new EntradaConfiguration();
-			
+			EntradaConfiguration ec = new EntradaConfiguration();			
 			Monitorado m = new Monitorado();
 			Termo t = new Termo();
+			
 			List<Termo> termos = new ArrayList<Termo>();
+			
 			MonitoradoDAO mDAO = new MonitoradoDAOImpl();
 			TermoDAO tDAO = new TermoDAOImpl();
 			

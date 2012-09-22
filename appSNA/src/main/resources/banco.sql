@@ -1,32 +1,28 @@
-create database appsnaelection;
+create database appsna;
 
-use appsnaelection;
+use appsna;
 
-create table monitorado(
-id bigint not null auto_increment,
+create table elemento(
+id long not null auto_increment,
+nome varchar(30) not null,
 screen_name varchar(30) not null,
-twitter_id bigint not null,
-primary key(id)
+biografia text not null,
+localizacao varchar(50),
+totalFollowing int not null,
+totalTweets int not null, 
+URL text, 
+timeZone varchar(30),
+linguagem char(2),
+dataDeCricao timestamp,
+URLImagem text,
+constraint primary key(id)
 );
 
 
-create table termo(
-id bigint not null auto_increment,
-monitorado_id bigint not null,
-conteudo varchar(30),
-constraint primary key(id, monitorado_id),
-constraint foreign key(monitorado_id) references monitorado(id)
-);
-
-create table resultado(
-id bigint not null auto_increment,
-screen_name varchar(30) not null, 
-termo_id bigint not null, 
-data timestamp not null,
-latitude bigint,
-longitude bigint,
-monitorado_id bigint ,
-constraint primary key(id),
-constraint foreign key(termo_id) references termo(id),
-constraint foreign key(monitorado_id) references monitorado(id)
+create table relacionamento(
+id_source long not null,
+id_target long not null,
+primary key(id_source, id_target),
+constraint foreign key(id_source) references elemento(id),
+constraint foreign key(id_target) references elemento(id)
 );

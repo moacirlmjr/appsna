@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import br.com.ufpb.appSNAElection.model.beans.Monitorado;
 import br.com.ufpb.appSNAElection.model.beans.Termo;
 import br.com.ufpb.appSNAElection.util.BDUtil;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
@@ -175,5 +176,67 @@ public class TermoDAOImpl implements TermoDAO {
 		} finally {
 			conn.close();
 		}
+	}
+	
+	@Override
+	public Monitorado getMonitoradoByTermo(String termo) throws Exception {
+		String query = "select distinct m.id, m.screen_name, m.twitter_id from termo t, monitorado m where (t.conteudo like ? or m.screen_name like ?)and t.monitorado_id = m.id;";
+
+		PreparedStatement stmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		Monitorado monitorado = new Monitorado();
+
+		try {
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
+			stmt = conn.prepareStatement(query);
+			stmt.setString(1, termo);
+			stmt.setString(2, termo);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				monitorado.setId(rs.getLong("id"));
+				monitorado.setScreen_name(rs.getString("screen_name"));
+				monitorado.setTwitterId(rs.getLong("twitter_id"));
+			}
+		} catch (SQLException e) {
+			AppSNALog.error(e.toString());
+		} finally {
+			conn.close();
+		}
+
+		return monitorado;
+	}
+	
+	@Override
+	public Termo getTermoByConteudo(String conteudo) throws Exception {
+		String query = "select * from termo t where t.conteudo = ?;";
+
+		PreparedStatement stmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		Termo termo = new Termo();
+
+		try {
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
+			stmt = conn.prepareStatement(query);
+			stmt.setString(1, conteudo);
+			rs = stmt.getResultSet();
+
+			while (rs.next()) {
+				termo.setId(rs.getLong(0));
+				termo.setMonitorado_id(rs.getLong(1));
+				termo.setConteudo(rs.getString(2));
+				break;
+			}
+		} catch (SQLException e) {
+			AppSNALog.error(e.toString());
+		} finally {
+			conn.close();
+		}
+
+		return termo;
 	}
 }

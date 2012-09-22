@@ -7,8 +7,8 @@ public class ElectionTO {
 	private String screen_name;
 	private String termo;
 	private Date data;
-	private long latitude;
-	private long longitude;
+	private float latitude;
+	private float longitude;
 
 	public String getScreen_name() {
 		return screen_name;
@@ -34,19 +34,19 @@ public class ElectionTO {
 		this.data = data;
 	}
 
-	public long getLatitude() {
+	public float getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(long latitude) {
+	public void setLatitude(float latitude) {
 		this.latitude = latitude;
 	}
 
-	public long getLongitude() {
+	public float getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(long longitude) {
+	public void setLongitude(float longitude) {
 		this.longitude = longitude;
 	}
 

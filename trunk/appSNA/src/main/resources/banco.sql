@@ -3,12 +3,13 @@ create database appsna;
 use appsna;
 
 create table elemento(
-id long not null auto_increment,
+id bigint not null auto_increment,
 nome varchar(30) not null,
 screen_name varchar(30) not null,
 biografia text not null,
 localizacao varchar(50),
 totalFollowing int not null,
+totalFollowers int not null,
 totalTweets int not null, 
 URL text, 
 timeZone varchar(30),

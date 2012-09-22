@@ -17,7 +17,7 @@ public class ResultadoDAOImpl implements ResultadoDAO {
 
 	@Override
 	public Long create(Resultado objeto) throws Exception {
-		String query = "Insert into resultado values(?,?,?,?,?,?);";
+		String query = "Insert into resultado(screen_name,termo_id,data,latitude,longitude,monitorado_id) values(?,?,?,?,?,?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;

@@ -22,7 +22,6 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
-		Monitorado monitorado = new Monitorado();
 		Long result = null;
 		try {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,

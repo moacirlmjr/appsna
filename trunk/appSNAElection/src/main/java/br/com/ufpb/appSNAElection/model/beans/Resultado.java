@@ -9,8 +9,8 @@ public class Resultado extends AppSNAEntityMaster {
 	private String screen_name;
 	private long termo_id;
 	private Date data;
-	private long latitude;
-	private long longitude;
+	private float latitude;
+	private float longitude;
 	private long monitorado_id;
 
 	public String getScreen_name() {
@@ -37,19 +37,19 @@ public class Resultado extends AppSNAEntityMaster {
 		this.data = data;
 	}
 
-	public long getLatitude() {
+	public float getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(long latitude) {
+	public void setLatitude(float latitude) {
 		this.latitude = latitude;
 	}
 
-	public long getLongitude() {
+	public float getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(long longitude) {
+	public void setLongitude(float longitude) {
 		this.longitude = longitude;
 	}
 

@@ -12,6 +12,7 @@ public class SNAElement extends AppSNAEntityMaster {
 	private String Biografia;
 	private String localização;
 	private int	totalFollowing;
+	private int	totalFollowers;
 	private int totalTweets;
 	private String URL;
 	private String TimeZone;
@@ -55,6 +56,14 @@ public class SNAElement extends AppSNAEntityMaster {
 	public void setTotalFollowing(int totalFollowing) {
 		this.totalFollowing = totalFollowing;
 	}
+	
+	public int getTotalFollowers() {
+		return totalFollowers;
+	}
+	public void setTotalFollowers(int totalFollowers) {
+		this.totalFollowers = totalFollowers;
+	}
+	
 	public int getTotalTweets() {
 		return totalTweets;
 	}

@@ -16,10 +16,13 @@
 
 package twitter4j.examples.account;
 
+import twitter4j.HashtagEntity;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.URLEntity;
 import twitter4j.User;
+import twitter4j.UserMentionEntity;
 import twitter4j.conf.ConfigurationBuilder;
 
 /**
@@ -44,11 +47,12 @@ public final class VerifyCredentials {
         	
         	TwitterFactory tf = new TwitterFactory(cb.build());
         	Twitter twitter = tf.getInstance();
-           // User user = twitter.verifyCredentials();
-            
+
+            User user = twitter.verifyCredentials();
+
             //Como pegar dados de um usuario para criação do relatorio
-            User u = twitter.showUser(312660739);
-            System.out.println("Remaining hits: " + u.getRateLimitStatus().getRemainingHits());
+            User u = twitter.showUser("Danyllo_Wagner");
+            System.out.println("Remaining hits: " + u.getRateLimitStatus());
             System.out.println("");
             System.out.println("relatorio de dados do usuario");
             System.out.println("");
@@ -67,11 +71,37 @@ public final class VerifyCredentials {
             System.out.println("Linguagem: " + u.getLang());
             System.out.println("URL Image");
             System.out.println("UTC" + u.getUtcOffset());
+           
             System.out.println("");
             System.out.println("");
+            System.out.println("URL Entities");
+            URLEntity [] ue = u.getStatus().getURLEntities();
+            for(URLEntity url: ue){
+            	System.out.println(url.getDisplayURL());
+            	System.out.println(url.getExpandedURL());
+            	System.out.println(url.getURL());
+            }
+            
+            System.out.println("");
+            System.out.println("");      
+            System.out.println("User Entities");
+            UserMentionEntity [] ume = u.getStatus().getUserMentionEntities();
+            for(UserMentionEntity usermention : ume){
+            	System.out.println(usermention.getName());
+            	System.out.println(usermention.getScreenName());
+            }
+            
+            System.out.println("");
+            System.out.println("");
+            System.out.println("Hashtag Entities");
+            HashtagEntity [] hte =  u.getStatus().getHashtagEntities();
+            for(HashtagEntity ht: hte){
+            	System.out.println(ht.getText());
+            }
+
             
             
-           // System.out.println("Successfully verified credentials of " + user.getScreenName());
+            System.out.println("Successfully verified credentials of " + user.getScreenName());
             System.exit(0);
         } catch (TwitterException te) {
             te.printStackTrace();

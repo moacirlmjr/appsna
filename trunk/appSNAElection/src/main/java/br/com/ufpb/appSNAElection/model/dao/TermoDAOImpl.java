@@ -16,7 +16,7 @@ public class TermoDAOImpl implements TermoDAO {
 
 	@Override
 	public Long create(Termo objeto) throws Exception {
-		String query = "Insert into termo(monitoramento_id, conteudo) values(?,?);";
+		String query = "Insert into termo(monitorado_id, conteudo) values(?,?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -150,7 +150,7 @@ public class TermoDAOImpl implements TermoDAO {
 
 	@Override
 	public void create(List<Termo> objeto) throws Exception {
-		String query = "Insert into termo values(?,?);";
+		String query = "Insert into termo(monitorado_id, conteudo) values(?,?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;

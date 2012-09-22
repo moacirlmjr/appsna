@@ -40,13 +40,14 @@ public class PersistirBase {
 					}
 				}
 				
-				if(count == 3){
+				if(count % 3 == 0){
 					Long idMonitoramento = mDAO.create(m);
 					for(Termo termoBd : termos){
 						termoBd.setMonitorado_id(idMonitoramento);
 					}
 					tDAO.create(termos);
 					m = new Monitorado();
+					termos = new ArrayList<Termo>();
 				}
 				count++;
 			}

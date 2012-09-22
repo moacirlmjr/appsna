@@ -9,7 +9,6 @@ screen_name varchar(30) not null,
 biografia text not null,
 localizacao varchar(50),
 totalFollowing int not null,
-totalFollowers int not null,
 totalTweets int not null, 
 URL text, 
 timeZone varchar(30),
@@ -21,8 +20,8 @@ constraint primary key(id)
 
 
 create table relacionamento(
-id_source long not null,
-id_target long not null,
+id_source bigint not null,
+id_target bigint not null,
 primary key(id_source, id_target),
 constraint foreign key(id_source) references elemento(id),
 constraint foreign key(id_target) references elemento(id)

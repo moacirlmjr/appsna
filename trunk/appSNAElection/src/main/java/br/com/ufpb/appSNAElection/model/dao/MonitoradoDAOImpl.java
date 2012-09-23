@@ -88,9 +88,9 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 			rs = stmt.getResultSet();
 
 			while (rs.next()) {
-				monitorado.setId(rs.getLong(0));
-				monitorado.setScreen_name(rs.getString(1));
-				monitorado.setTwitterId(rs.getLong(2));
+				monitorado.setId(rs.getLong(1));
+				monitorado.setScreen_name(rs.getString(2));
+				monitorado.setTwitterId(rs.getLong(3));
 			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
@@ -118,9 +118,9 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 
 			while (rs.next()) {
 				monitorado = new Monitorado();
-				monitorado.setId(rs.getLong(0));
-				monitorado.setScreen_name(rs.getString(1));
-				monitorado.setTwitterId(rs.getLong(2));
+				monitorado.setId(rs.getLong(1));
+				monitorado.setScreen_name(rs.getString(2));
+				monitorado.setTwitterId(rs.getLong(3));
 				listMonitorado.add(monitorado);
 			}
 		} catch (SQLException e) {

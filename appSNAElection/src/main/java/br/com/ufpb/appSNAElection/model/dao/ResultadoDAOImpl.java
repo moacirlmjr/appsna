@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class ResultadoDAOImpl implements ResultadoDAO {
 
 	@Override
 	public void create(List<Resultado> objeto) throws Exception {
-		String query = "Insert into resultado values(?,?,?,?,?,?);";
+		String query = "Insert into resultado(screen_name,termo_id,data,latitude,longitude,monitorado_id) values(?,?,?,?,?,?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -61,19 +62,19 @@ public class ResultadoDAOImpl implements ResultadoDAO {
 			for (Resultado r : objeto) {
 				stmt.setString(1, r.getScreen_name());
 				stmt.setLong(2, r.getTermoId());
-				stmt.setDate(3, (Date) r.getData());
+				stmt.setTimestamp(3, new Timestamp(r.getData().getTime()));
 				stmt.setFloat(4, r.getLatitude());
 				stmt.setFloat(5, r.getLongitude());
 				stmt.setLong(6, r.getMonitorado_id());
 				stmt.addBatch();
-				if (++count % objeto.size() == 0) {
+				if (++count % 100 == 0) {
 					stmt.executeBatch();
 				}
 			}
-			conn.commit();
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
 		} finally {
+			conn.commit();
 			conn.close();
 		}
 	}
@@ -128,13 +129,13 @@ public class ResultadoDAOImpl implements ResultadoDAO {
 			rs = stmt.getResultSet();
 
 			while (rs.next()) {
-				result.setId(rs.getLong(0));
-				result.setScreen_name(rs.getString(1));
-				result.setTermoId(rs.getLong(2));
-				result.setData(rs.getDate(3));
-				result.setLatitude(rs.getFloat(4));
-				result.setLongitude(rs.getFloat(5));
-				result.setMonitorado_id(rs.getLong(6));
+				result.setId(rs.getLong(1));
+				result.setScreen_name(rs.getString(2));
+				result.setTermoId(rs.getLong(3));
+				result.setData(rs.getDate(4));
+				result.setLatitude(rs.getFloat(5));
+				result.setLongitude(rs.getFloat(6));
+				result.setMonitorado_id(rs.getLong(7));
 
 			}
 		} catch (SQLException e) {
@@ -163,13 +164,13 @@ public class ResultadoDAOImpl implements ResultadoDAO {
 
 			while (rs.next()) {
 				result = new Resultado();
-				result.setId(rs.getLong(0));
-				result.setScreen_name(rs.getString(1));
-				result.setTermoId(rs.getLong(2));
-				result.setData(rs.getDate(3));
-				result.setLatitude(rs.getLong(4));
-				result.setLongitude(rs.getLong(5));
-				result.setMonitorado_id(rs.getLong(6));
+				result.setId(rs.getLong(1));
+				result.setScreen_name(rs.getString(2));
+				result.setTermoId(rs.getLong(3));
+				result.setData(rs.getDate(4));
+				result.setLatitude(rs.getLong(5));
+				result.setLongitude(rs.getLong(6));
+				result.setMonitorado_id(rs.getLong(7));
 				listResult.add(result);
 			}
 		} catch (SQLException e) {

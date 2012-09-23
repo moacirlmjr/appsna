@@ -86,9 +86,9 @@ public class TermoDAOImpl implements TermoDAO {
 			rs = stmt.getResultSet();
 
 			while (rs.next()) {
-				termo.setId(rs.getLong(0));
-				termo.setMonitorado_id(rs.getLong(1));
-				termo.setConteudo(rs.getString(2));
+				termo.setId(rs.getLong(1));
+				termo.setMonitorado_id(rs.getLong(2));
+				termo.setConteudo(rs.getString(3));
 			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
@@ -116,9 +116,9 @@ public class TermoDAOImpl implements TermoDAO {
 
 			while (rs.next()) {
 				termo = new Termo();
-				termo.setId(rs.getLong(0));
-				termo.setMonitorado_id(rs.getLong(1));
-				termo.setConteudo(rs.getString(2));
+				termo.setId(rs.getLong(1));
+				termo.setMonitorado_id(rs.getLong(2));
+				termo.setConteudo(rs.getString(3));
 				listTermo.add(termo);
 			}
 		} catch (SQLException e) {
@@ -196,9 +196,9 @@ public class TermoDAOImpl implements TermoDAO {
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				monitorado.setId(rs.getLong("id"));
-				monitorado.setScreen_name(rs.getString("screen_name"));
-				monitorado.setTwitterId(rs.getLong("twitter_id"));
+				monitorado.setId(rs.getLong(1));
+				monitorado.setScreen_name(rs.getString(2));
+				monitorado.setTwitterId(rs.getLong(3));
 			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
@@ -216,19 +216,20 @@ public class TermoDAOImpl implements TermoDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		ResultSet rs = null;
-		Termo termo = new Termo();
+		Termo termo = null;
 
 		try {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
 					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setString(1, conteudo);
-			rs = stmt.getResultSet();
+			rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				termo.setId(rs.getLong(0));
-				termo.setMonitorado_id(rs.getLong(1));
-				termo.setConteudo(rs.getString(2));
+				termo = new Termo();
+				termo.setId(rs.getLong(1));
+				termo.setMonitorado_id(rs.getLong(2));
+				termo.setConteudo(rs.getString(3));
 				break;
 			}
 		} catch (SQLException e) {

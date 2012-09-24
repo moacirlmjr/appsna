@@ -1,6 +1,5 @@
 package br.com.ufpb.appSNA.model.dao;
 
-import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;

@@ -2,6 +2,7 @@ package br.com.ufpb.appSNAElection.view;
 
 import java.awt.Dimension;
 import java.awt.Frame;
+
 import javax.swing.JFrame;
 
 import br.com.ufpb.appSNAElection.model.beans.MyLink;

@@ -6,10 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.mysql.jdbc.Statement;
+
 import br.com.ufpb.appSNA.model.beans.Relacionamento;
 import br.com.ufpb.appSNA.util.BDUtil;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
 import br.com.ufpb.appSNAUtil.util.DAOUtil;
+
 
 public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 
@@ -23,8 +26,7 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 		try {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
 					BDUtil.SENHA);
-			stmt = conn.prepareStatement(query,
-					com.mysql.jdbc.Statement.RETURN_GENERATED_KEYS);
+			stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
 			stmt.setLong(0, objeto.getId_source());
 			stmt.setLong(1, objeto.getId_target());

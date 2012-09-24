@@ -1,7 +1,12 @@
 package br.com.ufpb.appSNAUtil.util;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.filechooser.FileFilter;
 
 public class FileUtil {
 
@@ -77,6 +82,22 @@ public class FileUtil {
 		catch (Exception e) {
 			AppSNALog.error(e.toString());
 		}
+	}
+	
+	public static List<File> listarArquivosDir(String dir){
+		
+		File diretorio = new File(dir);
+		List<File> arquivosCsv = new ArrayList<File>();
+		if(diretorio.isDirectory()){
+			File arquivos[] = diretorio.listFiles();
+			for(File arq : arquivos){
+				if(arq.getName().contains(".csv")){
+					arquivosCsv.add(arq);
+				}
+			}
+		}
+		
+		return arquivosCsv;
 	}
 
 }

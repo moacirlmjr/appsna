@@ -7,12 +7,12 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.mysql.jdbc.Statement;
+
 import br.com.ufpb.appSNAElection.model.beans.Monitorado;
 import br.com.ufpb.appSNAElection.util.BDUtil;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
 import br.com.ufpb.appSNAUtil.util.DAOUtil;
-
-import com.mysql.jdbc.Statement;
 
 public class MonitoradoDAOImpl implements MonitoradoDAO {
 

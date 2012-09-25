@@ -30,8 +30,8 @@ public class ResultadoDAOImpl implements ResultadoDAO {
 			stmt.setString(1, objeto.getScreen_name());
 			stmt.setLong(2, objeto.getTermoId());
 			stmt.setDate(3, (Date) objeto.getData());
-			stmt.setFloat(4, objeto.getLatitude());
-			stmt.setFloat(5, objeto.getLongitude());
+			stmt.setString(4, objeto.getLatitude());
+			stmt.setString(5, objeto.getLongitude());
 			stmt.setLong(6, objeto.getMonitorado_id());
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -63,8 +63,8 @@ public class ResultadoDAOImpl implements ResultadoDAO {
 				stmt.setString(1, r.getScreen_name());
 				stmt.setLong(2, r.getTermoId());
 				stmt.setTimestamp(3, new Timestamp(r.getData().getTime()));
-				stmt.setFloat(4, r.getLatitude());
-				stmt.setFloat(5, r.getLongitude());
+				stmt.setString(4, r.getLatitude());
+				stmt.setString(5, r.getLongitude());
 				stmt.setLong(6, r.getMonitorado_id());
 				stmt.addBatch();
 				if (++count % 100 == 0) {
@@ -94,8 +94,8 @@ public class ResultadoDAOImpl implements ResultadoDAO {
 			stmt.setString(1, objeto.getScreen_name());
 			stmt.setLong(2, objeto.getTermoId());
 			stmt.setDate(3, (Date) objeto.getData());
-			stmt.setFloat(4, objeto.getLatitude());
-			stmt.setFloat(5, objeto.getLongitude());
+			stmt.setString(4, objeto.getLatitude());
+			stmt.setString(5, objeto.getLongitude());
 			stmt.setLong(6, objeto.getMonitorado_id());
 			stmt.setLong(7, objeto.getId());
 			stmt.executeUpdate();
@@ -133,8 +133,8 @@ public class ResultadoDAOImpl implements ResultadoDAO {
 				result.setScreen_name(rs.getString(2));
 				result.setTermoId(rs.getLong(3));
 				result.setData(rs.getDate(4));
-				result.setLatitude(rs.getFloat(5));
-				result.setLongitude(rs.getFloat(6));
+				result.setLatitude(rs.getString(5));
+				result.setLongitude(rs.getString(6));
 				result.setMonitorado_id(rs.getLong(7));
 
 			}
@@ -168,8 +168,8 @@ public class ResultadoDAOImpl implements ResultadoDAO {
 				result.setScreen_name(rs.getString(2));
 				result.setTermoId(rs.getLong(3));
 				result.setData(rs.getDate(4));
-				result.setLatitude(rs.getLong(5));
-				result.setLongitude(rs.getLong(6));
+				result.setLatitude(rs.getString(5));
+				result.setLongitude(rs.getString(6));
 				result.setMonitorado_id(rs.getLong(7));
 				listResult.add(result);
 			}

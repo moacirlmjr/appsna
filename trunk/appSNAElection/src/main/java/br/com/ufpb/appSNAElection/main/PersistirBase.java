@@ -23,46 +23,46 @@ import br.com.ufpb.appSNAUtil.util.FileUtil;
 public class PersistirBase {
 	public static void main(String[] args) {
 		try {
-			EntradaConfiguration ec = new EntradaConfiguration();			
-			Monitorado m = new Monitorado();
-			Termo t = new Termo();
-			
-			List<Termo> termos = new ArrayList<Termo>();
-			
+//			EntradaConfiguration ec = new EntradaConfiguration();			
+//			Monitorado m = new Monitorado();
+//			Termo t = new Termo();
+//			'
+//			List<Termo> termos = new ArrayList<Termo>();
+//			
 			MonitoradoDAO mDAO = new MonitoradoDAOImpl();
 			TermoDAO tDAO = new TermoDAOImpl();
-			
-			int count = 1;
-			for (String key : ec.getKeys()) {
-				
-				String valor = ec.getEntrada(key);
-				if (key.contains("screenName")) {
-					m.setScreen_name(valor);
-					t = new Termo();
-					t.setConteudo(valor);
-					termos.add(t);
-				} else if (key.contains("userid")) {
-					m.setTwitterId(Long.valueOf(valor));
-				} else if (key.contains("termos")) {
-					String termosArray[] = valor.split(",");
-					for(String ter : termosArray){
-						t = new Termo();
-						t.setConteudo(ter);
-						termos.add(t);
-					}
-				}
-				
-				if(count % 3 == 0){
-					Long idMonitoramento = mDAO.create(m);
-					for(Termo termoBd : termos){
-						termoBd.setMonitorado_id(idMonitoramento);
-					}
-					tDAO.create(termos);
-					m = new Monitorado();
-					termos = new ArrayList<Termo>();
-				}
-				count++;
-			}
+//			
+//			int count = 1;
+//			for (String key : ec.getKeys()) {
+//				
+//				String valor = ec.getEntrada(key);
+//				if (key.contains("screenName")) {
+//					m.setScreen_name(valor);
+//					t = new Termo();
+//					t.setConteudo(valor);
+//					termos.add(t);
+//				} else if (key.contains("userid")) {
+//					m.setTwitterId(Long.valueOf(valor));
+//				} else if (key.contains("termos")) {
+//					String termosArray[] = valor.split(",");
+//					for(String ter : termosArray){
+//						t = new Termo();
+//						t.setConteudo(ter);
+//						termos.add(t);
+//					}
+//				}
+//				
+//				if(count % 3 == 0){
+//					Long idMonitoramento = mDAO.create(m);
+//					for(Termo termoBd : termos){
+//						termoBd.setMonitorado_id(idMonitoramento);
+//					}
+//					tDAO.create(termos);
+//					m = new Monitorado();
+//					termos = new ArrayList<Termo>();
+//				}
+//				count++;
+//			}
 			
 			List<File> arquivosCsv = FileUtil.listarArquivosDir(Constantes.DIR_APPSNA);
 			List<Resultado> listResultado = new ArrayList<Resultado>();

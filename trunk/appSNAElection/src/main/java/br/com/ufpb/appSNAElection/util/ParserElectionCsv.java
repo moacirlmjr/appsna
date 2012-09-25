@@ -37,8 +37,8 @@ public class ParserElectionCsv {
 			if (!lineArray[LOCATION].equals("NULL")) {
 				String locationArray[] = lineArray[LOCATION].split(",");
 
-				eTO.setLatitude(Float.parseFloat(locationArray[LATITUDE]));
-				eTO.setLongitude(Float.parseFloat(locationArray[LONGITUDE]));
+				eTO.setLatitude(locationArray[LATITUDE]);
+				eTO.setLongitude(locationArray[LONGITUDE]);
 			}
 
 			list.add(eTO);

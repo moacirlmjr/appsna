@@ -14,4 +14,6 @@ from resultado where monitorado_id=11 group by DATE_FORMAT(data, '%d/%m/%Y'), mo
 -- Consulta Nr 3 - relatorio completo
 select m.screen_name, DATE_FORMAT(r.data, '%d/%m/%Y') as 'Data',
 count(distinct(r.screen_name)) as 'total de tweet' 
-from resultado r, monitorado m where r.monitorado_id = m.id group by m.screen_name, DATE_FORMAT(r.data, '%d/%m/%Y') ORDER By m.screen_name; 
+from resultado r, monitorado m 
+where r.monitorado_id = m.id
+group by m.screen_name, DATE_FORMAT(r.data, '%d/%m/%Y') ORDER By m.screen_name; 

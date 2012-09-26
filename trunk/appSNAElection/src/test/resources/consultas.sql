@@ -19,6 +19,9 @@ where r.monitorado_id = m.id
 group by m.screen_name, DATE_FORMAT(r.data, '%d/%m/%Y') ORDER By m.screen_name; 
 
 -- Consulta Nr 4 - Lista de pessoas que realizaram metions a candidatos
-
 select m.screen_name, r.screen_name, count(r.screen_name) from resultado r, monitorado m
 where r.monitorado_id = m.id and r.monitorado_id = 40 group by r.screen_name
+
+-- Consulta Nr 5 - Lista todas as menções
+select r.screen_name, m.screen_name, count(m.screen_name) from resultado r, monitorado m
+where r.monitorado_id = m.id group by m.screen_name, r.screen_name order by r.screen_name

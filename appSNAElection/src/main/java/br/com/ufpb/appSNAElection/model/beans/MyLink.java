@@ -1,63 +1,35 @@
 package br.com.ufpb.appSNAElection.model.beans;
 
-
-
 public class MyLink {
-	
-	static int edgeCount = 0; 
-	
-	private double capacity;
-	private double weight;
+
+	static int edgeCount = 0;
+
+	private int weight;
 	private int id;
 
-	public MyLink(double weight, double capacity) {
+	public MyLink(int weight) {
 		this.id = edgeCount++;
 		this.weight = weight;
-		this.capacity = capacity;
-	}	
-	
-
-	public double getCapacity() {
-		return capacity;
 	}
 
-
-	public void setCapacity(double capacity) {
-		this.capacity = capacity;
-	}
-
-
-	public double getWeight() {
+	public int getWeight() {
 		return weight;
 	}
 
-
-	public void setWeight(double weight) {
+	public void setWeight(int weight) {
 		this.weight = weight;
 	}
-
 
 	public int getId() {
 		return id;
 	}
 
-
 	public void setId(int id) {
 		this.id = id;
 	}
 
-
-	public String toString() {		
-		return "E" + id;
+	public String toString() {
+		return this.weight + "";
 	}
-	
-	public String imprimeId() {		
-		return "E" + id;
-	}
-	
-	public String imprimePesoId() {		
-		return "E" + id + " = " + this.weight;
-	}
-
 
 }

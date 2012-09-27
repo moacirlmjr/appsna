@@ -3,27 +3,26 @@ package br.com.ufpb.appSNAElection.model.beans;
 
 public class MyNode {
 
-		private int id;
+		
+		private String nome;
 
-		public MyNode(int id) {
-			this.id = id;
+		public MyNode() {
+			
 		}
 		
 		
-		public int getId() {
-			return id;
+		public String getNome() {
+			return nome;
 		}
 
 
-
-		public void setId(int id) {
-			this.id = id;
+		public void setNome(String nome) {
+			this.nome = nome;
 		}
-
 
 
 		public String toString() {
-			return "V" + id;
+			return this.nome;
 		}
 
 	}

@@ -10,6 +10,7 @@ import java.util.List;
 import com.mysql.jdbc.Statement;
 
 import br.com.ufpb.appSNAElection.model.beans.Monitorado;
+import br.com.ufpb.appSNAElection.model.beans.to.RelatorioOcorrenciasTO;
 import br.com.ufpb.appSNAElection.util.BDUtil;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
 import br.com.ufpb.appSNAUtil.util.DAOUtil;
@@ -179,4 +180,42 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 			conn.close();
 		}
 	}
+	
+	@Override
+	public List<RelatorioOcorrenciasTO> listRelatorioOcorrencia() throws Exception {
+		String query = "select m.screen_name,r.screen_name, count(r.screen_name) " +
+				"from resultado r, monitorado m " +
+				"where r.monitorado_id = m.id and r.monitorado_id in (5, 6, 8, 11) " +
+				"group by r.screen_name " +
+				"order by m.screen_name;";
+
+		PreparedStatement stmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		List<RelatorioOcorrenciasTO> listRO = new LinkedList<RelatorioOcorrenciasTO>();
+		try {
+			conn = DAOUtil.returnConnection(BDUtil.URL, 
+					BDUtil.USER,
+					BDUtil.SENHA);
+			
+			stmt = conn.prepareStatement(query);
+			
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				RelatorioOcorrenciasTO ro = new RelatorioOcorrenciasTO();
+				ro.setSource(rs.getString(1));
+				ro.setTarget(rs.getString(2));
+				ro.setWeight(rs.getInt(3));
+				listRO.add(ro);
+			}
+		} catch (SQLException e) {
+			AppSNALog.error(e.toString());
+		} finally {
+			conn.close();
+		}
+
+		return listRO;
+	}
+
 }

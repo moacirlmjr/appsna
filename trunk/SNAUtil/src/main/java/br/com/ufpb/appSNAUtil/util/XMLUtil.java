@@ -57,6 +57,14 @@ public class XMLUtil {
     	   append("\n\t\t\t<data key=\"name\">").append(name).append("</data>").
     	   append("\n\t\t</node>");
     }
+    
+  //Método sobrescrito.    
+    public static void generateNodes (String name){
+    	   arquivo.append("\n\t\t<node id=\"").append(name).append("\">").
+    	   append("\n\t\t\t<data key=\"name\">").append(name).append("</data>").
+    	   append("\n\t\t</node>");
+    }
+
 
    
 
@@ -73,6 +81,13 @@ public class XMLUtil {
            .append("<data key=\"weight\">").append(weight).append("</data>\n\t\t</node>")
            .append("<data key=\"capacity\">").append(capacity).append("</data>\n\t\t</node>")
            .append("\"></edge>\n\t\t\t");
+    }
+    
+    //Metodo sobrescrito
+    public static void generateEdges(String idSource, String idTarget, int weight){
+           arquivo.append("\n\t\t<edge source=\"").append(idSource).append("\" target=\"").append(idTarget)
+           .append("\"><data key=\"weight\">").append(weight).append("</data>\n\t\t")
+           .append("</edge>\n\t\t\t");
     }
 
 	//Metodo para fechar o arquivo

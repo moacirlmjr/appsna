@@ -23,19 +23,22 @@ public class TermoDAOImpl implements TermoDAO {
 		Connection conn = null;
 		Long result = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
-					BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn.setAutoCommit(false);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, objeto.getMonitorado_id());
 			stmt.setString(2, objeto.getConteudo());
 			stmt.executeUpdate();
+			conn.commit();
 			ResultSet rs = stmt.getGeneratedKeys();
 			while (rs.next()) {
 				result = rs.getLong(1);
 			}
 		} catch (SQLException e) {
+			conn.rollback();
 			AppSNALog.error(e.toString());
 		} finally {
+			stmt.close();
 			conn.close();
 		}
 		return result;
@@ -49,20 +52,23 @@ public class TermoDAOImpl implements TermoDAO {
 		Connection conn = null;
 		Long result = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
-					BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn.setAutoCommit(false);
 			stmt = conn.prepareStatement(query);
 			stmt.setString(1, objeto.getConteudo());
 			stmt.setLong(2, objeto.getId());
 			stmt.setLong(3, objeto.getMonitorado_id());
 			stmt.executeUpdate();
+			conn.commit();
 			ResultSet rs = stmt.getGeneratedKeys();
 			while (rs.next()) {
 				result = rs.getLong(1);
 			}
 		} catch (SQLException e) {
+			conn.rollback();
 			AppSNALog.error(e.toString());
 		} finally {
+			stmt.close();
 			conn.close();
 		}
 
@@ -93,6 +99,7 @@ public class TermoDAOImpl implements TermoDAO {
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
 		} finally {
+			stmt.close();
 			conn.close();
 		}
 
@@ -124,6 +131,7 @@ public class TermoDAOImpl implements TermoDAO {
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
 		} finally {
+			stmt.close();
 			conn.close();
 		}
 
@@ -137,14 +145,17 @@ public class TermoDAOImpl implements TermoDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
-					BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn.setAutoCommit(false);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, objeto.getId());
 			stmt.execute();
+			conn.commit();
 		} catch (SQLException e) {
+			conn.rollback();
 			AppSNALog.error(e.toString());
 		} finally {
+			stmt.close();
 			conn.close();
 		}
 	}
@@ -156,10 +167,8 @@ public class TermoDAOImpl implements TermoDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
-					BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			conn.setAutoCommit(false);
-			// run sql objects
 			stmt = conn.prepareStatement(query);
 			int count = 0;
 			for (Termo termo : objeto) {
@@ -172,8 +181,10 @@ public class TermoDAOImpl implements TermoDAO {
 			}
 			conn.commit();
 		} catch (SQLException e) {
+			conn.rollback();
 			AppSNALog.error(e.toString());
 		} finally {
+			stmt.close();
 			conn.close();
 		}
 	}
@@ -203,6 +214,7 @@ public class TermoDAOImpl implements TermoDAO {
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
 		} finally {
+			stmt.close();
 			conn.close();
 		}
 
@@ -235,6 +247,7 @@ public class TermoDAOImpl implements TermoDAO {
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
 		} finally {
+			stmt.close();
 			conn.close();
 		}
 

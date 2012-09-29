@@ -9,5 +9,7 @@ public class BDUtil {
 	public static final String USER = "root";
 
 	public static final String SENHA = "root";
+	
+	public static final String DATABASE_NAME = "AppSNAElection";
 
 }

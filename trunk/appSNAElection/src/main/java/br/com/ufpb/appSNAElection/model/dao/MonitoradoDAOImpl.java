@@ -24,22 +24,25 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		Long result = null;
+		
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
-					BDUtil.SENHA);
-			stmt = conn
-					.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn.setAutoCommit(false);
+			stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			stmt.setLong(1, objeto.getTwitterId());
 			stmt.setString(2, objeto.getScreen_name());
 			stmt.executeUpdate();
+			conn.commit();
 			ResultSet rs = stmt.getGeneratedKeys();
 			while (rs.next()) {
 				result = rs.getLong(1);
 			}
 
 		} catch (SQLException e) {
+			conn.rollback();
 			AppSNALog.error(e.toString());
 		} finally {
+			stmt.close();
 			conn.close();
 		}
 		return result;
@@ -53,20 +56,23 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 		Connection conn = null;
 		Long result = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
-					BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn.setAutoCommit(false);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, objeto.getTwitterId());
 			stmt.setString(2, objeto.getScreen_name());
 			stmt.setLong(3, objeto.getId());
 			stmt.executeUpdate();
+			conn.commit();
 			ResultSet rs = stmt.getGeneratedKeys();
 			while (rs.next()) {
 				result = rs.getLong(1);
 			}
 		} catch (SQLException e) {
+			conn.rollback();
 			AppSNALog.error(e.toString());
 		} finally {
+			stmt.close();
 			conn.close();
 		}
 		return result;
@@ -82,8 +88,7 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 		Monitorado monitorado = new Monitorado();
 
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
-					BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, id);
 			rs = stmt.getResultSet();
@@ -96,6 +101,7 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
 		} finally {
+			stmt.close();
 			conn.close();
 		}
 
@@ -112,8 +118,7 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 		Monitorado monitorado = new Monitorado();
 		List<Monitorado> listMonitorado = new LinkedList<Monitorado>();
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
-					BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			rs = stmt.getResultSet();
 
@@ -127,6 +132,7 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
 		} finally {
+			stmt.close();
 			conn.close();
 		}
 
@@ -140,14 +146,16 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
-					BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn.setAutoCommit(false);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, objeto.getId());
 			stmt.execute();
 		} catch (SQLException e) {
+			conn.rollback();
 			AppSNALog.error(e.toString());
 		} finally {
+			stmt.close();
 			conn.close();
 		}
 	}
@@ -159,10 +167,8 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
-					BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			conn.setAutoCommit(false);
-			// run sql objects
 			stmt = conn.prepareStatement(query);
 			int count = 0;
 			for (Monitorado monitorado : objeto) {
@@ -175,8 +181,10 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 			}
 			conn.commit();
 		} catch (SQLException e) {
+			conn.rollback();
 			AppSNALog.error(e.toString());
 		} finally {
+			stmt.close();
 			conn.close();
 		}
 	}
@@ -212,6 +220,7 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
 		} finally {
+			stmt.close();
 			conn.close();
 		}
 

@@ -89,7 +89,7 @@ public class TermoDAOImpl implements TermoDAO {
 					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, id);
-			rs = stmt.getResultSet();
+			rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				termo.setId(rs.getLong(1));
@@ -119,7 +119,7 @@ public class TermoDAOImpl implements TermoDAO {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
 					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
-			rs = stmt.getResultSet();
+			rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				termo = new Termo();

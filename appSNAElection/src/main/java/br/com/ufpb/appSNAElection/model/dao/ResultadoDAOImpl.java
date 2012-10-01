@@ -68,7 +68,7 @@ public class ResultadoDAOImpl implements ResultadoDAO {
 				stmt.setString(5, r.getLongitude());
 				stmt.setLong(6, r.getMonitorado_id());
 				stmt.addBatch();
-				if (++count % 100 == 0) {
+				if (++count % objeto.size() == 0) {
 					stmt.executeBatch();
 				}
 				conn.commit();
@@ -132,7 +132,7 @@ public class ResultadoDAOImpl implements ResultadoDAO {
 					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, id);
-			rs = stmt.getResultSet();
+			rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				result.setId(rs.getLong(1));
@@ -167,7 +167,7 @@ public class ResultadoDAOImpl implements ResultadoDAO {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
 					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
-			rs = stmt.getResultSet();
+			rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				result = new Resultado();

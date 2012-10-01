@@ -24,11 +24,13 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		Long result = null;
-		
+
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			conn.setAutoCommit(false);
-			stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			stmt = conn
+					.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			stmt.setLong(1, objeto.getTwitterId());
 			stmt.setString(2, objeto.getScreen_name());
 			stmt.executeUpdate();
@@ -56,7 +58,8 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 		Connection conn = null;
 		Long result = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			conn.setAutoCommit(false);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, objeto.getTwitterId());
@@ -88,10 +91,11 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 		Monitorado monitorado = new Monitorado();
 
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, id);
-			rs = stmt.getResultSet();
+			rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				monitorado.setId(rs.getLong(1));
@@ -118,9 +122,10 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 		Monitorado monitorado = new Monitorado();
 		List<Monitorado> listMonitorado = new LinkedList<Monitorado>();
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
-			rs = stmt.getResultSet();
+			rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				monitorado = new Monitorado();
@@ -146,11 +151,13 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			conn.setAutoCommit(false);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, objeto.getId());
 			stmt.execute();
+			conn.commit();
 		} catch (SQLException e) {
 			conn.rollback();
 			AppSNALog.error(e.toString());
@@ -167,7 +174,8 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			conn.setAutoCommit(false);
 			stmt = conn.prepareStatement(query);
 			int count = 0;
@@ -188,26 +196,25 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 			conn.close();
 		}
 	}
-	
+
 	@Override
-	public List<RelatorioOcorrenciasTO> listRelatorioOcorrencia() throws Exception {
-		String query = "select m.screen_name,r.screen_name, count(r.screen_name) " +
-				"from resultado r, monitorado m " +
-				"where r.monitorado_id = m.id and r.monitorado_id in (5, 6, 8, 11) " +
-				"group by r.screen_name " +
-				"order by m.screen_name;";
+	public List<RelatorioOcorrenciasTO> listRelatorioOcorrencia()
+			throws Exception {
+		String query = "select m.screen_name,r.screen_name, count(r.screen_name) "
+				+ "from resultado r, monitorado m "
+				+ "where r.monitorado_id = m.id and r.monitorado_id in (5, 6, 8, 11) "
+				+ "group by r.screen_name " + "order by m.screen_name;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		ResultSet rs = null;
 		List<RelatorioOcorrenciasTO> listRO = new LinkedList<RelatorioOcorrenciasTO>();
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, 
-					BDUtil.USER,
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
 					BDUtil.SENHA);
-			
+
 			stmt = conn.prepareStatement(query);
-			
+
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {

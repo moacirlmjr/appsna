@@ -8,6 +8,7 @@ import br.com.ufpb.appSNAElection.model.beans.to.RelatorioOcorrenciasTO;
 import br.com.ufpb.appSNAElection.model.dao.MonitoradoDAOImpl;
 import br.com.ufpb.appSNAUtil.model.beans.to.XmlTO;
 import br.com.ufpb.appSNAUtil.model.enumeration.TypeEnum;
+import br.com.ufpb.appSNAUtil.util.Constantes;
 import br.com.ufpb.appSNAUtil.util.XMLUtil;
 
 public class TestGraphMLPrefeitos {
@@ -86,7 +87,7 @@ public class TestGraphMLPrefeitos {
 	public static void main(String[] args) throws Exception {
 
 		new TestGraphMLPrefeitos("grafoTeste.xml",
-				"C:\\Users\\User\\Desktop\\grafoTeste2.xml", false);
+				Constantes.DIR_APPSNA + "grafoTeste.xml", false);
 
 	}
 }

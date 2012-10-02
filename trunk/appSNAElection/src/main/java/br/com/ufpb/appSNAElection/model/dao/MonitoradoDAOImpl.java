@@ -200,10 +200,10 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 	@Override
 	public List<RelatorioOcorrenciasTO> listRelatorioOcorrencia()
 			throws Exception {
-		String query = "select m.screen_name,r.screen_name, count(r.screen_name) "
+		String query = "select m.screen_name,r.screen_name, count(m.screen_name) "
 				+ "from resultado r, monitorado m "
-				+ "where r.monitorado_id = m.id and r.monitorado_id in (5, 6, 8, 11) "
-				+ "group by r.screen_name " + "order by m.screen_name;";
+				+ "where r.monitorado_id = m.id and r.monitorado_id in (34, 35, 37, 40) "
+				+ "group by m.screen_name, r.screen_name " + "order by m.screen_name;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;

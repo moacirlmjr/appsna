@@ -44,6 +44,8 @@ public class TestGraphMLPrefeitos {
 
 		MyNode n1 = null;
 		MyNode n2 = null;
+		
+		List<String> listaNodes = new ArrayList<String>();
 
 		for (RelatorioOcorrenciasTO roTO : listRO) {
 			if (!sourceAtual.equals(roTO.getSource())) {
@@ -51,11 +53,15 @@ public class TestGraphMLPrefeitos {
 				n1 = new MyNode();
 				n1.setNome(roTO.getSource());
 				XMLUtil.generateNodes(roTO.getSource());
+				listaNodes.add(roTO.getSource());
 			}
 
 			n2 = new MyNode();
 			n2.setNome(roTO.getTarget());
-			XMLUtil.generateNodes(roTO.getTarget());
+			if(verificar(roTO.getTarget(), listaNodes)){
+				listaNodes.add(roTO.getTarget());
+				XMLUtil.generateNodes(roTO.getTarget());
+			}
 		}
 
 	}
@@ -66,9 +72,9 @@ public class TestGraphMLPrefeitos {
 
 		MonitoradoDAOImpl mDAO = new MonitoradoDAOImpl();
 		List<RelatorioOcorrenciasTO> listRO = mDAO.listRelatorioOcorrencia();
-		
+
 		for (RelatorioOcorrenciasTO roTO : listRO) {
-			XMLUtil.generateEdges(roTO.getSource(), roTO.getTarget(),
+			XMLUtil.generateEdges(roTO.getTarget(), roTO.getSource(),
 					roTO.getWeight());
 		}
 
@@ -86,8 +92,19 @@ public class TestGraphMLPrefeitos {
 
 	public static void main(String[] args) throws Exception {
 
-		new TestGraphMLPrefeitos("grafoTeste.xml",
-				Constantes.DIR_APPSNA + "grafoTeste.xml", false);
+		new TestGraphMLPrefeitos("grafoTeste.xml", Constantes.DIR_APPSNA
+				+ "grafoTeste.xml", false);
 
+	}
+
+	private boolean verificar(String id, List<String> lista) {
+
+		for (String teste : lista) {
+			if (id.equals(teste)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 }

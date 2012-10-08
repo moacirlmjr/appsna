@@ -1,4 +1,4 @@
-package br.com.ufpb.appSNA.main;
+package br.com.ufpb.appSNAElection.main;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +11,9 @@ import br.com.ufpb.appSNAUtil.model.enumeration.TypeEnum;
 import br.com.ufpb.appSNAUtil.util.Constantes;
 import br.com.ufpb.appSNAUtil.util.XMLUtil;
 
-public class TestGraphMLPrefeitos {
+public class GraphMLPrefeitos {
 
-	public TestGraphMLPrefeitos(String nomeDoMeuGrafo, String path,
+	public GraphMLPrefeitos(String nomeDoMeuGrafo, String path,
 			boolean direcionado) throws Exception {
 		criaCabecalho(direcionado);
 		criarNodos();
@@ -92,8 +92,8 @@ public class TestGraphMLPrefeitos {
 
 	public static void main(String[] args) throws Exception {
 
-		new TestGraphMLPrefeitos("grafoTeste.xml", Constantes.DIR_APPSNA
-				+ "grafoTeste.xml", false);
+		new GraphMLPrefeitos("grafoPrefeitos.graphml", Constantes.DIR_APPSNA
+				+ "grafoPrefeitos.graphml", false);
 
 	}
 

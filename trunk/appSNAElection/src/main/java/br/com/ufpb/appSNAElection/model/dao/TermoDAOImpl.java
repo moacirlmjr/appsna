@@ -23,7 +23,8 @@ public class TermoDAOImpl implements TermoDAO {
 		Connection conn = null;
 		Long result = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			conn.setAutoCommit(false);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, objeto.getMonitorado_id());
@@ -52,7 +53,8 @@ public class TermoDAOImpl implements TermoDAO {
 		Connection conn = null;
 		Long result = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			conn.setAutoCommit(false);
 			stmt = conn.prepareStatement(query);
 			stmt.setString(1, objeto.getConteudo());
@@ -145,7 +147,8 @@ public class TermoDAOImpl implements TermoDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			conn.setAutoCommit(false);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, objeto.getId());
@@ -167,7 +170,8 @@ public class TermoDAOImpl implements TermoDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			conn.setAutoCommit(false);
 			stmt = conn.prepareStatement(query);
 			int count = 0;
@@ -188,7 +192,7 @@ public class TermoDAOImpl implements TermoDAO {
 			conn.close();
 		}
 	}
-	
+
 	@Override
 	public Monitorado getMonitoradoByTermo(String termo) throws Exception {
 		String query = "select distinct m.id, m.screen_name, m.twitter_id from termo t, monitorado m where (t.conteudo like ? or m.screen_name like ?)and t.monitorado_id = m.id;";
@@ -220,7 +224,7 @@ public class TermoDAOImpl implements TermoDAO {
 
 		return monitorado;
 	}
-	
+
 	@Override
 	public Termo getTermoByConteudo(String conteudo) throws Exception {
 		String query = "select * from termo t where t.conteudo = ?;";
@@ -233,11 +237,11 @@ public class TermoDAOImpl implements TermoDAO {
 		try {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
 					BDUtil.SENHA);
-			if(conn != null){
+			if (conn != null) {
 				stmt = conn.prepareStatement(query);
 				stmt.setString(1, conteudo);
 				rs = stmt.executeQuery();
-				
+
 				while (rs.next()) {
 					termo = new Termo();
 					termo.setId(rs.getLong(1));
@@ -249,12 +253,44 @@ public class TermoDAOImpl implements TermoDAO {
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
 		} finally {
-			if(conn != null){
+			if (conn != null) {
 				stmt.close();
 				conn.close();
 			}
 		}
 
 		return termo;
+	}
+
+	@Override
+	public List<Termo> getTermosByMonitorandos(String ids) throws Exception {
+		String query = "select * from termo where monitorado_id in (" + ids + ");";
+
+		PreparedStatement stmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		Termo termo = new Termo();
+		List<Termo> listTermo = new LinkedList<Termo>();
+		try {
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
+			stmt = conn.prepareStatement(query);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				termo = new Termo();
+				termo.setId(rs.getLong(1));
+				termo.setMonitorado_id(rs.getLong(2));
+				termo.setConteudo(rs.getString(3));
+				listTermo.add(termo);
+			}
+		} catch (SQLException e) {
+			AppSNALog.error(e.toString());
+		} finally {
+			stmt.close();
+			conn.close();
+		}
+		
+		return listTermo;
 	}
 }

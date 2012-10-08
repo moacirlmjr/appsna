@@ -9,5 +9,6 @@ import br.com.ufpb.appSNAUtil.model.dao.AppSnaDAO;
 public interface MonitoradoDAO extends AppSnaDAO<Monitorado> {
 
 	public List<RelatorioOcorrenciasTO> listRelatorioOcorrencia() throws Exception;
+	public List<Monitorado> listMonitorandos() throws Exception;
 
 }

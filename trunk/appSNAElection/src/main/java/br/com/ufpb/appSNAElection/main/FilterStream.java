@@ -6,13 +6,19 @@ import java.util.List;
 import twitter4j.FilterQuery;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
+import br.com.ufpb.appSNAElection.model.beans.Monitorado;
+import br.com.ufpb.appSNAElection.model.beans.Termo;
+import br.com.ufpb.appSNAElection.model.dao.MonitoradoDAO;
+import br.com.ufpb.appSNAElection.model.dao.MonitoradoDAOImpl;
+import br.com.ufpb.appSNAElection.model.dao.TermoDAO;
+import br.com.ufpb.appSNAElection.model.dao.TermoDAOImpl;
 import br.com.ufpb.appSNAElection.model.listener.ElectionStatusListener;
 import br.com.ufpb.appSNAElection.util.EntradaConfiguration;
 import br.com.ufpb.appSNAUtil.model.enumeration.AuthEnum;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
 import br.com.ufpb.appSNAUtil.util.TwitterUtil;
 
-public class Start {
+public class FilterStream {
 
 	public static void main(String[] args) {
 
@@ -26,31 +32,35 @@ public class Start {
 			
 			String termosAll = "";
 			List<Long> follow = new ArrayList<Long>();
-
-			for (String key : ec.getKeys()) {
-
-				String valor = ec.getEntrada(key);
-				if (key.contains("screenName")) {
-					termosAll += valor + ",";
-					termosAll += valor.toLowerCase() + ",";
-				} else if (key.contains("userid")) {
-					follow.add(Long.parseLong(valor));
-				} else if (key.contains("termos")) {
-					termosAll += valor+",";
-				}
-
-			}
 			
+			MonitoradoDAO mDAO = new MonitoradoDAOImpl();
+			TermoDAO tDAO = new TermoDAOImpl();
+
+			List<Monitorado> listMonitorados = mDAO.listMonitorandos();
+			String monitadosId = "";
 			int count = 0;
-			long[] followArray = new long[follow.size()];
-			String[] track = new String[termosAll.split(",").length];
-			count = 0;
-			for(Long l : follow){
-				followArray[count++] = l.longValue();
+			for(Monitorado m : listMonitorados){
+				if(count++ == (listMonitorados.size() - 1)){
+					monitadosId += m.getId();
+				}else{
+					monitadosId += m.getId() + ",";
+				}
 			}
 			
-			track = termosAll.split(",");
-
+			List<Termo> listTermos = tDAO.getTermosByMonitorandos(monitadosId);  
+			
+			long[] followArray = new long[listMonitorados.size()];
+			String[] track = new String[listTermos.size()];
+			count = 0;
+			for(Monitorado m : listMonitorados){
+				followArray[count++] = m.getTwitterId();
+			}
+			
+			count = 0;
+			for(Termo t: listTermos){
+				track[count++] = t.getConteudo();
+			}
+			
 			FilterQuery filterQuery = new FilterQuery();
 			ElectionStatusListener statusListener = new ElectionStatusListener();
 

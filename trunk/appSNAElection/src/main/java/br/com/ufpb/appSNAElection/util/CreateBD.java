@@ -18,7 +18,7 @@ public class CreateBD {
 
 			// Paaso 2: Abrindo uma conexao
 			AppSNALog.warn("Conectando com o Banco de Dados...");
-			conn = DriverManager.getConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DriverManager.getConnection(BDUtil.URL_LOCAL, BDUtil.USER, BDUtil.SENHA);
 
 			// Passo 3: Executando uma query
 			stmt = conn.createStatement();
@@ -118,11 +118,11 @@ public class CreateBD {
 
 			// Paaso 2: Abrindo uma conexao
 			AppSNALog.warn("Conectando com o Banco de Dados...");
-			conn = DriverManager.getConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DriverManager.getConnection(BDUtil.URL_LOCAL, BDUtil.USER, BDUtil.SENHA);
 
 			// Passo 3: Executando uma query
 			stmt = conn.createStatement();
-			String sqlBD = "DROP DATABASE TESTE";			
+			String sqlBD = "DROP DATABASE " + nomeBD;			
 			conn.setAutoCommit(false);
 			
 			try {

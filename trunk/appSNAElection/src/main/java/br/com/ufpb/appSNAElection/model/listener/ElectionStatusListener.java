@@ -29,6 +29,7 @@ public class ElectionStatusListener implements StatusListener {
 			
 			Resultado r = new Resultado();
 			r.setScreen_name(status.getUser().getScreenName());
+			r.setStatus(status.getText());
 			
 			if (termos.length != 0) {
 				for (String termo : termos) {

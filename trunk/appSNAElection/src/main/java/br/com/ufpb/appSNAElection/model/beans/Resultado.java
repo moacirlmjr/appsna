@@ -11,6 +11,7 @@ public class Resultado extends AppSNAEntityMaster {
 	private Date data;
 	private String latitude;
 	private String longitude;
+	private String status;
 	private long monitorado_id;
 
 	public String getScreen_name() {
@@ -59,6 +60,14 @@ public class Resultado extends AppSNAEntityMaster {
 
 	public void setMonitorado_id(Long monitorado_id) {
 		this.monitorado_id = monitorado_id;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

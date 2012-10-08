@@ -6,7 +6,7 @@ public class BDUtil {
 
 	public static final String URL_LOCAL = "jdbc:mysql://localhost";
 	
-	public static final String URL = "jdbc:mysql://localhost/appsnaelection";
+	public static final String URL = "jdbc:mysql://200.162.193.40/appsnaelection";
 
 	public static final String USER = "root";
 

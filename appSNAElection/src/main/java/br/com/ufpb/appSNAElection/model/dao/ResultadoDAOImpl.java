@@ -68,10 +68,11 @@ public class ResultadoDAOImpl implements ResultadoDAO {
 				stmt.setString(5, r.getLongitude());
 				stmt.setLong(6, r.getMonitorado_id());
 				stmt.addBatch();
-				if (++count % objeto.size() == 0) {
+				if (((objeto.size() - 1) < 20 && count % objeto.size() == 0) || (count != 0 && count % 20 == 0)) {
 					stmt.executeBatch();
+					conn.commit();
 				}
-				conn.commit();
+				count ++;
 			}
 		} catch (SQLException e) {
 			conn.rollback();

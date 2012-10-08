@@ -233,22 +233,26 @@ public class TermoDAOImpl implements TermoDAO {
 		try {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
 					BDUtil.SENHA);
-			stmt = conn.prepareStatement(query);
-			stmt.setString(1, conteudo);
-			rs = stmt.executeQuery();
-
-			while (rs.next()) {
-				termo = new Termo();
-				termo.setId(rs.getLong(1));
-				termo.setMonitorado_id(rs.getLong(2));
-				termo.setConteudo(rs.getString(3));
-				break;
+			if(conn != null){
+				stmt = conn.prepareStatement(query);
+				stmt.setString(1, conteudo);
+				rs = stmt.executeQuery();
+				
+				while (rs.next()) {
+					termo = new Termo();
+					termo.setId(rs.getLong(1));
+					termo.setMonitorado_id(rs.getLong(2));
+					termo.setConteudo(rs.getString(3));
+					break;
+				}
 			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
 		} finally {
-			stmt.close();
-			conn.close();
+			if(conn != null){
+				stmt.close();
+				conn.close();
+			}
 		}
 
 		return termo;

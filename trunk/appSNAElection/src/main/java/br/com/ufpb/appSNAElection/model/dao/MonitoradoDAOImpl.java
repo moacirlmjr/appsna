@@ -177,6 +177,7 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 			conn.setAutoCommit(false);
 			stmt = (Statement) conn.createStatement();
 			int count = 0;
+			int[] countRows = null;
 			
 			for (Monitorado monitorado : objeto) {				
 //				stmt.setLong(1, monitorado.getTwitterId());
@@ -187,10 +188,12 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 							monitorado.getTwitterId() + ");";
 				stmt.addBatch(SQL);
 				if (++count % objeto.size() == 0) {
-					stmt.executeBatch();
+					countRows = stmt.executeBatch();
 				}
 			}
 			conn.commit();
+			AppSNALog.info(countRows.length>1 ? "Inseridos " + countRows.length + " registros na tabela Monitorado!" 
+					: "Inserido " + countRows.length + " registro na tabela Monitorado!" );
 		} catch (SQLException e) {
 			conn.rollback();
 			AppSNALog.error(e.toString());

@@ -169,31 +169,26 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 
 	@Override
 	public void create(List<Monitorado> objeto) throws Exception {
-		Statement stmt = null;
+		String query = "Insert into monitorado(twitter_id, screen_name) values(?,?);";
+
+		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			//String query = "Insert into monitorado values(?,?);";
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			conn.setAutoCommit(false);
-			stmt = (Statement) conn.createStatement();
+			stmt = conn.prepareStatement(query);
 			int count = 0;
-			int[] countRows = null;
-			
-			for (Monitorado monitorado : objeto) {				
-//				stmt.setLong(1, monitorado.getTwitterId());
-//				stmt.setString(2, monitorado.getScreen_name());
-//				stmt.addBatch(e);
-				String SQL = "Insert into monitorado values("+ monitorado.getId() + 
-						",'" + monitorado.getScreen_name() + "',"+ 
-							monitorado.getTwitterId() + ");";
-				stmt.addBatch(SQL);
-				if (++count % objeto.size() == 0) {
-					countRows = stmt.executeBatch();
+			for (Monitorado monitorado : objeto) {
+				stmt.setLong(1, monitorado.getTwitterId());
+				stmt.setString(2, monitorado.getScreen_name());
+				stmt.addBatch();
+				if (((objeto.size() - 1) < 20 && count % objeto.size() == 0) || (count != 0 && count % 20 == 0)) {
+					stmt.executeBatch();
+					conn.commit();
 				}
+				count ++;
 			}
-			conn.commit();
-			AppSNALog.info(countRows.length>1 ? "Inseridos " + countRows.length + " registros na tabela Monitorado!" 
-					: "Inserido " + countRows.length + " registro na tabela Monitorado!" );
 		} catch (SQLException e) {
 			conn.rollback();
 			AppSNALog.error(e.toString());

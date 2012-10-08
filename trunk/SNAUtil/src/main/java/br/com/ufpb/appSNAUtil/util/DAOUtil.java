@@ -1,6 +1,7 @@
 package br.com.ufpb.appSNAUtil.util;
 
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 
 public class DAOUtil {
@@ -8,9 +9,8 @@ public class DAOUtil {
 
 	public static Connection returnConnection(String url, String user,
 			String senha) throws Exception {
-		Class.forName(driver);
-		Connection con = DriverManager.getConnection(url, user, senha);
-
-		return con;
+		Driver d = new com.mysql.jdbc.Driver();
+		DriverManager.registerDriver(d);
+		return DriverManager.getConnection(url, user, senha);
 	}
 }

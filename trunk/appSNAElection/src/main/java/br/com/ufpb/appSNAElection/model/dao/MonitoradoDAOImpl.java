@@ -169,20 +169,23 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 
 	@Override
 	public void create(List<Monitorado> objeto) throws Exception {
-		String query = "Insert into monitorado values(?,?);";
-
-		PreparedStatement stmt = null;
+		Statement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
-					BDUtil.SENHA);
+			//String query = "Insert into monitorado values(?,?);";
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			conn.setAutoCommit(false);
-			stmt = conn.prepareStatement(query);
+			stmt = (Statement) conn.createStatement();
 			int count = 0;
-			for (Monitorado monitorado : objeto) {
-				stmt.setLong(1, monitorado.getTwitterId());
-				stmt.setString(2, monitorado.getScreen_name());
-				stmt.addBatch();
+			
+			for (Monitorado monitorado : objeto) {				
+//				stmt.setLong(1, monitorado.getTwitterId());
+//				stmt.setString(2, monitorado.getScreen_name());
+//				stmt.addBatch(e);
+				String SQL = "Insert into monitorado values("+ monitorado.getId() + 
+						",'" + monitorado.getScreen_name() + "',"+ 
+							monitorado.getTwitterId() + ");";
+				stmt.addBatch(SQL);
 				if (++count % objeto.size() == 0) {
 					stmt.executeBatch();
 				}

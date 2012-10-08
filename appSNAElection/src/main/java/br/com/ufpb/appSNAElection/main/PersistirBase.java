@@ -26,12 +26,12 @@ public class PersistirBase {
 //			EntradaConfiguration ec = new EntradaConfiguration();			
 //			Monitorado m = new Monitorado();
 //			Termo t = new Termo();
-//			'
-//			List<Termo> termos = new ArrayList<Termo>();
 //			
+//			List<Termo> termos = new ArrayList<Termo>();
+			
 			MonitoradoDAO mDAO = new MonitoradoDAOImpl();
 			TermoDAO tDAO = new TermoDAOImpl();
-//			
+			
 //			int count = 1;
 //			for (String key : ec.getKeys()) {
 //				

@@ -6,10 +6,14 @@ import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
 import twitter4j.StatusListener;
+import br.com.ufpb.appSNAElection.model.beans.Resultado;
+import br.com.ufpb.appSNAElection.model.beans.Termo;
+import br.com.ufpb.appSNAElection.model.dao.ResultadoDAO;
+import br.com.ufpb.appSNAElection.model.dao.ResultadoDAOImpl;
+import br.com.ufpb.appSNAElection.model.dao.TermoDAO;
+import br.com.ufpb.appSNAElection.model.dao.TermoDAOImpl;
 import br.com.ufpb.appSNAElection.util.EntradaConfiguration;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
-import br.com.ufpb.appSNAUtil.util.Constantes;
-import br.com.ufpb.appSNAUtil.util.FileUtil;
 
 public class ElectionStatusListener implements StatusListener {
 
@@ -17,37 +21,40 @@ public class ElectionStatusListener implements StatusListener {
 
 	@Override
 	public void onStatus(Status status) {
-		String resultado = "@" + status.getUser().getScreenName() + ";";
 		AppSNALog.info("@" + status.getUser().getScreenName() + " - "
 				+ status.getText());
 		try {
-			EntradaConfiguration ec = new EntradaConfiguration();
-			String fileName = "";
-
+			TermoDAO tDAO = new TermoDAOImpl();
+			ResultadoDAO rDAO = new ResultadoDAOImpl();
+			
+			Resultado r = new Resultado();
+			r.setScreen_name(status.getUser().getScreenName());
+			
 			if (termos.length != 0) {
 				for (String termo : termos) {
 					if (status.getText().toLowerCase()
 							.contains(termo.toLowerCase())) {
-						fileName = ec.getScreenNameCandidatoByTermo(termo
-								.toLowerCase()) + ".csv";
-						resultado += termo + ";";
+						Termo termoBd =  tDAO.getTermoByConteudo(termo);
+						r.setMonitorado_id(termoBd.getMonitorado_id());
+						r.setTermoId(termoBd.getId());
 						break;
 					}
 
 				}
 			}
-			resultado += status.getCreatedAt().getTime() + ";";
+			r.setData(status.getCreatedAt());
 			if (status.getGeoLocation() != null) {
-				resultado += status.getGeoLocation().getLatitude() + ","
-						+ status.getGeoLocation().getLongitude() + ";";
+				r.setLatitude(status.getGeoLocation().getLatitude()+"");
+				r.setLongitude(status.getGeoLocation().getLongitude()+"");
 			} else {
-				resultado += "NULL;";
+				r.setLatitude("");
+				r.setLongitude("");
 			}
-			FileUtil.criaArquivo(Constantes.DIR_APPSNA + fileName, true);
-			FileUtil.escreveNoArquivo(resultado);
-			FileUtil.quebra();
-			FileUtil.salvarArquivo();
+			
+			rDAO.create(r);
 		} catch (IOException e) {
+			AppSNALog.error(e.toString());
+		} catch (Exception e) {
 			AppSNALog.error(e.toString());
 		}
 

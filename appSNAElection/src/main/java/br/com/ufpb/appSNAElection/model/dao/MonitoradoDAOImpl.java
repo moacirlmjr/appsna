@@ -235,4 +235,36 @@ public class MonitoradoDAOImpl implements MonitoradoDAO {
 		return listRO;
 	}
 
+	@Override
+	public List<Monitorado> listMonitorandos() throws Exception {
+		String query = "select * from monitorado where monitorando = 1;";
+
+		PreparedStatement stmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		Monitorado monitorado = new Monitorado();
+		List<Monitorado> listMonitorado = new LinkedList<Monitorado>();
+		try {
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
+			stmt = conn.prepareStatement(query);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				monitorado = new Monitorado();
+				monitorado.setId(rs.getLong(1));
+				monitorado.setScreen_name(rs.getString(2));
+				monitorado.setTwitterId(rs.getLong(3));
+				listMonitorado.add(monitorado);
+			}
+		} catch (SQLException e) {
+			AppSNALog.error(e.toString());
+		} finally {
+			stmt.close();
+			conn.close();
+		}
+
+		return listMonitorado;
+	}
+
 }

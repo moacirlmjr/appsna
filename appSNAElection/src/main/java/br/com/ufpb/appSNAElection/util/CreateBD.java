@@ -36,7 +36,10 @@ public class CreateBD {
 				String sqlTable1 = "create table monitorado( "
 						+ "id bigint not null auto_increment,"
 						+ "screen_name varchar(30) not null,"
-						+ "twitter_id bigint not null," + "primary key(id)"
+						+ "twitter_id bigint not null, "
+						+ "prefeito int(1) unsigned not null  default 0," 
+						+ "monitorando int(1) unsigned not null  default 0,"
+						+ "primary key(id)"
 						+ ")";
 				stmt.executeUpdate(sqlTable1);
 				conn.commit();				
@@ -71,6 +74,7 @@ public class CreateBD {
 						+ "data timestamp not null,"
 						+ "latitude varchar(30),"
 						+ "longitude varchar(30),"
+						+ "status varchar(144),"
 						+ "monitorado_id bigint ,"
 						+ "constraint primary key(id),"
 						+ "constraint foreign key(termo_id) references termo(id),"

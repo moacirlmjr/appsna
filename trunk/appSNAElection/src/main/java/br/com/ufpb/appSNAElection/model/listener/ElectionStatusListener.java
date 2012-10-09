@@ -12,7 +12,6 @@ import br.com.ufpb.appSNAElection.model.dao.ResultadoDAO;
 import br.com.ufpb.appSNAElection.model.dao.ResultadoDAOImpl;
 import br.com.ufpb.appSNAElection.model.dao.TermoDAO;
 import br.com.ufpb.appSNAElection.model.dao.TermoDAOImpl;
-import br.com.ufpb.appSNAElection.util.EntradaConfiguration;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
 
 public class ElectionStatusListener implements StatusListener {
@@ -28,7 +27,7 @@ public class ElectionStatusListener implements StatusListener {
 			ResultadoDAO rDAO = new ResultadoDAOImpl();
 			
 			Resultado r = new Resultado();
-			r.setScreen_name(status.getUser().getScreenName());
+			r.setScreen_name("@"+status.getUser().getScreenName());
 			r.setStatus(status.getText());
 			
 			if (termos.length != 0) {

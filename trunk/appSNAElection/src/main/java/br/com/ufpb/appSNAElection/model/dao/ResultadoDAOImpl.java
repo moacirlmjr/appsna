@@ -18,7 +18,7 @@ public class ResultadoDAOImpl implements ResultadoDAO {
 
 	@Override
 	public Long create(Resultado objeto) throws Exception {
-		String query = "Insert into resultado(screen_name,termo_id,data,latitude,longitude,monitorado_id) values(?,?,?,?,?,?);";
+		String query = "Insert into resultado(screen_name,termo_id,status,data,latitude,longitude,monitorado_id) values(?,?,?,?,?,?,?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -29,10 +29,11 @@ public class ResultadoDAOImpl implements ResultadoDAO {
 			stmt = conn.prepareStatement(query);
 			stmt.setString(1, objeto.getScreen_name());
 			stmt.setLong(2, objeto.getTermoId());
-			stmt.setDate(3, (Date) objeto.getData());
-			stmt.setString(4, objeto.getLatitude());
-			stmt.setString(5, objeto.getLongitude());
-			stmt.setLong(6, objeto.getMonitorado_id());
+			stmt.setString(3, objeto.getStatus());
+			stmt.setTimestamp(4, new Timestamp(objeto.getData().getTime()));
+			stmt.setString(5, objeto.getLatitude());
+			stmt.setString(6, objeto.getLongitude());
+			stmt.setLong(7, objeto.getMonitorado_id());
 			stmt.executeUpdate();
 			conn.commit();
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -51,7 +52,7 @@ public class ResultadoDAOImpl implements ResultadoDAO {
 
 	@Override
 	public void create(List<Resultado> objeto) throws Exception {
-		String query = "Insert into resultado(screen_name,termo_id,data,latitude,longitude,monitorado_id) values(?,?,?,?,?,?);";
+		String query = "Insert into resultado(screen_name,termo_id,status,data,latitude,longitude,monitorado_id) values(?,?,?,?,?,?,?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -61,12 +62,14 @@ public class ResultadoDAOImpl implements ResultadoDAO {
 			stmt = conn.prepareStatement(query);
 			int count = 0;
 			for (Resultado r : objeto) {
+				stmt = conn.prepareStatement(query);
 				stmt.setString(1, r.getScreen_name());
 				stmt.setLong(2, r.getTermoId());
-				stmt.setTimestamp(3, new Timestamp(r.getData().getTime()));
-				stmt.setString(4, r.getLatitude());
-				stmt.setString(5, r.getLongitude());
-				stmt.setLong(6, r.getMonitorado_id());
+				stmt.setString(3, r.getStatus());
+				stmt.setTimestamp(4, new Timestamp(r.getData().getTime()));
+				stmt.setString(5, r.getLatitude());
+				stmt.setString(6, r.getLongitude());
+				stmt.setLong(7, r.getMonitorado_id());
 				stmt.addBatch();
 				if (((objeto.size() - 1) < 20 && count % objeto.size() == 0) || (count != 0 && count % 20 == 0)) {
 					stmt.executeBatch();

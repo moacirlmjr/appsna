@@ -1,6 +1,5 @@
 package br.com.ufpb.appSNAElection.main;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import twitter4j.FilterQuery;
@@ -13,7 +12,6 @@ import br.com.ufpb.appSNAElection.model.dao.MonitoradoDAOImpl;
 import br.com.ufpb.appSNAElection.model.dao.TermoDAO;
 import br.com.ufpb.appSNAElection.model.dao.TermoDAOImpl;
 import br.com.ufpb.appSNAElection.model.listener.ElectionStatusListener;
-import br.com.ufpb.appSNAElection.util.EntradaConfiguration;
 import br.com.ufpb.appSNAUtil.model.enumeration.AuthEnum;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
 import br.com.ufpb.appSNAUtil.util.TwitterUtil;
@@ -25,14 +23,9 @@ public class FilterStream {
 		TwitterStream twitterStream;
 		try {
 			twitterStream = new TwitterStreamFactory(
-					TwitterUtil.createConfigurationBuilder(AuthEnum.MOACIR_KEY))
+					TwitterUtil.createConfigurationBuilder(AuthEnum.MOACIR_KEY2))
 					.getInstance();
 
-			EntradaConfiguration ec = new EntradaConfiguration();
-			
-			String termosAll = "";
-			List<Long> follow = new ArrayList<Long>();
-			
 			MonitoradoDAO mDAO = new MonitoradoDAOImpl();
 			TermoDAO tDAO = new TermoDAOImpl();
 

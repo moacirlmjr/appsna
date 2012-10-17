@@ -13,7 +13,7 @@ public class SNATest {
 		list.add("Danyllo_Wagner");
 		try {
 			AccountCarrousel.startListReady();
-			TwitterUtil.retornarUserId(list);
+			TwitterUtil.retornarUserId(list, false);
 
 		} catch (Exception e) {
 			e.printStackTrace();

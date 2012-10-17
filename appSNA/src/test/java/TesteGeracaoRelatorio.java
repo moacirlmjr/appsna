@@ -45,13 +45,13 @@ public class TesteGeracaoRelatorio {
 		
 		AccountCarrousel.startListReady();
 
-		Map<String, Long> mapUsers = TwitterUtil.retornarUserId(listaDeNomes);
+		Map<String, Long> mapUsers = TwitterUtil.retornarUserId(listaDeNomes, false);
 
 		List<Long> listaCsv = new LinkedList<Long>();
 
 		for (String key : mapUsers.keySet()) {
 			List<Long> listAmigoId = TwitterUtil
-					.retornarListaAmigosIdsList(key);
+					.retornarListaAmigosIdsList(key,true);
 			listaCsv = verificar(listaCsv, listAmigoId);
 		}
 		
@@ -108,7 +108,7 @@ public class TesteGeracaoRelatorio {
 		}
 
 		FileUtil.salvarArquivo();
-
+		System.exit(0);
 	}
 
 	private static List<Long> verificar(List<Long> listCsv, List<Long> listAmigos) {

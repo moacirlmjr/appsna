@@ -42,6 +42,7 @@ public class AccountThread extends Thread {
 				if (t.getOAuthAccessToken().getUserId() == accountId) {
 					AccountCarrousel.LIST_ACOUNTS_WAIT.remove(index);
 					AccountCarrousel.LIST_ACOUNTS_READY.add(t);
+					break;
 				}
 				index++;
 			}

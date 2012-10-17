@@ -86,14 +86,18 @@ public class TwitterUtil {
 		}
 	}
 
-	public static List<Long> retornarListaAmigosIdsList(String screenName)
+	public static List<Long> retornarListaAmigosIdsList(String screenName, boolean isOnlyJP)
 			throws Exception {
 		try {
 			IDs ids = AccountCarrousel.CURRENT_ACCOUNT.getFriendsIDs(
 					screenName, -1);
 			List<Long> list = new ArrayList<Long>();
 			for (long id : ids.getIDs()) {
-				list.add(id);
+				User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(id);
+				if (u.getLocation().replace('ã', 'a').toLowerCase()
+						.equals("joao pessoa")
+						|| !isOnlyJP)
+					list.add(id);
 			}
 
 			return list;
@@ -101,18 +105,21 @@ public class TwitterUtil {
 			AppSNALog.error(e.toString());
 
 			tratarTwitterException(e);
-			return retornarListaAmigosIdsList(screenName);
+			return retornarListaAmigosIdsList(screenName, isOnlyJP);
 		}
 	}
 
-	public static Map<String, Long> retornarUserId(List<String> list)
-			throws Exception {
+	public static Map<String, Long> retornarUserId(List<String> list,
+			boolean isOnlyJP) throws Exception {
 		try {
 			Map<String, Long> users = new LinkedHashMap<String, Long>();
 
 			for (String screenName : list) {
-				users.put(screenName, AccountCarrousel.CURRENT_ACCOUNT
-						.showUser(screenName).getId());
+				User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(screenName);
+				if (u.getLocation().replace('ã', 'a').toLowerCase()
+						.equals("joao pessoa")
+						|| !isOnlyJP)
+					users.put(screenName, u.getId());
 			}
 
 			return users;
@@ -122,7 +129,7 @@ public class TwitterUtil {
 
 			tratarTwitterException(e);
 
-			return retornarUserId(list);
+			return retornarUserId(list, isOnlyJP);
 		}
 	}
 
@@ -198,28 +205,39 @@ public class TwitterUtil {
 	}
 
 	public static UserTO getUserData(long idUser) throws Exception {
-		
-		try{
+
+		try {
 			User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(idUser);
 			UserTO uto = new UserTO();
-			
+
 			uto.setId(String.valueOf(u.getId()));
-			uto.setNome(u.getName() == null ? "não informado": u.getName());
-			uto.setScreename(u.getScreenName()== null ? "não informado": u.getScreenName());
-			uto.setBiografia(u.getDescription() == null ? "não informado": u.getDescription());
-			uto.setLocalização(u.getLocation() == null ? "não informado": u.getLocation() );
-			uto.setTotalFollowers(String.valueOf(u.getFollowersCount()) == null ? "não informado": u.getFollowersCount()+"");
-			uto.setTotalFollowing(String.valueOf(u.getFriendsCount())== null ? "não informado": u.getFriendsCount() + "");
-			uto.setTotalTweets(String.valueOf(u.getStatusesCount()) == null ? "não informado": u.getStatusesCount() + "");
-			uto.setURL(u.getURL()!= null ? u.getURL().getHost(): "não informado");
-			uto.setTimeZone(u.getTimeZone()== null ? "não informado": u.getTimeZone());
-			uto.setLinguagem(u.getLang() == null ? "não informado": u.getLang());
-			uto.setDataDeCriacao( (u.getCreatedAt() == null ? "não informado": String.valueOf(u.getCreatedAt())));
-			uto.setURLImage((u.getProfileImageURL()== null ? "não informado": String.valueOf(u.getProfileImageURL())));
-			
-			return uto;		
-			
-		}catch (TwitterException e) {
+			uto.setNome(u.getName() == null ? "não informado" : u.getName());
+			uto.setScreename(u.getScreenName() == null ? "não informado" : u
+					.getScreenName());
+			uto.setBiografia(u.getDescription() == null ? "não informado" : u
+					.getDescription());
+			uto.setLocalização(u.getLocation() == null ? "não informado" : u
+					.getLocation());
+			uto.setTotalFollowers(String.valueOf(u.getFollowersCount()) == null ? "não informado"
+					: u.getFollowersCount() + "");
+			uto.setTotalFollowing(String.valueOf(u.getFriendsCount()) == null ? "não informado"
+					: u.getFriendsCount() + "");
+			uto.setTotalTweets(String.valueOf(u.getStatusesCount()) == null ? "não informado"
+					: u.getStatusesCount() + "");
+			uto.setURL(u.getURL() != null ? u.getURL().getHost()
+					: "não informado");
+			uto.setTimeZone(u.getTimeZone() == null ? "não informado" : u
+					.getTimeZone());
+			uto.setLinguagem(u.getLang() == null ? "não informado" : u
+					.getLang());
+			uto.setDataDeCriacao((u.getCreatedAt() == null ? "não informado"
+					: String.valueOf(u.getCreatedAt())));
+			uto.setURLImage((u.getProfileImageURL() == null ? "não informado"
+					: String.valueOf(u.getProfileImageURL())));
+
+			return uto;
+
+		} catch (TwitterException e) {
 			AppSNALog.error(e.toString());
 			tratarTwitterException(e);
 
@@ -233,28 +251,37 @@ public class TwitterUtil {
 		UserTO uto = new UserTO();
 
 		uto.setId(String.valueOf(u.getId()));
-		uto.setNome(u.getName() == null ? "não informado": u.getName());
-		uto.setScreename(u.getScreenName()== null ? "não informado": u.getScreenName());
-		uto.setBiografia(u.getDescription() == null ? "não informado": u.getDescription());
-		uto.setLocalização(u.getLocation() == null ? "não informado": u.getLocation() );
-		uto.setTotalFollowers(String.valueOf(u.getFollowersCount()) == null ? "não informado": u.getFollowersCount()+"");
-		uto.setTotalFollowing(String.valueOf(u.getFriendsCount())== null ? "não informado": u.getFriendsCount() + "");
-		uto.setTotalTweets(String.valueOf(u.getStatusesCount()) == null ? "não informado": u.getStatusesCount() + "");
-		uto.setURL(u.getURL()!= null ? u.getURL().getHost(): "não informado");
-		uto.setTimeZone(u.getTimeZone()== null ? "não informado": u.getTimeZone());
-		uto.setLinguagem(u.getLang() == null ? "não informado": u.getLang());
-		uto.setDataDeCriacao( (u.getCreatedAt() == null ? "não informado": String.valueOf(u.getCreatedAt())));
-		uto.setURLImage((u.getProfileImageURL()== null ? "não informado": String.valueOf(u.getProfileImageURL())));
-		
+		uto.setNome(u.getName() == null ? "não informado" : u.getName());
+		uto.setScreename(u.getScreenName() == null ? "não informado" : u
+				.getScreenName());
+		uto.setBiografia(u.getDescription() == null ? "não informado" : u
+				.getDescription());
+		uto.setLocalização(u.getLocation() == null ? "não informado" : u
+				.getLocation());
+		uto.setTotalFollowers(String.valueOf(u.getFollowersCount()) == null ? "não informado"
+				: u.getFollowersCount() + "");
+		uto.setTotalFollowing(String.valueOf(u.getFriendsCount()) == null ? "não informado"
+				: u.getFriendsCount() + "");
+		uto.setTotalTweets(String.valueOf(u.getStatusesCount()) == null ? "não informado"
+				: u.getStatusesCount() + "");
+		uto.setURL(u.getURL() != null ? u.getURL().getHost() : "não informado");
+		uto.setTimeZone(u.getTimeZone() == null ? "não informado" : u
+				.getTimeZone());
+		uto.setLinguagem(u.getLang() == null ? "não informado" : u.getLang());
+		uto.setDataDeCriacao((u.getCreatedAt() == null ? "não informado"
+				: String.valueOf(u.getCreatedAt())));
+		uto.setURLImage((u.getProfileImageURL() == null ? "não informado"
+				: String.valueOf(u.getProfileImageURL())));
+
 		return uto;
 	}
 
 	private static void tratarTwitterException(TwitterException e)
 			throws InterruptedException {
 		Long timeRemaining = ((long) e.getRateLimitStatus()
-				.getResetTimeInSeconds() * 1000);
-		if(AccountCarrousel.LIST_ACOUNTS_READY.size() == 0){
-			Thread.sleep(((Float)(timeRemaining/4f)).intValue());
+				.getSecondsUntilReset() * 1000);
+		if (AccountCarrousel.LIST_ACOUNTS_READY.size() == 0) {
+			Thread.sleep(((Float) (timeRemaining / 4f)).intValue());
 		}
 		mutex = new AtomicBoolean();
 		mutex.set(true);

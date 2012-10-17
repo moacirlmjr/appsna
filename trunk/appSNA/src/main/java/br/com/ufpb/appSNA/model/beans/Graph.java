@@ -54,7 +54,7 @@ public class Graph {
 		listaNodes = new ArrayList<MyNode>();
 		Map<Long,Long> listaNodesAmigos = new HashMap<Long,Long>();
 
-		Map<String, Long> mapUsers = TwitterUtil.retornarUserId(listaDeNomes);
+		Map<String, Long> mapUsers = TwitterUtil.retornarUserId(listaDeNomes, false);
 		
 		MyNode node = null;
 		
@@ -62,7 +62,7 @@ public class Graph {
 		MyNode nodeSerasa;
 		
 		for(String key : mapUsers.keySet()){
-			List<Long> listAmigoId = TwitterUtil.retornarListaAmigosIdsList(key);
+			List<Long> listAmigoId = TwitterUtil.retornarListaAmigosIdsList(key, false);
 			node = new MyNode(mapUsers.get(key), key, listAmigoId);
 			listaNodes.add(node);	
 		}

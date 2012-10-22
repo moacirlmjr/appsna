@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import br.com.ufpb.appSNAUtil.util.AccountCarrousel;
+import br.com.ufpb.appSNAUtil.util.AppSNALog;
 
 public class AccountThread extends Thread {
 
@@ -47,11 +48,11 @@ public class AccountThread extends Thread {
 				index++;
 			}
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			AppSNALog.error(e.toString());
 		} catch (IllegalStateException e) {
-			e.printStackTrace();
+			AppSNALog.error(e.toString());
 		} catch (TwitterException e) {
-			e.printStackTrace();
+			AppSNALog.error(e.toString());
 		}
 
 	}

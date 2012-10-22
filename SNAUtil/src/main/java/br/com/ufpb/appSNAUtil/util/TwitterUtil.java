@@ -16,6 +16,7 @@ import twitter4j.conf.ConfigurationBuilder;
 import br.com.ufpb.appSNAUtil.model.beans.to.UserTO;
 import br.com.ufpb.appSNAUtil.model.enumeration.AuthEnum;
 import br.com.ufpb.appSNAUtil.model.thread.AccountThread;
+import br.com.ufpb.appSNAUtil.model.thread.VerificarListaReady;
 
 public class TwitterUtil {
 	// TODO tratar a exceção twitter exception e fazer um algoritmo para
@@ -26,6 +27,7 @@ public class TwitterUtil {
 	// TODO verificar durante a analise a eliminação de dados já analizados
 
 	private static AtomicBoolean mutex;
+	private static AtomicBoolean mutexListReady;
 
 	public static TwitterFactory createTwitterFactory(AuthEnum authEnum)
 			throws Exception {
@@ -86,8 +88,8 @@ public class TwitterUtil {
 		}
 	}
 
-	public static List<Long> retornarListaAmigosIdsList(String screenName, boolean isOnlyJP)
-			throws Exception {
+	public static List<Long> retornarListaAmigosIdsList(String screenName,
+			boolean isOnlyJP) throws Exception {
 		try {
 			IDs ids = AccountCarrousel.CURRENT_ACCOUNT.getFriendsIDs(
 					screenName, -1);
@@ -278,20 +280,34 @@ public class TwitterUtil {
 
 	private static void tratarTwitterException(TwitterException e)
 			throws InterruptedException {
-		Long timeRemaining = ((long) e.getRateLimitStatus()
-				.getSecondsUntilReset() * 1000);
-		if (AccountCarrousel.LIST_ACOUNTS_READY.size() == 0) {
-			Thread.sleep(((Float) (timeRemaining / 4f)).intValue());
-		}
-		mutex = new AtomicBoolean();
-		mutex.set(true);
-		AccountThread at = new AccountThread();
-		synchronized (mutex) {
-			at.setMutex(mutex);
-			at.setTimeRemaining(timeRemaining);
-			at.start();
+		try {
 
-			mutex.wait();
+			Long timeRemaining = ((long) e.getRateLimitStatus()
+					.getSecondsUntilReset() * 1000);
+			if (AccountCarrousel.LIST_ACOUNTS_READY.size() == 0) {
+				mutexListReady = new AtomicBoolean();
+				mutexListReady.set(true);
+				VerificarListaReady vl = new VerificarListaReady();
+				synchronized (mutexListReady) {
+					vl.setName("VerificarListaReady");
+					vl.setMutexListReady(mutexListReady);
+					vl.start();
+					mutexListReady.wait();
+				}
+			}
+			mutex = new AtomicBoolean();
+			mutex.set(true);
+			AccountThread at = new AccountThread();
+			synchronized (mutex) {
+				at.setMutex(mutex);
+				at.setName("AccountThread-"+timeRemaining);
+				at.setTimeRemaining(timeRemaining);
+				at.start();
+
+				mutex.wait();
+			}
+		} catch (Exception ex) {
+			AppSNALog.error(ex.toString());
 		}
 	}
 

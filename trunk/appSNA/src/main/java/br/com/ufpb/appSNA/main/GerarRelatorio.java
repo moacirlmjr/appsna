@@ -1,3 +1,4 @@
+package br.com.ufpb.appSNA.main;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,7 +11,7 @@ import br.com.ufpb.appSNAUtil.util.FileUtil;
 import br.com.ufpb.appSNAUtil.util.StringUtil;
 import br.com.ufpb.appSNAUtil.util.TwitterUtil;
 
-public class TesteGeracaoRelatorio {
+public class GerarRelatorio {
 
 	public static void main(String[] args) throws Exception {
 

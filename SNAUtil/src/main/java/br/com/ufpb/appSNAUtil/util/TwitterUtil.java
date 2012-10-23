@@ -310,5 +310,101 @@ public class TwitterUtil {
 			AppSNALog.error(ex.toString());
 		}
 	}
+	
+	public static int getTotalFollowingGroup (List<User> listUsers){
+		
+		int totalFollowingGroup = 0;
+		
+		for (User u : listUsers){
+			totalFollowingGroup+=u.getFriendsCount();
+		}
+		
+		return totalFollowingGroup;
+		
+	}
+	
+	public static List<User> getRelationshipFromFriend (User source, User target, int rate){
+		List<User> listSource = new ArrayList<User>();
+		List<User> listTarget = new ArrayList<User>();
+
+		
+		try{
+			listSource = retornarListaAmigos(source.getScreenName());
+			listTarget = retornarListaAmigos(target.getScreenName());
+		}catch (Exception e) {
+			AppSNALog.error(e.toString());
+		}
+		
+		List<User> listAux = new ArrayList<User>();
+		
+		for (User x : listSource){			 
+			 for (User y : listTarget){
+				 if (x.equals(y)){
+					 if(listAux.size()<=rate){
+					 listAux.add(x);
+					 }else{
+						 break;
+					 }
+				 }				 
+			 }
+		 }
+		
+		return listAux;		
+		
+	}
+	
+	public static List<User> getRelationshipFromFriend (User source, User target){
+		List<User> listSource = new ArrayList<User>();
+		List<User> listTarget = new ArrayList<User>();
+
+		
+		try{
+			listSource = retornarListaAmigos(source.getScreenName());
+			listTarget = retornarListaAmigos(target.getScreenName());
+		}catch (Exception e) {
+			AppSNALog.error(e.toString());
+		}
+		
+		List<User> listAux = new ArrayList<User>();
+		
+		for (User x : listSource){			 
+			 for (User y : listTarget){
+				 if (x.equals(y)){
+					 listAux.add(x);
+				 }
+				 
+			 }
+		 }
+		
+		if(!listAux.isEmpty()){
+			return listAux;	
+		}else{
+			
+			List<User> listSourceLevelTwo = new ArrayList<User>();
+			
+			for(User u : listSource){
+				
+				try {
+					listSourceLevelTwo = retornarListaAmigos(u.getScreenName());
+				} catch (Exception e) {
+					AppSNALog.error(e.toString());
+				}
+				
+				for (User w : listSourceLevelTwo){			 
+					 for (User z : listTarget){
+						 if (w.equals(z)){
+							 listAux.add(w);
+						 }
+						 
+					 }
+				 }				
+			}	
+		
+		return listAux;	
+		
+		}
+		
+	}
+
 
 }

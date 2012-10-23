@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import twitter4j.IDs;
+import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
@@ -300,7 +301,7 @@ public class TwitterUtil {
 			AccountThread at = new AccountThread();
 			synchronized (mutex) {
 				at.setMutex(mutex);
-				at.setName("AccountThread-"+timeRemaining);
+				at.setName("AccountThread-" + timeRemaining);
 				at.setTimeRemaining(timeRemaining);
 				at.start();
 
@@ -310,101 +311,180 @@ public class TwitterUtil {
 			AppSNALog.error(ex.toString());
 		}
 	}
-	
-	public static int getTotalFollowingGroup (List<User> listUsers){
-		
+
+	public static int getTotalFollowingGroup(List<String> listUsers) {
+
+		ConfigurationBuilder cb = new ConfigurationBuilder();
+		cb.setDebugEnabled(true)
+				.setOAuthConsumerKey("pKPaLdk6DofC7bfNNA1qw")
+				.setOAuthConsumerSecret(
+						"Ks5QO1enyC8Co5My1BVoSN9HVFDhFi8PKsfivr0Xs")
+				.setOAuthAccessToken(
+						"131686365-iWIbKNxKlgUK4Wa2gMx6Ojjsu62aKZNUDvNfbBN2")
+				.setOAuthAccessTokenSecret(
+						"2kPLmaJiDNEAplKIAlJz8Jhxf7JXgp0E00EoCjQi0");
+
+		TwitterFactory tf = new TwitterFactory(cb.build());
+		Twitter twitter = tf.getInstance();
+
 		int totalFollowingGroup = 0;
-		
-		for (User u : listUsers){
-			totalFollowingGroup+=u.getFriendsCount();
+
+		for (String u : listUsers) {
+			try {
+				User y = twitter.showUser(u);
+				int t = y.getFriendsCount();
+				System.out.println(y.getScreenName() + ": total de " + t + " amigos");
+				totalFollowingGroup += t;
+
+			} catch (TwitterException e) {
+				AppSNALog.error(e.toString());
+			}
 		}
-		
+
 		return totalFollowingGroup;
-		
+
 	}
 	
-	public static List<User> getRelationshipFromFriend (User source, User target, int rate){
+	
+	public static int getTotalFollowersGroup(List<String> listUsers) {
+
+		ConfigurationBuilder cb = new ConfigurationBuilder();
+		cb.setDebugEnabled(true)
+				.setOAuthConsumerKey("pKPaLdk6DofC7bfNNA1qw")
+				.setOAuthConsumerSecret(
+						"Ks5QO1enyC8Co5My1BVoSN9HVFDhFi8PKsfivr0Xs")
+				.setOAuthAccessToken(
+						"131686365-iWIbKNxKlgUK4Wa2gMx6Ojjsu62aKZNUDvNfbBN2")
+				.setOAuthAccessTokenSecret(
+						"2kPLmaJiDNEAplKIAlJz8Jhxf7JXgp0E00EoCjQi0");
+
+		TwitterFactory tf = new TwitterFactory(cb.build());
+		Twitter twitter = tf.getInstance();
+
+		int totalFollowersGroup = 0;
+
+		for (String u : listUsers) {
+			try {
+				User y = twitter.showUser(u);
+				int t = y.getFollowersCount();
+				System.out.println(y.getScreenName() + ": total de " + t + " Followers");
+				totalFollowersGroup += t;
+
+			} catch (TwitterException e) {
+				AppSNALog.error(e.toString());
+			}
+		}
+
+		return totalFollowersGroup;
+
+	}
+
+
+	public static int getTotalFollowingGroups(List<User> listUsers) {
+
+		int totalFollowingGroup = 0;
+
+		for (User u : listUsers) {
+			totalFollowingGroup += u.getFriendsCount();
+		}
+
+		return totalFollowingGroup;
+
+	}
+	
+	
+	public static int getTotalFollowersGroups(List<User> listUsers) {
+
+		int totalFollowersGroup = 0;
+
+		for (User u : listUsers) {
+			totalFollowersGroup += u.getFollowersCount();
+		}
+
+		return totalFollowersGroup;
+
+	}
+
+	public static List<User> getRelationshipFromFriend(User source,
+			User target, int rate) {
 		List<User> listSource = new ArrayList<User>();
 		List<User> listTarget = new ArrayList<User>();
 
-		
-		try{
+		try {
 			listSource = retornarListaAmigos(source.getScreenName());
 			listTarget = retornarListaAmigos(target.getScreenName());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			AppSNALog.error(e.toString());
 		}
-		
+
 		List<User> listAux = new ArrayList<User>();
-		
-		for (User x : listSource){			 
-			 for (User y : listTarget){
-				 if (x.equals(y)){
-					 if(listAux.size()<=rate){
-					 listAux.add(x);
-					 }else{
-						 break;
-					 }
-				 }				 
-			 }
-		 }
-		
-		return listAux;		
-		
+
+		for (User x : listSource) {
+			for (User y : listTarget) {
+				if (x.equals(y)) {
+					if (listAux.size() <= rate) {
+						listAux.add(x);
+					} else {
+						break;
+					}
+				}
+			}
+		}
+
+		return listAux;
+
 	}
-	
-	public static List<User> getRelationshipFromFriend (User source, User target){
+
+	public static List<User> getRelationshipFromFriend(User source, User target) {
 		List<User> listSource = new ArrayList<User>();
 		List<User> listTarget = new ArrayList<User>();
 
-		
-		try{
+		try {
 			listSource = retornarListaAmigos(source.getScreenName());
 			listTarget = retornarListaAmigos(target.getScreenName());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			AppSNALog.error(e.toString());
 		}
-		
+
 		List<User> listAux = new ArrayList<User>();
-		
-		for (User x : listSource){			 
-			 for (User y : listTarget){
-				 if (x.equals(y)){
-					 listAux.add(x);
-				 }
-				 
-			 }
-		 }
-		
-		if(!listAux.isEmpty()){
-			return listAux;	
-		}else{
-			
+
+		for (User x : listSource) {
+			for (User y : listTarget) {
+				if (x.equals(y)) {
+					listAux.add(x);
+				}
+
+			}
+		}
+
+		if (!listAux.isEmpty()) {
+			return listAux;
+		} else {
+
 			List<User> listSourceLevelTwo = new ArrayList<User>();
-			
-			for(User u : listSource){
-				
+
+			for (User u : listSource) {
+
 				try {
 					listSourceLevelTwo = retornarListaAmigos(u.getScreenName());
 				} catch (Exception e) {
 					AppSNALog.error(e.toString());
 				}
-				
-				for (User w : listSourceLevelTwo){			 
-					 for (User z : listTarget){
-						 if (w.equals(z)){
-							 listAux.add(w);
-						 }
-						 
-					 }
-				 }				
-			}	
-		
-		return listAux;	
-		
-		}
-		
-	}
 
+				for (User w : listSourceLevelTwo) {
+					for (User z : listTarget) {
+						if (w.equals(z)) {
+							listAux.add(w);
+						}
+
+					}
+				}
+			}
+
+			return listAux;
+
+		}
+
+	}
 
 }

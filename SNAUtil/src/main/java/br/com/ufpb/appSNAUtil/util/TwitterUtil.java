@@ -99,21 +99,30 @@ public class TwitterUtil {
 					.getFriendsIDs(screenName, -1);
 			for (long id : ids.getIDs()) {
 				try {
-					User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(id);
-					if (!isOnlyJP
-							|| u.getLocation().replace('ã', 'a').toLowerCase()
-									.equals("joao pessoa"))
+					if (!isOnlyJP){
+						User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(id);
+						if(u.getLocation().replace('ã', 'a').toLowerCase()
+								.equals("joao pessoa")){
+							list.add(id);
+						}
+					}else{
 						list.add(id);
+					}
 				} catch (TwitterException e) {
 					AppSNALog.error(e.toString());
 					if (e.getStatusCode() != 403) {
 						tratarTwitterException(e);
 					}
-					User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(id);
-					if (!isOnlyJP
-							|| u.getLocation().replace('ã', 'a').toLowerCase()
-									.equals("joao pessoa"))
+					
+					if (!isOnlyJP){
+						User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(id);
+						if(u.getLocation().replace('ã', 'a').toLowerCase()
+								.equals("joao pessoa")){
+							list.add(id);
+						}
+					}else{
 						list.add(id);
+					}
 				}
 				count++;
 			}
@@ -136,15 +145,18 @@ public class TwitterUtil {
 		for (int i = count; i < ids.getIDs().length; i++, count++) {
 			if (!list.contains(ids.getIDs()[i])) {
 				try {
-					User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(ids
-							.getIDs()[i]);
-					if (!isOnlyJP
-							|| u.getLocation().replace('ã', 'a').toLowerCase()
-									.equals("joao pessoa"))
+					if (!isOnlyJP){
+						User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(screenName);
+						if(u.getLocation().replace('ã', 'a').toLowerCase()
+								.equals("joao pessoa")){
+							list.add(ids.getIDs()[i]);
+						}
+					}else{
 						list.add(ids.getIDs()[i]);
+					}
 				} catch (TwitterException e) {
 					AppSNALog.error(e.toString());
-					if (e.getStatusCode() != 403) {
+					if (e.getStatusCode() == 400) {
 						tratarTwitterException(e);
 						return retornarListaAmigosTratarException(screenName,
 								ids, list, isOnlyJP, count);
@@ -163,6 +175,7 @@ public class TwitterUtil {
 
 			for (String screenName : list) {
 				User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(screenName);
+				
 				if (!isOnlyJP
 						|| u.getLocation().replace('ã', 'a').toLowerCase()
 								.equals("joao pessoa"))

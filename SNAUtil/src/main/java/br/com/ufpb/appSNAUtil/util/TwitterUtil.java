@@ -91,25 +91,69 @@ public class TwitterUtil {
 
 	public static List<Long> retornarListaAmigosIdsList(String screenName,
 			boolean isOnlyJP) throws Exception {
+		List<Long> list = new ArrayList<Long>();
+		IDs ids = null;
+		int count = 0;
 		try {
-			IDs ids = AccountCarrousel.CURRENT_ACCOUNT.getFriendsIDs(
-					screenName, -1);
-			List<Long> list = new ArrayList<Long>();
+			ids = AccountCarrousel.CURRENT_ACCOUNT
+					.getFriendsIDs(screenName, -1);
 			for (long id : ids.getIDs()) {
-				User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(id);
-				if (u.getLocation().replace('ã', 'a').toLowerCase()
-						.equals("joao pessoa")
-						|| !isOnlyJP)
-					list.add(id);
+				try {
+					User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(id);
+					if (!isOnlyJP
+							|| u.getLocation().replace('ã', 'a').toLowerCase()
+									.equals("joao pessoa"))
+						list.add(id);
+				} catch (TwitterException e) {
+					AppSNALog.error(e.toString());
+					if (e.getStatusCode() != 403) {
+						tratarTwitterException(e);
+					}
+					User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(id);
+					if (!isOnlyJP
+							|| u.getLocation().replace('ã', 'a').toLowerCase()
+									.equals("joao pessoa"))
+						list.add(id);
+				}
+				count++;
 			}
 
 			return list;
 		} catch (TwitterException e) {
 			AppSNALog.error(e.toString());
-
-			tratarTwitterException(e);
-			return retornarListaAmigosIdsList(screenName, isOnlyJP);
+			if (e.getStatusCode() != 403) {
+				tratarTwitterException(e);
+			}
+			return retornarListaAmigosTratarException(screenName, ids, list,
+					isOnlyJP, count);
 		}
+	}
+
+	private static List<Long> retornarListaAmigosTratarException(
+			String screenName, IDs ids, List<Long> list, boolean isOnlyJP,
+			int count) throws Exception {
+
+		for (int i = count; i < ids.getIDs().length; i++, count++) {
+			if (!list.contains(ids.getIDs()[i])) {
+				try {
+					User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(ids
+							.getIDs()[i]);
+					if (!isOnlyJP
+							|| u.getLocation().replace('ã', 'a').toLowerCase()
+									.equals("joao pessoa"))
+						list.add(ids.getIDs()[i]);
+				} catch (TwitterException e) {
+					AppSNALog.error(e.toString());
+					if (e.getStatusCode() != 403) {
+						tratarTwitterException(e);
+						return retornarListaAmigosTratarException(screenName,
+								ids, list, isOnlyJP, count);
+					}
+				}
+			}
+		}
+
+		return list;
 	}
 
 	public static Map<String, Long> retornarUserId(List<String> list,
@@ -119,9 +163,9 @@ public class TwitterUtil {
 
 			for (String screenName : list) {
 				User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(screenName);
-				if (u.getLocation().replace('ã', 'a').toLowerCase()
-						.equals("joao pessoa")
-						|| !isOnlyJP)
+				if (!isOnlyJP
+						|| u.getLocation().replace('ã', 'a').toLowerCase()
+								.equals("joao pessoa"))
 					users.put(screenName, u.getId());
 			}
 
@@ -283,29 +327,36 @@ public class TwitterUtil {
 			throws InterruptedException {
 		try {
 
-			Long timeRemaining = ((long) e.getRateLimitStatus()
-					.getSecondsUntilReset() * 1000);
-			if (AccountCarrousel.LIST_ACOUNTS_READY.size() == 0) {
-				mutexListReady = new AtomicBoolean();
-				mutexListReady.set(true);
-				VerificarListaReady vl = new VerificarListaReady();
-				synchronized (mutexListReady) {
-					vl.setName("VerificarListaReady");
-					vl.setMutexListReady(mutexListReady);
-					vl.start();
-					mutexListReady.wait();
-				}
-			}
-			mutex = new AtomicBoolean();
-			mutex.set(true);
-			AccountThread at = new AccountThread();
-			synchronized (mutex) {
-				at.setMutex(mutex);
-				at.setName("AccountThread-" + timeRemaining);
-				at.setTimeRemaining(timeRemaining);
-				at.start();
+			if (e.getRateLimitStatus() != null) {
+				if (e.getRateLimitStatus().getRemainingHits() == 0) {
 
-				mutex.wait();
+					Long timeRemaining = ((long) e.getRateLimitStatus()
+							.getSecondsUntilReset() * 1000);
+					if (AccountCarrousel.LIST_ACOUNTS_READY.size() == 0) {
+						mutexListReady = new AtomicBoolean();
+						mutexListReady.set(true);
+						VerificarListaReady vl = new VerificarListaReady();
+						synchronized (mutexListReady) {
+							vl.setName("VerificarListaReady");
+							vl.setMutexListReady(mutexListReady);
+							vl.start();
+							mutexListReady.wait();
+						}
+					}
+					mutex = new AtomicBoolean();
+					mutex.set(true);
+					AccountThread at = new AccountThread();
+					synchronized (mutex) {
+						at.setMutex(mutex);
+						at.setName("AccountThread-"
+								+ AccountCarrousel.CURRENT_ACCOUNT
+										.getOAuthAccessToken().getUserId());
+						at.setTimeRemaining(timeRemaining);
+						at.start();
+
+						mutex.wait();
+					}
+				}
 			}
 		} catch (Exception ex) {
 			AppSNALog.error(ex.toString());

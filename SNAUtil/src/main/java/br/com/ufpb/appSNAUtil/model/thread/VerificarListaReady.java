@@ -14,12 +14,13 @@ public class VerificarListaReady extends Thread {
 	public void run() {
 		try {
 			synchronized (mutexListReady) {
-				while (AccountCarrousel.LIST_ACOUNTS_READY.size() == 0) {
+				AppSNALog.warn("Verificando se a lista de Ready tem mais de três elementos");
+				while (AccountCarrousel.LIST_ACOUNTS_READY.size() < 3) {
 					Thread.sleep(600);
 				}
 				mutexListReady.notify();
 			}
-		} catch (InterruptedException e) {
+		} catch (Exception e) {
 			AppSNALog.error(e.toString());
 		}
 	}

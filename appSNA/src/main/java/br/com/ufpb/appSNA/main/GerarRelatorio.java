@@ -56,7 +56,7 @@ public class GerarRelatorio {
 			listaCsv = verificar(listaCsv, listAmigoId);
 		}
 		
-		FileUtil.criaArquivo(Constantes.DIR_APPSNA + "\\arquivo.csv", false);
+		FileUtil.criaArquivo(Constantes.DIR_APPSNA + "\\arquivo.csv", true);
 		
 		String[] cabecalho = {"Id", "Nome", "Screename", "Biografia", "Localização", "TotalFollowers", "TotalFollowing", 
 				"TotalTweets", "URL", "TimeZone","Linguagem", "Data de Criação", "URL Imagem"};

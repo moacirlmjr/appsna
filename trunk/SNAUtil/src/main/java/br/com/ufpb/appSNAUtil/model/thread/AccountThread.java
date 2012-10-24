@@ -21,37 +21,56 @@ public class AccountThread extends Thread {
 		// TODO tirar de current accont depois colocar na lista de wait, buscar
 		// nova account e coloca-la em current
 		try {
-			
+			AppSNALog.warn("Começando Tratamento de Conta");
 			synchronized (mutex) {
 				if(AccountCarrousel.CURRENT_ACCOUNT != null){
 					accountId = new Long(AccountCarrousel.CURRENT_ACCOUNT.getOAuthAccessToken().getUserId());
 				}
 				AccountCarrousel.LIST_ACOUNTS_WAIT
 						.add(AccountCarrousel.CURRENT_ACCOUNT);
+				AppSNALog.warn("Conta " + accountId + " adiciona a Lista de Wait");
+				
 				if (AccountCarrousel.LIST_ACOUNTS_READY.size() != 0) {
-					AccountCarrousel.CURRENT_ACCOUNT = AccountCarrousel.LIST_ACOUNTS_READY
-							.get(0);
-					AccountCarrousel.LIST_ACOUNTS_READY.remove(0);
+					List<Twitter> listAux2 = new ArrayList<Twitter>(AccountCarrousel.LIST_ACOUNTS_READY);
+					int index = 0;
+					for(Twitter tw: listAux2){
+						if (tw.getRateLimitStatus().getRemainingHits() != 0){
+							AccountCarrousel.CURRENT_ACCOUNT = AccountCarrousel.LIST_ACOUNTS_READY
+							.get(index);
+							AppSNALog.warn("Nova Conta Adiciona no current_account");
+							AccountCarrousel.LIST_ACOUNTS_READY.remove(index);
+							AppSNALog.warn("Conta removida da Lista de Ready");
+							
+							break;
+						}else{
+							AccountCarrousel.LIST_ACOUNTS_WAIT
+							.add(tw);
+							AccountCarrousel.LIST_ACOUNTS_READY.remove(index);
+						}
+						index++;
+					}
 				}
 				mutex.notify();
 			}
 
 			Thread.sleep(timeRemaining);
+			AppSNALog.warn("Tempo " + timeRemaining + " da  conta " + accountId + " passou");
 			List<Twitter> listAux = new ArrayList<Twitter>(AccountCarrousel.LIST_ACOUNTS_WAIT);
 			int index = 0;
 			for (Twitter t : listAux) {
 				if (t.getOAuthAccessToken().getUserId() == accountId) {
+					while(t.getRateLimitStatus().getRemainingHits() == 0){
+						Thread.sleep(600);
+					}
+					AppSNALog.warn("Removida da lista de wait");
 					AccountCarrousel.LIST_ACOUNTS_WAIT.remove(index);
 					AccountCarrousel.LIST_ACOUNTS_READY.add(t);
+					AppSNALog.warn("adicionada na lista de ready");
 					break;
 				}
 				index++;
 			}
-		} catch (InterruptedException e) {
-			AppSNALog.error(e.toString());
-		} catch (IllegalStateException e) {
-			AppSNALog.error(e.toString());
-		} catch (TwitterException e) {
+		} catch (Exception e) {
 			AppSNALog.error(e.toString());
 		}
 

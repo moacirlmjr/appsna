@@ -99,7 +99,7 @@ public class TwitterUtil {
 					.getFriendsIDs(screenName, -1);
 			for (long id : ids.getIDs()) {
 				try {
-					if (!isOnlyJP){
+					if (isOnlyJP){
 						User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(id);
 						if(u.getLocation().replace('ã', 'a').toLowerCase()
 								.equals("joao pessoa")){
@@ -114,7 +114,7 @@ public class TwitterUtil {
 						tratarTwitterException(e);
 					}
 					
-					if (!isOnlyJP){
+					if (isOnlyJP){
 						User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(id);
 						if(u.getLocation().replace('ã', 'a').toLowerCase()
 								.equals("joao pessoa")){
@@ -145,7 +145,7 @@ public class TwitterUtil {
 		for (int i = count; i < ids.getIDs().length; i++, count++) {
 			if (!list.contains(ids.getIDs()[i])) {
 				try {
-					if (!isOnlyJP){
+					if (isOnlyJP){
 						User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(screenName);
 						if(u.getLocation().replace('ã', 'a').toLowerCase()
 								.equals("joao pessoa")){

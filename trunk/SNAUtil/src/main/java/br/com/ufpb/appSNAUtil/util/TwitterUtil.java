@@ -500,9 +500,21 @@ public class TwitterUtil {
 	}
 
 	public static List<User> getRelationshipFromFriend(User source, User target) {
+		
 		List<User> listSource = new ArrayList<User>();
 		List<User> listTarget = new ArrayList<User>();
-
+		List<User> listAux = new ArrayList<User>();
+		
+		try {
+			if(isFollowing(source.getScreenName(), target.getScreenName())|| isFollowing(target.getScreenName(), source.getScreenName())){
+				listAux.add(source);
+			}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 		try {
 			listSource = retornarListaAmigos(source.getScreenName());
 			listTarget = retornarListaAmigos(target.getScreenName());
@@ -510,7 +522,7 @@ public class TwitterUtil {
 			AppSNALog.error(e.toString());
 		}
 
-		List<User> listAux = new ArrayList<User>();
+		
 
 		for (User x : listSource) {
 			for (User y : listTarget) {

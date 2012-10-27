@@ -73,15 +73,19 @@ public class DinamicNetworkGeneration {
 
 			List<String> listSozinhos = new ArrayList<String>();
 			List<String> listUsersRelacionados = new ArrayList<String>();
-			for (String user : listaUsuarios) {
-				for (RelacionamentoTO rc2 : listRelacionametos) {
-					if (!(rc.getId_source().equals(user) || rc.getId_target()
-							.equals(user))) {
-						listSozinhos.add(user);
-					} else {
-						listUsersRelacionados.add(user);
+			if(listRelacionametos.isEmpty()){
+				for (String user : listaUsuarios) {
+					for (RelacionamentoTO rc2 : listRelacionametos) {
+						if (!(rc2.getId_source().equals(user) || rc2.getId_target()
+								.equals(user))) {
+							listSozinhos.add(user);
+						} else {
+							listUsersRelacionados.add(user);
+						}
 					}
 				}
+			}else{
+				listSozinhos = new ArrayList<String>(listaUsuarios);
 			}
 
 			List<String> listUsersAmigos = new ArrayList<String>();
@@ -121,8 +125,8 @@ public class DinamicNetworkGeneration {
 			List<String> listAux = new ArrayList<String>(listSozinhos);
 			for (String user : listAux) {
 				for (RelacionamentoTO rc2 : listRelacionametos) {
-					if (rc.getId_source().equals(user)
-							|| rc.getId_target().equals(user)) {
+					if (rc2.getId_source().equals(user)
+							|| rc2.getId_target().equals(user)) {
 						listSozinhos.remove(user);
 					}
 				}

@@ -12,7 +12,9 @@ public class BDUtil {
 
 	public static final String USER = "appsna";
 
-	public static final String SENHA = "appsna";
+	public static String SENHA_DANYLLO = "root";
+	
+	public static String SENHA_MOACIR = "root";
 	
 	public static final String DATABASE_NAME = "AppSNAElection";
 

@@ -73,7 +73,7 @@ public class DinamicNetworkGeneration {
 
 			List<String> listSozinhos = new ArrayList<String>();
 			List<String> listUsersRelacionados = new ArrayList<String>();
-			if(listRelacionametos.isEmpty()){
+			if(!listRelacionametos.isEmpty()){
 				for (String user : listaUsuarios) {
 					for (RelacionamentoTO rc2 : listRelacionametos) {
 						if (!(rc2.getId_source().equals(user) || rc2.getId_target()
@@ -91,32 +91,64 @@ public class DinamicNetworkGeneration {
 			List<String> listUsersAmigos = new ArrayList<String>();
 
 			for (String single : listSozinhos) {
-				for (String user : listUsersRelacionados) {
-					List<Long> listAmigos = TwitterUtil
-							.retornarListaAmigosIdsList(user, true);
-
-					if (listAmigos != null) {
-						for (Long amigoId : listAmigos) {
-							String amigoScreenName = AccountCarrousel.CURRENT_ACCOUNT
-									.showUser(amigoId).getScreenName();
-							if (TwitterUtil
-									.isFollowing(single, amigoScreenName)) {
-								rc = new RelacionamentoTO();
-								rc.setId_source(single);
-								rc.setId_target(amigoId + "");
-								listRelacionametos.add(rc);
-								listUsersAmigos.add(amigoScreenName + ","
-										+ amigoId);
-							} else if (TwitterUtil.isFollowing(amigoScreenName,
-									single)) {
-								rc = new RelacionamentoTO();
-								rc.setId_source(amigoId + "");
-								rc.setId_target(single);
-								listRelacionametos.add(rc);
-								listUsersAmigos.add(amigoScreenName + ","
-										+ amigoId);
+				if(!listRelacionametos.isEmpty()){
+					for (String user : listUsersRelacionados) {
+						List<Long> listAmigos = TwitterUtil
+						.retornarListaAmigosIdsList(user, true);
+						
+						if (listAmigos != null) {
+							for (Long amigoId : listAmigos) {
+								String amigoScreenName = AccountCarrousel.CURRENT_ACCOUNT
+								.showUser(amigoId).getScreenName();
+								if (TwitterUtil
+										.isFollowing(single, amigoScreenName)) {
+									rc = new RelacionamentoTO();
+									rc.setId_source(single);
+									rc.setId_target(amigoId + "");
+									listRelacionametos.add(rc);
+									listUsersAmigos.add(amigoScreenName + ","
+											+ amigoId);
+								} else if (TwitterUtil.isFollowing(amigoScreenName,
+										single)) {
+									rc = new RelacionamentoTO();
+									rc.setId_source(amigoId + "");
+									rc.setId_target(single);
+									listRelacionametos.add(rc);
+									listUsersAmigos.add(amigoScreenName + ","
+											+ amigoId);
+								}
+								
 							}
-
+						}
+					}
+				}else{
+					for (String user : listSozinhos) {
+						List<Long> listAmigos = TwitterUtil
+						.retornarListaAmigosIdsList(user, true);
+						
+						if (listAmigos != null) {
+							for (Long amigoId : listAmigos) {
+								String amigoScreenName = AccountCarrousel.CURRENT_ACCOUNT
+								.showUser(amigoId).getScreenName();
+								if (TwitterUtil
+										.isFollowing(single, amigoScreenName)) {
+									rc = new RelacionamentoTO();
+									rc.setId_source(single);
+									rc.setId_target(amigoId + "");
+									listRelacionametos.add(rc);
+									listUsersAmigos.add(amigoScreenName + ","
+											+ amigoId);
+								} else if (TwitterUtil.isFollowing(amigoScreenName,
+										single)) {
+									rc = new RelacionamentoTO();
+									rc.setId_source(amigoId + "");
+									rc.setId_target(single);
+									listRelacionametos.add(rc);
+									listUsersAmigos.add(amigoScreenName + ","
+											+ amigoId);
+								}
+								
+							}
 						}
 					}
 				}

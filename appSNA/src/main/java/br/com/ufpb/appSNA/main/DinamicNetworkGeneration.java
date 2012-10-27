@@ -21,33 +21,34 @@ public class DinamicNetworkGeneration {
 	 */
 	public static void main(String[] args) {
 		List<String> listaUsuarios = new ArrayList<String>();
-		listaUsuarios.add("AIRTONGTORRES");
-		listaUsuarios.add("alamorocha");
-		listaUsuarios.add("ale_patricio");
-		listaUsuarios.add("ALLYSONDINIZ");
-		listaUsuarios.add("DEZINHAJPA");
-		listaUsuarios.add("ARTHURFERRO");
-		listaUsuarios.add("atila_jp");
-		listaUsuarios.add("AYLTONJR");
-		listaUsuarios.add("ELVISREI");
-		listaUsuarios.add("evaldodesousa");
-		listaUsuarios.add("fabianovidaltur");
-		listaUsuarios.add("BRASILTONY");
-		listaUsuarios.add("CHIQUELMEBATERA");
-		listaUsuarios.add("FLUGARCEZ");
-		listaUsuarios.add("IVANILDOPB");
-		listaUsuarios.add("KellylopesLOPES");
-		listaUsuarios.add("GALVAOJPA");
-		listaUsuarios.add("luanadepaulane1");
-		listaUsuarios.add("lucasduartereal");
-		listaUsuarios.add("Mariacristin339");
-		listaUsuarios.add("ONAMEN");
-		listaUsuarios.add("jricardoamorim");
-		listaUsuarios.add("RINALDOPESSOA");
-		listaUsuarios.add("RIQUELSON");
-		listaUsuarios.add("NTURISMO_JPPB");
-		listaUsuarios.add("ThiagoADVJP");
-
+		listaUsuarios.add("Danyllo_Wagner");
+		listaUsuarios.add("alissonbrito");
+//		listaUsuarios.add("ale_patricio");
+//		listaUsuarios.add("ALLYSONDINIZ");
+//		listaUsuarios.add("DEZINHAJPA");
+//		listaUsuarios.add("ARTHURFERRO");
+//		listaUsuarios.add("atila_jp");
+//		listaUsuarios.add("AYLTONJR");
+//		listaUsuarios.add("ELVISREI");
+//		listaUsuarios.add("evaldodesousa");
+//		listaUsuarios.add("fabianovidaltur");
+//		listaUsuarios.add("BRASILTONY");
+//		listaUsuarios.add("CHIQUELMEBATERA");
+//		listaUsuarios.add("FLUGARCEZ");
+//		listaUsuarios.add("IVANILDOPB");
+//		listaUsuarios.add("KellylopesLOPES");
+//		listaUsuarios.add("GALVAOJPA");
+//		listaUsuarios.add("luanadepaulane1");
+//		listaUsuarios.add("lucasduartereal");
+//		listaUsuarios.add("Mariacristin339");
+//		listaUsuarios.add("ONAMEN");
+//		listaUsuarios.add("jricardoamorim");
+//		listaUsuarios.add("RINALDOPESSOA");
+//		listaUsuarios.add("RIQUELSON");
+//		listaUsuarios.add("NTURISMO_JPPB");
+//		listaUsuarios.add("ThiagoADVJP");
+		
+		AccountCarrousel.startListReady();		
 		List<RelacionamentoTO> listRelacionametos = new ArrayList<RelacionamentoTO>();
 		RelacionamentoTO rc = null;
 		try {
@@ -59,11 +60,13 @@ public class DinamicNetworkGeneration {
 						rc.setId_source(user);
 						rc.setId_target(user2);
 						listRelacionametos.add(rc);
+						break;
 					} else if (TwitterUtil.isFollowing(user2, user)) {
 						rc = new RelacionamentoTO();
 						rc.setId_source(user2);
 						rc.setId_target(user);
 						listRelacionametos.add(rc);
+						break;
 					}
 				}
 			}
@@ -177,15 +180,15 @@ public class DinamicNetworkGeneration {
 			}
 			
 			
-			
 			XMLUtil.fechaArquivo();
 			XMLUtil.salvarXML("grafoDinamico.graphml");
+			System.exit(0);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		AccountCarrousel.startListReady();
+	
 
 	}
 

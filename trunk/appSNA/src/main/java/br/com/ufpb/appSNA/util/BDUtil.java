@@ -5,9 +5,9 @@ public class BDUtil {
 
 	public static String USER = "root";
 
-	public static String SENHA_DANYLLO = "root";
+	public static String SENHA = "root";
 	
-	public static String SENHA_MOACIR = "root";
+	//public static String SENHA = "";
 	
 	public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 

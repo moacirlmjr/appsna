@@ -18,23 +18,36 @@ CREATE  TABLE Usuario (
   );
 
 
-CREATE  TABLE Relacionamento (
-  id_souce INT NOT NULL ,
-  id_target INT NOT NULL ,
-  PRIMARY KEY (id_souce, id_target) ,
-  INDEX fk_Relacionamento_Usuario2 (id_target ASC) ,
+CREATE TABLE Relacionamento (
+  id_souce BIGINT NOT NULL ,
+  id_target BIGINT NOT NULL ,
+  PRIMARY KEY (id_souce, id_target),
   CONSTRAINT fk_Relacionamento_Usuario1
     FOREIGN KEY (id_souce)
-    REFERENCES Usuario (id_usuario )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES Usuario (id_usuario),     
   CONSTRAINT fk_Relacionamento_Usuario2
     FOREIGN KEY (id_target)
     REFERENCES Usuario (id_usuario)
    );
    
    
-  CREATE  TABLE IF NOT EXISTS Status (
+  CREATE  TABLE Status (
+  id_status INT NOT NULL AUTO_INCREMENT ,
+  id_usuario BIGINT NOT NULL ,
+  data_criacao DATE NULL ,
+  texto VARCHAR(150) NOT NULL ,
+  latitude VARCHAR(20) NULL ,
+  longitude VARCHAR(20) NULL ,
+  total_retweet INT NULL ,
+  is_retweeted INT NULL ,
+  PRIMARY KEY (id_status, id_usuario) ,  
+  CONSTRAINT fk_status_usuario
+    FOREIGN KEY (id_usuario)
+    REFERENCES Usuario (id_usuario)
+    );
+   
+   
+  CREATE  TABLE Status (
   id_status INT NOT NULL AUTO_INCREMENT ,
   id_usuario BIGINT NOT NULL ,
   data_criacao DATE NULL ,
@@ -72,8 +85,3 @@ CREATE  TABLE UserMention (
     FOREIGN KEY (id_status , id_usuario)
     REFERENCES Status (id_status , id_usuario)
     );
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

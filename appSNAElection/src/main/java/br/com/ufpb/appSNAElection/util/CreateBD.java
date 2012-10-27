@@ -18,7 +18,7 @@ public class CreateBD {
 
 			// Paaso 2: Abrindo uma conexao
 			AppSNALog.warn("Conectando com o Banco de Dados...");
-			conn = DriverManager.getConnection(BDUtil.URL_LOCAL, BDUtil.USER, BDUtil.SENHA);
+			conn = DriverManager.getConnection(BDUtil.URL_LOCAL, BDUtil.USER, BDUtil.SENHA_DANYLLO);
 
 			// Passo 3: Executando uma query
 			stmt = conn.createStatement();
@@ -122,7 +122,7 @@ public class CreateBD {
 
 			// Paaso 2: Abrindo uma conexao
 			AppSNALog.warn("Conectando com o Banco de Dados...");
-			conn = DriverManager.getConnection(BDUtil.URL_LOCAL, BDUtil.USER, BDUtil.SENHA);
+			conn = DriverManager.getConnection(BDUtil.URL_LOCAL, BDUtil.USER, BDUtil.SENHA_DANYLLO);
 
 			// Passo 3: Executando uma query
 			stmt = conn.createStatement();

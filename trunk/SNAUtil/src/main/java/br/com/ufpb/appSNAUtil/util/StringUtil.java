@@ -4,7 +4,7 @@ public class StringUtil {
 	
 	public static String stringProcessing(String anterior){
 		String nova;
-		nova = anterior.replace("\r", "$").replace("\n", "$").replace(";", "$");
+		nova = anterior.replace("\r", "$").replace("\n", "$").replace(";", "$").replace("", " ");
 		return nova;
 	}
 	

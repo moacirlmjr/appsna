@@ -7,7 +7,7 @@ public class TesteCriacaoBD {
 	
 	public static void main(String[] args) {
 		CreateBD.criar("AppSNA");
-		CreateBD.excluir("AppSNA");
+		//CreateBD.excluir("AppSNA");
 	}
 
 }

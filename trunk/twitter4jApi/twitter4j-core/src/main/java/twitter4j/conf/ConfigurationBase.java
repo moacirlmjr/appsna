@@ -102,12 +102,12 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
     private static final String DEFAULT_OAUTH_ACCESS_TOKEN_URL = "http://api.twitter.com/oauth/access_token";
     private static final String DEFAULT_OAUTH_AUTHENTICATION_URL = "http://api.twitter.com/oauth/authenticate";
 
-    private static final String DEFAULT_REST_BASE_URL = "http://api.twitter.com/1/";
-    private static final String DEFAULT_SEARCH_BASE_URL = "http://search.twitter.com/";
+    private static final String DEFAULT_REST_BASE_URL = "https://api.twitter.com/1/";
+    private static final String DEFAULT_SEARCH_BASE_URL = "https://search.twitter.com/";
     private static final String DEFAULT_STREAM_BASE_URL = "https://stream.twitter.com/1/";
     private static final String DEFAULT_USER_STREAM_BASE_URL = "https://userstream.twitter.com/2/";
     private static final String DEFAULT_SITE_STREAM_BASE_URL = "https://sitestream.twitter.com";
-    private static final String DEFAULT_UPLOAD_BASE_URL = "http://upload.twitter.com/1/";
+    private static final String DEFAULT_UPLOAD_BASE_URL = "https://upload.twitter.com/1/";
 
     private boolean IS_DALVIK;
     private boolean IS_GAE;
@@ -147,18 +147,18 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
         setHttpProxyUser(null);
         setHttpProxyPassword(null);
         setHttpProxyPort(-1);
-        setHttpConnectionTimeout(20000);
-        setHttpReadTimeout(120000);
+        setHttpConnectionTimeout(30000);
+        setHttpReadTimeout(200000);
         setHttpStreamingReadTimeout(40 * 1000);
-        setHttpRetryCount(0);
+        setHttpRetryCount(3);
         setHttpRetryIntervalSeconds(5);
-        setHttpMaxTotalConnections(20);
-        setHttpDefaultMaxPerRoute(2);
+        setHttpMaxTotalConnections(50);
+        setHttpDefaultMaxPerRoute(8);
         setOAuthConsumerKey(null);
         setOAuthConsumerSecret(null);
         setOAuthAccessToken(null);
         setOAuthAccessTokenSecret(null);
-        setAsyncNumThreads(1);
+        setAsyncNumThreads(4);
         setContributingTo(-1L);
         setClientVersion(Version.getVersion());
         setClientURL("http://twitter4j.org/en/twitter4j-" + Version.getVersion() + ".xml");

@@ -7,13 +7,12 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.mysql.jdbc.Statement;
-
 import br.com.ufpb.appSNA.model.beans.Relacionamento;
-import br.com.ufpb.appSNA.model.beans.SNAElement;
 import br.com.ufpb.appSNA.util.BDUtil;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
 import br.com.ufpb.appSNAUtil.util.DAOUtil;
+
+import com.mysql.jdbc.Statement;
 
 
 public class RelacionamentoDAOImpl implements RelacionamentoDAO {
@@ -49,7 +48,7 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 	}
 
 	@Override
-	public void create(List<Relacionamento> objeto) throws Exception {
+	public void create(List<Relacionamento> listaRelacionamentos) throws Exception {
 		String query = "Insert into relacionamento (id_source, id_target) values(?,?);";
 
 		PreparedStatement stmt = null;
@@ -59,13 +58,14 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 			conn.setAutoCommit(false);
 			stmt = conn.prepareStatement(query);
 			int count = 0;
-			for (Relacionamento rel : objeto) {
+			for (Relacionamento rel : listaRelacionamentos) {
 				stmt.setLong(0, rel.getId_source());
 				stmt.setLong(1, rel.getId_target());
 				stmt.addBatch();
-				if (++count % objeto.size() == 0) {
+				if (((listaRelacionamentos.size() - 1) < 20 && count % listaRelacionamentos.size() == 0) || (count != 0 && count % 20 == 0)) {
 					stmt.executeBatch();
 				}
+				count ++;
 			}
 			conn.commit();
 		} catch (SQLException e) {
@@ -78,7 +78,7 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 
 	@Override
 	public Long update(Relacionamento objeto) throws Exception {
-		String query = "update relacionamento set id_source = ?, id_target = ? where id = ?;";
+		String query = "update relacionamento set id_source = ?, id_target = ? where id_relacionamento = ?;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -106,7 +106,7 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 
 	@Override
 	public Relacionamento findById(Long id_source) throws Exception {
-		String query = "select * from relacionamento where id = ?;";
+		String query = "select * from relacionamento where id_relacionamento = ?;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -166,7 +166,7 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 
 	@Override
 	public void remove(Relacionamento objeto) throws Exception {
-		String query = "delete from relacionamento where id = ?;";
+		String query = "delete from relacionamento where id_relacionamento = ?;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;

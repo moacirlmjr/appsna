@@ -22,7 +22,7 @@ public class DateUtil {
 	
 	public static Date dateParser(String data){
 		
-		String [] data_completa = data.split("");
+		String [] data_completa = data.split(" ");
 		String [] hora_completa = data_completa[HORA_COMPLETA].split(":");
 		
 		Calendar cal = Calendar.getInstance();

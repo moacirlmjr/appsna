@@ -36,15 +36,15 @@ public class CreateBD {
 				String sqlTableUsuario = "CREATE  TABLE Usuario (" +
 						  "id_usuario BIGINT NOT NULL ," + 
 						  "nome VARCHAR(45) NOT NULL ," +
-						  "screen_name VARCHAR(20) NOT NULL ," +
+						  "screen_name VARCHAR(40) NOT NULL ," +
 						  "biografia TEXT NULL ," +
 						  "localizacao VARCHAR(30) NULL ," +
 						  "total_following INT NULL ," +
 						  "total_followers INT NULL ," +
 						  "total_tweets INT NULL ," +
 						  "URL TEXT NULL ," + 
-						  "timezone VARCHAR(20) NULL ," +
-						  "linguagem VARCHAR(20) NULL ," +
+						  "timezone VARCHAR(40) NULL ," +
+						  "linguagem VARCHAR(40) NULL ," +
 						  "data_criacao DATE NULL ," +
 						  "url_imagem TEXT NULL ," +
 						  "PRIMARY KEY (id_usuario) ," +

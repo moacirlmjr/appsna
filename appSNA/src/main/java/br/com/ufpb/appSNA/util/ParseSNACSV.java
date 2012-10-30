@@ -43,6 +43,7 @@ public class ParseSNACSV {
 			SNAElement SNAEl = new SNAElement();
 
 			String lineArray[] = line.split(";");
+			System.out.println(lineArray[DATADECRIACAO]);
 
 			SNAEl.setId(Long.valueOf(lineArray[ID]));
 			SNAEl.setNome(lineArray[NOME]);
@@ -55,7 +56,7 @@ public class ParseSNACSV {
 			SNAEl.setURL(lineArray[URL]);
 			SNAEl.setTimeZone(lineArray[TIMEZONE]);
 			SNAEl.setLinguagem(lineArray[LINGUAGEM]);
-			SNAEl.setDataDeCriacao(new Date(Long.valueOf(lineArray[DATADECRIACAO])));
+			SNAEl.setDataDeCriacao(new Date(Long.valueOf(lineArray[DATADECRIACAO]).longValue()));
 			SNAEl.setURLImagem(lineArray[URLIMAGEM]);
 
 			list.add(SNAEl);

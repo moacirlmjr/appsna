@@ -46,9 +46,9 @@ public class ParseSNACSV {
 			SNAElement SNAEl = new SNAElement();
 
 			String lineArray[] = line.split(";");
-			System.out.println(lineArray[DATADECRIACAO]);
+			//System.out.println(lineArray[DATADECRIACAO]);
 
-			SNAEl.setId(Long.valueOf(lineArray[ID]));
+			SNAEl.setId_usuario(Long.valueOf(lineArray[ID]));
 			SNAEl.setNome(lineArray[NOME]);
 			SNAEl.setScreename(lineArray[SCREENNAME]);
 			SNAEl.setBiografia(lineArray[BIOGRAFIA]);

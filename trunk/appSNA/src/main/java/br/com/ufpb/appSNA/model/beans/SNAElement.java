@@ -6,7 +6,7 @@ import br.com.ufpb.appSNAUtil.model.beans.comum.AppSNAEntityMaster;
 
 public class SNAElement extends AppSNAEntityMaster {
 
-	private long id;
+	private Long id_usuario;
 	private String nome;
 	private String Screename;
 	private String Biografia;
@@ -20,12 +20,12 @@ public class SNAElement extends AppSNAEntityMaster {
 	private Date dataDeCriacao;
 	private String URLImagem;
 
-	public long getId() {
-		return id;
+	public Long getId_usuario() {
+		return id_usuario;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setId_usuario(Long id_usuario) {
+		this.id_usuario = id_usuario;
 	}
 
 	public String getNome() {

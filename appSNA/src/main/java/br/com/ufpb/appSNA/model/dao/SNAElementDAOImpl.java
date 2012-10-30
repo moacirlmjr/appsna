@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -58,8 +59,8 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 
 	@Override
 	public void create(List<SNAElement> objeto) throws Exception {
-		String query = "Insert into elemento(nome, screen_name, biografia, localizacao, totalFollowing," +
-			"totalFollowers, totalTweets, URL, timeZone, linguagem, dataDeCricao, URLImagem) values(?,?,?,?,?,?,?,?,?,?,?,?);";
+		String query = "Insert into usuario(id_usuario, nome, screen_name, biografia, localizacao, total_Following," +
+			"total_Followers, total_Tweets, URL, timeZone, linguagem, data_criacao, url_imagem) values(?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
 
 		PreparedStatement stmt = null;
@@ -73,28 +74,30 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 			int count = 0;
 			for (SNAElement elem : objeto) {
 				
-				stmt.setLong(0, ((SNAElement) objeto).getId());
-				stmt.setString(1, elem.getNome());
-				stmt.setString(2, elem.getScreename());
-				stmt.setString(3, elem.getBiografia());
-				stmt.setString(4, elem.getLocalização());
-				stmt.setInt(5, elem.getTotalFollowing());
-				stmt.setInt(6, elem.getTotalFollowers());
-				stmt.setInt(7, elem.getTotalTweets());
-				stmt.setString(8, elem.getURL());
-				stmt.setString(9, elem.getTimeZone());
-				stmt.setString(10, elem.getLinguagem());
-				stmt.setDate(11, (Date) elem.getDataDeCriacao());
-				stmt.setString(12, elem.getURLImagem());
+				stmt.setLong(1, elem.getId_usuario());
+				stmt.setString(2, elem.getNome());
+				stmt.setString(3, elem.getScreename());
+				stmt.setString(4, elem.getBiografia());
+				stmt.setString(5, elem.getLocalização());
+				stmt.setInt(6, elem.getTotalFollowing());
+				stmt.setInt(7, elem.getTotalFollowers());
+				stmt.setInt(8, elem.getTotalTweets());
+				stmt.setString(9, elem.getURL());
+				stmt.setString(10, elem.getTimeZone());
+				stmt.setString(11, elem.getLinguagem());
+				stmt.setTimestamp(12,  new Timestamp(elem.getDataDeCriacao().getTime()));
+				stmt.setString(13, elem.getURLImagem());
 
 				stmt.addBatch();
-				if (++count % objeto.size() == 0) {
+				if (((objeto.size() - 1) < 20 && count % objeto.size() == 0) || (count != 0 && count % 20 == 0)) {
 					stmt.executeBatch();
 				}
+				count ++;
 			}
 			conn.commit();
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
+			e.printStackTrace();
 		} finally {
 			conn.close();
 		}

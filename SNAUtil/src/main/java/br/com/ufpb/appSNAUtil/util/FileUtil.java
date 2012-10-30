@@ -6,14 +6,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.filechooser.FileFilter;
-
 public class FileUtil {
 
 	private static FileWriter fw;
 
 	public static void criaArquivo(String local, Boolean isConstant) {
-		try {
+		try {		
+			File f = new File(Constantes.DIR_APPSNA_ELEMENTOS);
+			if(!f.exists()){
+				f.mkdir();
+			}
+			File f2 = new File(Constantes.DIR_APPSNA_RELACIONAMENTOS);
+			if(!f2.exists()){
+				f2.mkdir();
+			}
 			fw = new FileWriter(local, isConstant);
 			AppSNALog.info("Arquivo gerado com sucesso");
 		} catch (IOException e) {

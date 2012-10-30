@@ -28,7 +28,7 @@ public class TesteParser {
 			}
 			
 			for (SNAElement elem : listElementsAux){
-				//System.out.println("ID: " + elem.getId());
+				System.out.println("ID: " + elem.getId());
 				System.out.println("Nome: " + elem.getNome());
 				System.out.println("ScreenName: " + elem.getScreename());
 			}

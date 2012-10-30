@@ -18,7 +18,9 @@ import br.com.ufpb.appSNAUtil.util.FileUtil;
 public class PersistirBase {
 
 	public static void main(String[] args) {
-
+		
+		
+		//Povoamento da tabela SNAElement
 		try {
 
 			List<File> arquivosCsvSNAElem = FileUtil.listarArquivosDir(Constantes.DIR_APPSNA + "elementos");
@@ -40,7 +42,7 @@ public class PersistirBase {
 		}
 		
 		
-
+		//Povoamento da tabela Relacionamento
 		try {
 			
 			List<File> arquivosCsvRel = FileUtil.listarArquivosDir(Constantes.DIR_APPSNA + "relacionamento");			

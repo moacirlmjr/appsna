@@ -24,6 +24,7 @@ public class AccountCarrousel {
 	public static void startListReady() {
 		LIST_ACOUNTS_READY = new ArrayList<Twitter>();
 		LIST_ACOUNTS_WAIT = new ArrayList<Twitter>();
+		totalHits = new AtomicInteger();
 		int count = 0;
 		try {
 			for (AuthEnum auth : AuthEnum.values()) {

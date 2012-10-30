@@ -19,8 +19,8 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 
 	@Override
 	public Long create(SNAElement objeto) throws Exception {
-		String query = "Insert into elemento(id, nome, screen_name, biografia, localizacao, totalFollowing," +
-				"totalFollowers, totalTweets, URL, timeZone, linguagem, dataDeCricao, URLImagem) values(?,?,?,?,?,?,?,?,?,?,?,?);";
+		String query = "Insert into usuario(id_usuario, nome, screen_name, biografia, localizacao, total_Following," +
+			"total_Followers, total_Tweets, URL, timeZone, linguagem, data_criacao, url_imagem) values(?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -58,7 +58,7 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 	}
 
 	@Override
-	public void create(List<SNAElement> objeto) throws Exception {
+	public void create(List<SNAElement> listaSNAElem) throws Exception {
 		String query = "Insert into usuario(id_usuario, nome, screen_name, biografia, localizacao, total_Following," +
 			"total_Followers, total_Tweets, URL, timeZone, linguagem, data_criacao, url_imagem) values(?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
@@ -72,7 +72,7 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 			// run sql objects
 			stmt = conn.prepareStatement(query);
 			int count = 0;
-			for (SNAElement elem : objeto) {
+			for (SNAElement elem : listaSNAElem) {
 				
 				stmt.setLong(1, elem.getId_usuario());
 				stmt.setString(2, elem.getNome());
@@ -89,7 +89,7 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 				stmt.setString(13, elem.getURLImagem());
 
 				stmt.addBatch();
-				if (((objeto.size() - 1) < 20 && count % objeto.size() == 0) || (count != 0 && count % 20 == 0)) {
+				if (((listaSNAElem.size() - 1) < 20 && count % listaSNAElem.size() == 0) || (count != 0 && count % 20 == 0)) {
 					stmt.executeBatch();
 				}
 				count ++;
@@ -107,8 +107,9 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 
 	@Override
 	public Long update(SNAElement objeto) throws Exception {
-		String query = "update elemento set nome = ?, screen_name = ?, biografia = ?, localizacao = ?, totalFollowing = ?," +
-				"totalFollowers = ?, totalTweets = ?, URL = ?, timeZone = ?, linguagem = ?, dataDeCricao = ?, URLImagem = ? where id = ?;";
+		String query = "update Usuario set nome = ?, screen_name = ?, biografia = ?, localizacao = ?, total_Following = ?," +
+				"total_Followers = ?, total_Tweets = ?, URL = ?, timeZone = ?, linguagem = ?, data_criacao = ?, url_imagem = ? " +
+				"where id_usuario = ?;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -147,7 +148,7 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 
 	@Override
 	public SNAElement findById(Long id) throws Exception {
-		String query = "select * from monitorado where id = ?;";
+		String query = "select * from Usuario where id_usuario = ?;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -187,7 +188,7 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 
 	@Override
 	public List<SNAElement> list() throws Exception {
-		String query = "select * from elemento;";
+		String query = "select * from Usuario;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -228,7 +229,7 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 
 	@Override
 	public void remove(SNAElement objeto) throws Exception {
-		String query = "delete from elemento where id = ?;";
+		String query = "delete from Usuario where id_usuario = ?;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;

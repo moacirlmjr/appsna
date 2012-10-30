@@ -18,17 +18,16 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 
 	@Override
 	public Long create(SNAElement objeto) throws Exception {
-		String query = "Insert into elemento(nome, screen_name, biografia, localizacao, totalFollowing," +
+		String query = "Insert into elemento(id, nome, screen_name, biografia, localizacao, totalFollowing," +
 				"totalFollowers, totalTweets, URL, timeZone, linguagem, dataDeCricao, URLImagem) values(?,?,?,?,?,?,?,?,?,?,?,?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
-		SNAElement elem = new SNAElement();
 		Long result = null;
 		try {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query, com.mysql.jdbc.Statement.RETURN_GENERATED_KEYS);			
-			
+			stmt.setLong(0, objeto.getId());
 			stmt.setString(1, objeto.getNome());
 			stmt.setString(2, objeto.getScreename());
 			stmt.setString(3, objeto.getBiografia());
@@ -73,6 +72,8 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 			stmt = conn.prepareStatement(query);
 			int count = 0;
 			for (SNAElement elem : objeto) {
+				
+				stmt.setLong(0, ((SNAElement) objeto).getId());
 				stmt.setString(1, elem.getNome());
 				stmt.setString(2, elem.getScreename());
 				stmt.setString(3, elem.getBiografia());
@@ -110,8 +111,7 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 		Connection conn = null;
 		Long result = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
-					BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			
 			stmt.setString(1, objeto.getNome());

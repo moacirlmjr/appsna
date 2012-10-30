@@ -6,29 +6,23 @@ import br.com.ufpb.appSNAUtil.model.beans.comum.AppSNAEntityMaster;
 
 public class Status extends AppSNAEntityMaster{
 
-	long id;
-	long id_elemento;
+	long id_status;
+	long id_usuario;
 	Date dataDeCriacao;
 	String texto;
 	long latitude;
-	long bigint;
+	long longitude;
 	int totalRetweet;
 	boolean isRetweeted;
 
-	public long getId() {
-		return id;
+	
+
+	public long getId_usuario() {
+		return id_usuario;
 	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public long getId_elemento() {
-		return id_elemento;
-	}
-
-	public void setId_elemento(long id_elemento) {
-		this.id_elemento = id_elemento;
+	public void setId_usuario(long id_usuario) {
+		this.id_usuario = id_usuario;
 	}
 
 	public Date getDataDeCriacao() {
@@ -54,13 +48,13 @@ public class Status extends AppSNAEntityMaster{
 	public void setLatitude(long latitude) {
 		this.latitude = latitude;
 	}
-
-	public long getBigint() {
-		return bigint;
+	
+	public long getLongitude() {
+		return longitude;
 	}
 
-	public void setBigint(long bigint) {
-		this.bigint = bigint;
+	public void setLongitude(long longitude) {
+		this.longitude = longitude;
 	}
 
 	public int getTotalRetweet() {
@@ -78,5 +72,15 @@ public class Status extends AppSNAEntityMaster{
 	public void setRetweeted(boolean isRetweeted) {
 		this.isRetweeted = isRetweeted;
 	}
+
+	public long getId_status() {
+		return id_status;
+	}
+
+	public void setId_status(long id_status) {
+		this.id_status = id_status;
+	}
+	
+	
 
 }

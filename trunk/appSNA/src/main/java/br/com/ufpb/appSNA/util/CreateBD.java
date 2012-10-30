@@ -61,9 +61,11 @@ public class CreateBD {
 
 			try {
 				String sqlTableRelacionamento = "CREATE TABLE Relacionamento (" +
+						 " id_relacionamento BIGINT NOT NULL AUTO_INCREMENT, " +
 						  "id_souce BIGINT NOT NULL , " +
 						  "id_target BIGINT NOT NULL , " +
-						  "PRIMARY KEY (id_souce, id_target), " +
+						  "PRIMARY KEY (id_relacionamento), " +
+						  "UNIQUE KEY (id_souce, id_target), " +
 						  "INDEX fk_Relacionamento_Usuario2 (id_target ASC), " +
 						  "CONSTRAINT fk_Relacionamento_Usuario1 " +
 						  "FOREIGN KEY (id_souce) " +
@@ -111,8 +113,8 @@ public class CreateBD {
 						  "id_status INT NOT NULL, " +
 						  "id_urlmention INT NOT NULL AUTO_INCREMENT, " +
 						  "url TEXT NULL, " +
-						  "PRIMARY KEY (id_usuario, id_status, id_urlmention), " +  
-						  "UNIQUE KEY(id_status), " +
+						  "PRIMARY KEY (id_urlmention), " + 
+						  "UNIQUE KEY (id_usuario, id_status, id_urlmention), " +						  
 						  "CONSTRAINT fk_URLMention_Status " +
 						  "FOREIGN KEY (id_status, id_usuario) " +
 						  "REFERENCES Status(id_status, id_usuario) " +
@@ -133,7 +135,8 @@ public class CreateBD {
 						  "id_status INT NOT NULL, " +
 						  "id_usermention INT NOT NULL AUTO_INCREMENT, " +
 						  "usuario VARCHAR(45) NULL, " +
-						  "PRIMARY KEY (id_usuario, id_status, id_usermention), " +
+						  "PRIMARY KEY (id_usermention), " +
+						  "UNIQUE KEY (id_usuario, id_status, id_usermention), " +
 						  "CONSTRAINT fk_UserMention_Status " +
 						  "FOREIGN KEY (id_status, id_usuario) " +
 						  "REFERENCES Status(id_status, id_usuario) " +
@@ -141,6 +144,27 @@ public class CreateBD {
 				stmt.executeUpdate(sqlTableUsermention);
 				conn.commit();
 				AppSNALog.warn("Tabela Usermention criada com sucesso...");
+			} catch (SQLException se3) {
+				conn.rollback();
+				AppSNALog.error("Erro na criacao da tabela Usermention: " + se3.getMessage());
+			}
+			
+			
+			try {
+				String sqlTableUsermention = "CREATE TABLE hashtagmention (" +
+						  "id_usuario BIGINT NOT NULL, " +
+						  "id_status INT NOT NULL, " +
+						  "id_hashtagmention INT NOT NULL AUTO_INCREMENT, " +
+						  "usuario VARCHAR(45) NULL, " +
+						  "PRIMARY KEY (id_hashtagmention), " +
+						  "UNIQUE KEY (id_usuario, id_status, id_hashtagmention), " +
+						  "CONSTRAINT fk_HashtagMention_Status " +
+						  "FOREIGN KEY (id_status, id_usuario) " +
+						  "REFERENCES Status(id_status, id_usuario) " +
+						  ");";
+				stmt.executeUpdate(sqlTableUsermention);
+				conn.commit();
+				AppSNALog.warn("Tabela HashtagMention criada com sucesso...");
 			} catch (SQLException se3) {
 				conn.rollback();
 				AppSNALog.error("Erro na criacao da tabela Usermention: " + se3.getMessage());

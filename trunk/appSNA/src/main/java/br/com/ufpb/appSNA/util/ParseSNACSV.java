@@ -3,7 +3,10 @@ package br.com.ufpb.appSNA.util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.text.DateFormat;
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import br.com.ufpb.appSNA.model.beans.Relacionamento;
@@ -56,7 +59,7 @@ public class ParseSNACSV {
 			SNAEl.setURL(lineArray[URL]);
 			SNAEl.setTimeZone(lineArray[TIMEZONE]);
 			SNAEl.setLinguagem(lineArray[LINGUAGEM]);
-			SNAEl.setDataDeCriacao(new Date(Long.valueOf(lineArray[DATADECRIACAO]).longValue()));
+			SNAEl.setDataDeCriacao(DateUtil.dateParser(lineArray[DATADECRIACAO]));		
 			SNAEl.setURLImagem(lineArray[URLIMAGEM]);
 
 			list.add(SNAEl);

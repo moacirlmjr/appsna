@@ -1,5 +1,6 @@
 package br.com.ufpb.appSNAUtil.util;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -19,7 +20,7 @@ import br.com.ufpb.appSNAUtil.model.enumeration.AuthEnum;
 import br.com.ufpb.appSNAUtil.model.thread.AccountThread;
 import br.com.ufpb.appSNAUtil.model.thread.VerificarListaReady;
 
-public class TwitterUtil {
+public class TwitterUtil implements Serializable {
 	// TODO tratar a exceção twitter exception e fazer um algoritmo para
 	// realizar a troca de chaves quando isso ocorrer
 	// TODO fazer com que cada metodo tenha como parametro o bean Twitter
@@ -51,42 +52,23 @@ public class TwitterUtil {
 	public static List<User> retornarListaAmigos(String screenName)
 			throws Exception {
 
-		try {
-			List<User> listUsers = new LinkedList<User>();
-			IDs ids = AccountCarrousel.CURRENT_ACCOUNT.getFriendsIDs(
-					screenName, -1);
-			// TODO Funciona mas é improdutivo Ainda realiza inumeras
-			// requisições,
-			// procurar metodo ou
-			// serviço que possa retornar os dados em uma requisição excede o
-			// RATE
-			// LIMIT
-			for (long id : ids.getIDs()) {
-				listUsers.add(AccountCarrousel.CURRENT_ACCOUNT.showUser(id));
-			}
-			return listUsers;
-		} catch (TwitterException e) {
-			AppSNALog.error(e.toString());
-
-			tratarTwitterException(e);
-			return retornarListaAmigos(screenName);
+		List<User> listUsers = new LinkedList<User>();
+		testarRemainingHits();
+		IDs ids = AccountCarrousel.CURRENT_ACCOUNT
+				.getFriendsIDs(screenName, -1);
+		for (long id : ids.getIDs()) {
+			testarRemainingHits();
+			listUsers.add(AccountCarrousel.CURRENT_ACCOUNT.showUser(id));
 		}
-
+		return listUsers;
 	}
 
 	public static IDs retornarListaAmigosIds(String screenName)
 			throws Exception {
-		try {
-			IDs ids = AccountCarrousel.CURRENT_ACCOUNT.getFriendsIDs(
-					screenName, -1);
-			return ids;
-		} catch (TwitterException e) {
-			AppSNALog.error(e.toString());
-
-			tratarTwitterException(e);
-
-			return retornarListaAmigosIds(screenName);
-		}
+		testarRemainingHits();
+		IDs ids = AccountCarrousel.CURRENT_ACCOUNT
+				.getFriendsIDs(screenName, -1);
+		return ids;
 	}
 
 	public static List<Long> retornarListaAmigosIdsList(String screenName,
@@ -94,74 +76,42 @@ public class TwitterUtil {
 		List<Long> list = new ArrayList<Long>();
 		IDs ids = null;
 		int count = 0;
+		// testarRemainingHits();
 		try {
 			ids = AccountCarrousel.CURRENT_ACCOUNT
 					.getFriendsIDs(screenName, -1);
 			for (long id : ids.getIDs()) {
-				try {
-					if (isOnlyJP){
+				if (isOnlyJP) {
+					// testarRemainingHits();
+					try {
 						User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(id);
-						if(u.getLocation().replace('ã', 'a').toLowerCase()
-								.equals("joao pessoa")){
+						if (u.getLocation().replace('ã', 'a').toLowerCase()
+								.contains("joao pessoa")) {
 							list.add(id);
 						}
-					}else{
-						list.add(id);
-					}
-				} catch (TwitterException e) {
-					AppSNALog.error(e.toString());
-					if (e.getStatusCode() != 403) {
-						tratarTwitterException(e);
-					}
-					
-					if (isOnlyJP){
-						User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(id);
-						if(u.getLocation().replace('ã', 'a').toLowerCase()
-								.equals("joao pessoa")){
-							list.add(id);
+					} catch (TwitterException e) {
+						AppSNALog.error(e.toString());
+						if (e.getStatusCode() == -1) {
+							User u = AccountCarrousel.CURRENT_ACCOUNT
+									.showUser(id);
+							if (u.getLocation().replace('ã', 'a').toLowerCase()
+									.contains("joao pessoa")) {
+								list.add(id);
+							}
+						} else if (e.getStatusCode() == 401) {
+							tratarRemainingHits();
 						}
-					}else{
-						list.add(id);
 					}
+
+				} else {
+					list.add(id);
 				}
 				count++;
 			}
-
-			return list;
 		} catch (TwitterException e) {
-			AppSNALog.error(e.toString());
-			if (e.getStatusCode() != 403) {
-				tratarTwitterException(e);
-			}
-			return retornarListaAmigosTratarException(screenName, ids, list,
-					isOnlyJP, count);
-		}
-	}
-
-	private static List<Long> retornarListaAmigosTratarException(
-			String screenName, IDs ids, List<Long> list, boolean isOnlyJP,
-			int count) throws Exception {
-
-		for (int i = count; i < ids.getIDs().length; i++, count++) {
-			if (!list.contains(ids.getIDs()[i])) {
-				try {
-					if (isOnlyJP){
-						User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(screenName);
-						if(u.getLocation().replace('ã', 'a').toLowerCase()
-								.equals("joao pessoa")){
-							list.add(ids.getIDs()[i]);
-						}
-					}else{
-						list.add(ids.getIDs()[i]);
-					}
-				} catch (TwitterException e) {
-					AppSNALog.error(e.toString());
-					if (e.getStatusCode() == 400) {
-						tratarTwitterException(e);
-						return retornarListaAmigosTratarException(screenName,
-								ids, list, isOnlyJP, count);
-					}
-				}
+			if (e.getStatusCode() == 401) {
+				tratarRemainingHits();
+				e.printStackTrace();
 			}
 		}
 
@@ -170,140 +120,94 @@ public class TwitterUtil {
 
 	public static Map<String, Long> retornarUserId(List<String> list,
 			boolean isOnlyJP) throws Exception {
-		try {
-			Map<String, Long> users = new LinkedHashMap<String, Long>();
+		Map<String, Long> users = new LinkedHashMap<String, Long>();
 
-			for (String screenName : list) {
-				User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(screenName);
-				
-				if (!isOnlyJP
-						|| u.getLocation().replace('ã', 'a').toLowerCase()
-								.equals("joao pessoa"))
-					users.put(screenName, u.getId());
-			}
+		for (String screenName : list) {
+			testarRemainingHits();
+			User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(screenName);
 
-			return users;
-
-		} catch (TwitterException e) {
-			AppSNALog.error(e.toString());
-
-			tratarTwitterException(e);
-
-			return retornarUserId(list, isOnlyJP);
+			if (!isOnlyJP
+					|| u.getLocation().replace('ã', 'a').toLowerCase()
+							.equals("joao pessoa"))
+				users.put(screenName, u.getId());
 		}
+
+		return users;
 	}
 
 	public static boolean isFollowed(String source, String target)
 			throws Exception {
-		try {
-			return AccountCarrousel.CURRENT_ACCOUNT.showFriendship(source,
-					target).isSourceFollowedByTarget();
-
-		} catch (TwitterException e) {
-			AppSNALog.error(e.toString());
-
-			tratarTwitterException(e);
-
-			return isFollowed(source, target);
-		}
+		testarRemainingHits();
+		return AccountCarrousel.CURRENT_ACCOUNT.showFriendship(source, target)
+				.isSourceFollowedByTarget();
 	}
 
 	public static boolean isBlocking(String source, String target)
 			throws Exception {
-		try {
-			return AccountCarrousel.CURRENT_ACCOUNT.showFriendship(source,
-					target).isSourceBlockingTarget();
-		} catch (TwitterException e) {
-			AppSNALog.error(e.toString());
-
-			tratarTwitterException(e);
-
-			return isBlocking(source, target);
-		}
+		testarRemainingHits();
+		return AccountCarrousel.CURRENT_ACCOUNT.showFriendship(source, target)
+				.isSourceBlockingTarget();
 	}
 
 	public static boolean isFollowing(String source, String target)
 			throws Exception {
+		// testarRemainingHits();
 		try {
 			return AccountCarrousel.CURRENT_ACCOUNT.showFriendship(source,
 					target).isSourceFollowingTarget();
 		} catch (TwitterException e) {
 			AppSNALog.error(e.toString());
-
-			tratarTwitterException(e);
-
-			return isFollowing(source, target);
+			if (e.getStatusCode() == -1) {
+				return isFollowing(source, target);
+			}
 		}
+		return false;
 	}
 
 	public static boolean isNotificationEnabled(String source, String target)
 			throws Exception {
-		try {
-			return AccountCarrousel.CURRENT_ACCOUNT.showFriendship(source,
-					target).isSourceNotificationsEnabled();
-		} catch (TwitterException e) {
-			AppSNALog.error(e.toString());
-
-			tratarTwitterException(e);
-
-			return isNotificationEnabled(source, target);
-		}
+		testarRemainingHits();
+		return AccountCarrousel.CURRENT_ACCOUNT.showFriendship(source, target)
+				.isSourceNotificationsEnabled();
 	}
 
 	public static boolean isRelationship(String source, String target)
 			throws Exception {
-		try {
-			return AccountCarrousel.CURRENT_ACCOUNT.existsFriendship(source,
-					target);
-		} catch (TwitterException e) {
-			AppSNALog.error(e.toString());
-
-			tratarTwitterException(e);
-
-			return isRelationship(source, target);
-		}
+		testarRemainingHits();
+		return AccountCarrousel.CURRENT_ACCOUNT
+				.existsFriendship(source, target);
 	}
 
 	public static UserTO getUserData(long idUser) throws Exception {
 
-		try {
-			User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(idUser);
-			UserTO uto = new UserTO();
+		testarRemainingHits();
+		User u = AccountCarrousel.CURRENT_ACCOUNT.showUser(idUser);
+		UserTO uto = new UserTO();
 
-			uto.setId(String.valueOf(u.getId()));
-			uto.setNome(u.getName() == null ? "não informado" : u.getName());
-			uto.setScreename(u.getScreenName() == null ? "não informado" : u
-					.getScreenName());
-			uto.setBiografia(u.getDescription() == null ? "não informado" : u
-					.getDescription());
-			uto.setLocalização(u.getLocation() == null ? "não informado" : u
-					.getLocation());
-			uto.setTotalFollowers(String.valueOf(u.getFollowersCount()) == null ? "não informado"
-					: u.getFollowersCount() + "");
-			uto.setTotalFollowing(String.valueOf(u.getFriendsCount()) == null ? "não informado"
-					: u.getFriendsCount() + "");
-			uto.setTotalTweets(String.valueOf(u.getStatusesCount()) == null ? "não informado"
-					: u.getStatusesCount() + "");
-			uto.setURL(u.getURL() != null ? u.getURL().getHost()
-					: "não informado");
-			uto.setTimeZone(u.getTimeZone() == null ? "não informado" : u
-					.getTimeZone());
-			uto.setLinguagem(u.getLang() == null ? "não informado" : u
-					.getLang());
-			uto.setDataDeCriacao((u.getCreatedAt() == null ? "não informado"
-					: String.valueOf(u.getCreatedAt())));
-			uto.setURLImage((u.getProfileImageURL() == null ? "não informado"
-					: String.valueOf(u.getProfileImageURL())));
+		uto.setId(String.valueOf(u.getId()));
+		uto.setNome(u.getName() == null ? "não informado" : u.getName());
+		uto.setScreename(u.getScreenName() == null ? "não informado" : u
+				.getScreenName());
+		uto.setBiografia(u.getDescription() == null ? "não informado" : u
+				.getDescription());
+		uto.setLocalização(u.getLocation() == null ? "não informado" : u
+				.getLocation());
+		uto.setTotalFollowers(String.valueOf(u.getFollowersCount()) == null ? "não informado"
+				: u.getFollowersCount() + "");
+		uto.setTotalFollowing(String.valueOf(u.getFriendsCount()) == null ? "não informado"
+				: u.getFriendsCount() + "");
+		uto.setTotalTweets(String.valueOf(u.getStatusesCount()) == null ? "não informado"
+				: u.getStatusesCount() + "");
+		uto.setURL(u.getURL() != null ? u.getURL().getHost() : "não informado");
+		uto.setTimeZone(u.getTimeZone() == null ? "não informado" : u
+				.getTimeZone());
+		uto.setLinguagem(u.getLang() == null ? "não informado" : u.getLang());
+		uto.setDataDeCriacao((u.getCreatedAt() == null ? "não informado"
+				: String.valueOf(u.getCreatedAt())));
+		uto.setURLImage((u.getProfileImageURL() == null ? "não informado"
+				: String.valueOf(u.getProfileImageURL())));
 
-			return uto;
-
-		} catch (TwitterException e) {
-			AppSNALog.error(e.toString());
-			tratarTwitterException(e);
-
-			return getUserData(idUser);
-		}
-
+		return uto;
 	}
 
 	public static UserTO getUserData(User u) {
@@ -336,40 +240,41 @@ public class TwitterUtil {
 		return uto;
 	}
 
-	private static void tratarTwitterException(TwitterException e)
-			throws InterruptedException {
+	public static void testarRemainingHits() throws TwitterException, Exception {
+		if (AccountCarrousel.CURRENT_ACCOUNT.getRateLimitStatus()
+				.getRemainingHits() == 0) {
+			tratarRemainingHits();
+		}
+	}
+
+	public static void tratarRemainingHits() throws Exception {
 		try {
 
-			if (e.getRateLimitStatus() != null) {
-				if (e.getRateLimitStatus().getRemainingHits() == 0) {
-
-					Long timeRemaining = ((long) e.getRateLimitStatus()
-							.getSecondsUntilReset() * 1000);
-					if (AccountCarrousel.LIST_ACOUNTS_READY.size() == 0) {
-						mutexListReady = new AtomicBoolean();
-						mutexListReady.set(true);
-						VerificarListaReady vl = new VerificarListaReady();
-						synchronized (mutexListReady) {
-							vl.setName("VerificarListaReady");
-							vl.setMutexListReady(mutexListReady);
-							vl.start();
-							mutexListReady.wait();
-						}
-					}
-					mutex = new AtomicBoolean();
-					mutex.set(true);
-					AccountThread at = new AccountThread();
-					synchronized (mutex) {
-						at.setMutex(mutex);
-						at.setName("AccountThread-"
-								+ AccountCarrousel.CURRENT_ACCOUNT
-										.getOAuthAccessToken().getUserId());
-						at.setTimeRemaining(timeRemaining);
-						at.start();
-
-						mutex.wait();
-					}
+			Long timeRemaining = ((long) AccountCarrousel.CURRENT_ACCOUNT
+					.getRateLimitStatus().getSecondsUntilReset() * 1000);
+			if (AccountCarrousel.LIST_ACOUNTS_READY.size() == 0) {
+				mutexListReady = new AtomicBoolean();
+				mutexListReady.set(true);
+				VerificarListaReady vl = new VerificarListaReady();
+				synchronized (mutexListReady) {
+					vl.setName("VerificarListaReady");
+					vl.setMutexListReady(mutexListReady);
+					vl.start();
+					mutexListReady.wait();
 				}
+			}
+			mutex = new AtomicBoolean();
+			mutex.set(true);
+			AccountThread at = new AccountThread();
+			synchronized (mutex) {
+				at.setMutex(mutex);
+				at.setName("AccountThread-"
+						+ AccountCarrousel.CURRENT_ACCOUNT
+								.getOAuthAccessToken().getUserId());
+				at.setTimeRemaining(timeRemaining);
+				at.start();
+
+				mutex.wait();
 			}
 		} catch (Exception ex) {
 			AppSNALog.error(ex.toString());
@@ -397,7 +302,8 @@ public class TwitterUtil {
 			try {
 				User y = twitter.showUser(u);
 				int t = y.getFriendsCount();
-				System.out.println(y.getScreenName() + ": total de " + t + " amigos");
+				System.out.println(y.getScreenName() + ": total de " + t
+						+ " amigos");
 				totalFollowingGroup += t;
 
 			} catch (TwitterException e) {
@@ -408,8 +314,7 @@ public class TwitterUtil {
 		return totalFollowingGroup;
 
 	}
-	
-	
+
 	public static int getTotalFollowersGroup(List<String> listUsers) {
 
 		ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -431,7 +336,8 @@ public class TwitterUtil {
 			try {
 				User y = twitter.showUser(u);
 				int t = y.getFollowersCount();
-				System.out.println(y.getScreenName() + ": total de " + t + " Followers");
+				System.out.println(y.getScreenName() + ": total de " + t
+						+ " Followers");
 				totalFollowersGroup += t;
 
 			} catch (TwitterException e) {
@@ -442,7 +348,6 @@ public class TwitterUtil {
 		return totalFollowersGroup;
 
 	}
-
 
 	public static int getTotalFollowingGroups(List<User> listUsers) {
 
@@ -455,8 +360,7 @@ public class TwitterUtil {
 		return totalFollowingGroup;
 
 	}
-	
-	
+
 	public static int getTotalFollowersGroups(List<User> listUsers) {
 
 		int totalFollowersGroup = 0;
@@ -500,29 +404,28 @@ public class TwitterUtil {
 	}
 
 	public static List<User> getRelationshipFromFriend(User source, User target) {
-		
+
 		List<User> listSource = new ArrayList<User>();
 		List<User> listTarget = new ArrayList<User>();
 		List<User> listAux = new ArrayList<User>();
-		
+
 		try {
-			if(isFollowing(source.getScreenName(), target.getScreenName())|| isFollowing(target.getScreenName(), source.getScreenName())){
+			if (isFollowing(source.getScreenName(), target.getScreenName())
+					|| isFollowing(target.getScreenName(),
+							source.getScreenName())) {
 				listAux.add(source);
 			}
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		
+
 		try {
 			listSource = retornarListaAmigos(source.getScreenName());
 			listTarget = retornarListaAmigos(target.getScreenName());
 		} catch (Exception e) {
 			AppSNALog.error(e.toString());
 		}
-
-		
 
 		for (User x : listSource) {
 			for (User y : listTarget) {

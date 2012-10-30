@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import twitter4j.Twitter;
-import twitter4j.TwitterException;
 import br.com.ufpb.appSNAUtil.util.AccountCarrousel;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
+import br.com.ufpb.appSNAUtil.util.RateLimiteStatusListetener;
 
 public class AccountThread extends Thread {
 
@@ -23,28 +23,33 @@ public class AccountThread extends Thread {
 		try {
 			AppSNALog.warn("Começando Tratamento de Conta");
 			synchronized (mutex) {
-				if(AccountCarrousel.CURRENT_ACCOUNT != null){
-					accountId = new Long(AccountCarrousel.CURRENT_ACCOUNT.getOAuthAccessToken().getUserId());
+				if (AccountCarrousel.CURRENT_ACCOUNT != null) {
+					accountId = new Long(AccountCarrousel.CURRENT_ACCOUNT
+							.getOAuthAccessToken().getUserId());
 				}
 				AccountCarrousel.LIST_ACOUNTS_WAIT
 						.add(AccountCarrousel.CURRENT_ACCOUNT);
-				AppSNALog.warn("Conta " + accountId + " adiciona a Lista de Wait");
-				
+				AppSNALog.warn("Conta " + accountId
+						+ " adiciona a Lista de Wait");
+
 				if (AccountCarrousel.LIST_ACOUNTS_READY.size() != 0) {
-					List<Twitter> listAux2 = new ArrayList<Twitter>(AccountCarrousel.LIST_ACOUNTS_READY);
+					List<Twitter> listAux2 = new ArrayList<Twitter>(
+							AccountCarrousel.LIST_ACOUNTS_READY);
 					int index = 0;
-					for(Twitter tw: listAux2){
-						if (tw.getRateLimitStatus().getRemainingHits() != 0){
+					for (Twitter tw : listAux2) {
+						if (tw.getRateLimitStatus().getRemainingHits() != 0) {
 							AccountCarrousel.CURRENT_ACCOUNT = AccountCarrousel.LIST_ACOUNTS_READY
-							.get(index);
-							AppSNALog.warn("Nova Conta Adiciona no current_account");
+									.get(index);
+							AccountCarrousel.CURRENT_ACCOUNT
+									.addRateLimitStatusListener(new RateLimiteStatusListetener());
+							AppSNALog
+									.warn("Nova Conta Adiciona no current_account");
 							AccountCarrousel.LIST_ACOUNTS_READY.remove(index);
 							AppSNALog.warn("Conta removida da Lista de Ready");
-							
+
 							break;
-						}else{
-							AccountCarrousel.LIST_ACOUNTS_WAIT
-							.add(tw);
+						} else {
+							AccountCarrousel.LIST_ACOUNTS_WAIT.add(tw);
 							AccountCarrousel.LIST_ACOUNTS_READY.remove(index);
 						}
 						index++;
@@ -54,12 +59,14 @@ public class AccountThread extends Thread {
 			}
 
 			Thread.sleep(timeRemaining);
-			AppSNALog.warn("Tempo " + timeRemaining + " da  conta " + accountId + " passou");
-			List<Twitter> listAux = new ArrayList<Twitter>(AccountCarrousel.LIST_ACOUNTS_WAIT);
+			AppSNALog.warn("Tempo " + timeRemaining + " da  conta " + accountId
+					+ " passou");
+			List<Twitter> listAux = new ArrayList<Twitter>(
+					AccountCarrousel.LIST_ACOUNTS_WAIT);
 			int index = 0;
 			for (Twitter t : listAux) {
 				if (t.getOAuthAccessToken().getUserId() == accountId) {
-					while(t.getRateLimitStatus().getRemainingHits() == 0){
+					while (t.getRateLimitStatus().getRemainingHits() == 0) {
 						Thread.sleep(600);
 					}
 					AppSNALog.warn("Removida da lista de wait");

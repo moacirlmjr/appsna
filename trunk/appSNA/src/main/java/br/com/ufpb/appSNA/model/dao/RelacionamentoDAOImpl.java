@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.mysql.jdbc.Statement;
 
 import br.com.ufpb.appSNA.model.beans.Relacionamento;
+import br.com.ufpb.appSNA.model.beans.SNAElement;
 import br.com.ufpb.appSNA.util.BDUtil;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
 import br.com.ufpb.appSNAUtil.util.DAOUtil;
@@ -53,10 +55,8 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
-					BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,BDUtil.SENHA);
 			conn.setAutoCommit(false);
-			// run sql objects
 			stmt = conn.prepareStatement(query);
 			int count = 0;
 			for (Relacionamento rel : objeto) {
@@ -84,8 +84,7 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 		Connection conn = null;
 		Long result = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
-					BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 
 			stmt.setLong(0, objeto.getId_source());
@@ -106,20 +105,81 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 	}
 
 	@Override
-	public Relacionamento findById(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public Relacionamento findById(Long id_source) throws Exception {
+		String query = "select * from relacionamento where id = ?;";
+
+		PreparedStatement stmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		Relacionamento rel = new Relacionamento();
+
+		try {
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			stmt = conn.prepareStatement(query);
+			stmt.setLong(1, id_source);
+			rs = stmt.getResultSet();
+
+			while (rs.next()) {
+				rel.setId_source(rs.getLong(1));
+				rel.setId_target(rs.getLong(2));			
+			}
+		} catch (SQLException e) {
+			AppSNALog.error(e.toString());
+		} finally {
+			conn.close();
+		}
+
+		return rel;
+
 	}
 
 	@Override
 	public List<Relacionamento> list() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "select * from relacionamento;";
+
+		PreparedStatement stmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		Relacionamento rel = new Relacionamento();
+		List<Relacionamento> listRel = new LinkedList<Relacionamento>();
+		
+		try {
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			stmt = conn.prepareStatement(query);
+			rs = stmt.getResultSet();
+
+			while (rs.next()) {
+				rel = new Relacionamento();
+				rel.setId(rs.getLong(0));
+				rel.setId_source(rs.getLong(1));
+				rel.setId_target(rs.getLong(2));				
+				listRel.add(rel);
+			}
+		} catch (SQLException e) {
+			AppSNALog.error(e.toString());
+		} finally {
+			conn.close();
+		}
+
+		return listRel;
 	}
 
 	@Override
 	public void remove(Relacionamento objeto) throws Exception {
-		// TODO Auto-generated method stub
+		String query = "delete from relacionamento where id = ?;";
+
+		PreparedStatement stmt = null;
+		Connection conn = null;
+		try {
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			stmt = conn.prepareStatement(query);
+			stmt.setLong(1, objeto.getId());
+			stmt.execute();
+		} catch (SQLException e) {
+			AppSNALog.error(e.toString());
+		} finally {
+			conn.close();
+		}
 
 	}
 

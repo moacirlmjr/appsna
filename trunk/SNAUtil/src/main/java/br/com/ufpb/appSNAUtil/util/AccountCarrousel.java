@@ -3,6 +3,7 @@ package br.com.ufpb.appSNAUtil.util;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import twitter4j.Twitter;
 import br.com.ufpb.appSNAUtil.model.enumeration.AuthEnum;
@@ -18,6 +19,7 @@ public class AccountCarrousel {
 	public static final Object LOCK = new Object();
 	private static AtomicBoolean mutex;
 	private static AtomicBoolean mutexListReady;
+	public static AtomicInteger totalHits;
 
 	public static void startListReady() {
 		LIST_ACOUNTS_READY = new ArrayList<Twitter>();
@@ -42,6 +44,7 @@ public class AccountCarrousel {
 				} else {
 					if (count == 0) {
 						CURRENT_ACCOUNT = twitter;
+						CURRENT_ACCOUNT.addRateLimitStatusListener(new RateLimiteStatusListetener());
 					} else {
 						LIST_ACOUNTS_READY.add(twitter);
 					}

@@ -4,8 +4,18 @@ import br.com.ufpb.appSNAUtil.model.beans.comum.AppSNAEntityMaster;
 
 public class Relacionamento extends AppSNAEntityMaster {
 
+	private long id_relacionamento;
 	private long id_source;
 	private long id_target;
+		
+
+	public long getId_relacionamento() {
+		return id_relacionamento;
+	}
+
+	public void setId_relacionamento(long id_relacionamento) {
+		this.id_relacionamento = id_relacionamento;
+	}
 
 	public long getId_source() {
 		return id_source;

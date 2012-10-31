@@ -3,36 +3,42 @@ package br.com.ufpb.appSNA.model.beans;
 import br.com.ufpb.appSNAUtil.model.beans.comum.AppSNAEntityMaster;
 
 public class HashTagMention extends AppSNAEntityMaster {
-	
-	private long id;
+
+	private long id_usuario;
 	private long id_status;
-	private long id_elemento;
+	private long id_hashtagmention;
 	private String hashtag;
-	public long getId() {
-		return id;
+
+	public long getId_usuario() {
+		return id_usuario;
 	}
-	public void setId(long id) {
-		this.id = id;
+
+	public void setId_usuario(long id_usuario) {
+		this.id_usuario = id_usuario;
 	}
+
 	public long getId_status() {
 		return id_status;
 	}
+
 	public void setId_status(long id_status) {
 		this.id_status = id_status;
 	}
-	public long getId_elemento() {
-		return id_elemento;
+
+	public long getId_hashtagmention() {
+		return id_hashtagmention;
 	}
-	public void setId_elemento(long id_elemento) {
-		this.id_elemento = id_elemento;
+
+	public void setId_hashtagmention(long id_hashtagmention) {
+		this.id_hashtagmention = id_hashtagmention;
 	}
+
 	public String getHashtag() {
 		return hashtag;
 	}
+
 	public void setHashtag(String hashtag) {
 		this.hashtag = hashtag;
 	}
-	
-	
-	
+
 }

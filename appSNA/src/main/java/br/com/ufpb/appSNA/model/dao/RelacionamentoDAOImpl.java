@@ -121,6 +121,7 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 			rs = stmt.getResultSet();
 
 			while (rs.next()) {
+				rel.setId_relacionamento(rs.getLong(0));
 				rel.setId_source(rs.getLong(1));
 				rel.setId_target(rs.getLong(2));			
 			}
@@ -133,6 +134,38 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 		return rel;
 
 	}
+	
+	
+	public Relacionamento findByIds(Long id_source, Long id_target) throws Exception {
+		String query = "select * from relacionamento where id_source = ? and id_target = ?;";
+
+		PreparedStatement stmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		Relacionamento rel = new Relacionamento();
+
+		try {
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			stmt = conn.prepareStatement(query);
+			stmt.setLong(1, id_source);
+			stmt.setLong(2, id_target);
+			rs = stmt.getResultSet();
+
+			while (rs.next()) {
+				rel.setId_relacionamento(rs.getLong(0));
+				rel.setId_source(rs.getLong(1));
+				rel.setId_target(rs.getLong(2));			
+			}
+		} catch (SQLException e) {
+			AppSNALog.error(e.toString());
+		} finally {
+			conn.close();
+		}
+
+		return rel;
+
+	}
+
 
 	@Override
 	public List<Relacionamento> list() throws Exception {

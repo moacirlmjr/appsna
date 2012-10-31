@@ -5,4 +5,6 @@ import br.com.ufpb.appSNAUtil.model.dao.AppSnaDAO;
 
 public interface RelacionamentoDAO extends AppSnaDAO<Relacionamento> {
 
+	Relacionamento findByIds(Long id_source, Long id_target) throws Exception;
+
 }

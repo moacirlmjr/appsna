@@ -15,7 +15,7 @@ public class VerificarListaReady extends Thread {
 		try {
 			synchronized (mutexListReady) {
 				AppSNALog.warn("Verificando se a lista de Ready tem mais de três elementos");
-				while (AccountCarrousel.LIST_ACOUNTS_READY.size() < 3) {
+				while (AccountCarrousel.LIST_ACOUNTS_READY.size() < 14) {
 					Thread.sleep(600);
 				}
 				mutexListReady.notify();

@@ -69,9 +69,10 @@ public enum AuthEnum {
 			"915380342-kfkBx4shfhXr6XBEeKY7ALrCOF9fKXeeZpi8uEF6","mKSgaPPKXQQHW90hSzhMi0IRdjFA035vdKvPMJoz1PU"),
 			
 	MOACIR_KEY5("ns8EbUCB0pg6HXoCQUz6Vw","xxGlDbFwHBmJalarz56lZkSvK02Y49pNVtpaCmEZ8",
-			"915388170-H1noJ6lokysLvdVrQqVjEGmfeztymA7OVWvwv8lQ","zctj2vsopTM0rNsSGss4bYczXtnj3l9Hf22DtFg");
+			"915388170-H1noJ6lokysLvdVrQqVjEGmfeztymA7OVWvwv8lQ","zctj2vsopTM0rNsSGss4bYczXtnj3l9Hf22DtFg"),
 			
-	
+	MOACIR_KEY6("2YzKzWtV57hGQXEJ4p1Ejg","mSAbuhUx1YrZBSlgEDH8c6muPgD3oKn7rldoypVzQ",
+			"915716390-Q9knx8sMXUp4cUBRJkkvoa6z4vVspvq3WT3NEeRk","kht2IzQRqETGo05QagBssWBv6aPJQBxzlzK8HFnME3o");
 	
 	private String consumerToken;
 	private String consumerSecret;

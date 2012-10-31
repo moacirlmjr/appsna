@@ -21,7 +21,7 @@ public class PersistirBase {
 		
 		
 		//Povoamento da tabela SNAElement
-		try {
+		/*try {
 
 			List<File> arquivosCsvSNAElem = FileUtil.listarArquivosDir(Constantes.DIR_APPSNA_ELEMENTOS);
 			List<SNAElement> listElements = new ArrayList<SNAElement>();
@@ -40,7 +40,7 @@ public class PersistirBase {
 		} catch (Exception e) {
 			AppSNALog.error("Erro no povoamento da tabela SNAElement: " + e.toString());
 		}
-		
+		*/
 		
 		
 		//Povoamento da tabela Relacionamento

@@ -16,6 +16,7 @@ public class TesteParser {
 	public static void main(String[] args) {
 		
 		//Listando da tabela SNAElement
+		//Lembrar de retirar o cabecalho do arquivo e de retirar as virgulas do CSV
 		try {
 
 			List<File> arquivosCsvSNAElem = FileUtil.listarArquivosDir(Constantes.DIR_APPSNA_ELEMENTOS);
@@ -28,7 +29,7 @@ public class TesteParser {
 			}
 			
 			for (SNAElement elem : listElementsAux){
-				System.out.println("ID: " + elem.getId());
+				System.out.println("ID: " + elem.getId_usuario());
 				System.out.println("Nome: " + elem.getNome());
 				System.out.println("ScreenName: " + elem.getScreename());
 			}
@@ -42,6 +43,7 @@ public class TesteParser {
 		
 		
 		//Listando da tabela Relacionamento
+		//Lembrar de retirar o cabecalho do arquivo e de retirar as virgulas do CSV
 		try {
 			
 			List<File> arquivosCsvRel = FileUtil.listarArquivosDir(Constantes.DIR_APPSNA_RELACIONAMENTOS);			

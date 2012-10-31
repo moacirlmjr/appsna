@@ -2,19 +2,19 @@ package br.com.ufpb.appSNA.model.beans;
 
 import br.com.ufpb.appSNAUtil.model.beans.comum.AppSNAEntityMaster;
 
-public class UrlMention extends AppSNAEntityMaster{
+public class UrlMention extends AppSNAEntityMaster {
 
-	private long id;
+	private long id_usuario;
 	private long id_status;
-	private long id_elemento;
+	private long id_urlmention;
 	private String url;
 
-	public long getId() {
-		return id;
+	public long getId_usuario() {
+		return id_usuario;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setId_usuario(long id_usuario) {
+		this.id_usuario = id_usuario;
 	}
 
 	public long getId_status() {
@@ -25,12 +25,12 @@ public class UrlMention extends AppSNAEntityMaster{
 		this.id_status = id_status;
 	}
 
-	public long getId_elemento() {
-		return id_elemento;
+	public long getId_urlmention() {
+		return id_urlmention;
 	}
 
-	public void setId_elemento(long id_elemento) {
-		this.id_elemento = id_elemento;
+	public void setId_urlmention(long id_urlmention) {
+		this.id_urlmention = id_urlmention;
 	}
 
 	public String getUrl() {

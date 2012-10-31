@@ -4,17 +4,18 @@ import br.com.ufpb.appSNAUtil.model.beans.comum.AppSNAEntityMaster;
 
 public class UserMention extends AppSNAEntityMaster {
 
-	private long id;
+	private long id_usuario;
 	private long id_status;
-	private long id_elemento;
-	private String text;
+	private long id_usermention;
+	private String usuario;
+	
 
-	public long getId() {
-		return id;
+	public long getId_usuario() {
+		return id_usuario;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setId_usuario(long id_usuario) {
+		this.id_usuario = id_usuario;
 	}
 
 	public long getId_status() {
@@ -25,20 +26,20 @@ public class UserMention extends AppSNAEntityMaster {
 		this.id_status = id_status;
 	}
 
-	public long getId_elemento() {
-		return id_elemento;
+	public long getId_usermention() {
+		return id_usermention;
 	}
 
-	public void setId_elemento(long id_elemento) {
-		this.id_elemento = id_elemento;
+	public void setId_usermention(long id_usermention) {
+		this.id_usermention = id_usermention;
+	}
+	
+	public String getUsuario() {
+		return usuario;
 	}
 
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
 }

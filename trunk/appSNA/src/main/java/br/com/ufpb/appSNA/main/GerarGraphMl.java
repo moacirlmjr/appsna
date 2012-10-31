@@ -33,19 +33,19 @@ public class GerarGraphMl {
 		listaDeNomes.add("fabianovidaltur");
 		listaDeNomes.add("BRASILTONY");
 		listaDeNomes.add("CHIQUELMEBATERA");
-		listaDeNomes.add("FLUGARCEZ");
-		listaDeNomes.add("IVANILDOPB");
+		listaDeNomes.add("FLUGARCEZ");		
 		listaDeNomes.add("KellylopesLOPES");
 		listaDeNomes.add("GALVAOJPA");
-		listaDeNomes.add("luanadepaulane1");
-		listaDeNomes.add("lucasduartereal");
-		listaDeNomes.add("Mariacristin339");
-		listaDeNomes.add("ONAMEN");
-		listaDeNomes.add("jricardoamorim");
-		listaDeNomes.add("RINALDOPESSOA");
-		listaDeNomes.add("RIQUELSON");
-		listaDeNomes.add("NTURISMO_JPPB");
-		listaDeNomes.add("ThiagoADVJP");
+//		listaDeNomes.add("luanadepaulane1");
+//		listaDeNomes.add("lucasduartereal");
+//		listaDeNomes.add("Mariacristin339");
+//		listaDeNomes.add("ONAMEN");
+//		listaDeNomes.add("jricardoamorim");
+//		listaDeNomes.add("RINALDOPESSOA");
+//		listaDeNomes.add("RIQUELSON");
+//		listaDeNomes.add("NTURISMO_JPPB");
+//		listaDeNomes.add("ThiagoADVJP");
+//		listaDeNomes.add("IVANILDOPB");
 
 		listaNodes = new ArrayList<MyNode>();
 	}

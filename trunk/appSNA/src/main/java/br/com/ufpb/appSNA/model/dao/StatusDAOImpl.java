@@ -92,7 +92,8 @@ public class StatusDAOImpl implements StatusDAO {
 	@Override
 	public Long update(Status objeto) throws Exception {
 		String query = "update Status set id_usuario = ?, data_criacao = ?, texto = ?, longitude = ?, " +
-		"latitude = ?, total_retweet = ?, is_retweeted = ? ) values(?, ?, ?, ?, ?, ?, ?);";
+		"latitude = ?, total_retweet = ?, is_retweeted = ? ) values(?, ?, ?, ?, ?, ?, ?)" +
+		"where id_status = ?;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;

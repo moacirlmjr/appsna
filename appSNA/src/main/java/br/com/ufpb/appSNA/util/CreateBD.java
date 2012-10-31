@@ -155,7 +155,7 @@ public class CreateBD {
 						  "id_usuario BIGINT NOT NULL, " +
 						  "id_status INT NOT NULL, " +
 						  "id_hashtagmention INT NOT NULL AUTO_INCREMENT, " +
-						  "usuario VARCHAR(45) NULL, " +
+						  "hashtag VARCHAR(45) NULL, " +
 						  "PRIMARY KEY (id_hashtagmention), " +
 						  "UNIQUE KEY (id_usuario, id_status, id_hashtagmention), " +
 						  "CONSTRAINT fk_HashtagMention_Status " +

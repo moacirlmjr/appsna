@@ -19,11 +19,9 @@ public class GerarRelatorio {
 
 		List<String> listaDeNomes = new ArrayList<String>();
 
-//		listaDeNomes.add("Danyllo_Wagner");
-//		listaDeNomes.add("moacirlmjr");
-		
-		
-		
+		// listaDeNomes.add("Danyllo_Wagner");
+		// listaDeNomes.add("moacirlmjr");
+
 		listaDeNomes.add("AIRTONGTORRES");
 		listaDeNomes.add("alamorocha");
 		listaDeNomes.add("ale_patricio");
@@ -39,99 +37,104 @@ public class GerarRelatorio {
 		listaDeNomes.add("CHIQUELMEBATERA");
 		listaDeNomes.add("FLUGARCEZ");
 		listaDeNomes.add("IVANILDOPB");
-//		listaDeNomes.add("KellylopesLOPES");
-//		listaDeNomes.add("GALVAOJPA");
-//		listaDeNomes.add("luanadepaulane1");
-//		listaDeNomes.add("lucasduartereal");
-//		listaDeNomes.add("Mariacristin339");
-//		listaDeNomes.add("ONAMEN");
-//		listaDeNomes.add("jricardoamorim");
-//		listaDeNomes.add("RINALDOPESSOA");
-//		listaDeNomes.add("RIQUELSON");
-//		listaDeNomes.add("NTURISMO_JPPB");
-//		listaDeNomes.add("ThiagoADVJP");
+		listaDeNomes.add("KellylopesLOPES");
+		listaDeNomes.add("GALVAOJPA");
+		listaDeNomes.add("luanadepaulane1");
+		listaDeNomes.add("lucasduartereal");
+		listaDeNomes.add("Mariacristin339");
+		listaDeNomes.add("ONAMEN");
+		listaDeNomes.add("jricardoamorim");
+		listaDeNomes.add("RINALDOPESSOA");
+		listaDeNomes.add("RIQUELSON");
+		listaDeNomes.add("NTURISMO_JPPB");
+		listaDeNomes.add("ThiagoADVJP");
 
 		AccountCarrousel.startListReady();
 
-		Map<String, Long> mapUsers = TwitterUtil.retornarUserId(listaDeNomes, false);
+		Map<String, Long> mapUsers = TwitterUtil.retornarUserId(listaDeNomes,
+				false);
 
 		Map<Long, String> mapAux = new LinkedHashMap<Long, String>();
-		
-		FileUtil.criaArquivo(Constantes.DIR_APPSNA + "\\arquivoRelacionamentos.csv", false);
-		String[] cabecalho_rel = { "id_source", "id_target"};
-		FileUtil.criarCabecalho(cabecalho_rel);
+		// FileUtil.criaArquivo(Constantes.DIR_APPSNA_RELACIONAMENTOS +
+		// "\\arquivoRelacionamentos.csv", false);
+		// String[] cabecalho_rel = { "id_source", "id_target"};
+		// FileUtil.criarCabecalho(cabecalho_rel);
 
 		for (String key : mapUsers.keySet()) {
 			List<Long> listAmigoId = new LinkedList<Long>(
 					TwitterUtil.retornarListaAmigosIdsList(key, false));
 			for (Long amigoId : listAmigoId) {
-				mapAux.put(amigoId, mapUsers.get(key)+"");
-				FileUtil.escreveNoArquivo(mapUsers.get(key)+"");
-				FileUtil.quebra();
-				FileUtil.escreveNoArquivo(amigoId+"");
-				FileUtil.quebraLinha(1);
-				FileUtil.refresh();
+				mapAux.put(amigoId, mapUsers.get(key) + "");
+				// FileUtil.escreveNoArquivo(mapUsers.get(key)+"");
+				// FileUtil.quebra();
+				// FileUtil.escreveNoArquivo(amigoId+"");
+				// FileUtil.quebraLinha(1);
+				// FileUtil.refresh();
 			}
 		}
 		FileUtil.salvarArquivo();
 
-		FileUtil.criaArquivo(Constantes.DIR_APPSNA + "\\arquivo9000.csv", false);
+		FileUtil.criaArquivo(Constantes.DIR_APPSNA_ELEMENTOS
+				+ "\\arquivoAllUsers.csv", false);
 
 		String[] cabecalho = { "Id", "Nome", "Screename", "Biografia",
 				"Localização", "TotalFollowers", "TotalFollowing",
 				"TotalTweets", "URL", "TimeZone", "Linguagem",
-				"Data de Criação", "URL Imagem"};
+				"Data de Criação", "URL Imagem" };
 		FileUtil.criarCabecalho(cabecalho);
 		FileUtil.refresh();
 
 		for (Long amigoId : mapAux.keySet()) {
 
 			UserTO amigo = TwitterUtil.getUserData(amigoId);
+			if (amigo!= null && amigo.getId() != null) {
 
-			FileUtil.escreveNoArquivo(amigo.getId());
-			FileUtil.quebra();
+				FileUtil.escreveNoArquivo(amigo.getId());
+				FileUtil.quebra();
 
-			FileUtil.escreveNoArquivo(StringUtil.stringProcessing(amigo
-					.getNome()));
-			FileUtil.quebra();
+				FileUtil.escreveNoArquivo(StringUtil.stringProcessing(amigo
+						.getNome()));
+				FileUtil.quebra();
 
-			FileUtil.escreveNoArquivo(StringUtil.stringProcessing(amigo
-					.getScreename()));
-			FileUtil.quebra();
+				FileUtil.escreveNoArquivo(StringUtil.stringProcessing(amigo
+						.getScreename()));
+				FileUtil.quebra();
 
-			FileUtil.escreveNoArquivo(StringUtil.stringProcessing(amigo
-					.getBiografia()));
-			FileUtil.quebra();
+				FileUtil.escreveNoArquivo(StringUtil.stringProcessing(amigo
+						.getBiografia()));
+				FileUtil.quebra();
 
-			FileUtil.escreveNoArquivo(StringUtil.stringProcessing(amigo
-					.getLocalização()));
-			FileUtil.quebra();
+				FileUtil.escreveNoArquivo(StringUtil.stringProcessing(amigo
+						.getLocalização()));
+				FileUtil.quebra();
 
-			FileUtil.escreveNoArquivo(amigo.getTotalFollowers());
-			FileUtil.quebra();
+				FileUtil.escreveNoArquivo(amigo.getTotalFollowers());
+				FileUtil.quebra();
 
-			FileUtil.escreveNoArquivo(amigo.getTotalFollowing());
-			FileUtil.quebra();
+				FileUtil.escreveNoArquivo(amigo.getTotalFollowing());
+				FileUtil.quebra();
 
-			FileUtil.escreveNoArquivo(amigo.getTotalTweets());
-			FileUtil.quebra();
+				FileUtil.escreveNoArquivo(amigo.getTotalTweets());
+				FileUtil.quebra();
 
-			FileUtil.escreveNoArquivo(amigo.getURL());
-			FileUtil.quebra();
+				FileUtil.escreveNoArquivo(amigo.getURL());
+				FileUtil.quebra();
 
-			FileUtil.escreveNoArquivo(amigo.getTimeZone());
-			FileUtil.quebra();
+				FileUtil.escreveNoArquivo(amigo.getTimeZone());
+				FileUtil.quebra();
 
-			FileUtil.escreveNoArquivo(amigo.getLinguagem());
-			FileUtil.quebra();
+				FileUtil.escreveNoArquivo(amigo.getLinguagem());
+				FileUtil.quebra();
 
-			FileUtil.escreveNoArquivo(amigo.getDataDeCriacao());
-			FileUtil.quebra();
+				FileUtil.escreveNoArquivo(amigo.getDataDeCriacao());
+				FileUtil.quebra();
 
-			FileUtil.escreveNoArquivo(StringUtil.stringProcessing(amigo.getURLImage()));
-			FileUtil.quebraLinha(1);
+				FileUtil.escreveNoArquivo(StringUtil.stringProcessing(amigo
+						.getURLImage()));
+				FileUtil.quebraLinha(1);
 
-			FileUtil.refresh();
+				FileUtil.refresh();
+			}
 		}
 
 		FileUtil.salvarArquivo();

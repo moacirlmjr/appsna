@@ -23,7 +23,7 @@ public class PersistirBase {
 		//Povoamento da tabela SNAElement
 		try {
 
-			List<File> arquivosCsvSNAElem = FileUtil.listarArquivosDir(Constantes.DIR_APPSNA + "elementos");
+			List<File> arquivosCsvSNAElem = FileUtil.listarArquivosDir(Constantes.DIR_APPSNA_ELEMENTOS);
 			List<SNAElement> listElements = new ArrayList<SNAElement>();
 			List<SNAElement> listElementsAux = new ArrayList<SNAElement>();			
 
@@ -43,25 +43,25 @@ public class PersistirBase {
 		
 		
 //		//Povoamento da tabela Relacionamento
-//		try {
-//			
-//			List<File> arquivosCsvRel = FileUtil.listarArquivosDir(Constantes.DIR_APPSNA + "relacionamento");			
-//			List<Relacionamento> listRel = new ArrayList<Relacionamento>();			
-//			List<Relacionamento> listRelAux = new ArrayList<Relacionamento>();
-//		
-//			for (File f : arquivosCsvRel) {
-//				listRel = ParseSNACSV.realizarParserArquivoRelacionamentoCDR(f);
-//				listRelAux.addAll(listRel);
-//			}
-//
-//			RelacionamentoDAO relDAO = new RelacionamentoDAOImpl();
-//			relDAO.create(listRelAux);
-//
-//		} catch (IOException e) {
-//			AppSNALog.error("Erro no povoamento da tabela Relacionamento: " + e.toString());
-//		} catch (Exception e) {
-//			AppSNALog.error("Erro no povoamento da tabela Relacionamento: " + e.toString());
-//		}
+		try {
+			
+			List<File> arquivosCsvRel = FileUtil.listarArquivosDir(Constantes.DIR_APPSNA_RELACIONAMENTOS);			
+			List<Relacionamento> listRel = new ArrayList<Relacionamento>();			
+			List<Relacionamento> listRelAux = new ArrayList<Relacionamento>();
+		
+			for (File f : arquivosCsvRel) {
+				listRel = ParseSNACSV.realizarParserArquivoRelacionamentoCDR(f);
+				listRelAux.addAll(listRel);
+			}
+
+			RelacionamentoDAO relDAO = new RelacionamentoDAOImpl();
+			relDAO.create(listRelAux);
+
+		} catch (IOException e) {
+			AppSNALog.error("Erro no povoamento da tabela Relacionamento: " + e.toString());
+		} catch (Exception e) {
+			AppSNALog.error("Erro no povoamento da tabela Relacionamento: " + e.toString());
+		}
 
 	}
 }

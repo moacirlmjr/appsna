@@ -62,13 +62,13 @@ public class CreateBD {
 			try {
 				String sqlTableRelacionamento = "CREATE TABLE Relacionamento (" +
 						 " id_relacionamento BIGINT NOT NULL AUTO_INCREMENT, " +
-						  "id_souce BIGINT NOT NULL , " +
+						  "id_source BIGINT NOT NULL , " +
 						  "id_target BIGINT NOT NULL , " +
 						  "PRIMARY KEY (id_relacionamento), " +
-						  "UNIQUE KEY (id_souce, id_target), " +
+						  "UNIQUE KEY (id_source, id_target), " +
 						  "INDEX fk_Relacionamento_Usuario2 (id_target ASC), " +
 						  "CONSTRAINT fk_Relacionamento_Usuario1 " +
-						  "FOREIGN KEY (id_souce) " +
+						  "FOREIGN KEY (id_source) " +
 						  "REFERENCES Usuario (id_usuario), " +						  
 						  "CONSTRAINT fk_Relacionamento_Usuario2 " +
 						  "FOREIGN KEY (id_target) " +

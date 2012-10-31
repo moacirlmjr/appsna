@@ -42,7 +42,8 @@ public class PersistirBase {
 		}
 		
 		
-//		//Povoamento da tabela Relacionamento
+		
+		//Povoamento da tabela Relacionamento
 		try {
 			
 			List<File> arquivosCsvRel = FileUtil.listarArquivosDir(Constantes.DIR_APPSNA_RELACIONAMENTOS);			

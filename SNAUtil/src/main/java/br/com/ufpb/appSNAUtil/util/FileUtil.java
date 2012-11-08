@@ -105,5 +105,21 @@ public class FileUtil {
 		
 		return arquivosCsv;
 	}
+	
+	public static List<File> listarArquivosLog(String dir){
+		
+		File diretorio = new File(dir);
+		List<File> arquivosCsv = new ArrayList<File>();
+		if(diretorio.isDirectory()){
+			File arquivos[] = diretorio.listFiles();
+			for(File arq : arquivos){
+				if(arq.getName().contains(".log")){
+					arquivosCsv.add(arq);
+				}
+			}
+		}
+		
+		return arquivosCsv;
+	}
 
 }

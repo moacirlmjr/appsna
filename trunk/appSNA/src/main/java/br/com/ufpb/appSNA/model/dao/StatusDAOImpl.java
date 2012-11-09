@@ -36,7 +36,7 @@ public class StatusDAOImpl implements StatusDAO {
 			stmt.setString(2, objeto.getTexto());
 			stmt.setString(3, String.valueOf(objeto.getLongitude()));
 			stmt.setString(4, String.valueOf(objeto.getLatitude()));
-			stmt.setInt(4, objeto.getTotalRetweet());
+			stmt.setLong(4, objeto.getTotalRetweet());
 			stmt.setInt(6, objeto.isRetweeted()==false ? 0 : 1);
 
 			stmt.executeUpdate();
@@ -73,7 +73,7 @@ public class StatusDAOImpl implements StatusDAO {
 				stmt.setString(2, sta.getTexto());
 				stmt.setString(3, String.valueOf(sta.getLongitude()));
 				stmt.setString(4, String.valueOf(sta.getLatitude()));
-				stmt.setInt(4, sta.getTotalRetweet());
+				stmt.setLong(4, sta.getTotalRetweet());
 				stmt.setInt(6, sta.isRetweeted()==false ? 0 : 1);
 				stmt.addBatch();
 				if (((listaStatus.size() - 1) < 20 && count % listaStatus.size() == 0) || (count != 0 && count % 20 == 0)) {
@@ -107,7 +107,7 @@ public class StatusDAOImpl implements StatusDAO {
 			stmt.setString(2, objeto.getTexto());
 			stmt.setString(3, String.valueOf(objeto.getLongitude()));
 			stmt.setString(4, String.valueOf(objeto.getLatitude()));
-			stmt.setInt(4, objeto.getTotalRetweet());
+			stmt.setLong(4, objeto.getTotalRetweet());
 			stmt.setInt(6, objeto.isRetweeted()==false ? 0 : 1);
 			
 			stmt.executeUpdate();

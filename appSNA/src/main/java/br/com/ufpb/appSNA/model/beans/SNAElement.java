@@ -1,11 +1,11 @@
 package br.com.ufpb.appSNA.model.beans;
 
-import java.util.Date;
-
 import br.com.ufpb.appSNAUtil.model.beans.comum.AppSNAEntityMaster;
 
 public class SNAElement extends AppSNAEntityMaster {
-
+	
+	private static final long serialVersionUID = 1L;
+	
 	private Long id_usuario;
 	private String nome;
 	private String Screename;

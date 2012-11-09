@@ -8,7 +8,7 @@ public class Status extends AppSNAEntityMaster{
 
 	long id_status;
 	long id_usuario;
-	Date dataDeCriacao;
+	long dataDeCriacao;
 	String texto;
 	double latitude;
 	double longitude;
@@ -25,11 +25,11 @@ public class Status extends AppSNAEntityMaster{
 		this.id_usuario = id_usuario;
 	}
 
-	public Date getDataDeCriacao() {
+	public long getDataDeCriacao() {
 		return dataDeCriacao;
 	}
 
-	public void setDataDeCriacao(Date dataDeCriacao) {
+	public void setDataDeCriacao(long dataDeCriacao) {
 		this.dataDeCriacao = dataDeCriacao;
 	}
 

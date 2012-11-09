@@ -14,7 +14,6 @@ import br.com.ufpb.appSNAUtil.util.DAOUtil;
 
 import com.mysql.jdbc.Statement;
 
-
 public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 
 	@Override
@@ -27,7 +26,8 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 		try {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
 					BDUtil.SENHA);
-			stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			stmt = conn
+					.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
 			stmt.setLong(1, objeto.getId_source());
 			stmt.setLong(2, objeto.getId_target());
@@ -48,27 +48,35 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 	}
 
 	@Override
-	public void create(List<Relacionamento> listaRelacionamentos) throws Exception {
+	public void create(List<Relacionamento> listaRelacionamentos)
+			throws Exception {
 		String query = "Insert into relacionamento (id_source, id_target) values(?,?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,BDUtil.SENHA);
-			conn.setAutoCommit(true);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
+			conn.setAutoCommit(false);
 			stmt = conn.prepareStatement(query);
 			int count = 0;
 			for (Relacionamento rel : listaRelacionamentos) {
-				stmt.setLong(1, rel.getId_source());
-				stmt.setLong(2, rel.getId_target());
-				stmt.addBatch();
-				if (((listaRelacionamentos.size() - 1) < 20 && count % listaRelacionamentos.size() == 0) || (count != 0 && count % 20 == 0)) {
-					stmt.executeBatch();
-					
+				try {
+
+					stmt.setLong(1, rel.getId_source());
+					stmt.setLong(2, rel.getId_target());
+					stmt.addBatch();
+					if (((listaRelacionamentos.size() - 1) < 20 && count
+							% listaRelacionamentos.size() == 0)
+							|| (count != 0 && count % 20 == 0)) {
+						stmt.executeBatch();
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-				count ++;				
+				count++;
 			}
-			//conn.commit();
+			 conn.commit();
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
 		} finally {
@@ -85,7 +93,8 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 		Connection conn = null;
 		Long result = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 
 			stmt.setLong(1, objeto.getId_source());
@@ -115,7 +124,8 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 		Relacionamento rel = new Relacionamento();
 
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(0, id_relacionamento);
 			rs = stmt.getResultSet();
@@ -123,7 +133,7 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 			while (rs.next()) {
 				rel.setId_relacionamento(rs.getLong(0));
 				rel.setId_source(rs.getLong(1));
-				rel.setId_target(rs.getLong(2));			
+				rel.setId_target(rs.getLong(2));
 			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
@@ -134,9 +144,9 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 		return rel;
 
 	}
-	
-	
-	public Relacionamento findByIds(Long id_source, Long id_target) throws Exception {
+
+	public Relacionamento findByIds(Long id_source, Long id_target)
+			throws Exception {
 		String query = "select * from relacionamento where id_source = ? and id_target = ?;";
 
 		PreparedStatement stmt = null;
@@ -145,7 +155,8 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 		Relacionamento rel = new Relacionamento();
 
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, id_source);
 			stmt.setLong(2, id_target);
@@ -154,7 +165,7 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 			while (rs.next()) {
 				rel.setId_relacionamento(rs.getLong(0));
 				rel.setId_source(rs.getLong(1));
-				rel.setId_target(rs.getLong(2));			
+				rel.setId_target(rs.getLong(2));
 			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
@@ -165,7 +176,6 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 		return rel;
 
 	}
-
 
 	@Override
 	public List<Relacionamento> list() throws Exception {
@@ -176,9 +186,10 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 		ResultSet rs = null;
 		Relacionamento rel = new Relacionamento();
 		List<Relacionamento> listRel = new LinkedList<Relacionamento>();
-		
+
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			rs = stmt.getResultSet();
 
@@ -186,7 +197,7 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 				rel = new Relacionamento();
 				rel.setId_relacionamento(rs.getLong(0));
 				rel.setId_source(rs.getLong(1));
-				rel.setId_target(rs.getLong(2));				
+				rel.setId_target(rs.getLong(2));
 				listRel.add(rel);
 			}
 		} catch (SQLException e) {
@@ -205,7 +216,8 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
+					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, objeto.getId());
 			stmt.execute();

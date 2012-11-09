@@ -5,7 +5,7 @@ public class BDUtil {
 
 	public static String USER = "root";
 
-	public static String SENHA = "root";
+	public static String SENHA = "";
 	
 	//public static String SENHA = "";
 	

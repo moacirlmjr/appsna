@@ -31,9 +31,9 @@ public class URLMentionDAOImpl implements URLMentionDAO {
 			stmt = conn
 					.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-			stmt.setLong(0, objeto.getId_usuario());
-			stmt.setLong(1, objeto.getId_status());
-			stmt.setString(2, objeto.getUrl());
+			stmt.setLong(1, objeto.getId_usuario());
+			stmt.setLong(2, objeto.getId_status());
+			stmt.setString(3, objeto.getUrl());
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
 			while (rs.next()) {

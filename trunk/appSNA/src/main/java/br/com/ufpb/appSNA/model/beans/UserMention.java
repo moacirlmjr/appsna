@@ -4,6 +4,8 @@ import br.com.ufpb.appSNAUtil.model.beans.comum.AppSNAEntityMaster;
 
 public class UserMention extends AppSNAEntityMaster {
 
+	private static final long serialVersionUID = 1L;
+	
 	private long id_usuario;
 	private long id_status;
 	private long id_usermention;

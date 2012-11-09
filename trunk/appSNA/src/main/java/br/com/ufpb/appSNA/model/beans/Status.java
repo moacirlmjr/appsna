@@ -1,22 +1,28 @@
 package br.com.ufpb.appSNA.model.beans;
 
-import java.util.Date;
-
 import br.com.ufpb.appSNAUtil.model.beans.comum.AppSNAEntityMaster;
 
 public class Status extends AppSNAEntityMaster{
-
-	long id_status;
-	long id_usuario;
-	long dataDeCriacao;
-	String texto;
-	double latitude;
-	double longitude;
-	long totalRetweet;
-	boolean isRetweeted;
-
 	
+	private static final long serialVersionUID = 1L;
+	
+	private long id_status;
+	private long id_usuario;
+	private long dataDeCriacao;
+	private String texto;
+	private double latitude;
+	private double longitude;
+	private long totalRetweet;
+	private boolean isRetweeted;	
 
+	public long getId_status() {
+		return id_status;
+	}
+
+	public void setId_status(long id_status) {
+		this.id_status = id_status;
+	}
+	
 	public long getId_usuario() {
 		return id_usuario;
 	}
@@ -72,15 +78,5 @@ public class Status extends AppSNAEntityMaster{
 	public void setRetweeted(boolean isRetweeted) {
 		this.isRetweeted = isRetweeted;
 	}
-
-	public long getId_status() {
-		return id_status;
-	}
-
-	public void setId_status(long id_status) {
-		this.id_status = id_status;
-	}
-	
-	
 
 }

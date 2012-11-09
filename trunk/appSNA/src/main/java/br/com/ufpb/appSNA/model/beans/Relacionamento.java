@@ -2,8 +2,10 @@ package br.com.ufpb.appSNA.model.beans;
 
 import br.com.ufpb.appSNAUtil.model.beans.comum.AppSNAEntityMaster;
 
-public class Relacionamento extends AppSNAEntityMaster {
-
+public class Relacionamento extends AppSNAEntityMaster { 
+	
+	private static final long serialVersionUID = 1L;
+	
 	private long id_relacionamento;
 	private long id_source;
 	private long id_target;

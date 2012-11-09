@@ -30,14 +30,15 @@ public class StatusDAOImpl implements StatusDAO {
 		try {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-
-			stmt.setLong(0, objeto.getId_usuario());
-			stmt.setDate(1, (Date) objeto.getDataDeCriacao());
-			stmt.setString(2, objeto.getTexto());
-			stmt.setString(3, String.valueOf(objeto.getLongitude()));
-			stmt.setString(4, String.valueOf(objeto.getLatitude()));
-			stmt.setLong(4, objeto.getTotalRetweet());
-			stmt.setInt(6, objeto.isRetweeted()==false ? 0 : 1);
+			
+			stmt.setLong(1, objeto.getId_status());
+			stmt.setLong(2, objeto.getId_usuario());
+			stmt.setDate(3, new Date(objeto.getDataDeCriacao()));
+			stmt.setString(4, objeto.getTexto());
+			stmt.setString(5, String.valueOf(objeto.getLongitude()));
+			stmt.setString(6, String.valueOf(objeto.getLatitude()));
+			stmt.setLong(7, objeto.getTotalRetweet());
+			stmt.setInt(8, objeto.isRetweeted()==false ? 0 : 1);
 
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -69,7 +70,7 @@ public class StatusDAOImpl implements StatusDAO {
 			for (Status sta : listaStatus) {
 				
 				stmt.setLong(0, sta.getId_usuario());
-				stmt.setDate(1, (Date) sta.getDataDeCriacao());
+				stmt.setDate(1, new Date(sta.getDataDeCriacao()));
 				stmt.setString(2, sta.getTexto());
 				stmt.setString(3, String.valueOf(sta.getLongitude()));
 				stmt.setString(4, String.valueOf(sta.getLatitude()));
@@ -103,7 +104,7 @@ public class StatusDAOImpl implements StatusDAO {
 			stmt = conn.prepareStatement(query);
 			
 			stmt.setLong(0, objeto.getId_usuario());
-			stmt.setDate(1, (Date) objeto.getDataDeCriacao());
+			stmt.setDate(1, new Date(objeto.getDataDeCriacao()));
 			stmt.setString(2, objeto.getTexto());
 			stmt.setString(3, String.valueOf(objeto.getLongitude()));
 			stmt.setString(4, String.valueOf(objeto.getLatitude()));
@@ -143,7 +144,7 @@ public class StatusDAOImpl implements StatusDAO {
 			while (rs.next()) {
 				sta.setId_status(rs.getLong(0));
 				sta.setId_usuario(rs.getLong(1));
-				sta.setDataDeCriacao(rs.getDate(2));
+				sta.setDataDeCriacao(rs.getLong(2));
 				sta.setTexto(rs.getString(3));
 				sta.setLongitude(rs.getLong(4));
 				sta.setLatitude(rs.getLong(5));
@@ -178,7 +179,7 @@ public class StatusDAOImpl implements StatusDAO {
 				sta = new Status();
 				sta.setId_status(rs.getLong(0));
 				sta.setId_usuario(rs.getLong(1));
-				sta.setDataDeCriacao(rs.getDate(2));
+				sta.setDataDeCriacao(rs.getLong(2));
 				sta.setTexto(rs.getString(3));
 				sta.setLongitude(rs.getLong(4));
 				sta.setLatitude(rs.getLong(5));

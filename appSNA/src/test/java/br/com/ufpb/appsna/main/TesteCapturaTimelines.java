@@ -1,25 +1,31 @@
 package br.com.ufpb.appsna.main;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
-
 import twitter4j.GeoLocation;
 import twitter4j.HashtagEntity;
 import twitter4j.Status;
 import twitter4j.TwitterException;
 import twitter4j.URLEntity;
+import twitter4j.User;
 import twitter4j.UserMentionEntity;
-import br.com.ufpb.appSNAUtil.util.AccountCarrousel;
-import br.com.ufpb.appSNAUtil.util.AppSNALog;
-import br.com.ufpb.appSNA.model.beans.*;
+import br.com.ufpb.appSNA.model.beans.HashTagMention;
+import br.com.ufpb.appSNA.model.beans.SNAElement;
+import br.com.ufpb.appSNA.model.beans.UrlMention;
+import br.com.ufpb.appSNA.model.beans.UserMention;
 import br.com.ufpb.appSNA.model.dao.HashTagMentionDAO;
 import br.com.ufpb.appSNA.model.dao.HashTagMentionDAOImpl;
+import br.com.ufpb.appSNA.model.dao.SNAElementDAO;
+import br.com.ufpb.appSNA.model.dao.SNAElementDAOImpl;
 import br.com.ufpb.appSNA.model.dao.StatusDAO;
 import br.com.ufpb.appSNA.model.dao.StatusDAOImpl;
 import br.com.ufpb.appSNA.model.dao.URLMentionDAO;
 import br.com.ufpb.appSNA.model.dao.URLMentionDAOImpl;
 import br.com.ufpb.appSNA.model.dao.UserMentionDAO;
 import br.com.ufpb.appSNA.model.dao.UserMentionDAOImpl;
+import br.com.ufpb.appSNAUtil.util.AccountCarrousel;
+import br.com.ufpb.appSNAUtil.util.AppSNALog;
 
 public class TesteCapturaTimelines {
 	
@@ -68,7 +74,38 @@ public class TesteCapturaTimelines {
 					System.out.println("Erro na busca da timeline de " + username);
 				}
 				
-				System.out.println("Capturando dados de " + username);
+				System.out.println("Capturando dados de " + username);				
+				
+				User userAtual = AccountCarrousel.CURRENT_ACCOUNT.showUser(username);
+				
+				SNAElement elem = new SNAElement();
+				elem.setId_usuario(userAtual.getId());
+				elem.setNome(userAtual.getName());
+				elem.setScreename(userAtual.getScreenName());
+				elem.setBiografia(userAtual.getDescription());
+				elem.setLocalização(userAtual.getLocation());
+				elem.setTotalFollowing(userAtual.getFriendsCount());
+				elem.setTotalFollowers(userAtual.getFollowersCount());
+				elem.setTotalTweets(userAtual.getStatusesCount());
+				elem.setURL(userAtual.getURL().toString());
+				elem.setTimeZone(userAtual.getTimeZone());
+				elem.setLinguagem(userAtual.getLang());
+				
+				Calendar calUser = Calendar.getInstance();
+				calUser.set(userAtual.getCreatedAt().getYear(), userAtual.getCreatedAt().getMonth(), 
+						userAtual.getCreatedAt().getDate(), userAtual.getCreatedAt().getHours(), 
+						userAtual.getCreatedAt().getMinutes(), userAtual.getCreatedAt().getSeconds());
+				
+				elem.setDataDeCriacao(calUser.getTimeInMillis());
+				elem.setURLImagem(userAtual.getProfileBackgroundImageUrl());
+				
+				SNAElementDAO snaElemDAO = new SNAElementDAOImpl();
+				
+				try {
+					snaElemDAO.create(elem);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 				
 				for (Status status : statuses) {
 					
@@ -101,30 +138,41 @@ public class TesteCapturaTimelines {
 					HashTagMention hashtagmen = new HashTagMention();					
 					
 					sta.setId_usuario(id_usuario);
-					sta.setId(id_status);
-					sta.setDataDeCriacao(status.getCreatedAt());					
+					sta.setId_status(id_status);
+					
+					Calendar calStatus = Calendar.getInstance();
+					calStatus.set(status.getCreatedAt().getYear(), status.getCreatedAt().getMonth(), 
+							status.getCreatedAt().getDate(), status.getCreatedAt().getHours(), 
+							status.getCreatedAt().getMinutes(), status.getCreatedAt().getSeconds());
+					
+					sta.setDataDeCriacao(calStatus.getTimeInMillis());					
 					sta.setTexto(status.getText());
 					sta.setLatitude(latitude);
 					sta.setLongitude(longitude);
 					sta.setRetweeted(status.isRetweetedByMe());
 					sta.setTotalRetweet(status.getRetweetCount());
-					
+					System.out.println();
 					try {
 						staDAO.create(sta);
 					} catch (Exception e) {
 						AppSNALog.error("Erro no StatusDAO: " + e.toString());
+						System.out.println("Erro no StatusDAO: " + e.toString());
 						e.printStackTrace();
 					}
 					
 					if(!status.getURLEntities().equals(null)){
+						
 						for (URLEntity url : status.getURLEntities()){
+							
 							urlmen.setId_usuario(id_usuario);
 							urlmen.setId_status(id_status);
 							urlmen.setUrl(url.getURL().getPath());
+							
 							try {
 								urlDAO.create(urlmen);
 							} catch (Exception e) {
 								AppSNALog.error("Erro no URLMentionDAO: " + e.toString());
+								System.out.println("Erro no URLDAO: " + e.toString());
 								e.printStackTrace();
 							}
 						}
@@ -132,14 +180,19 @@ public class TesteCapturaTimelines {
 					}
 					
 					if(!status.getUserMentionEntities().equals(null)){
+						
+						
 						for (UserMentionEntity user : status.getUserMentionEntities()){
+							
 							usermen.setId_usuario(id_usuario);
 							usermen.setId_status(id_status);
 							usermen.setUsuario(user.getScreenName());
+							
 							try {
 								userDAO.create(usermen);
 							} catch (Exception e) {	
 								AppSNALog.error("Erro no UserMentionDAO: " + e.toString());
+								System.out.println("Erro no UserMentionDAO: " + e.toString());
 								e.printStackTrace();
 							}
 						}
@@ -147,14 +200,18 @@ public class TesteCapturaTimelines {
 					
 					
 					if(!status.getHashtagEntities().equals(null)){
+						
 						for (HashtagEntity hashTag : status.getHashtagEntities()){
+							
 							hashtagmen.setId_usuario(id_usuario);
 							hashtagmen.setId_status(id_status);
 							hashtagmen.setHashtag(hashTag.getText());	
+							
 							try {
 								hashDAO.create(hashtagmen);
 							} catch (Exception e) {
 								AppSNALog.error("Erro no HashTAgMentionDAO: " + e.toString());
+								System.out.println("Erro no HashDAO: " + e.toString());
 								e.printStackTrace();
 							}
 						}

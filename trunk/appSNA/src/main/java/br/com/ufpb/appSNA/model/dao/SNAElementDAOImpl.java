@@ -1,11 +1,9 @@
 package br.com.ufpb.appSNA.model.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,6 +14,8 @@ import br.com.ufpb.appSNAUtil.util.DAOUtil;
 
 
 public class SNAElementDAOImpl implements SNAElementDAO {
+
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public Long create(SNAElement objeto) throws Exception {

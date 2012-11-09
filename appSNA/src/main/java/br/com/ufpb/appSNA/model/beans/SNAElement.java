@@ -17,7 +17,7 @@ public class SNAElement extends AppSNAEntityMaster {
 	private String URL;
 	private String TimeZone;
 	private String Linguagem;
-	private Date dataDeCriacao;
+	private long dataDeCriacao;
 	private String URLImagem;
 
 	public Long getId_usuario() {
@@ -108,11 +108,11 @@ public class SNAElement extends AppSNAEntityMaster {
 		Linguagem = linguagem;
 	}
 
-	public Date getDataDeCriacao() {
+	public long getDataDeCriacao() {
 		return dataDeCriacao;
 	}
 
-	public void setDataDeCriacao(Date dataDeCriacao) {
+	public void setDataDeCriacao(long dataDeCriacao) {
 		this.dataDeCriacao = dataDeCriacao;
 	}
 

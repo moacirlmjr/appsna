@@ -29,9 +29,9 @@ public class HashTagMentionDAOImpl implements HashTagMentionDAO {
 				conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 				stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-				stmt.setLong(0, objeto.getId_usuario());
-				stmt.setLong(1, objeto.getId_status());
-				stmt.setString(2, objeto.getHashtag());
+				stmt.setLong(1, objeto.getId_usuario());
+				stmt.setLong(2, objeto.getId_status());
+				stmt.setString(3, objeto.getHashtag());
 				
 				stmt.executeUpdate();
 				ResultSet rs = stmt.getGeneratedKeys();

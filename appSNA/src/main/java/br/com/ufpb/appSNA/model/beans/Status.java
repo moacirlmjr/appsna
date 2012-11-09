@@ -10,8 +10,8 @@ public class Status extends AppSNAEntityMaster{
 	long id_usuario;
 	Date dataDeCriacao;
 	String texto;
-	long latitude;
-	long longitude;
+	double latitude;
+	double longitude;
 	long totalRetweet;
 	boolean isRetweeted;
 
@@ -41,19 +41,19 @@ public class Status extends AppSNAEntityMaster{
 		this.texto = texto;
 	}
 
-	public long getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(long latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 	
-	public long getLongitude() {
+	public double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(long longitude) {
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 

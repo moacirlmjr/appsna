@@ -1,9 +1,11 @@
 package br.com.ufpb.appSNA.model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,8 +16,6 @@ import br.com.ufpb.appSNAUtil.util.DAOUtil;
 
 
 public class SNAElementDAOImpl implements SNAElementDAO {
-
-	private static final long serialVersionUID = 1L;
 
 	@Override
 	public Long create(SNAElement objeto) throws Exception {
@@ -29,7 +29,7 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query, com.mysql.jdbc.Statement.RETURN_GENERATED_KEYS);			
 			
-			stmt.setLong(1, objeto.getId());
+			stmt.setLong(1, objeto.getId_usuario());
 			stmt.setString(2, objeto.getNome());
 			stmt.setString(3, objeto.getScreename());
 			stmt.setString(4, objeto.getBiografia());

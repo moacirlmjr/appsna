@@ -87,7 +87,11 @@ public class TesteCapturaTimelines {
 				elem.setTotalFollowing(userAtual.getFriendsCount());
 				elem.setTotalFollowers(userAtual.getFollowersCount());
 				elem.setTotalTweets(userAtual.getStatusesCount());
-				elem.setURL(userAtual.getURL().toString());
+				try{
+					elem.setURL(userAtual.getURL().toString().equals(null) ? "não informado" : userAtual.getURL().toString() );
+				}catch (Exception e){
+					
+				}
 				elem.setTimeZone(userAtual.getTimeZone());
 				elem.setLinguagem(userAtual.getLang());
 				

@@ -65,7 +65,7 @@ public class CreateBD {
 						  "id_source BIGINT NOT NULL , " +
 						  "id_target BIGINT NOT NULL , " +
 						  "PRIMARY KEY (id_relacionamento), " +
-						  "UNIQUE KEY (id_source, id_target), " +
+						  "UNIQUE KEY uk_relacionamento (id_relacionamento, id_source, id_target), " +
 						  "INDEX fk_Relacionamento_Usuario2 (id_target ASC), " +
 						  "CONSTRAINT fk_Relacionamento_Usuario1 " +
 						  "FOREIGN KEY (id_source) " +
@@ -84,15 +84,16 @@ public class CreateBD {
 			
 			try {
 				String sqlTableStatus = "CREATE  TABLE Status (" +
-						  "id_status INT NOT NULL AUTO_INCREMENT, " +
-						  "id_usuario BIGINT NOT NULL, " +
+				 		  "id_usuario BIGINT NOT NULL, " +
+						  "id_status BIGINT NOT NULL, " +						 
 						  "data_criacao DATE NULL, " +
 						  "texto VARCHAR(150) NOT NULL, " +
 						  "latitude VARCHAR(20) NULL, " +
 						  "longitude VARCHAR(20) NULL, " +
 						  "total_retweet INT NULL, " +
 						  "is_retweeted INT NULL, " +
-						  "PRIMARY KEY (id_status, id_usuario), " +  
+						  "PRIMARY KEY (id_status), " + 
+						  "UNIQUE KEY (id_status, id_usuario), " +  
 						  "CONSTRAINT fk_status_usuario " +
 						  "FOREIGN KEY (id_usuario) " +
 						  "REFERENCES Usuario(id_usuario) " +
@@ -110,7 +111,7 @@ public class CreateBD {
 			try {
 				String sqlTableUrlmention = "CREATE  TABLE URLMention ( " +
 						  "id_usuario BIGINT NOT NULL, " +
-						  "id_status INT NOT NULL, " +
+						  "id_status BIGINT NOT NULL, " +
 						  "id_urlmention INT NOT NULL AUTO_INCREMENT, " +
 						  "url TEXT NULL, " +
 						  "PRIMARY KEY (id_urlmention), " + 
@@ -132,7 +133,7 @@ public class CreateBD {
 			try {
 				String sqlTableUsermention = "CREATE  TABLE UserMention (" +
 						  "id_usuario BIGINT NOT NULL, " +
-						  "id_status INT NOT NULL, " +
+						  "id_status BIGINT NOT NULL, " +
 						  "id_usermention INT NOT NULL AUTO_INCREMENT, " +
 						  "usuario VARCHAR(45) NULL, " +
 						  "PRIMARY KEY (id_usermention), " +
@@ -153,7 +154,7 @@ public class CreateBD {
 			try {
 				String sqlTableUsermention = "CREATE TABLE hashtagmention (" +
 						  "id_usuario BIGINT NOT NULL, " +
-						  "id_status INT NOT NULL, " +
+						  "id_status BIGINT NOT NULL, " +
 						  "id_hashtagmention INT NOT NULL AUTO_INCREMENT, " +
 						  "hashtag VARCHAR(45) NULL, " +
 						  "PRIMARY KEY (id_hashtagmention), " +

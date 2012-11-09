@@ -21,26 +21,25 @@ public class PersistirBase {
 		
 		
 		//Povoamento da tabela SNAElement
-		/*try {
-
-			List<File> arquivosCsvSNAElem = FileUtil.listarArquivosDir(Constantes.DIR_APPSNA_ELEMENTOS);
-			List<SNAElement> listElements = new ArrayList<SNAElement>();
-			List<SNAElement> listElementsAux = new ArrayList<SNAElement>();			
-
-			for (File f : arquivosCsvSNAElem) {
-				listElements = ParseSNACSV.realizarParserArquivoCDR(f);
-				listElementsAux.addAll(listElements);
-			}
-			
-			SNAElementDAO snaDAO = new SNAElementDAOImpl();
-			snaDAO.create(listElementsAux);			
-
-		} catch (IOException e) {
-			AppSNALog.error("Erro no povoamento da tabela SNAElement: " + e.toString());
-		} catch (Exception e) {
-			AppSNALog.error("Erro no povoamento da tabela SNAElement: " + e.toString());
-		}
-		*/
+//		try {
+//
+//			List<File> arquivosCsvSNAElem = FileUtil.listarArquivosDir(Constantes.DIR_APPSNA_ELEMENTOS);
+//			List<SNAElement> listElements = new ArrayList<SNAElement>();
+//			List<SNAElement> listElementsAux = new ArrayList<SNAElement>();			
+//
+//			for (File f : arquivosCsvSNAElem) {
+//				listElements = ParseSNACSV.realizarParserArquivoCDR(f);
+//				listElementsAux.addAll(listElements);
+//			}
+//			
+//			SNAElementDAO snaDAO = new SNAElementDAOImpl();
+//			snaDAO.create(listElementsAux);			
+//
+//		} catch (IOException e) {
+//			AppSNALog.error("Erro no povoamento da tabela SNAElement: " + e.toString());
+//		} catch (Exception e) {
+//			AppSNALog.error("Erro no povoamento da tabela SNAElement: " + e.toString());
+//		}
 		
 		
 		//Povoamento da tabela Relacionamento

@@ -57,8 +57,8 @@ public class StatusDAOImpl implements StatusDAO {
 
 	@Override
 	public void create(List<Status> listaStatus) throws Exception {
-		String query = "Insert into Status (id_usuario, data_criacao, texto, longitude, " +
-						"latitude, total_retweet, is_retweeted) values(?, ?, ?, ?, ?, ?, ?);";
+		String query = "Insert into Status (id_usuario, id_status, data_criacao, texto, longitude, " +
+						"latitude, total_retweet, is_retweeted) values(?, ?, ?, ?, ?, ?, ?, ?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;

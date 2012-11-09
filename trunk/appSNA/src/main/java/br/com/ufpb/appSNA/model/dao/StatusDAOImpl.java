@@ -8,21 +8,19 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.mysql.jdbc.Statement;
-
-import br.com.ufpb.appSNA.model.beans.Relacionamento;
-import br.com.ufpb.appSNA.model.beans.SNAElement;
 import br.com.ufpb.appSNA.model.beans.Status;
 import br.com.ufpb.appSNA.util.BDUtil;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
 import br.com.ufpb.appSNAUtil.util.DAOUtil;
 
+import com.mysql.jdbc.Statement;
+
 public class StatusDAOImpl implements StatusDAO {
 
 	@Override
 	public Long create(Status objeto) throws Exception {
-		String query = "Insert into Status (id_usuario, data_criacao, texto, longitude, " +
-				"latitude, total_retweet, is_retweeted) values(?, ?, ?, ?, ?, ?, ?);";
+		String query = "Insert into Status (id_status, id_usuario, data_criacao, texto, longitude, " +
+				"latitude, total_retweet, is_retweeted) values(?, ?, ?, ?, ?, ?, ?, ?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -33,7 +31,7 @@ public class StatusDAOImpl implements StatusDAO {
 			
 			stmt.setLong(1, objeto.getId_status());
 			stmt.setLong(2, objeto.getId_usuario());
-			stmt.setDate(3, new Date(objeto.getDataDeCriacao()));
+			stmt.setLong(3, objeto.getDataDeCriacao());
 			stmt.setString(4, objeto.getTexto());
 			stmt.setString(5, String.valueOf(objeto.getLongitude()));
 			stmt.setString(6, String.valueOf(objeto.getLatitude()));

@@ -12,7 +12,7 @@ public class Status extends AppSNAEntityMaster{
 	String texto;
 	long latitude;
 	long longitude;
-	int totalRetweet;
+	long totalRetweet;
 	boolean isRetweeted;
 
 	
@@ -57,11 +57,11 @@ public class Status extends AppSNAEntityMaster{
 		this.longitude = longitude;
 	}
 
-	public int getTotalRetweet() {
+	public long getTotalRetweet() {
 		return totalRetweet;
 	}
 
-	public void setTotalRetweet(int totalRetweet) {
+	public void setTotalRetweet(long totalRetweet) {
 		this.totalRetweet = totalRetweet;
 	}
 

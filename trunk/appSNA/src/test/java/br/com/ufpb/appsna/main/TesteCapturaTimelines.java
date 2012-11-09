@@ -33,8 +33,8 @@ public class TesteCapturaTimelines {
 		
 		List<String> listaDeNomes = new ArrayList<String>();
 		
-				listaDeNomes.add("@AIRTONGTORRES");
-				listaDeNomes.add("@alamorocha");
+				//listaDeNomes.add("@AIRTONGTORRES");
+				//listaDeNomes.add("@alamorocha");
 				listaDeNomes.add("@ale_patricio");
 				listaDeNomes.add("@ALLYSONDINIZ");
 				listaDeNomes.add("@DEZINHAJPA");
@@ -66,13 +66,9 @@ public class TesteCapturaTimelines {
 			
 			try {
 				
-				List<Status> statuses = null;	
-				
-				if (args.length == 1) {					
-					statuses = AccountCarrousel.CURRENT_ACCOUNT.getUserTimeline(username);
-				} else {
-					System.out.println("Erro na busca da timeline de " + username);
-				}
+				List<Status> statuses = null;
+							
+				statuses = AccountCarrousel.CURRENT_ACCOUNT.getUserTimeline(username);				
 				
 				System.out.println("Capturando dados de " + username);				
 				
@@ -87,20 +83,17 @@ public class TesteCapturaTimelines {
 				elem.setTotalFollowing(userAtual.getFriendsCount());
 				elem.setTotalFollowers(userAtual.getFollowersCount());
 				elem.setTotalTweets(userAtual.getStatusesCount());
+				
 				try{
 					elem.setURL(userAtual.getURL().toString().equals(null) ? "não informado" : userAtual.getURL().toString() );
 				}catch (Exception e){
 					
 				}
+				
 				elem.setTimeZone(userAtual.getTimeZone());
 				elem.setLinguagem(userAtual.getLang());
 				
-				Calendar calUser = Calendar.getInstance();
-				calUser.set(userAtual.getCreatedAt().getYear(), userAtual.getCreatedAt().getMonth(), 
-						userAtual.getCreatedAt().getDate(), userAtual.getCreatedAt().getHours(), 
-						userAtual.getCreatedAt().getMinutes(), userAtual.getCreatedAt().getSeconds());
-				
-				elem.setDataDeCriacao(calUser.getTimeInMillis());
+				elem.setDataDeCriacao(userAtual.getCreatedAt().getTime());
 				elem.setURLImagem(userAtual.getProfileBackgroundImageUrl());
 				
 				SNAElementDAO snaElemDAO = new SNAElementDAOImpl();
@@ -144,18 +137,14 @@ public class TesteCapturaTimelines {
 					sta.setId_usuario(id_usuario);
 					sta.setId_status(id_status);
 					
-					Calendar calStatus = Calendar.getInstance();
-					calStatus.set(status.getCreatedAt().getYear(), status.getCreatedAt().getMonth(), 
-							status.getCreatedAt().getDate(), status.getCreatedAt().getHours(), 
-							status.getCreatedAt().getMinutes(), status.getCreatedAt().getSeconds());
-					
-					sta.setDataDeCriacao(calStatus.getTimeInMillis());					
+					sta.setDataDeCriacao(status.getCreatedAt().getTime());					
 					sta.setTexto(status.getText());
 					sta.setLatitude(latitude);
 					sta.setLongitude(longitude);
 					sta.setRetweeted(status.isRetweetedByMe());
 					sta.setTotalRetweet(status.getRetweetCount());
 					System.out.println();
+					
 					try {
 						staDAO.create(sta);
 					} catch (Exception e) {
@@ -184,7 +173,6 @@ public class TesteCapturaTimelines {
 					}
 					
 					if(!status.getUserMentionEntities().equals(null)){
-						
 						
 						for (UserMentionEntity user : status.getUserMentionEntities()){
 							

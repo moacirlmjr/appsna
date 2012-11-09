@@ -28,19 +28,20 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 		try {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query, com.mysql.jdbc.Statement.RETURN_GENERATED_KEYS);			
-			stmt.setLong(0, objeto.getId());
-			stmt.setString(1, objeto.getNome());
-			stmt.setString(2, objeto.getScreename());
-			stmt.setString(3, objeto.getBiografia());
-			stmt.setString(4, objeto.getLocalização());
-			stmt.setInt(5, objeto.getTotalFollowing());
-			stmt.setInt(6, objeto.getTotalFollowers());
-			stmt.setInt(7, objeto.getTotalTweets());
-			stmt.setString(8, objeto.getURL());
-			stmt.setString(9, objeto.getTimeZone());
-			stmt.setString(10, objeto.getLinguagem());
-			stmt.setDate(11, (Date) objeto.getDataDeCriacao());
-			stmt.setString(12, objeto.getURLImagem());
+			
+			stmt.setLong(1, objeto.getId());
+			stmt.setString(2, objeto.getNome());
+			stmt.setString(3, objeto.getScreename());
+			stmt.setString(4, objeto.getBiografia());
+			stmt.setString(5, objeto.getLocalização());
+			stmt.setInt(6, objeto.getTotalFollowing());
+			stmt.setInt(7, objeto.getTotalFollowers());
+			stmt.setInt(8, objeto.getTotalTweets());
+			stmt.setString(9, objeto.getURL());
+			stmt.setString(10, objeto.getTimeZone());
+			stmt.setString(11, objeto.getLinguagem());
+			stmt.setLong(12,  objeto.getDataDeCriacao());
+			stmt.setString(13, objeto.getURLImagem());
 
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -85,7 +86,7 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 				stmt.setString(9, elem.getURL());
 				stmt.setString(10, elem.getTimeZone());
 				stmt.setString(11, elem.getLinguagem());
-				stmt.setTimestamp(12,  new Timestamp(elem.getDataDeCriacao().getTime()));
+				stmt.setLong(12,  elem.getDataDeCriacao());
 				stmt.setString(13, elem.getURLImagem());
 
 				stmt.addBatch();
@@ -128,7 +129,7 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 			stmt.setString(8, objeto.getURL());
 			stmt.setString(9, objeto.getTimeZone());
 			stmt.setString(10, objeto.getLinguagem());
-			stmt.setDate(11, (Date) objeto.getDataDeCriacao());
+			stmt.setLong(11, objeto.getDataDeCriacao());
 			stmt.setString(12, objeto.getURLImagem());
 			stmt.setLong(13, objeto.getId());
 			stmt.executeUpdate();
@@ -173,7 +174,7 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 				elem.setURL(rs.getString(8));
 				elem.setTimeZone(rs.getString(9));
 				elem.setLinguagem(rs.getString(10));
-				elem.setDataDeCriacao(rs.getDate(11));
+				elem.setDataDeCriacao(rs.getLong(11));
 				elem.setURLImagem(rs.getString(12));
 			}
 		} catch (SQLException e) {
@@ -213,7 +214,7 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 				elem.setURL(rs.getString(8));
 				elem.setTimeZone(rs.getString(9));
 				elem.setLinguagem(rs.getString(10));
-				elem.setDataDeCriacao(rs.getDate(11));
+				elem.setDataDeCriacao(rs.getLong(11));
 				elem.setURLImagem(rs.getString(12));
 				listElem.add(elem);
 			}

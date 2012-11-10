@@ -39,6 +39,7 @@ public class StatusDAOImpl implements StatusDAO {
 			stmt.setString(5, String.valueOf(objeto.getLongitude()));
 			stmt.setString(6, String.valueOf(objeto.getLatitude()));
 			stmt.setLong(7, objeto.getTotalRetweet());
+			stmt.setInt(8, objeto.isRetweeted()? 1 : 0);
 			stmt.setInt(8, !objeto.isRetweeted() ? 0 : 1);
 
 			stmt.executeUpdate();

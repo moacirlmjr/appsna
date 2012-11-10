@@ -44,7 +44,6 @@
         <repository>
             <id>sonatype-nexus-staging</id>
             <name>Nexus Release Repository</name>
-            <uniqueVersion>false</uniqueVersion>
             <url>http://twitter4j.org/maven2</url>
         </repository>
     </repositories>

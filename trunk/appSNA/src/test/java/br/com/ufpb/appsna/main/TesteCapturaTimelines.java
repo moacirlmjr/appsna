@@ -100,7 +100,7 @@ public class TesteCapturaTimelines {
 				elem.setTimeZone(userAtual.getTimeZone());
 				elem.setLinguagem(userAtual.getLang());
 
-				elem.setDataDeCriacao(userAtual.getCreatedAt().getTime());
+				elem.setDataDeCriacao(userAtual.getCreatedAt());
 				elem.setURLImagem(userAtual.getProfileBackgroundImageUrl());
 
 				SNAElementDAO snaElemDAO = new SNAElementDAOImpl();
@@ -144,7 +144,7 @@ public class TesteCapturaTimelines {
 					sta.setId_usuario(id_usuario);
 					sta.setId_status(id_status);
 
-					sta.setDataDeCriacao(status.getCreatedAt().getTime());
+					sta.setDataDeCriacao(status.getCreatedAt());
 					sta.setTexto(status.getText());
 					sta.setLatitude(latitude);
 					sta.setLongitude(longitude);

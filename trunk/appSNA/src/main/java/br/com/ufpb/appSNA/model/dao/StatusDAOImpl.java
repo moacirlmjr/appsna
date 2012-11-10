@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class StatusDAOImpl implements StatusDAO {
 			
 			stmt.setLong(1, objeto.getId_status());
 			stmt.setLong(2, objeto.getId_usuario());
-			stmt.setLong(3, objeto.getDataDeCriacao());
+			stmt.setTimestamp(3, new Timestamp(objeto.getDataDeCriacao().getTime()));
 			stmt.setString(4, objeto.getTexto());
 			stmt.setString(5, String.valueOf(objeto.getLongitude()));
 			stmt.setString(6, String.valueOf(objeto.getLatitude()));
@@ -70,13 +71,13 @@ public class StatusDAOImpl implements StatusDAO {
 			for (Status sta : listaStatus) {
 				
 				stmt.setLong(0, sta.getId_usuario());
-				stmt.setLong(0, sta.getId_status());
-				stmt.setLong(1, sta.getDataDeCriacao());
-				stmt.setString(2, sta.getTexto());
-				stmt.setString(3, String.valueOf(sta.getLongitude()));
-				stmt.setString(4, String.valueOf(sta.getLatitude()));
-				stmt.setLong(4, sta.getTotalRetweet());
-				stmt.setInt(6, sta.isRetweeted()==false ? 0 : 1);
+				stmt.setLong(1, sta.getId_status());
+				stmt.setTimestamp(2, new Timestamp(sta.getDataDeCriacao().getTime()));
+				stmt.setString(3, sta.getTexto());
+				stmt.setString(4, String.valueOf(sta.getLongitude()));
+				stmt.setString(5, String.valueOf(sta.getLatitude()));
+				stmt.setLong(6, sta.getTotalRetweet());
+				stmt.setInt(7, sta.isRetweeted()==false ? 0 : 1);
 				stmt.addBatch();
 				if (((listaStatus.size() - 1) < 20 && count % listaStatus.size() == 0) || (count != 0 && count % 20 == 0)) {
 					stmt.executeBatch();
@@ -105,7 +106,7 @@ public class StatusDAOImpl implements StatusDAO {
 			stmt = conn.prepareStatement(query);
 			
 			stmt.setLong(0, objeto.getId_usuario());
-			stmt.setDate(1, new Date(objeto.getDataDeCriacao()));
+			stmt.setTimestamp(1, new Timestamp(objeto.getDataDeCriacao().getTime()));
 			stmt.setString(2, objeto.getTexto());
 			stmt.setString(3, String.valueOf(objeto.getLongitude()));
 			stmt.setString(4, String.valueOf(objeto.getLatitude()));
@@ -145,7 +146,7 @@ public class StatusDAOImpl implements StatusDAO {
 			while (rs.next()) {
 				sta.setId_status(rs.getLong(0));
 				sta.setId_usuario(rs.getLong(1));
-				sta.setDataDeCriacao(rs.getLong(2));
+				sta.setDataDeCriacao(rs.getTimestamp(2));
 				sta.setTexto(rs.getString(3));
 				sta.setLongitude(rs.getLong(4));
 				sta.setLatitude(rs.getLong(5));
@@ -180,7 +181,7 @@ public class StatusDAOImpl implements StatusDAO {
 				sta = new Status();
 				sta.setId_status(rs.getLong(0));
 				sta.setId_usuario(rs.getLong(1));
-				sta.setDataDeCriacao(rs.getLong(2));
+				sta.setDataDeCriacao(rs.getTimestamp(2));
 				sta.setTexto(rs.getString(3));
 				sta.setLongitude(rs.getLong(4));
 				sta.setLatitude(rs.getLong(5));

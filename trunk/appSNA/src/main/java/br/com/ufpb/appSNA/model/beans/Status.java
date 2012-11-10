@@ -1,5 +1,7 @@
 package br.com.ufpb.appSNA.model.beans;
 
+import java.util.Date;
+
 import br.com.ufpb.appSNAUtil.model.beans.comum.AppSNAEntityMaster;
 
 public class Status extends AppSNAEntityMaster{
@@ -8,7 +10,7 @@ public class Status extends AppSNAEntityMaster{
 	
 	private long id_status;
 	private long id_usuario;
-	private long dataDeCriacao;
+	private Date dataDeCriacao;
 	private String texto;
 	private double latitude;
 	private double longitude;
@@ -31,11 +33,11 @@ public class Status extends AppSNAEntityMaster{
 		this.id_usuario = id_usuario;
 	}
 
-	public long getDataDeCriacao() {
+	public Date getDataDeCriacao() {
 		return dataDeCriacao;
 	}
 
-	public void setDataDeCriacao(long dataDeCriacao) {
+	public void setDataDeCriacao(Date dataDeCriacao) {
 		this.dataDeCriacao = dataDeCriacao;
 	}
 

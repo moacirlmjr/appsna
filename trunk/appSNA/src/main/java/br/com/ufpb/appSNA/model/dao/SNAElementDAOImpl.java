@@ -40,7 +40,7 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 			stmt.setString(9, objeto.getURL());
 			stmt.setString(10, objeto.getTimeZone());
 			stmt.setString(11, objeto.getLinguagem());
-			stmt.setLong(12,  objeto.getDataDeCriacao());
+			stmt.setTimestamp(12, new Timestamp(objeto.getDataDeCriacao().getTime()));
 			stmt.setString(13, objeto.getURLImagem());
 
 			stmt.executeUpdate();
@@ -86,7 +86,7 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 				stmt.setString(9, elem.getURL());
 				stmt.setString(10, elem.getTimeZone());
 				stmt.setString(11, elem.getLinguagem());
-				stmt.setLong(12,  elem.getDataDeCriacao());
+				stmt.setTimestamp(12, new Timestamp(elem.getDataDeCriacao().getTime()));
 				stmt.setString(13, elem.getURLImagem());
 
 				stmt.addBatch();
@@ -129,7 +129,7 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 			stmt.setString(8, objeto.getURL());
 			stmt.setString(9, objeto.getTimeZone());
 			stmt.setString(10, objeto.getLinguagem());
-			stmt.setLong(11, objeto.getDataDeCriacao());
+			stmt.setTimestamp(11, new Timestamp(objeto.getDataDeCriacao().getTime()));
 			stmt.setString(12, objeto.getURLImagem());
 			stmt.setLong(13, objeto.getId());
 			stmt.executeUpdate();
@@ -174,7 +174,7 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 				elem.setURL(rs.getString(8));
 				elem.setTimeZone(rs.getString(9));
 				elem.setLinguagem(rs.getString(10));
-				elem.setDataDeCriacao(rs.getLong(11));
+				elem.setDataDeCriacao(rs.getTimestamp(11));
 				elem.setURLImagem(rs.getString(12));
 			}
 		} catch (SQLException e) {
@@ -199,12 +199,10 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 		try {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
-			rs = stmt.executeQuery();
+			rs = stmt.getResultSet();
 
 			while (rs.next()) {
-				
 				elem = new SNAElement();
-				
 				elem.setId_usuario(rs.getLong(1));
 				elem.setNome(rs.getString(2));
 				elem.setScreename(rs.getString(3));
@@ -216,7 +214,7 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 				elem.setURL(rs.getString(9));
 				elem.setTimeZone(rs.getString(10));
 				elem.setLinguagem(rs.getString(11));
-				elem.setDataDeCriacao(rs.getLong(12));
+				elem.setDataDeCriacao(rs.getTimestamp(12));
 				elem.setURLImagem(rs.getString(13));
 				
 				listElem.add(elem);

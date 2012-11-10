@@ -1,5 +1,7 @@
 package br.com.ufpb.appSNA.model.beans;
 
+import java.util.Date;
+
 import br.com.ufpb.appSNAUtil.model.beans.comum.AppSNAEntityMaster;
 
 public class SNAElement extends AppSNAEntityMaster {
@@ -17,7 +19,7 @@ public class SNAElement extends AppSNAEntityMaster {
 	private String URL;
 	private String TimeZone;
 	private String Linguagem;
-	private long dataDeCriacao;
+	private Date dataDeCriacao;
 	private String URLImagem;
 
 	public Long getId_usuario() {
@@ -108,11 +110,11 @@ public class SNAElement extends AppSNAEntityMaster {
 		Linguagem = linguagem;
 	}
 
-	public long getDataDeCriacao() {
+	public Date getDataDeCriacao() {
 		return dataDeCriacao;
 	}
 
-	public void setDataDeCriacao(long dataDeCriacao) {
+	public void setDataDeCriacao(Date dataDeCriacao) {
 		this.dataDeCriacao = dataDeCriacao;
 	}
 

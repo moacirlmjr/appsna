@@ -59,7 +59,7 @@ public class ParseSNACSV {
 			SNAEl.setURL(lineArray[URL]);
 			SNAEl.setTimeZone(lineArray[TIMEZONE]);
 			SNAEl.setLinguagem(lineArray[LINGUAGEM]);
-			SNAEl.setDataDeCriacao(DateUtil.dateParser(lineArray[DATADECRIACAO]).getTime());		
+			SNAEl.setDataDeCriacao(DateUtil.dateParser(lineArray[DATADECRIACAO]));		
 			SNAEl.setURLImagem(lineArray[URLIMAGEM]);
 
 			list.add(SNAEl);

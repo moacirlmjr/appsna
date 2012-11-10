@@ -53,7 +53,7 @@ public class CapturaTimeline {
 				try {
 					elem = getSnaElement(username);
 					
-					if(snaElemDAO.findById(elem.getId_usuario()).getId() == 0){
+					if(snaElemDAO.findById(elem.getId_usuario()).getId_usuario() == null){
 						snaElemDAO.create(elem);
 					}
 
@@ -132,7 +132,7 @@ public class CapturaTimeline {
 						for (UserMentionEntity user : status
 								.getUserMentionEntities()) {
 							
-							if(snaElemDAO.findById(user.getId()).getId() == 0){
+							if(snaElemDAO.findById(user.getId()).getId_usuario() == null){
 								elem = getSnaElement(user.getScreenName());
 								snaElemDAO.create(elem);
 							}

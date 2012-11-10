@@ -39,7 +39,6 @@ public class TesteCapturaTimelines {
 		listaDeNomes.add("NTURISMO_JPPB");
 		listaDeNomes.add("ThiagoADVJP");
 
-		AccountCarrousel.startListReady();
 		CapturaTimeline.timelineCatch(listaDeNomes, 15);
 
 	}

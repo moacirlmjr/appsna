@@ -182,8 +182,12 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 	
 	
 	public List<MentionTO> listarMencionados(long id_usuario) throws Exception {
-		String query = "select id_user_mentionade, count(*) from usermention" + 
-		"where id_usuario=? group by id_usuario, id_user_mentionade";
+		String query = "select m.id_user_mentionade, count(*) " + 
+						 "from usermention m, usuario u " +
+						 "where m.id_user_mentionade = u.id_usuario and " +
+						 "u.localizacao like '%oao%essoa%' " +
+						 "and m.id_usuario = ? " + 
+						 "group by  m.id_usuario, m.id_user_mentionade";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -195,7 +199,8 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 		try {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
-			rs = stmt.getResultSet();
+			stmt.setLong(1, id_usuario);
+			rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				men = new MentionTO();

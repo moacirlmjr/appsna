@@ -134,10 +134,11 @@ public class CreateBD {
 				String sqlTableUsermention = "CREATE  TABLE UserMention (" +
 						  "id_usuario BIGINT NOT NULL, " +
 						  "id_status BIGINT NOT NULL, " +
-						  "id_usermention INT NOT NULL, " +
+						  "id_usermention INT NOT NULL AUTO_INCREMENT, " +
+						  "id_user_mentionade BIGINT NOT NULL, " +
 						  "usuario VARCHAR(45) NULL, " +
 						  "PRIMARY KEY (id_usermention), " +
-						  "UNIQUE KEY (id_usuario, id_status, id_usermention), " +
+						  "UNIQUE KEY (id_usuario, id_status, id_usermention, id_user_mentionade), " +
 						  "CONSTRAINT fk_UserMention_Status " +
 						  "FOREIGN KEY (id_status, id_usuario) " +
 						  "REFERENCES Status(id_status, id_usuario) " +

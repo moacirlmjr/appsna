@@ -158,7 +158,7 @@ public class TesteCapturaTimelines {
 						e.printStackTrace();
 					}
 
-					if (!status.getURLEntities().equals(null)) {
+					if (status.getURLEntities() != null) {
 
 						for (URLEntity url : status.getURLEntities()) {
 
@@ -184,6 +184,7 @@ public class TesteCapturaTimelines {
 
 							usermen.setId_usuario(id_usuario);
 							usermen.setId_status(id_status);
+							usermen.setId_usermention(user.getId());
 							usermen.setUsuario(user.getScreenName());
 
 							try {

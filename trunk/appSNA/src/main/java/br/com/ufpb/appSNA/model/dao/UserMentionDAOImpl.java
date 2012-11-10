@@ -20,7 +20,7 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 
 	@Override
 	public Long create(UserMention objeto) throws Exception {
-		String query = "Insert into UserMention (id_usuario, id_status, usuario) values(?, ?, ?);";
+		String query = "Insert into UserMention (id_usuario, id_status, id_usermention, usuario) values(?, ?, ?, ?);";
 		
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -31,7 +31,8 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 
 			stmt.setLong(1, objeto.getId_usuario());
 			stmt.setLong(2, objeto.getId_status());
-			stmt.setString(3, objeto.getUsuario());
+			stmt.setLong(3, objeto.getId_usermention());
+			stmt.setString(4, objeto.getUsuario());
 			
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -50,7 +51,7 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 
 	@Override
 	public void create(List<UserMention> listaUserMentions) throws Exception {
-		String query = "Insert into UserMention (id_usuario, id_status, usuario) values(?, ?, ?);";
+		String query = "Insert into UserMention (id_usuario, id_status, id_usermention, usuario) values(?, ?, ?, ?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -62,9 +63,10 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 			for (UserMention user : listaUserMentions) {
 
 
-				stmt.setLong(0, user.getId_usuario());
-				stmt.setLong(1, user.getId_status());
-				stmt.setString(2, user.getUsuario());
+				stmt.setLong(1, user.getId_usuario());
+				stmt.setLong(2, user.getId_status());
+				stmt.setLong(3, user.getId_usermention());
+				stmt.setString(4, user.getUsuario());
 				
 				stmt.addBatch();
 				if (((listaUserMentions.size() - 1) < 20 && count

@@ -31,8 +31,6 @@ public class CapturaTimeline {
 
 	public static void timelineCatch(List<String> nameList, int pageCount) {
 
-		AccountCarrousel.startListReady();
-
 		for (String username : nameList) {
 
 			try {
@@ -42,8 +40,7 @@ public class CapturaTimeline {
 				
 				int page = 1;
 				while (page <= pageCount) {
-					statuses.addAll(AccountCarrousel.CURRENT_ACCOUNT
-							.getUserTimeline(username, new Paging(page, 1000)));
+					statuses.addAll(AccountCarrousel.CURRENT_ACCOUNT.getUserTimeline(username, new Paging(page, 1000)));
 					page++;
 				}
 
@@ -119,12 +116,10 @@ public class CapturaTimeline {
 							try {
 								urlDAO.create(urlmen);
 							} catch (Exception e) {
-								AppSNALog.error("Erro no URLMentionDAO: "
-										+ e.toString());
+								AppSNALog.error("Erro no URLMentionDAO: " + e.toString());
 								e.printStackTrace();
 							}
 						}
-
 					}
 
 					if (status.getUserMentionEntities() != null) {
@@ -145,8 +140,7 @@ public class CapturaTimeline {
 							try {
 								userDAO.create(usermen);
 							} catch (Exception e) {
-								AppSNALog.error("Erro no UserMentionDAO: "
-										+ e.toString());
+								AppSNALog.error("Erro no UserMentionDAO: " + e.toString());
 								e.printStackTrace();
 							}
 						}
@@ -164,8 +158,7 @@ public class CapturaTimeline {
 							try {
 								hashDAO.create(hashtagmen);
 							} catch (Exception e) {
-								AppSNALog.error("Erro no HashTAgMentionDAO: "
-										+ e.toString());
+								AppSNALog.error("Erro no HashTAgMentionDAO: " + e.toString());
 								e.printStackTrace();
 							}
 						}
@@ -174,10 +167,9 @@ public class CapturaTimeline {
 
 			} catch (TwitterException te) {
 				te.printStackTrace();
-				System.out.println("Falha de busca na timeline: "
-						+ te.getMessage());
+				System.out.println("Falha de busca na timeline: " + te.getMessage());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				AppSNALog.error(e.toString());
 				e.printStackTrace();
 			}
 		}
@@ -195,6 +187,7 @@ public class CapturaTimeline {
 		elem.setTotalFollowing(userAtual.getFriendsCount());
 		elem.setTotalFollowers(userAtual.getFollowersCount());
 		elem.setTotalTweets(userAtual.getStatusesCount());
+		
 		try {
 			elem.setURL(userAtual.getURL() == null ? "não informado" : userAtual.getURL().toString());
 		} catch (Exception e) {

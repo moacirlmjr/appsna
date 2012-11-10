@@ -35,6 +35,7 @@ public class TesteCapturaTimelines {
 
 		List<String> listaDeNomes = new ArrayList<String>();
 
+		listaDeNomes.add("ThiagoADVJP");
 		listaDeNomes.add("AIRTONGTORRES");
 		listaDeNomes.add("alamorocha");
 		listaDeNomes.add("ale_patricio");
@@ -60,7 +61,6 @@ public class TesteCapturaTimelines {
 		listaDeNomes.add("RINALDOPESSOA");
 		listaDeNomes.add("RIQUELSON");
 		listaDeNomes.add("NTURISMO_JPPB");
-		listaDeNomes.add("ThiagoADVJP");
 
 		AccountCarrousel.startListReady();
 
@@ -70,7 +70,7 @@ public class TesteCapturaTimelines {
 
 				List<Status> statuses = new LinkedList<Status>();
 				int page = 1;
-				while (page <= 3) {
+				while (page <= 25) {
 					statuses.addAll(AccountCarrousel.CURRENT_ACCOUNT
 							.getUserTimeline(username, new Paging(page, 1000)));
 					page++;
@@ -164,13 +164,12 @@ public class TesteCapturaTimelines {
 
 							urlmen.setId_usuario(id_usuario);
 							urlmen.setId_status(id_status);
-							urlmen.setUrl(url.getURL().getPath());
+							urlmen.setUrl(url.getURL().toString());
 
 							try {
 								urlDAO.create(urlmen);
 							} catch (Exception e) {
-								AppSNALog.error("Erro no URLMentionDAO: "
-										+ e.toString());
+								AppSNALog.error("Erro no URLMentionDAO: " + e.toString());
 								e.printStackTrace();
 							}
 						}
@@ -181,7 +180,7 @@ public class TesteCapturaTimelines {
 
 						for (UserMentionEntity user : status
 								.getUserMentionEntities()) {
-
+							
 							usermen.setId_usuario(id_usuario);
 							usermen.setId_status(id_status);
 							usermen.setId_user_mentionade(user.getId());
@@ -224,5 +223,7 @@ public class TesteCapturaTimelines {
 				System.exit(-1);
 			}
 		}
+		System.out.println("Concluido a Captura das timelines");
+		System.exit(0);
 	}
 }

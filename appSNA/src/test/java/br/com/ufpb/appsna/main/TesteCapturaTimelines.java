@@ -2,9 +2,7 @@ package br.com.ufpb.appsna.main;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import br.com.ufpb.appSNA.util.CapturaTimeline;
-import br.com.ufpb.appSNAUtil.util.AccountCarrousel;
 
 public class TesteCapturaTimelines {
 
@@ -40,6 +38,6 @@ public class TesteCapturaTimelines {
 		listaDeNomes.add("ThiagoADVJP");
 
 		CapturaTimeline.timelineCatch(listaDeNomes, 15);
-		System.exit(0);
+
 	}
 }

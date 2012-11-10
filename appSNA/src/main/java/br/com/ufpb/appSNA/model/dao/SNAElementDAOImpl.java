@@ -1,14 +1,12 @@
 package br.com.ufpb.appSNA.model.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
-
 import br.com.ufpb.appSNA.model.beans.SNAElement;
 import br.com.ufpb.appSNA.util.BDUtil;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
@@ -47,8 +45,7 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 			ResultSet rs = stmt.getGeneratedKeys();
 			while (rs.next()) {
 				result = rs.getLong(1);
-			}
-
+			}			
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
 		} finally {
@@ -160,31 +157,29 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, id);
-			rs = stmt.getResultSet();
+			rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				elem.setId(rs.getLong(0));
-				elem.setNome(rs.getString(1));
-				elem.setScreename(rs.getString(2));
-				elem.setBiografia(rs.getString(3));
-				elem.setLocalização(rs.getString(4));
-				elem.setTotalFollowing(rs.getInt(5));
-				elem.setTotalFollowers(rs.getInt(6));
-				elem.setTotalTweets(rs.getInt(7));
-				elem.setURL(rs.getString(8));
-				elem.setTimeZone(rs.getString(9));
-				elem.setLinguagem(rs.getString(10));
-				elem.setDataDeCriacao(rs.getTimestamp(11));
-				elem.setURLImagem(rs.getString(12));
+				elem.setId_usuario(rs.getLong(1));
+				elem.setNome(rs.getString(2));
+				elem.setScreename(rs.getString(3));
+				elem.setBiografia(rs.getString(4));
+				elem.setLocalização(rs.getString(5));
+				elem.setTotalFollowing(rs.getInt(6));
+				elem.setTotalFollowers(rs.getInt(7));
+				elem.setTotalTweets(rs.getInt(8));
+				elem.setURL(rs.getString(9));
+				elem.setTimeZone(rs.getString(10));
+				elem.setLinguagem(rs.getString(11));
+				elem.setDataDeCriacao(rs.getTimestamp(12));
+				elem.setURLImagem(rs.getString(13));
 			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
 		} finally {
 			conn.close();
 		}
-
 		return elem;
-
 	}
 
 	@Override
@@ -199,10 +194,12 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 		try {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
-			rs = stmt.getResultSet();
+			rs = stmt.executeQuery();
 
 			while (rs.next()) {
+				
 				elem = new SNAElement();
+				
 				elem.setId_usuario(rs.getLong(1));
 				elem.setNome(rs.getString(2));
 				elem.setScreename(rs.getString(3));

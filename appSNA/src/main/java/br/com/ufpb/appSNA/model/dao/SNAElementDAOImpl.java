@@ -199,23 +199,26 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 		try {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
-			rs = stmt.getResultSet();
+			rs = stmt.executeQuery();
 
 			while (rs.next()) {
+				
 				elem = new SNAElement();
-				elem.setId(rs.getLong(0));
-				elem.setNome(rs.getString(1));
-				elem.setScreename(rs.getString(2));
-				elem.setBiografia(rs.getString(3));
-				elem.setLocalização(rs.getString(4));
-				elem.setTotalFollowing(rs.getInt(5));
-				elem.setTotalFollowers(rs.getInt(6));
-				elem.setTotalTweets(rs.getInt(7));
-				elem.setURL(rs.getString(8));
-				elem.setTimeZone(rs.getString(9));
-				elem.setLinguagem(rs.getString(10));
-				elem.setDataDeCriacao(rs.getLong(11));
-				elem.setURLImagem(rs.getString(12));
+				
+				elem.setId_usuario(rs.getLong(1));
+				elem.setNome(rs.getString(2));
+				elem.setScreename(rs.getString(3));
+				elem.setBiografia(rs.getString(4));
+				elem.setLocalização(rs.getString(5));
+				elem.setTotalFollowing(rs.getInt(6));
+				elem.setTotalFollowers(rs.getInt(7));
+				elem.setTotalTweets(rs.getInt(8));
+				elem.setURL(rs.getString(9));
+				elem.setTimeZone(rs.getString(10));
+				elem.setLinguagem(rs.getString(11));
+				elem.setDataDeCriacao(rs.getLong(12));
+				elem.setURLImagem(rs.getString(13));
+				
 				listElem.add(elem);
 			}
 		} catch (SQLException e) {

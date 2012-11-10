@@ -130,7 +130,7 @@ public class CapturaTimeline {
 						for (UserMentionEntity user : status
 								.getUserMentionEntities()) {
 							
-							if(snaElemDAO.findById(user.getId()) == null){
+							if(snaElemDAO.findById(user.getId()).getId() == 0){
 								elem = getSnaElement(user.getScreenName());
 								snaElemDAO.create(elem);
 							}
@@ -195,8 +195,7 @@ public class CapturaTimeline {
 		elem.setTotalFollowers(userAtual.getFollowersCount());
 		elem.setTotalTweets(userAtual.getStatusesCount());
 		try {
-			elem.setURL(userAtual.getURL() == null ? "não informado"
-					: userAtual.getURL().toString());
+			elem.setURL(userAtual.getURL() == null ? "não informado" : userAtual.getURL().toString());
 		} catch (Exception e) {
 			AppSNALog.error(e.toString());
 		}

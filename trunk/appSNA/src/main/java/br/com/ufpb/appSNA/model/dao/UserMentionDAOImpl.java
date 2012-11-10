@@ -12,6 +12,7 @@ import com.mysql.jdbc.Statement;
 
 import br.com.ufpb.appSNA.model.beans.Status;
 import br.com.ufpb.appSNA.model.beans.UserMention;
+import br.com.ufpb.appSNA.model.beans.to.MentionTO;
 import br.com.ufpb.appSNA.util.BDUtil;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
 import br.com.ufpb.appSNAUtil.util.DAOUtil;
@@ -176,6 +177,39 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 
 		return listUsers;
 
+	}
+	
+	
+	
+	public List<MentionTO> listarMencionados(long id_usuario) throws Exception {
+		String query = "select id_user_mentionade, count(*) from usermention" + 
+		"where id_usuario=? group by id_usuario, id_user_mentionade";
+
+		PreparedStatement stmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		MentionTO men = null;
+		
+		List<MentionTO> listMencionados = new LinkedList<MentionTO>();
+		
+		try {
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			stmt = conn.prepareStatement(query);
+			rs = stmt.getResultSet();
+
+			while (rs.next()) {
+				men = new MentionTO();
+				men.setId_target(rs.getLong(1));
+				men.setTotal_mention(rs.getInt(2));							
+				listMencionados.add(men);
+			}
+		} catch (SQLException e) {
+			AppSNALog.error(e.toString());
+		} finally {
+			conn.close();
+		}
+		
+		return listMencionados;
 	}
 
 	@Override

@@ -45,7 +45,7 @@ public class CreateBD {
 						  "URL TEXT NULL ," + 
 						  "timezone VARCHAR(40) NULL ," +
 						  "linguagem VARCHAR(40) NULL ," +
-						  "data_criacao BIGINT NULL ," +
+						  "data_criacao TIMESTAMP NULL ," +
 						  "url_imagem TEXT NULL ," +
 						  "PRIMARY KEY (id_usuario) ," +
 						  "UNIQUE INDEX screen_name_UNIQUE (screen_name ASC)" + 
@@ -86,7 +86,7 @@ public class CreateBD {
 				String sqlTableStatus = "CREATE  TABLE Status (" +
 				 		  "id_usuario BIGINT NOT NULL, " +
 						  "id_status BIGINT NOT NULL, " +						 
-						  "data_criacao BIGINT NULL, " +
+						  "data_criacao TIMESTAMP NULL, " +
 						  "texto VARCHAR(150) NOT NULL, " +
 						  "latitude VARCHAR(20) NULL, " +
 						  "longitude VARCHAR(20) NULL, " +

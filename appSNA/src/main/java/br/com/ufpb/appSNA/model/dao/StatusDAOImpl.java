@@ -8,12 +8,14 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.mysql.jdbc.Statement;
+
+import br.com.ufpb.appSNA.model.beans.Relacionamento;
+import br.com.ufpb.appSNA.model.beans.SNAElement;
 import br.com.ufpb.appSNA.model.beans.Status;
 import br.com.ufpb.appSNA.util.BDUtil;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
 import br.com.ufpb.appSNAUtil.util.DAOUtil;
-
-import com.mysql.jdbc.Statement;
 
 public class StatusDAOImpl implements StatusDAO {
 
@@ -68,7 +70,8 @@ public class StatusDAOImpl implements StatusDAO {
 			for (Status sta : listaStatus) {
 				
 				stmt.setLong(0, sta.getId_usuario());
-				stmt.setDate(1, new Date(sta.getDataDeCriacao()));
+				stmt.setLong(0, sta.getId_status());
+				stmt.setLong(1, sta.getDataDeCriacao());
 				stmt.setString(2, sta.getTexto());
 				stmt.setString(3, String.valueOf(sta.getLongitude()));
 				stmt.setString(4, String.valueOf(sta.getLatitude()));

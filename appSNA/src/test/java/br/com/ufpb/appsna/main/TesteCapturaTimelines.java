@@ -1,10 +1,12 @@
 package br.com.ufpb.appsna.main;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
+
 import twitter4j.GeoLocation;
 import twitter4j.HashtagEntity;
+import twitter4j.Paging;
 import twitter4j.Status;
 import twitter4j.TwitterException;
 import twitter4j.URLEntity;
@@ -66,10 +68,13 @@ public class TesteCapturaTimelines {
 
 			try {
 
-				List<Status> statuses = null;
-
-				statuses = AccountCarrousel.CURRENT_ACCOUNT
-						.getUserTimeline(username);
+				List<Status> statuses = new LinkedList<Status>();
+				int page = 1;
+				while (page <= 3) {
+					statuses.addAll(AccountCarrousel.CURRENT_ACCOUNT
+							.getUserTimeline(username, new Paging(page, 1000)));
+					page++;
+				}
 
 				System.out.println("Capturando dados de " + username);
 
@@ -91,7 +96,7 @@ public class TesteCapturaTimelines {
 				} catch (Exception e) {
 					AppSNALog.error(e.toString());
 				}
-				
+
 				elem.setTimeZone(userAtual.getTimeZone());
 				elem.setLinguagem(userAtual.getLang());
 
@@ -172,7 +177,7 @@ public class TesteCapturaTimelines {
 
 					}
 
-					if (!status.getUserMentionEntities().equals(null)) {
+					if (status.getUserMentionEntities() != null) {
 
 						for (UserMentionEntity user : status
 								.getUserMentionEntities()) {
@@ -191,7 +196,7 @@ public class TesteCapturaTimelines {
 						}
 					}
 
-					if (!status.getHashtagEntities().equals(null)) {
+					if (status.getHashtagEntities() != null) {
 
 						for (HashtagEntity hashTag : status
 								.getHashtagEntities()) {

@@ -40,6 +40,6 @@ public class TesteCapturaTimelines {
 		listaDeNomes.add("ThiagoADVJP");
 
 		CapturaTimeline.timelineCatch(listaDeNomes, 15);
-
+		System.exit(0);
 	}
 }

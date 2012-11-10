@@ -184,7 +184,7 @@ public class TesteCapturaTimelines {
 
 							usermen.setId_usuario(id_usuario);
 							usermen.setId_status(id_status);
-							usermen.setId_usermention(user.getId());
+							usermen.setId_user_mentionade(user.getId());
 							usermen.setUsuario(user.getScreenName());
 
 							try {

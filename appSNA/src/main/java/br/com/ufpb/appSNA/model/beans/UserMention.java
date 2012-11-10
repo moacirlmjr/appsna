@@ -5,12 +5,12 @@ import br.com.ufpb.appSNAUtil.model.beans.comum.AppSNAEntityMaster;
 public class UserMention extends AppSNAEntityMaster {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private long id_usuario;
 	private long id_status;
 	private long id_usermention;
+	private long id_user_mentionade;
 	private String usuario;
-	
 
 	public long getId_usuario() {
 		return id_usuario;
@@ -35,13 +35,21 @@ public class UserMention extends AppSNAEntityMaster {
 	public void setId_usermention(long id_usermention) {
 		this.id_usermention = id_usermention;
 	}
-	
+
 	public String getUsuario() {
 		return usuario;
 	}
 
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
+	}
+
+	public long getId_user_mentionade() {
+		return id_user_mentionade;
+	}
+
+	public void setId_user_mentionade(long id_user_mentionade) {
+		this.id_user_mentionade = id_user_mentionade;
 	}
 
 }

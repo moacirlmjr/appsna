@@ -1,0 +1,3710 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GraphML gerado automaticamente pela AppSNA -->
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+	<graph edgedefault="Directed">
+
+		<!-- Esquema de Dados -->
+		<key id="name" for="node" attr.name="name" attr.type="String"/>
+		<key id="total_mencoes" for="edge" attr.name="total_mencoes" attr.type="int"/>
+
+		<!-- Nos -->  
+		<node id="298776587">
+			<data key="name">AIRTONGTORRES</data>
+		</node>
+		<node id="9079992">
+			<data key="name">9079992</data>
+		</node>
+		<node id="28183093">
+			<data key="name">28183093</data>
+		</node>
+		<node id="33938941">
+			<data key="name">33938941</data>
+		</node>
+		<node id="43162371">
+			<data key="name">43162371</data>
+		</node>
+		<node id="53119364">
+			<data key="name">53119364</data>
+		</node>
+		<node id="94223557">
+			<data key="name">94223557</data>
+		</node>
+		<node id="110717673">
+			<data key="name">110717673</data>
+		</node>
+		<node id="118275321">
+			<data key="name">118275321</data>
+		</node>
+		<node id="121761933">
+			<data key="name">121761933</data>
+		</node>
+		<node id="148161683">
+			<data key="name">148161683</data>
+		</node>
+		<node id="165928220">
+			<data key="name">165928220</data>
+		</node>
+		<node id="202443569">
+			<data key="name">202443569</data>
+		</node>
+		<node id="236961269">
+			<data key="name">236961269</data>
+		</node>
+		<node id="343447982">
+			<data key="name">343447982</data>
+		</node>
+		<node id="359930816">
+			<data key="name">359930816</data>
+		</node>
+		<node id="369805512">
+			<data key="name">369805512</data>
+		</node>
+		<node id="388264492">
+			<data key="name">388264492</data>
+		</node>
+		<node id="394209100">
+			<data key="name">394209100</data>
+		</node>
+		<node id="560418614">
+			<data key="name">560418614</data>
+		</node>
+		<node id="569121143">
+			<data key="name">569121143</data>
+		</node>
+		<node id="118883953">
+			<data key="name">alamorocha</data>
+		</node>
+		<node id="13124602">
+			<data key="name">13124602</data>
+		</node>
+		<node id="18048260">
+			<data key="name">18048260</data>
+		</node>
+		<node id="18957078">
+			<data key="name">18957078</data>
+		</node>
+		<node id="21663755">
+			<data key="name">21663755</data>
+		</node>
+		<node id="27532786">
+			<data key="name">27532786</data>
+		</node>
+		<node id="56559324">
+			<data key="name">56559324</data>
+		</node>
+		<node id="60345157">
+			<data key="name">60345157</data>
+		</node>
+		<node id="64804737">
+			<data key="name">64804737</data>
+		</node>
+		<node id="70216792">
+			<data key="name">70216792</data>
+		</node>
+		<node id="72936035">
+			<data key="name">72936035</data>
+		</node>
+		<node id="74151377">
+			<data key="name">74151377</data>
+		</node>
+		<node id="82990406">
+			<data key="name">82990406</data>
+		</node>
+		<node id="83243415">
+			<data key="name">83243415</data>
+		</node>
+		<node id="85453832">
+			<data key="name">85453832</data>
+		</node>
+		<node id="86065271">
+			<data key="name">86065271</data>
+		</node>
+		<node id="93015856">
+			<data key="name">93015856</data>
+		</node>
+		<node id="94597511">
+			<data key="name">94597511</data>
+		</node>
+		<node id="95634343">
+			<data key="name">95634343</data>
+		</node>
+		<node id="96845859">
+			<data key="name">96845859</data>
+		</node>
+		<node id="106387152">
+			<data key="name">106387152</data>
+		</node>
+		<node id="108456725">
+			<data key="name">108456725</data>
+		</node>
+		<node id="110103199">
+			<data key="name">110103199</data>
+		</node>
+		<node id="120154754">
+			<data key="name">120154754</data>
+		</node>
+		<node id="128031815">
+			<data key="name">128031815</data>
+		</node>
+		<node id="137014731">
+			<data key="name">137014731</data>
+		</node>
+		<node id="141257837">
+			<data key="name">141257837</data>
+		</node>
+		<node id="151977012">
+			<data key="name">151977012</data>
+		</node>
+		<node id="164132025">
+			<data key="name">164132025</data>
+		</node>
+		<node id="165390440">
+			<data key="name">165390440</data>
+		</node>
+		<node id="165851190">
+			<data key="name">165851190</data>
+		</node>
+		<node id="186040577">
+			<data key="name">186040577</data>
+		</node>
+		<node id="190619377">
+			<data key="name">190619377</data>
+		</node>
+		<node id="208091116">
+			<data key="name">208091116</data>
+		</node>
+		<node id="220645607">
+			<data key="name">220645607</data>
+		</node>
+		<node id="235007545">
+			<data key="name">235007545</data>
+		</node>
+		<node id="271416083">
+			<data key="name">271416083</data>
+		</node>
+		<node id="292656031">
+			<data key="name">292656031</data>
+		</node>
+		<node id="320796311">
+			<data key="name">320796311</data>
+		</node>
+		<node id="342369159">
+			<data key="name">342369159</data>
+		</node>
+		<node id="348791961">
+			<data key="name">348791961</data>
+		</node>
+		<node id="423613902">
+			<data key="name">423613902</data>
+		</node>
+		<node id="465731727">
+			<data key="name">465731727</data>
+		</node>
+		<node id="478770819">
+			<data key="name">478770819</data>
+		</node>
+		<node id="498435438">
+			<data key="name">498435438</data>
+		</node>
+		<node id="509150237">
+			<data key="name">509150237</data>
+		</node>
+		<node id="547152401">
+			<data key="name">547152401</data>
+		</node>
+		<node id="604769498">
+			<data key="name">604769498</data>
+		</node>
+		<node id="41231541">
+			<data key="name">ale_patricio</data>
+		</node>
+		<node id="16452612">
+			<data key="name">16452612</data>
+		</node>
+		<node id="40274365">
+			<data key="name">40274365</data>
+		</node>
+		<node id="42877829">
+			<data key="name">42877829</data>
+		</node>
+		<node id="47656563">
+			<data key="name">47656563</data>
+		</node>
+		<node id="47828231">
+			<data key="name">47828231</data>
+		</node>
+		<node id="47979365">
+			<data key="name">47979365</data>
+		</node>
+		<node id="49778919">
+			<data key="name">49778919</data>
+		</node>
+		<node id="62960705">
+			<data key="name">62960705</data>
+		</node>
+		<node id="65603849">
+			<data key="name">65603849</data>
+		</node>
+		<node id="71571136">
+			<data key="name">71571136</data>
+		</node>
+		<node id="82211818">
+			<data key="name">82211818</data>
+		</node>
+		<node id="83442525">
+			<data key="name">evaldodesousa</data>
+		</node>
+		<node id="83521572">
+			<data key="name">83521572</data>
+		</node>
+		<node id="103715652">
+			<data key="name">103715652</data>
+		</node>
+		<node id="121115454">
+			<data key="name">121115454</data>
+		</node>
+		<node id="135002357">
+			<data key="name">135002357</data>
+		</node>
+		<node id="138413872">
+			<data key="name">138413872</data>
+		</node>
+		<node id="139034848">
+			<data key="name">139034848</data>
+		</node>
+		<node id="140650657">
+			<data key="name">140650657</data>
+		</node>
+		<node id="158067167">
+			<data key="name">158067167</data>
+		</node>
+		<node id="161810955">
+			<data key="name">161810955</data>
+		</node>
+		<node id="179969369">
+			<data key="name">179969369</data>
+		</node>
+		<node id="188518517">
+			<data key="name">188518517</data>
+		</node>
+		<node id="262867640">
+			<data key="name">262867640</data>
+		</node>
+		<node id="289439925">
+			<data key="name">289439925</data>
+		</node>
+		<node id="321993553">
+			<data key="name">321993553</data>
+		</node>
+		<node id="145443549">
+			<data key="name">ALLYSONDINIZ</data>
+		</node>
+		<node id="39867536">
+			<data key="name">39867536</data>
+		</node>
+		<node id="105838161">
+			<data key="name">105838161</data>
+		</node>
+		<node id="125850529">
+			<data key="name">125850529</data>
+		</node>
+		<node id="149288179">
+			<data key="name">149288179</data>
+		</node>
+		<node id="225394463">
+			<data key="name">225394463</data>
+		</node>
+		<node id="349053302">
+			<data key="name">349053302</data>
+		</node>
+		<node id="60794025">
+			<data key="name">DEZINHAJPA</data>
+		</node>
+		<node id="21571098">
+			<data key="name">21571098</data>
+		</node>
+		<node id="24687059">
+			<data key="name">24687059</data>
+		</node>
+		<node id="42284334">
+			<data key="name">42284334</data>
+		</node>
+		<node id="46088801">
+			<data key="name">46088801</data>
+		</node>
+		<node id="48606840">
+			<data key="name">48606840</data>
+		</node>
+		<node id="61478768">
+			<data key="name">61478768</data>
+		</node>
+		<node id="70268792">
+			<data key="name">70268792</data>
+		</node>
+		<node id="94548923">
+			<data key="name">94548923</data>
+		</node>
+		<node id="138066264">
+			<data key="name">138066264</data>
+		</node>
+		<node id="145434488">
+			<data key="name">145434488</data>
+		</node>
+		<node id="146309440">
+			<data key="name">146309440</data>
+		</node>
+		<node id="181537912">
+			<data key="name">181537912</data>
+		</node>
+		<node id="181974228">
+			<data key="name">181974228</data>
+		</node>
+		<node id="213320385">
+			<data key="name">213320385</data>
+		</node>
+		<node id="223109850">
+			<data key="name">223109850</data>
+		</node>
+		<node id="226275820">
+			<data key="name">226275820</data>
+		</node>
+		<node id="273500868">
+			<data key="name">273500868</data>
+		</node>
+		<node id="134286728">
+			<data key="name">ARTHURFERRO</data>
+		</node>
+		<node id="35341427">
+			<data key="name">35341427</data>
+		</node>
+		<node id="41000988">
+			<data key="name">41000988</data>
+		</node>
+		<node id="43526597">
+			<data key="name">43526597</data>
+		</node>
+		<node id="50883107">
+			<data key="name">50883107</data>
+		</node>
+		<node id="55823394">
+			<data key="name">55823394</data>
+		</node>
+		<node id="57441927">
+			<data key="name">57441927</data>
+		</node>
+		<node id="58859316">
+			<data key="name">58859316</data>
+		</node>
+		<node id="62626651">
+			<data key="name">62626651</data>
+		</node>
+		<node id="65384725">
+			<data key="name">65384725</data>
+		</node>
+		<node id="65509422">
+			<data key="name">65509422</data>
+		</node>
+		<node id="67480369">
+			<data key="name">67480369</data>
+		</node>
+		<node id="69034840">
+			<data key="name">69034840</data>
+		</node>
+		<node id="73477270">
+			<data key="name">73477270</data>
+		</node>
+		<node id="75305813">
+			<data key="name">75305813</data>
+		</node>
+		<node id="76022928">
+			<data key="name">76022928</data>
+		</node>
+		<node id="78079832">
+			<data key="name">78079832</data>
+		</node>
+		<node id="85410344">
+			<data key="name">85410344</data>
+		</node>
+		<node id="96550575">
+			<data key="name">96550575</data>
+		</node>
+		<node id="103897289">
+			<data key="name">103897289</data>
+		</node>
+		<node id="108779673">
+			<data key="name">108779673</data>
+		</node>
+		<node id="112719826">
+			<data key="name">112719826</data>
+		</node>
+		<node id="112797513">
+			<data key="name">112797513</data>
+		</node>
+		<node id="116879856">
+			<data key="name">116879856</data>
+		</node>
+		<node id="117113237">
+			<data key="name">117113237</data>
+		</node>
+		<node id="123264978">
+			<data key="name">123264978</data>
+		</node>
+		<node id="125127592">
+			<data key="name">125127592</data>
+		</node>
+		<node id="128918449">
+			<data key="name">128918449</data>
+		</node>
+		<node id="140501781">
+			<data key="name">140501781</data>
+		</node>
+		<node id="142841155">
+			<data key="name">142841155</data>
+		</node>
+		<node id="155867605">
+			<data key="name">155867605</data>
+		</node>
+		<node id="156356766">
+			<data key="name">156356766</data>
+		</node>
+		<node id="158078469">
+			<data key="name">158078469</data>
+		</node>
+		<node id="160200889">
+			<data key="name">160200889</data>
+		</node>
+		<node id="161574670">
+			<data key="name">161574670</data>
+		</node>
+		<node id="162797758">
+			<data key="name">162797758</data>
+		</node>
+		<node id="168885906">
+			<data key="name">168885906</data>
+		</node>
+		<node id="172390176">
+			<data key="name">172390176</data>
+		</node>
+		<node id="175228159">
+			<data key="name">175228159</data>
+		</node>
+		<node id="176631663">
+			<data key="name">176631663</data>
+		</node>
+		<node id="190385084">
+			<data key="name">190385084</data>
+		</node>
+		<node id="197436151">
+			<data key="name">197436151</data>
+		</node>
+		<node id="198637199">
+			<data key="name">198637199</data>
+		</node>
+		<node id="256708893">
+			<data key="name">256708893</data>
+		</node>
+		<node id="264454210">
+			<data key="name">264454210</data>
+		</node>
+		<node id="266858408">
+			<data key="name">266858408</data>
+		</node>
+		<node id="331191290">
+			<data key="name">331191290</data>
+		</node>
+		<node id="395489108">
+			<data key="name">395489108</data>
+		</node>
+		<node id="192444997">
+			<data key="name">atila_jp</data>
+		</node>
+		<node id="18018665">
+			<data key="name">18018665</data>
+		</node>
+		<node id="56904075">
+			<data key="name">56904075</data>
+		</node>
+		<node id="41026397">
+			<data key="name">AYLTONJR</data>
+		</node>
+		<node id="12540052">
+			<data key="name">12540052</data>
+		</node>
+		<node id="259879714">
+			<data key="name">259879714</data>
+		</node>
+		<node id="307338771">
+			<data key="name">307338771</data>
+		</node>
+		<node id="135298720">
+			<data key="name">ELVISREI</data>
+		</node>
+		<node id="94360695">
+			<data key="name">94360695</data>
+		</node>
+		<node id="114575841">
+			<data key="name">114575841</data>
+		</node>
+		<node id="165387896">
+			<data key="name">165387896</data>
+		</node>
+		<node id="190051961">
+			<data key="name">190051961</data>
+		</node>
+		<node id="199404187">
+			<data key="name">199404187</data>
+		</node>
+		<node id="237417807">
+			<data key="name">237417807</data>
+		</node>
+		<node id="249825275">
+			<data key="name">249825275</data>
+		</node>
+		<node id="339638112">
+			<data key="name">339638112</data>
+		</node>
+		<node id="376177495">
+			<data key="name">376177495</data>
+		</node>
+		<node id="376604131">
+			<data key="name">376604131</data>
+		</node>
+		<node id="701678174">
+			<data key="name">701678174</data>
+		</node>
+		<node id="28875505">
+			<data key="name">28875505</data>
+		</node>
+		<node id="38952680">
+			<data key="name">38952680</data>
+		</node>
+		<node id="44727528">
+			<data key="name">44727528</data>
+		</node>
+		<node id="51025241">
+			<data key="name">51025241</data>
+		</node>
+		<node id="52539257">
+			<data key="name">52539257</data>
+		</node>
+		<node id="53072554">
+			<data key="name">53072554</data>
+		</node>
+		<node id="58578131">
+			<data key="name">58578131</data>
+		</node>
+		<node id="58925465">
+			<data key="name">58925465</data>
+		</node>
+		<node id="61814393">
+			<data key="name">61814393</data>
+		</node>
+		<node id="69266455">
+			<data key="name">69266455</data>
+		</node>
+		<node id="70053843">
+			<data key="name">70053843</data>
+		</node>
+		<node id="73157790">
+			<data key="name">73157790</data>
+		</node>
+		<node id="79082627">
+			<data key="name">79082627</data>
+		</node>
+		<node id="82071600">
+			<data key="name">82071600</data>
+		</node>
+		<node id="86020474">
+			<data key="name">86020474</data>
+		</node>
+		<node id="93390980">
+			<data key="name">93390980</data>
+		</node>
+		<node id="93720275">
+			<data key="name">93720275</data>
+		</node>
+		<node id="95224506">
+			<data key="name">95224506</data>
+		</node>
+		<node id="105113903">
+			<data key="name">105113903</data>
+		</node>
+		<node id="110991672">
+			<data key="name">110991672</data>
+		</node>
+		<node id="112813612">
+			<data key="name">112813612</data>
+		</node>
+		<node id="115266614">
+			<data key="name">115266614</data>
+		</node>
+		<node id="124438100">
+			<data key="name">124438100</data>
+		</node>
+		<node id="132004404">
+			<data key="name">132004404</data>
+		</node>
+		<node id="146507691">
+			<data key="name">146507691</data>
+		</node>
+		<node id="147429098">
+			<data key="name">147429098</data>
+		</node>
+		<node id="151587125">
+			<data key="name">151587125</data>
+		</node>
+		<node id="167222422">
+			<data key="name">167222422</data>
+		</node>
+		<node id="171290990">
+			<data key="name">171290990</data>
+		</node>
+		<node id="205910423">
+			<data key="name">205910423</data>
+		</node>
+		<node id="220702110">
+			<data key="name">220702110</data>
+		</node>
+		<node id="221181536">
+			<data key="name">221181536</data>
+		</node>
+		<node id="227789542">
+			<data key="name">227789542</data>
+		</node>
+		<node id="231886142">
+			<data key="name">231886142</data>
+		</node>
+		<node id="239485737">
+			<data key="name">239485737</data>
+		</node>
+		<node id="248593692">
+			<data key="name">248593692</data>
+		</node>
+		<node id="253587338">
+			<data key="name">253587338</data>
+		</node>
+		<node id="286388042">
+			<data key="name">286388042</data>
+		</node>
+		<node id="350381853">
+			<data key="name">350381853</data>
+		</node>
+		<node id="374021871">
+			<data key="name">374021871</data>
+		</node>
+		<node id="377482166">
+			<data key="name">377482166</data>
+		</node>
+		<node id="377978359">
+			<data key="name">377978359</data>
+		</node>
+		<node id="384514919">
+			<data key="name">384514919</data>
+		</node>
+		<node id="423286167">
+			<data key="name">423286167</data>
+		</node>
+		<node id="531498002">
+			<data key="name">531498002</data>
+		</node>
+		<node id="554372038">
+			<data key="name">554372038</data>
+		</node>
+		<node id="586902199">
+			<data key="name">586902199</data>
+		</node>
+		<node id="845307252">
+			<data key="name">845307252</data>
+		</node>
+		<node id="97288641">
+			<data key="name">fabianovidaltur</data>
+		</node>
+		<node id="179626981">
+			<data key="name">BRASILTONY</data>
+		</node>
+		<node id="235371345">
+			<data key="name">235371345</data>
+		</node>
+		<node id="339034785">
+			<data key="name">CHIQUELMEBATERA</data>
+		</node>
+		<node id="42147981">
+			<data key="name">42147981</data>
+		</node>
+		<node id="48108615">
+			<data key="name">48108615</data>
+		</node>
+		<node id="52092326">
+			<data key="name">52092326</data>
+		</node>
+		<node id="61786463">
+			<data key="name">61786463</data>
+		</node>
+		<node id="61997917">
+			<data key="name">61997917</data>
+		</node>
+		<node id="62896536">
+			<data key="name">62896536</data>
+		</node>
+		<node id="65077532">
+			<data key="name">65077532</data>
+		</node>
+		<node id="68861387">
+			<data key="name">68861387</data>
+		</node>
+		<node id="75362895">
+			<data key="name">75362895</data>
+		</node>
+		<node id="75591618">
+			<data key="name">75591618</data>
+		</node>
+		<node id="83714676">
+			<data key="name">83714676</data>
+		</node>
+		<node id="99442845">
+			<data key="name">99442845</data>
+		</node>
+		<node id="115738583">
+			<data key="name">115738583</data>
+		</node>
+		<node id="138065442">
+			<data key="name">138065442</data>
+		</node>
+		<node id="142690423">
+			<data key="name">142690423</data>
+		</node>
+		<node id="149499778">
+			<data key="name">149499778</data>
+		</node>
+		<node id="176009827">
+			<data key="name">176009827</data>
+		</node>
+		<node id="182653442">
+			<data key="name">182653442</data>
+		</node>
+		<node id="183910128">
+			<data key="name">183910128</data>
+		</node>
+		<node id="188788885">
+			<data key="name">188788885</data>
+		</node>
+		<node id="194380103">
+			<data key="name">194380103</data>
+		</node>
+		<node id="228463125">
+			<data key="name">228463125</data>
+		</node>
+		<node id="232352400">
+			<data key="name">232352400</data>
+		</node>
+		<node id="234158197">
+			<data key="name">234158197</data>
+		</node>
+		<node id="240674995">
+			<data key="name">240674995</data>
+		</node>
+		<node id="241644133">
+			<data key="name">241644133</data>
+		</node>
+		<node id="257284147">
+			<data key="name">257284147</data>
+		</node>
+		<node id="258836591">
+			<data key="name">258836591</data>
+		</node>
+		<node id="267807840">
+			<data key="name">267807840</data>
+		</node>
+		<node id="270930330">
+			<data key="name">270930330</data>
+		</node>
+		<node id="278005429">
+			<data key="name">278005429</data>
+		</node>
+		<node id="284579949">
+			<data key="name">284579949</data>
+		</node>
+		<node id="289290701">
+			<data key="name">289290701</data>
+		</node>
+		<node id="308871503">
+			<data key="name">308871503</data>
+		</node>
+		<node id="329738733">
+			<data key="name">329738733</data>
+		</node>
+		<node id="341656194">
+			<data key="name">341656194</data>
+		</node>
+		<node id="398825362">
+			<data key="name">398825362</data>
+		</node>
+		<node id="445048069">
+			<data key="name">445048069</data>
+		</node>
+		<node id="47668366">
+			<data key="name">FLUGARCEZ</data>
+		</node>
+		<node id="15896014">
+			<data key="name">15896014</data>
+		</node>
+		<node id="22337899">
+			<data key="name">22337899</data>
+		</node>
+		<node id="43316693">
+			<data key="name">43316693</data>
+		</node>
+		<node id="44908356">
+			<data key="name">44908356</data>
+		</node>
+		<node id="51065727">
+			<data key="name">51065727</data>
+		</node>
+		<node id="58947249">
+			<data key="name">58947249</data>
+		</node>
+		<node id="79894183">
+			<data key="name">79894183</data>
+		</node>
+		<node id="83229865">
+			<data key="name">83229865</data>
+		</node>
+		<node id="88355588">
+			<data key="name">88355588</data>
+		</node>
+		<node id="93416047">
+			<data key="name">93416047</data>
+		</node>
+		<node id="98439187">
+			<data key="name">98439187</data>
+		</node>
+		<node id="105207925">
+			<data key="name">105207925</data>
+		</node>
+		<node id="200146714">
+			<data key="name">200146714</data>
+		</node>
+		<node id="243320195">
+			<data key="name">243320195</data>
+		</node>
+		<node id="248034851">
+			<data key="name">248034851</data>
+		</node>
+		<node id="283633635">
+			<data key="name">283633635</data>
+		</node>
+		<node id="291647065">
+			<data key="name">291647065</data>
+		</node>
+		<node id="318652416">
+			<data key="name">318652416</data>
+		</node>
+		<node id="346876643">
+			<data key="name">346876643</data>
+		</node>
+		<node id="370192407">
+			<data key="name">370192407</data>
+		</node>
+		<node id="105868888">
+			<data key="name">IVANILDOPB</data>
+		</node>
+		<node id="72263377">
+			<data key="name">72263377</data>
+		</node>
+		<node id="76644316">
+			<data key="name">76644316</data>
+		</node>
+		<node id="104909437">
+			<data key="name">104909437</data>
+		</node>
+		<node id="113421039">
+			<data key="name">113421039</data>
+		</node>
+		<node id="184427384">
+			<data key="name">184427384</data>
+		</node>
+		<node id="198203540">
+			<data key="name">198203540</data>
+		</node>
+		<node id="356187680">
+			<data key="name">356187680</data>
+		</node>
+		<node id="846167736">
+			<data key="name">846167736</data>
+		</node>
+		<node id="490750564">
+			<data key="name">KellylopesLOPES</data>
+		</node>
+		<node id="83932612">
+			<data key="name">83932612</data>
+		</node>
+		<node id="176086423">
+			<data key="name">176086423</data>
+		</node>
+		<node id="344249054">
+			<data key="name">344249054</data>
+		</node>
+		<node id="346305264">
+			<data key="name">346305264</data>
+		</node>
+		<node id="228717193">
+			<data key="name">GALVAOJPA</data>
+		</node>
+		<node id="60776747">
+			<data key="name">60776747</data>
+		</node>
+		<node id="164460161">
+			<data key="name">164460161</data>
+		</node>
+		<node id="229079198">
+			<data key="name">229079198</data>
+		</node>
+		<node id="525483475">
+			<data key="name">luanadepaulane1</data>
+		</node>
+		<node id="293457973">
+			<data key="name">lucasduartereal</data>
+		</node>
+		<node id="50052914">
+			<data key="name">50052914</data>
+		</node>
+		<node id="53080392">
+			<data key="name">53080392</data>
+		</node>
+		<node id="56897162">
+			<data key="name">56897162</data>
+		</node>
+		<node id="58647982">
+			<data key="name">58647982</data>
+		</node>
+		<node id="65531709">
+			<data key="name">65531709</data>
+		</node>
+		<node id="86727378">
+			<data key="name">86727378</data>
+		</node>
+		<node id="115490993">
+			<data key="name">115490993</data>
+		</node>
+		<node id="116910939">
+			<data key="name">116910939</data>
+		</node>
+		<node id="121153683">
+			<data key="name">121153683</data>
+		</node>
+		<node id="168011284">
+			<data key="name">168011284</data>
+		</node>
+		<node id="267931434">
+			<data key="name">267931434</data>
+		</node>
+		<node id="320273205">
+			<data key="name">320273205</data>
+		</node>
+		<node id="391396663">
+			<data key="name">391396663</data>
+		</node>
+		<node id="627643330">
+			<data key="name">627643330</data>
+		</node>
+		<node id="630090242">
+			<data key="name">630090242</data>
+		</node>
+		<node id="725350447">
+			<data key="name">725350447</data>
+		</node>
+		<node id="897499862">
+			<data key="name">897499862</data>
+		</node>
+		<node id="345930147">
+			<data key="name">Mariacristin339</data>
+		</node>
+		<node id="101412628">
+			<data key="name">ONAMEN</data>
+		</node>
+		<node id="15778003">
+			<data key="name">15778003</data>
+		</node>
+		<node id="22155053">
+			<data key="name">22155053</data>
+		</node>
+		<node id="24376567">
+			<data key="name">24376567</data>
+		</node>
+		<node id="24695907">
+			<data key="name">24695907</data>
+		</node>
+		<node id="24913563">
+			<data key="name">24913563</data>
+		</node>
+		<node id="33759469">
+			<data key="name">33759469</data>
+		</node>
+		<node id="47490572">
+			<data key="name">47490572</data>
+		</node>
+		<node id="49631593">
+			<data key="name">49631593</data>
+		</node>
+		<node id="52040074">
+			<data key="name">52040074</data>
+		</node>
+		<node id="52981916">
+			<data key="name">52981916</data>
+		</node>
+		<node id="55342677">
+			<data key="name">55342677</data>
+		</node>
+		<node id="60683198">
+			<data key="name">60683198</data>
+		</node>
+		<node id="62603834">
+			<data key="name">62603834</data>
+		</node>
+		<node id="67018865">
+			<data key="name">67018865</data>
+		</node>
+		<node id="68426736">
+			<data key="name">68426736</data>
+		</node>
+		<node id="81928463">
+			<data key="name">81928463</data>
+		</node>
+		<node id="84582729">
+			<data key="name">84582729</data>
+		</node>
+		<node id="97001368">
+			<data key="name">97001368</data>
+		</node>
+		<node id="102239771">
+			<data key="name">102239771</data>
+		</node>
+		<node id="106425313">
+			<data key="name">106425313</data>
+		</node>
+		<node id="110771546">
+			<data key="name">110771546</data>
+		</node>
+		<node id="143871594">
+			<data key="name">143871594</data>
+		</node>
+		<node id="153887546">
+			<data key="name">153887546</data>
+		</node>
+		<node id="157682800">
+			<data key="name">157682800</data>
+		</node>
+		<node id="158760985">
+			<data key="name">158760985</data>
+		</node>
+		<node id="179223831">
+			<data key="name">179223831</data>
+		</node>
+		<node id="186319109">
+			<data key="name">186319109</data>
+		</node>
+		<node id="217510300">
+			<data key="name">217510300</data>
+		</node>
+		<node id="219506739">
+			<data key="name">219506739</data>
+		</node>
+		<node id="919113631">
+			<data key="name">919113631</data>
+		</node>
+		<node id="83594705">
+			<data key="name">jricardoamorim</data>
+		</node>
+		<node id="35944416">
+			<data key="name">35944416</data>
+		</node>
+		<node id="39499401">
+			<data key="name">39499401</data>
+		</node>
+		<node id="82231539">
+			<data key="name">82231539</data>
+		</node>
+		<node id="103479979">
+			<data key="name">103479979</data>
+		</node>
+		<node id="104472234">
+			<data key="name">104472234</data>
+		</node>
+		<node id="130229049">
+			<data key="name">130229049</data>
+		</node>
+		<node id="136271891">
+			<data key="name">136271891</data>
+		</node>
+		<node id="171618590">
+			<data key="name">171618590</data>
+		</node>
+		<node id="230242548">
+			<data key="name">230242548</data>
+		</node>
+		<node id="315890001">
+			<data key="name">315890001</data>
+		</node>
+		<node id="324155566">
+			<data key="name">324155566</data>
+		</node>
+		<node id="363335804">
+			<data key="name">363335804</data>
+		</node>
+		<node id="366891252">
+			<data key="name">366891252</data>
+		</node>
+		<node id="464367490">
+			<data key="name">464367490</data>
+		</node>
+		<node id="492775510">
+			<data key="name">492775510</data>
+		</node>
+		<node id="47764703">
+			<data key="name">RINALDOPESSOA</data>
+		</node>
+		<node id="16468727">
+			<data key="name">16468727</data>
+		</node>
+		<node id="50773080">
+			<data key="name">50773080</data>
+		</node>
+		<node id="54954599">
+			<data key="name">54954599</data>
+		</node>
+		<node id="75047416">
+			<data key="name">75047416</data>
+		</node>
+		<node id="78015469">
+			<data key="name">78015469</data>
+		</node>
+		<node id="204080850">
+			<data key="name">204080850</data>
+		</node>
+		<node id="263276161">
+			<data key="name">263276161</data>
+		</node>
+		<node id="81845982">
+			<data key="name">RIQUELSON</data>
+		</node>
+		<node id="143131205">
+			<data key="name">143131205</data>
+		</node>
+		<node id="270981801">
+			<data key="name">NTURISMO_JPPB</data>
+		</node>
+		<node id="119400899">
+			<data key="name">119400899</data>
+		</node>
+		<node id="160748796">
+			<data key="name">160748796</data>
+		</node>
+		<node id="231049067">
+			<data key="name">231049067</data>
+		</node>
+		<node id="217839864">
+			<data key="name">ThiagoADVJP</data>
+		</node>
+		<node id="25886117">
+			<data key="name">25886117</data>
+		</node>
+		<node id="27564036">
+			<data key="name">27564036</data>
+		</node>
+		<node id="39566199">
+			<data key="name">39566199</data>
+		</node>
+		<node id="45425948">
+			<data key="name">45425948</data>
+		</node>
+		<node id="48558257">
+			<data key="name">48558257</data>
+		</node>
+		<node id="53405485">
+			<data key="name">53405485</data>
+		</node>
+		<node id="53943018">
+			<data key="name">53943018</data>
+		</node>
+		<node id="55332490">
+			<data key="name">55332490</data>
+		</node>
+		<node id="57345955">
+			<data key="name">57345955</data>
+		</node>
+		<node id="63161619">
+			<data key="name">63161619</data>
+		</node>
+		<node id="72570571">
+			<data key="name">72570571</data>
+		</node>
+		<node id="74244937">
+			<data key="name">74244937</data>
+		</node>
+		<node id="77577263">
+			<data key="name">77577263</data>
+		</node>
+		<node id="85077295">
+			<data key="name">85077295</data>
+		</node>
+		<node id="105218440">
+			<data key="name">105218440</data>
+		</node>
+		<node id="106589370">
+			<data key="name">106589370</data>
+		</node>
+		<node id="108688014">
+			<data key="name">108688014</data>
+		</node>
+		<node id="119025627">
+			<data key="name">119025627</data>
+		</node>
+		<node id="119821529">
+			<data key="name">119821529</data>
+		</node>
+		<node id="137037630">
+			<data key="name">137037630</data>
+		</node>
+		<node id="137330265">
+			<data key="name">137330265</data>
+		</node>
+		<node id="158359788">
+			<data key="name">158359788</data>
+		</node>
+		<node id="163084627">
+			<data key="name">163084627</data>
+		</node>
+		<node id="165462329">
+			<data key="name">165462329</data>
+		</node>
+		<node id="166744921">
+			<data key="name">166744921</data>
+		</node>
+		<node id="208639300">
+			<data key="name">208639300</data>
+		</node>
+		<node id="237503373">
+			<data key="name">237503373</data>
+		</node>
+		<node id="252573618">
+			<data key="name">252573618</data>
+		</node>
+		<node id="270020969">
+			<data key="name">270020969</data>
+		</node>
+		<node id="282622469">
+			<data key="name">282622469</data>
+		</node>
+		<node id="299168489">
+			<data key="name">299168489</data>
+		</node>
+		<node id="339496853">
+			<data key="name">339496853</data>
+		</node>
+		<node id="350934191">
+			<data key="name">350934191</data>
+		</node>
+		<node id="404616439">
+			<data key="name">404616439</data>
+		</node>
+		<node id="462323176">
+			<data key="name">462323176</data>
+		</node>
+		<node id="482783032">
+			<data key="name">482783032</data>
+		</node>
+		<edge source="298776587" target="9079992">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="298776587" target="28183093">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="298776587" target="33938941">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="298776587" target="43162371">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="298776587" target="53119364">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="298776587" target="94223557">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="298776587" target="110717673">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="298776587" target="118275321">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="298776587" target="121761933">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="298776587" target="148161683">
+		<data key="total_mencoes">6</data>
+		</edge>
+			
+		<edge source="298776587" target="165928220">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="298776587" target="202443569">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="298776587" target="236961269">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="298776587" target="298776587">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="298776587" target="343447982">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="298776587" target="359930816">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="298776587" target="369805512">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="298776587" target="388264492">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="298776587" target="394209100">
+		<data key="total_mencoes">10</data>
+		</edge>
+			
+		<edge source="298776587" target="560418614">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="298776587" target="569121143">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="118883953" target="13124602">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="118883953" target="18048260">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="18957078">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="118883953" target="21663755">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="27532786">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="56559324">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="60345157">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="118883953" target="64804737">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="70216792">
+		<data key="total_mencoes">13</data>
+		</edge>
+			
+		<edge source="118883953" target="72936035">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="74151377">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="82990406">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="83243415">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="85453832">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="86065271">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="118883953" target="93015856">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="118883953" target="94597511">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="95634343">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="96845859">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="106387152">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="118883953" target="108456725">
+		<data key="total_mencoes">14</data>
+		</edge>
+			
+		<edge source="118883953" target="110103199">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="118883953" target="110717673">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="118883953" target="118883953">
+		<data key="total_mencoes">12</data>
+		</edge>
+			
+		<edge source="118883953" target="120154754">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="118883953" target="128031815">
+		<data key="total_mencoes">6</data>
+		</edge>
+			
+		<edge source="118883953" target="137014731">
+		<data key="total_mencoes">8</data>
+		</edge>
+			
+		<edge source="118883953" target="141257837">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="151977012">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="164132025">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="118883953" target="165390440">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="118883953" target="165851190">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="186040577">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="190619377">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="208091116">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="220645607">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="235007545">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="118883953" target="271416083">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="292656031">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="118883953" target="320796311">
+		<data key="total_mencoes">15</data>
+		</edge>
+			
+		<edge source="118883953" target="342369159">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="118883953" target="348791961">
+		<data key="total_mencoes">6</data>
+		</edge>
+			
+		<edge source="118883953" target="423613902">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="465731727">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="118883953" target="478770819">
+		<data key="total_mencoes">48</data>
+		</edge>
+			
+		<edge source="118883953" target="498435438">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="118883953" target="509150237">
+		<data key="total_mencoes">9</data>
+		</edge>
+			
+		<edge source="118883953" target="547152401">
+		<data key="total_mencoes">8</data>
+		</edge>
+			
+		<edge source="118883953" target="604769498">
+		<data key="total_mencoes">5</data>
+		</edge>
+			
+		<edge source="41231541" target="9079992">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="41231541" target="16452612">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="41231541" target="40274365">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="41231541" target="41231541">
+		<data key="total_mencoes">5</data>
+		</edge>
+			
+		<edge source="41231541" target="42877829">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="41231541" target="47656563">
+		<data key="total_mencoes">6</data>
+		</edge>
+			
+		<edge source="41231541" target="47828231">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="41231541" target="47979365">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="41231541" target="49778919">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="41231541" target="62960705">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="41231541" target="65603849">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="41231541" target="71571136">
+		<data key="total_mencoes">5</data>
+		</edge>
+			
+		<edge source="41231541" target="82211818">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="41231541" target="83442525">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="41231541" target="83521572">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="41231541" target="86065271">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="41231541" target="103715652">
+		<data key="total_mencoes">11</data>
+		</edge>
+			
+		<edge source="41231541" target="110717673">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="41231541" target="121115454">
+		<data key="total_mencoes">15</data>
+		</edge>
+			
+		<edge source="41231541" target="135002357">
+		<data key="total_mencoes">5</data>
+		</edge>
+			
+		<edge source="41231541" target="138413872">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="41231541" target="139034848">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="41231541" target="140650657">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="41231541" target="158067167">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="41231541" target="161810955">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="41231541" target="179969369">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="41231541" target="188518517">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="41231541" target="262867640">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="41231541" target="289439925">
+		<data key="total_mencoes">12</data>
+		</edge>
+			
+		<edge source="41231541" target="321993553">
+		<data key="total_mencoes">5</data>
+		</edge>
+			
+		<edge source="41231541" target="423613902">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="41231541" target="498435438">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="145443549" target="28183093">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="145443549" target="39867536">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="145443549" target="105838161">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="145443549" target="110717673">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="145443549" target="125850529">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="145443549" target="145443549">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="145443549" target="149288179">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="145443549" target="225394463">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="145443549" target="235007545">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="145443549" target="349053302">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="60794025" target="21571098">
+		<data key="total_mencoes">22</data>
+		</edge>
+			
+		<edge source="60794025" target="24687059">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="60794025" target="40274365">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="60794025" target="42284334">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="60794025" target="42877829">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="60794025" target="46088801">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="60794025" target="48606840">
+		<data key="total_mencoes">15</data>
+		</edge>
+			
+		<edge source="60794025" target="61478768">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="60794025" target="70268792">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="60794025" target="94223557">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="60794025" target="94548923">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="60794025" target="105838161">
+		<data key="total_mencoes">15</data>
+		</edge>
+			
+		<edge source="60794025" target="110717673">
+		<data key="total_mencoes">27</data>
+		</edge>
+			
+		<edge source="60794025" target="138066264">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="60794025" target="145434488">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="60794025" target="146309440">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="60794025" target="165390440">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="60794025" target="181537912">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="60794025" target="181974228">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="60794025" target="213320385">
+		<data key="total_mencoes">16</data>
+		</edge>
+			
+		<edge source="60794025" target="223109850">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="60794025" target="226275820">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="60794025" target="235007545">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="60794025" target="273500868">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="60794025" target="343447982">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="9079992">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="134286728" target="18048260">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="18957078">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="24687059">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="35341427">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="41000988">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="134286728" target="43526597">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="47656563">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="134286728" target="50883107">
+		<data key="total_mencoes">11</data>
+		</edge>
+			
+		<edge source="134286728" target="55823394">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="134286728" target="57441927">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="58859316">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="134286728" target="62626651">
+		<data key="total_mencoes">58</data>
+		</edge>
+			
+		<edge source="134286728" target="65384725">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="65509422">
+		<data key="total_mencoes">7</data>
+		</edge>
+			
+		<edge source="134286728" target="67480369">
+		<data key="total_mencoes">15</data>
+		</edge>
+			
+		<edge source="134286728" target="69034840">
+		<data key="total_mencoes">8</data>
+		</edge>
+			
+		<edge source="134286728" target="73477270">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="75305813">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="76022928">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="78079832">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="85410344">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="86065271">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="134286728" target="96550575">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="103897289">
+		<data key="total_mencoes">9</data>
+		</edge>
+			
+		<edge source="134286728" target="105838161">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="108779673">
+		<data key="total_mencoes">9</data>
+		</edge>
+			
+		<edge source="134286728" target="112719826">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="112797513">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="116879856">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="117113237">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="123264978">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="134286728" target="125127592">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="134286728" target="128918449">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="134286728">
+		<data key="total_mencoes">59</data>
+		</edge>
+			
+		<edge source="134286728" target="140501781">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="134286728" target="142841155">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="134286728" target="155867605">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="156356766">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="158078469">
+		<data key="total_mencoes">8</data>
+		</edge>
+			
+		<edge source="134286728" target="160200889">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="161574670">
+		<data key="total_mencoes">22</data>
+		</edge>
+			
+		<edge source="134286728" target="162797758">
+		<data key="total_mencoes">11</data>
+		</edge>
+			
+		<edge source="134286728" target="168885906">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="172390176">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="134286728" target="175228159">
+		<data key="total_mencoes">43</data>
+		</edge>
+			
+		<edge source="134286728" target="176631663">
+		<data key="total_mencoes">26</data>
+		</edge>
+			
+		<edge source="134286728" target="190385084">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="197436151">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="198637199">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="134286728" target="220645607">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="256708893">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="264454210">
+		<data key="total_mencoes">46</data>
+		</edge>
+			
+		<edge source="134286728" target="266858408">
+		<data key="total_mencoes">31</data>
+		</edge>
+			
+		<edge source="134286728" target="331191290">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="134286728" target="395489108">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="192444997" target="18018665">
+		<data key="total_mencoes">8</data>
+		</edge>
+			
+		<edge source="192444997" target="56904075">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="41026397" target="12540052">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="41026397" target="259879714">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="41026397" target="307338771">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="135298720" target="18957078">
+		<data key="total_mencoes">5</data>
+		</edge>
+			
+		<edge source="135298720" target="53119364">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="135298720" target="70268792">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="135298720" target="86065271">
+		<data key="total_mencoes">133</data>
+		</edge>
+			
+		<edge source="135298720" target="94360695">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="135298720" target="108456725">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="135298720" target="114575841">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="135298720" target="165387896">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="135298720" target="165390440">
+		<data key="total_mencoes">119</data>
+		</edge>
+			
+		<edge source="135298720" target="190051961">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="135298720" target="199404187">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="135298720" target="237417807">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="135298720" target="249825275">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="135298720" target="320796311">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="135298720" target="339638112">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="135298720" target="342369159">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="135298720" target="376177495">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="135298720" target="376604131">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="135298720" target="465731727">
+		<data key="total_mencoes">23</data>
+		</edge>
+			
+		<edge source="135298720" target="509150237">
+		<data key="total_mencoes">20</data>
+		</edge>
+			
+		<edge source="135298720" target="604769498">
+		<data key="total_mencoes">29</data>
+		</edge>
+			
+		<edge source="135298720" target="701678174">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="9079992">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="83442525" target="18048260">
+		<data key="total_mencoes">17</data>
+		</edge>
+			
+		<edge source="83442525" target="18957078">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="83442525" target="21571098">
+		<data key="total_mencoes">5</data>
+		</edge>
+			
+		<edge source="83442525" target="24687059">
+		<data key="total_mencoes">12</data>
+		</edge>
+			
+		<edge source="83442525" target="28875505">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="83442525" target="33938941">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="38952680">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="83442525" target="44727528">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="83442525" target="47656563">
+		<data key="total_mencoes">68</data>
+		</edge>
+			
+		<edge source="83442525" target="51025241">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="83442525" target="52539257">
+		<data key="total_mencoes">5</data>
+		</edge>
+			
+		<edge source="83442525" target="53072554">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="83442525" target="53119364">
+		<data key="total_mencoes">13</data>
+		</edge>
+			
+		<edge source="83442525" target="58578131">
+		<data key="total_mencoes">16</data>
+		</edge>
+			
+		<edge source="83442525" target="58925465">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="61814393">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="69266455">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="83442525" target="70053843">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="72936035">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="73157790">
+		<data key="total_mencoes">28</data>
+		</edge>
+			
+		<edge source="83442525" target="79082627">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="83442525" target="82071600">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="83442525">
+		<data key="total_mencoes">83</data>
+		</edge>
+			
+		<edge source="83442525" target="85453832">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="86020474">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="86065271">
+		<data key="total_mencoes">21</data>
+		</edge>
+			
+		<edge source="83442525" target="93390980">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="83442525" target="93720275">
+		<data key="total_mencoes">44</data>
+		</edge>
+			
+		<edge source="83442525" target="94223557">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="83442525" target="95224506">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="83442525" target="105113903">
+		<data key="total_mencoes">25</data>
+		</edge>
+			
+		<edge source="83442525" target="105838161">
+		<data key="total_mencoes">16</data>
+		</edge>
+			
+		<edge source="83442525" target="110717673">
+		<data key="total_mencoes">5</data>
+		</edge>
+			
+		<edge source="83442525" target="110991672">
+		<data key="total_mencoes">18</data>
+		</edge>
+			
+		<edge source="83442525" target="112813612">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="115266614">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="121761933">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="83442525" target="124438100">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="128031815">
+		<data key="total_mencoes">7</data>
+		</edge>
+			
+		<edge source="83442525" target="132004404">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="83442525" target="138066264">
+		<data key="total_mencoes">12</data>
+		</edge>
+			
+		<edge source="83442525" target="146507691">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="83442525" target="147429098">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="83442525" target="151587125">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="165390440">
+		<data key="total_mencoes">8</data>
+		</edge>
+			
+		<edge source="83442525" target="167222422">
+		<data key="total_mencoes">5</data>
+		</edge>
+			
+		<edge source="83442525" target="171290990">
+		<data key="total_mencoes">10</data>
+		</edge>
+			
+		<edge source="83442525" target="181537912">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="205910423">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="220702110">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="83442525" target="221181536">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="83442525" target="227789542">
+		<data key="total_mencoes">19</data>
+		</edge>
+			
+		<edge source="83442525" target="231886142">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="235007545">
+		<data key="total_mencoes">25</data>
+		</edge>
+			
+		<edge source="83442525" target="237417807">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="83442525" target="239485737">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="83442525" target="248593692">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="253587338">
+		<data key="total_mencoes">7</data>
+		</edge>
+			
+		<edge source="83442525" target="286388042">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="349053302">
+		<data key="total_mencoes">5</data>
+		</edge>
+			
+		<edge source="83442525" target="350381853">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="374021871">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="83442525" target="377482166">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="377978359">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="384514919">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="388264492">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="83442525" target="395489108">
+		<data key="total_mencoes">10</data>
+		</edge>
+			
+		<edge source="83442525" target="423286167">
+		<data key="total_mencoes">8</data>
+		</edge>
+			
+		<edge source="83442525" target="531498002">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="554372038">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="83442525" target="560418614">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="83442525" target="586902199">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83442525" target="845307252">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="97288641" target="70268792">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="97288641" target="83442525">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="97288641" target="86065271">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="179626981" target="42284334">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="179626981" target="61478768">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="179626981" target="128031815">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="179626981" target="165390440">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="179626981" target="179969369">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="179626981" target="223109850">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="179626981" target="235371345">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="339034785" target="9079992">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="339034785" target="42147981">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="339034785" target="48108615">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="339034785" target="52092326">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="339034785" target="61786463">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="339034785" target="61997917">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="339034785" target="62896536">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="339034785" target="65077532">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="339034785" target="68861387">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="339034785" target="75362895">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="339034785" target="75591618">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="339034785" target="83714676">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="339034785" target="94223557">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="339034785" target="94548923">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="339034785" target="99442845">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="339034785" target="105838161">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="339034785" target="115738583">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="339034785" target="121761933">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="339034785" target="138065442">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="339034785" target="142690423">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="339034785" target="149499778">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="339034785" target="158067167">
+		<data key="total_mencoes">19</data>
+		</edge>
+			
+		<edge source="339034785" target="176009827">
+		<data key="total_mencoes">7</data>
+		</edge>
+			
+		<edge source="339034785" target="182653442">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="339034785" target="183910128">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="339034785" target="188788885">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="339034785" target="194380103">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="339034785" target="213320385">
+		<data key="total_mencoes">10</data>
+		</edge>
+			
+		<edge source="339034785" target="220645607">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="339034785" target="223109850">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="339034785" target="228463125">
+		<data key="total_mencoes">28</data>
+		</edge>
+			
+		<edge source="339034785" target="232352400">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="339034785" target="234158197">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="339034785" target="240674995">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="339034785" target="241644133">
+		<data key="total_mencoes">5</data>
+		</edge>
+			
+		<edge source="339034785" target="257284147">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="339034785" target="258836591">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="339034785" target="267807840">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="339034785" target="270930330">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="339034785" target="278005429">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="339034785" target="284579949">
+		<data key="total_mencoes">9</data>
+		</edge>
+			
+		<edge source="339034785" target="289290701">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="339034785" target="308871503">
+		<data key="total_mencoes">5</data>
+		</edge>
+			
+		<edge source="339034785" target="329738733">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="339034785" target="339034785">
+		<data key="total_mencoes">14</data>
+		</edge>
+			
+		<edge source="339034785" target="341656194">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="339034785" target="398825362">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="339034785" target="445048069">
+		<data key="total_mencoes">9</data>
+		</edge>
+			
+		<edge source="47668366" target="15896014">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="21571098">
+		<data key="total_mencoes">16</data>
+		</edge>
+			
+		<edge source="47668366" target="22337899">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="47668366" target="28875505">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="47668366" target="33938941">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="47668366" target="42877829">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="43316693">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="44908356">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="47656563">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="47668366" target="47668366">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="51065727">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="47668366" target="53072554">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="47668366" target="53119364">
+		<data key="total_mencoes">7</data>
+		</edge>
+			
+		<edge source="47668366" target="58947249">
+		<data key="total_mencoes">8</data>
+		</edge>
+			
+		<edge source="47668366" target="72936035">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="47668366" target="75305813">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="79894183">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="83229865">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="86065271">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="47668366" target="88355588">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="47668366" target="93416047">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="93720275">
+		<data key="total_mencoes">6</data>
+		</edge>
+			
+		<edge source="47668366" target="94223557">
+		<data key="total_mencoes">25</data>
+		</edge>
+			
+		<edge source="47668366" target="98439187">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="47668366" target="105207925">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="105838161">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="110717673">
+		<data key="total_mencoes">12</data>
+		</edge>
+			
+		<edge source="47668366" target="128031815">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="165390440">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="200146714">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="205910423">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="235007545">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="47668366" target="243320195">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="248034851">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="248593692">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="47668366" target="253587338">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="47668366" target="283633635">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="291647065">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="318652416">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="346876643">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="349053302">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="47668366" target="370192407">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="377978359">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="388264492">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47668366" target="395489108">
+		<data key="total_mencoes">10</data>
+		</edge>
+			
+		<edge source="47668366" target="560418614">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="105868888" target="9079992">
+		<data key="total_mencoes">11</data>
+		</edge>
+			
+		<edge source="105868888" target="18048260">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="105868888" target="43162371">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="105868888" target="58947249">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="105868888" target="72263377">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="105868888" target="76644316">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="105868888" target="82990406">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="105868888" target="83229865">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="105868888" target="93720275">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="105868888" target="96845859">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="105868888" target="104909437">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="105868888" target="113421039">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="105868888" target="146507691">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="105868888" target="184427384">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="105868888" target="198203540">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="105868888" target="199404187">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="105868888" target="220702110">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="105868888" target="235007545">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="105868888" target="356187680">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="105868888" target="846167736">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="490750564" target="83932612">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="490750564" target="94223557">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="490750564" target="176086423">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="490750564" target="344249054">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="490750564" target="346305264">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="228717193" target="60776747">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="228717193" target="86065271">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="228717193" target="105838161">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="228717193" target="164460161">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="228717193" target="167222422">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="228717193" target="229079198">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="293457973" target="50052914">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="293457973" target="53080392">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="293457973" target="56897162">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="293457973" target="58647982">
+		<data key="total_mencoes">6</data>
+		</edge>
+			
+		<edge source="293457973" target="65531709">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="293457973" target="83521572">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="293457973" target="86727378">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="293457973" target="115490993">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="293457973" target="116910939">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="293457973" target="121153683">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="293457973" target="128031815">
+		<data key="total_mencoes">8</data>
+		</edge>
+			
+		<edge source="293457973" target="142690423">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="293457973" target="168011284">
+		<data key="total_mencoes">8</data>
+		</edge>
+			
+		<edge source="293457973" target="267931434">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="293457973" target="293457973">
+		<data key="total_mencoes">14</data>
+		</edge>
+			
+		<edge source="293457973" target="320273205">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="293457973" target="391396663">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="293457973" target="569121143">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="293457973" target="627643330">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="293457973" target="630090242">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="293457973" target="725350447">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="293457973" target="897499862">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="101412628" target="15778003">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="15896014">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="22155053">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="22337899">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="101412628" target="24376567">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="24695907">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="24913563">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="33759469">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="101412628" target="33938941">
+		<data key="total_mencoes">6</data>
+		</edge>
+			
+		<edge source="101412628" target="42284334">
+		<data key="total_mencoes">36</data>
+		</edge>
+			
+		<edge source="101412628" target="47490572">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="49631593">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="52040074">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="101412628" target="52981916">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="55342677">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="60345157">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="101412628" target="60683198">
+		<data key="total_mencoes">5</data>
+		</edge>
+			
+		<edge source="101412628" target="62603834">
+		<data key="total_mencoes">6</data>
+		</edge>
+			
+		<edge source="101412628" target="67018865">
+		<data key="total_mencoes">6</data>
+		</edge>
+			
+		<edge source="101412628" target="68426736">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="101412628" target="70268792">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="72936035">
+		<data key="total_mencoes">6</data>
+		</edge>
+			
+		<edge source="101412628" target="81928463">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="82211818">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="84582729">
+		<data key="total_mencoes">6</data>
+		</edge>
+			
+		<edge source="101412628" target="86065271">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="93416047">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="101412628" target="97001368">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="101412628" target="101412628">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="101412628" target="102239771">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="101412628" target="106425313">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="101412628" target="110771546">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="101412628" target="123264978">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="128031815">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="101412628" target="143871594">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="146507691">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="153887546">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="157682800">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="158760985">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="179223831">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="101412628" target="186319109">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="101412628" target="198203540">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="205910423">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="217510300">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="219506739">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="101412628" target="235007545">
+		<data key="total_mencoes">8</data>
+		</edge>
+			
+		<edge source="101412628" target="919113631">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83594705" target="35944416">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83594705" target="39499401">
+		<data key="total_mencoes">5</data>
+		</edge>
+			
+		<edge source="83594705" target="42877829">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83594705" target="82231539">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83594705" target="83594705">
+		<data key="total_mencoes">8</data>
+		</edge>
+			
+		<edge source="83594705" target="103479979">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83594705" target="104472234">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83594705" target="105838161">
+		<data key="total_mencoes">14</data>
+		</edge>
+			
+		<edge source="83594705" target="130229049">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83594705" target="136271891">
+		<data key="total_mencoes">8</data>
+		</edge>
+			
+		<edge source="83594705" target="171618590">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83594705" target="181537912">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83594705" target="230242548">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83594705" target="315890001">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83594705" target="324155566">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="83594705" target="349053302">
+		<data key="total_mencoes">6</data>
+		</edge>
+			
+		<edge source="83594705" target="363335804">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83594705" target="366891252">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="83594705" target="464367490">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="83594705" target="492775510">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47764703" target="16468727">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47764703" target="47764703">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="47764703" target="50773080">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47764703" target="54954599">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47764703" target="75047416">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="47764703" target="78015469">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47764703" target="204080850">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="47764703" target="205910423">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="47764703" target="263276161">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="81845982" target="86065271">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="81845982" target="143131205">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="270981801" target="40274365">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="270981801" target="83932612">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="270981801" target="94223557">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="270981801" target="105838161">
+		<data key="total_mencoes">6</data>
+		</edge>
+			
+		<edge source="270981801" target="119400899">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="270981801" target="160748796">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="270981801" target="231049067">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="217839864" target="9079992">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="217839864" target="21571098">
+		<data key="total_mencoes">8</data>
+		</edge>
+			
+		<edge source="217839864" target="25886117">
+		<data key="total_mencoes">6</data>
+		</edge>
+			
+		<edge source="217839864" target="27564036">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="217839864" target="28183093">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="217839864" target="39566199">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="42877829">
+		<data key="total_mencoes">5</data>
+		</edge>
+			
+		<edge source="217839864" target="45425948">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="47656563">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="217839864" target="48558257">
+		<data key="total_mencoes">11</data>
+		</edge>
+			
+		<edge source="217839864" target="53072554">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="217839864" target="53405485">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="53943018">
+		<data key="total_mencoes">5</data>
+		</edge>
+			
+		<edge source="217839864" target="55332490">
+		<data key="total_mencoes">9</data>
+		</edge>
+			
+		<edge source="217839864" target="57345955">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="63161619">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="217839864" target="64804737">
+		<data key="total_mencoes">10</data>
+		</edge>
+			
+		<edge source="217839864" target="65603849">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="217839864" target="70053843">
+		<data key="total_mencoes">34</data>
+		</edge>
+			
+		<edge source="217839864" target="72570571">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="217839864" target="73477270">
+		<data key="total_mencoes">7</data>
+		</edge>
+			
+		<edge source="217839864" target="74244937">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="77577263">
+		<data key="total_mencoes">7</data>
+		</edge>
+			
+		<edge source="217839864" target="83594705">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="85077295">
+		<data key="total_mencoes">27</data>
+		</edge>
+			
+		<edge source="217839864" target="86065271">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="217839864" target="93416047">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="94223557">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="105218440">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="105838161">
+		<data key="total_mencoes">18</data>
+		</edge>
+			
+		<edge source="217839864" target="106589370">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="217839864" target="108688014">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="110771546">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="116879856">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="119025627">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="217839864" target="119821529">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="121761933">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="128031815">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="217839864" target="136271891">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="217839864" target="137037630">
+		<data key="total_mencoes">22</data>
+		</edge>
+			
+		<edge source="217839864" target="137330265">
+		<data key="total_mencoes">4</data>
+		</edge>
+			
+		<edge source="217839864" target="147429098">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="217839864" target="158359788">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="163084627">
+		<data key="total_mencoes">10</data>
+		</edge>
+			
+		<edge source="217839864" target="165462329">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="166744921">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="217839864" target="208639300">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="236961269">
+		<data key="total_mencoes">11</data>
+		</edge>
+			
+		<edge source="217839864" target="237503373">
+		<data key="total_mencoes">3</data>
+		</edge>
+			
+		<edge source="217839864" target="252573618">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="253587338">
+		<data key="total_mencoes">10</data>
+		</edge>
+			
+		<edge source="217839864" target="270020969">
+		<data key="total_mencoes">14</data>
+		</edge>
+			
+		<edge source="217839864" target="282622469">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="217839864" target="289439925">
+		<data key="total_mencoes">13</data>
+		</edge>
+			
+		<edge source="217839864" target="299168489">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="339496853">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="349053302">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="350934191">
+		<data key="total_mencoes">2</data>
+		</edge>
+			
+		<edge source="217839864" target="404616439">
+		<data key="total_mencoes">17</data>
+		</edge>
+			
+		<edge source="217839864" target="462323176">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="482783032">
+		<data key="total_mencoes">1</data>
+		</edge>
+			
+		<edge source="217839864" target="492775510">
+		<data key="total_mencoes">5</data>
+		</edge>
+			
+
+	</graph>
+</graphml>

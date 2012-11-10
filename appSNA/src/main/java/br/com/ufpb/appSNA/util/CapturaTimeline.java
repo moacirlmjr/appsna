@@ -52,9 +52,11 @@ public class CapturaTimeline {
 				SNAElement elem;
 				try {
 					elem = getSnaElement(username);
+					
+					if(snaElemDAO.findById(elem.getId()).getId() == 0){
+						snaElemDAO.create(elem);
+					}
 
-
-					snaElemDAO.create(elem);
 				} catch (Exception e2) {
 					e2.printStackTrace();
 				}
@@ -174,7 +176,6 @@ public class CapturaTimeline {
 				te.printStackTrace();
 				System.out.println("Falha de busca na timeline: "
 						+ te.getMessage());
-				System.exit(-1);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

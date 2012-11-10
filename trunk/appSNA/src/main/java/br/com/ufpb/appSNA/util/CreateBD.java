@@ -22,8 +22,9 @@ public class CreateBD {
 
 			// Passo 3: Executando uma query
 			stmt = conn.createStatement();
-
+			
 			String sqlBD = "CREATE DATABASE " + nomeBD;
+			
 			stmt.executeUpdate(sqlBD);			
 			AppSNALog.warn("Database " + nomeBD + " criado com sucesso...");
 			

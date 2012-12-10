@@ -35,7 +35,8 @@ public class CreateBD {
 
 			try {
 				String sqlTableUsuario = "CREATE  TABLE Usuario (" +
-						  "id_usuario BIGINT NOT NULL ," + 
+						  "id_usuario BIGINT NOT NULL ," +
+						  "id BIGINT NOT NULL AUTO_INCREMENT," + 
 						  "nome VARCHAR(45) NOT NULL ," +
 						  "screen_name VARCHAR(40) NOT NULL ," +
 						  "biografia TEXT NULL ," +
@@ -49,6 +50,7 @@ public class CreateBD {
 						  "data_criacao TIMESTAMP NULL ," +
 						  "url_imagem TEXT NULL ," +
 						  "PRIMARY KEY (id_usuario) ," +
+						  "UNIQUE KEY (id)," +
 						  "UNIQUE INDEX screen_name_UNIQUE (screen_name ASC)" + 
 						  ");";
 				stmt.executeUpdate(sqlTableUsuario);

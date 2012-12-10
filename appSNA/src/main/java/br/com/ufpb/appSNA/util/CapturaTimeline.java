@@ -41,8 +41,7 @@ public class CapturaTimeline {
 				int page = 1;
 				System.out.println("Capturando dados de " + username);
 				while (page <= pageCount) {
-					statuses.addAll(AccountCarrousel.CURRENT_ACCOUNT
-							.getUserTimeline(username, new Paging(page, 1000)));
+					statuses.addAll(AccountCarrousel.CURRENT_ACCOUNT.getUserTimeline(username, new Paging(page, 1000)));
 					page++;
 				}
 

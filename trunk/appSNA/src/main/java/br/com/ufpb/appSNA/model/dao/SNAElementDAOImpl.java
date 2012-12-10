@@ -161,18 +161,19 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 
 			while (rs.next()) {
 				elem.setId_usuario(rs.getLong(1));
-				elem.setNome(rs.getString(2));
-				elem.setScreename(rs.getString(3));
-				elem.setBiografia(rs.getString(4));
-				elem.setLocalização(rs.getString(5));
-				elem.setTotalFollowing(rs.getInt(6));
-				elem.setTotalFollowers(rs.getInt(7));
-				elem.setTotalTweets(rs.getInt(8));
-				elem.setURL(rs.getString(9));
-				elem.setTimeZone(rs.getString(10));
-				elem.setLinguagem(rs.getString(11));
-				elem.setDataDeCriacao(rs.getTimestamp(12));
-				elem.setURLImagem(rs.getString(13));
+				elem.setId_label(rs.getLong(2));
+				elem.setNome(rs.getString(3));
+				elem.setScreename(rs.getString(4));
+				elem.setBiografia(rs.getString(5));
+				elem.setLocalização(rs.getString(6));
+				elem.setTotalFollowing(rs.getInt(7));
+				elem.setTotalFollowers(rs.getInt(8));
+				elem.setTotalTweets(rs.getInt(9));
+				elem.setURL(rs.getString(10));
+				elem.setTimeZone(rs.getString(11));
+				elem.setLinguagem(rs.getString(12));
+				elem.setDataDeCriacao(rs.getTimestamp(13));
+				elem.setURLImagem(rs.getString(14));
 			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());

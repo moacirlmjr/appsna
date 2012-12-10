@@ -9,6 +9,7 @@ public class SNAElement extends AppSNAEntityMaster {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id_usuario;
+	private Long id_label;
 	private String nome;
 	private String Screename;
 	private String Biografia;
@@ -22,12 +23,21 @@ public class SNAElement extends AppSNAEntityMaster {
 	private Date dataDeCriacao;
 	private String URLImagem;
 
+	
 	public Long getId_usuario() {
 		return id_usuario;
 	}
 
 	public void setId_usuario(Long id_usuario) {
 		this.id_usuario = id_usuario;
+	}
+	
+	public Long getId_label() {
+		return id_label;
+	}
+
+	public void setId_label(Long id_label) {
+		this.id_label = id_label;
 	}
 
 	public String getNome() {

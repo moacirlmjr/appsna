@@ -58,10 +58,20 @@ public class XMLUtil {
 	}
 
 	// Método sobrescrito.
+	public static void generateNodes(long userId, long id_label, String name) {
+		arquivo.append("\n\t\t<node id=\"").append(userId).append("\">")
+				.append("\n\t\t\t<data key=\"name\">").append(name)
+				.append("</data>")
+				.append("\n\t\t\t<data key=\"id_label\">").append(id_label)
+				.append("</data>")
+				.append("\n\t\t</node>");
+	}
+	
 	public static void generateNodes(long userId, String name) {
 		arquivo.append("\n\t\t<node id=\"").append(userId).append("\">")
 				.append("\n\t\t\t<data key=\"name\">").append(name)
-				.append("</data>").append("\n\t\t</node>");
+				.append("</data>")				
+				.append("\n\t\t</node>");
 	}
 
 	public static void generateNodes(String userId, String name) {
@@ -92,24 +102,25 @@ public class XMLUtil {
 	}
 
 	// Metodo sobrescrito
-	public static void generateEdges(int idSource, int idTarget, double weight,
+	public static void generateEdges(int idSource, int idTarget, int total,
 			double capacity) {
 		arquivo.append("\n\t\t<edge source=\"").append(idSource)
 				.append("\" target=\"").append(idTarget)
-				.append("<data key=\"weight\">").append(weight)
+				.append("<data key=\"total\">").append(total)
 				.append("</data>\n\t\t</node>")
 				.append("<data key=\"capacity\">").append(capacity)
 				.append("</data>\n\t\t</node>").append("\"></edge>\n\t\t\t");
 	}
 
 	// Metodo sobrescrito
-	public static void generateEdges(String idSource, String idTarget,
-			int weight) {
+	public static void generateEdges(String idSource, String idTarget, int total_mencoes) {
 		arquivo.append("\n\t\t<edge source=\"").append(idSource)
 				.append("\" target=\"").append(idTarget)
-				.append("\"><data key=\"weight\">").append(weight)
-				.append("</data>\n\t\t").append("</edge>\n\t\t\t");
+				.append("\">\n\t\t<data key=\"total_mencoes\">").append(total_mencoes)
+				.append("</data>\n\t\t")
+				.append("</edge>\n\t\t\t");
 	}
+
 
 	// Metodo para fechar o arquivo
 	public static void fechaArquivo() {

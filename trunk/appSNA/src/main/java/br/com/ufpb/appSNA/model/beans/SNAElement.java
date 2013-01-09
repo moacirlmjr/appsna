@@ -22,6 +22,7 @@ public class SNAElement extends AppSNAEntityMaster {
 	private String Linguagem;
 	private Date dataDeCriacao;
 	private String URLImagem;
+	private Integer negativado;
 
 	
 	public Long getId_usuario() {
@@ -134,6 +135,14 @@ public class SNAElement extends AppSNAEntityMaster {
 
 	public void setURLImagem(String uRLImagem) {
 		URLImagem = uRLImagem;
+	}
+
+	public Integer getNegativado() {
+		return negativado;
+	}
+
+	public void setNegativado(Integer negativado) {
+		this.negativado = negativado;
 	}
 
 }

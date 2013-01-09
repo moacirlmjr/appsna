@@ -70,6 +70,7 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 							% listaRelacionamentos.size() == 0)
 							|| (count != 0 && count % 20 == 0)) {
 						stmt.executeBatch();
+						conn.commit();
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -128,7 +129,7 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(0, id_relacionamento);
-			rs = stmt.getResultSet();
+			rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
 				rel.setId_relacionamento(rs.getLong(0));
@@ -160,7 +161,7 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, id_source);
 			stmt.setLong(2, id_target);
-			rs = stmt.getResultSet();
+			rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
 				rel.setId_relacionamento(rs.getLong(0));
@@ -191,13 +192,13 @@ public class RelacionamentoDAOImpl implements RelacionamentoDAO {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
 					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
-			rs = stmt.getResultSet();
+			rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
 				rel = new Relacionamento();
-				rel.setId_relacionamento(rs.getLong(0));
-				rel.setId_source(rs.getLong(1));
-				rel.setId_target(rs.getLong(2));
+				rel.setId_relacionamento(rs.getLong(1));
+				rel.setId_source(rs.getLong(2));
+				rel.setId_target(rs.getLong(3));
 				listRel.add(rel);
 			}
 		} catch (SQLException e) {

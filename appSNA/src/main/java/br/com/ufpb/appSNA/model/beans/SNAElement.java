@@ -2,12 +2,13 @@ package br.com.ufpb.appSNA.model.beans;
 
 import java.util.Date;
 
+import br.com.ufpb.appSNA.model.beans.to.InadimplenciaTO;
 import br.com.ufpb.appSNAUtil.model.beans.comum.AppSNAEntityMaster;
 
 public class SNAElement extends AppSNAEntityMaster {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long id_usuario;
 	private Long id_label;
 	private String nome;
@@ -23,8 +24,9 @@ public class SNAElement extends AppSNAEntityMaster {
 	private Date dataDeCriacao;
 	private String URLImagem;
 	private Integer negativado;
+	private InadimplenciaTO inadimplenciaTO;
+	private Integer qteAmigosNegativados;
 
-	
 	public Long getId_usuario() {
 		return id_usuario;
 	}
@@ -32,7 +34,7 @@ public class SNAElement extends AppSNAEntityMaster {
 	public void setId_usuario(Long id_usuario) {
 		this.id_usuario = id_usuario;
 	}
-	
+
 	public Long getId_label() {
 		return id_label;
 	}
@@ -141,8 +143,24 @@ public class SNAElement extends AppSNAEntityMaster {
 		return negativado;
 	}
 
+	public Integer getQteAmigosNegativados() {
+		return qteAmigosNegativados;
+	}
+
+	public void setQteAmigosNegativados(Integer qteAmigosNegativados) {
+		this.qteAmigosNegativados = qteAmigosNegativados;
+	}
+
 	public void setNegativado(Integer negativado) {
 		this.negativado = negativado;
+	}
+
+	public InadimplenciaTO getInadimplenciaTO() {
+		return inadimplenciaTO;
+	}
+
+	public void setInadimplenciaTO(InadimplenciaTO inadimplenciaTO) {
+		this.inadimplenciaTO = inadimplenciaTO;
 	}
 
 }

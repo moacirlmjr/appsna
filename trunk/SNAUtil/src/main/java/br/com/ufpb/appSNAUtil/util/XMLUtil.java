@@ -87,6 +87,23 @@ public class XMLUtil {
 				.append("</data>").append("\n\t\t</node>");
 	}
 
+	
+	public static void generateNodes(long id_twitter, long id_label, String nome,
+			int tipo, int qtde_negativas, int vizinhanca_all, int vizinhanca_simple,
+			int neg_vizinhanca, float inadimplencia ) {
+		arquivo.append("\n\t\t<node id=\"").append(id_twitter).append("\">")
+				.append("\n\t\t\t<data key=\"id_twitter\">").append(id_twitter).append("</data>")
+				.append("\n\t\t\t<data key=\"id_label\">").append(id_label).append("</data>")
+				.append("\n\t\t\t<data key=\"name\">").append(nome).append("</data>")
+				.append("\n\t\t\t<data key=\"tipo\">").append(tipo).append("</data>")
+				.append("\n\t\t\t<data key=\"qtde_negativas\">").append(qtde_negativas).append("</data>")
+				.append("\n\t\t\t<data key=\"vizinhanca_all\">").append(vizinhanca_all).append("</data>")
+				.append("\n\t\t\t<data key=\"vizinhanca_simple\">").append(vizinhanca_simple).append("</data>")
+				.append("\n\t\t\t<data key=\"neg_vizinhanca\">").append(neg_vizinhanca).append("</data>")
+				.append("\n\t\t\t<data key=\"inadimplencia\">").append(inadimplencia).append("</data>")				
+		.append("\n\t\t</node>");
+	}
+
 	// Nessa método serão construídos as arestas correspondes ao id do usuário
 	// de origem (idSource) ao id do usuário de destino (idTarget).
 	public static void generateEdges(long idSource, long idTarget) {

@@ -18,49 +18,69 @@ import br.com.ufpb.appSNAUtil.util.FileUtil;
 public class PersistirBase {
 
 	public static void main(String[] args) {
-		
-		
-		//Povoamento da tabela SNAElement
-//		try {
-//
-//			List<File> arquivosCsvSNAElem = FileUtil.listarArquivosDir(Constantes.DIR_APPSNA_ELEMENTOS);
-//			List<SNAElement> listElements = new ArrayList<SNAElement>();
-//			List<SNAElement> listElementsAux = new ArrayList<SNAElement>();			
-//
-//			for (File f : arquivosCsvSNAElem) {
-//				listElements = ParseSNACSV.realizarParserArquivoCDR(f);
-//				listElementsAux.addAll(listElements);
-//			}
-//			
-//			SNAElementDAO snaDAO = new SNAElementDAOImpl();
-//			snaDAO.create(listElementsAux);			
-//
-//		} catch (IOException e) {
-//			AppSNALog.error("Erro no povoamento da tabela SNAElement: " + e.toString());
-//		} catch (Exception e) {
-//			AppSNALog.error("Erro no povoamento da tabela SNAElement: " + e.toString());
-//		}
-		
-		
-		//Povoamento da tabela Relacionamento
+
+		// Povoamento da tabela SNAElement
 		try {
-			
-			List<File> arquivosCsvRel = FileUtil.listarArquivosDir(Constantes.DIR_APPSNA_RELACIONAMENTOS);			
-			List<Relacionamento> listRel = new ArrayList<Relacionamento>();			
+
+			List<File> arquivosCsvSNAElem = FileUtil
+					.listarArquivosDir(Constantes.DIR_APPSNA_ELEMENTOS);
+			List<SNAElement> listElements = new ArrayList<SNAElement>();
+			List<SNAElement> listElementsAux = new ArrayList<SNAElement>();
+
+			for (File f : arquivosCsvSNAElem) {
+				listElements = ParseSNACSV.realizarParserArquivoCDR(f);
+				listElementsAux.addAll(listElements);
+			}
+
+			SNAElementDAO snaDAO = new SNAElementDAOImpl();
+			List<SNAElement> listElementsBD = snaDAO.list();
+			listElements.clear();
+			listElements = new ArrayList<SNAElement>(listElementsAux);
+			for (SNAElement snaElemBD : listElementsBD) {
+				for (SNAElement snaElemCSV : listElements) {
+					if (snaElemBD.getId_usuario().longValue() != snaElemCSV
+							.getId_usuario().longValue() && snaElemBD.getScreename().equalsIgnoreCase(snaElemCSV.getScreename())) {
+						snaElemCSV.setScreename(snaElemCSV.getScreename()+"_novo");
+					}else if (snaElemBD.getId_usuario().longValue() == snaElemCSV
+							.getId_usuario().longValue() || snaElemBD.getScreename().equalsIgnoreCase(snaElemCSV.getScreename())) {
+						listElementsAux.remove(snaElemCSV);
+					}
+				}
+			}
+			snaDAO.create(listElementsAux);
+
+		} catch (IOException e) {
+			AppSNALog.error("Erro no povoamento da tabela SNAElement: "
+					+ e.toString());
+		} catch (Exception e) {
+			AppSNALog.error("Erro no povoamento da tabela SNAElement: "
+					+ e.toString());
+		}
+
+		// Povoamento da tabela Relacionamento
+		try {
+
+			List<File> arquivosCsvRel = FileUtil
+					.listarArquivosDir(Constantes.DIR_APPSNA_RELACIONAMENTOS);
+			List<Relacionamento> listRel = new ArrayList<Relacionamento>();
 			List<Relacionamento> listRelAux = new ArrayList<Relacionamento>();
-		
+
 			for (File f : arquivosCsvRel) {
 				listRel = ParseSNACSV.realizarParserArquivoRelacionamentoCDR(f);
 				listRelAux.addAll(listRel);
 			}
 
 			RelacionamentoDAO relDAO = new RelacionamentoDAOImpl();
-			relDAO.create(listRelAux);
+			for(Relacionamento rel : listRelAux){
+				relDAO.create(rel);
+			}
 
 		} catch (IOException e) {
-			AppSNALog.error("Erro no povoamento da tabela Relacionamento: " + e.toString());
+			AppSNALog.error("Erro no povoamento da tabela Relacionamento: "
+					+ e.toString());
 		} catch (Exception e) {
-			AppSNALog.error("Erro no povoamento da tabela Relacionamento: " + e.toString());
+			AppSNALog.error("Erro no povoamento da tabela Relacionamento: "
+					+ e.toString());
 		}
 
 	}

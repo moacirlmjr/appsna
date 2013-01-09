@@ -69,7 +69,7 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 			conn.setAutoCommit(false);
 			// run sql objects
 			stmt = conn.prepareStatement(query);
-			int count = 0;
+			int count = 1;
 			for (SNAElement elem : listaSNAElem) {
 				
 				stmt.setLong(1, elem.getId_usuario());
@@ -146,7 +146,23 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 
 	@Override
 	public SNAElement findById(Long id) throws Exception {
-		String query = "select * from Usuario where id_usuario = ?;";
+		String query = "select id_usuario, nome,screen_name,biografia," +
+		"localizacao,total_following,total_followers,total_tweets," +
+		"URL,timezone,linguagem,data_criacao,url_imagem, '1' as 'Tipo', id_label "+  
+			   "from usuario " +
+				"where id_usuario IN( " +
+				"SELECT identificacao " + 
+				"FROM atr_twitter_saida "+ 
+				") and id_usuario = ? "+
+				"UNION ALL "+
+				"select id_usuario, nome,screen_name,biografia," +
+				"localizacao,total_following,total_followers,total_tweets," +
+				"URL,timezone,linguagem,data_criacao,url_imagem, '0' as 'Tipo', id_label "+  
+				"from usuario "+
+				"where id_usuario NOT IN( "+
+				"SELECT identificacao "+
+				"FROM atr_twitter_saida "+
+				") and id_usuario = ?;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -157,23 +173,25 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, id);
+			stmt.setLong(2, id);
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				elem.setId_usuario(rs.getLong(1));
-				elem.setId_label(rs.getLong(2));
-				elem.setNome(rs.getString(3));
-				elem.setScreename(rs.getString(4));
-				elem.setBiografia(rs.getString(5));
-				elem.setLocalização(rs.getString(6));
-				elem.setTotalFollowing(rs.getInt(7));
-				elem.setTotalFollowers(rs.getInt(8));
-				elem.setTotalTweets(rs.getInt(9));
-				elem.setURL(rs.getString(10));
-				elem.setTimeZone(rs.getString(11));
-				elem.setLinguagem(rs.getString(12));
-				elem.setDataDeCriacao(rs.getTimestamp(13));
-				elem.setURLImagem(rs.getString(14));
+				elem.setNome(rs.getString(2));
+				elem.setScreename(rs.getString(3));
+				elem.setBiografia(rs.getString(4));
+				elem.setLocalização(rs.getString(5));
+				elem.setTotalFollowing(rs.getInt(6));
+				elem.setTotalFollowers(rs.getInt(7));
+				elem.setTotalTweets(rs.getInt(8));
+				elem.setURL(rs.getString(9));
+				elem.setTimeZone(rs.getString(10));
+				elem.setLinguagem(rs.getString(11));
+				elem.setDataDeCriacao(rs.getTimestamp(12));
+				elem.setURLImagem(rs.getString(13));
+				elem.setNegativado(rs.getInt(14));
+				elem.setId_label(rs.getLong(15));
 			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
@@ -185,7 +203,23 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 
 	@Override
 	public List<SNAElement> list() throws Exception {
-		String query = "select * from Usuario;";
+		String query = "select id_usuario, nome,screen_name,biografia," +
+				"localizacao,total_following,total_followers,total_tweets," +
+				"URL,timezone,linguagem,data_criacao,url_imagem, '1' as 'Tipo', id_label "+  
+					   "from usuario " +
+						"where id_usuario IN( " +
+						"SELECT identificacao " + 
+						"FROM atr_twitter_saida "+ 
+						") "+
+						"UNION ALL "+
+						"select id_usuario, nome,screen_name,biografia," +
+						"localizacao,total_following,total_followers,total_tweets," +
+						"URL,timezone,linguagem,data_criacao,url_imagem, '0' as 'Tipo', id_label "+  
+						"from usuario "+
+						"where id_usuario NOT IN( "+
+						"SELECT identificacao "+
+						"FROM atr_twitter_saida "+
+						");";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -214,6 +248,8 @@ public class SNAElementDAOImpl implements SNAElementDAO {
 				elem.setLinguagem(rs.getString(11));
 				elem.setDataDeCriacao(rs.getTimestamp(12));
 				elem.setURLImagem(rs.getString(13));
+				elem.setNegativado(rs.getInt(14));
+				elem.setId_label(rs.getLong(15));
 				
 				listElem.add(elem);
 			}

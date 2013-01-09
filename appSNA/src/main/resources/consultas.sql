@@ -1,3 +1,4 @@
+--separou os usuarios em quem faz/não-faz parte dos 478 
 select id_usuario, nome, '1' as 'Tipo'  
 from usuario 
 where id_usuario IN(
@@ -12,26 +13,8 @@ SELECT identificacao
 FROM atr_twitter_saida
 );
 
-
-
-
-
-
+--Retorna os dados de um elemento acrescido da informacao de se ele pertence/não-pertence aos 478
 select id_usuario, nome, '1' as 'Tipo'  
-from usuario 
-where id_usuario IN(
-SELECT identificacao 
-FROM atr_twitter_saida 
-)
-and id_usuario = 112871179
-UNION ALL
-select id_usuario, nome, '0' as 'Tipo'  
-from usuario 
-where id_usuario NOT IN(
-SELECT identificacao 
-FROM atr_twitter_saida
-)
-and id_usuario = 112871179;select id_usuario, nome, '1' as 'Tipo'  
 from usuario 
 where id_usuario IN(
 SELECT identificacao 
@@ -48,11 +31,99 @@ FROM atr_twitter_saida
 and id_usuario = 112871179;
 
 
+select id_usuario, nome, '1' as 'Tipo'  
+from usuario 
+where id_usuario IN(
+SELECT identificacao 
+FROM atr_twitter_saida 
+)
+and id_usuario = 112871179
+UNION ALL
+select id_usuario, nome, '0' as 'Tipo'  
+from usuario 
+where id_usuario NOT IN(
+SELECT identificacao 
+FROM atr_twitter_saida
+)
+and id_usuario = 112871179;
 
+
+-- Retorna os dados de uma pessoa que possue negatividade
 SELECT identificacao as 'Id Twitter' , ndoc as 'Nr Cpf', COUNT(ndoc) AS 'Qtde Negativas'
 FROM j246_analitivo_negativas an, atr_twitter_saida ts where 
 an.ndoc = ts.cpf_atbr and ts.identificacao='26671798'
 GROUP BY ndoc
+
+
+--devolver a soma de negatividade da vizinhanca
+select sum(qtde_negativas) from
+(
+SELECT COUNT(an.ndoc) as qtde_negativas
+FROM j246_analitivo_negativas an, atr_twitter_saida ts where 
+an.ndoc = ts.cpf_atbr and ts.identificacao IN
+(select id_target from relacionamento where id_source = '105868888')
+GROUP BY ndoc
+) as u;
+
+
+--devolver a quantidade de pessoas que possuem negatividade na vizinhanca
+select count(qtde_negativas) from
+(
+SELECT COUNT(an.ndoc) as qtde_negativas
+FROM j246_analitivo_negativas an, atr_twitter_saida ts where 
+an.ndoc = ts.cpf_atbr and ts.identificacao IN
+(select id_target from relacionamento where id_source = '105868888')
+GROUP BY ndoc
+) as u;
+
+
+--grau de inadimplencia
+SELECT d.qtde/t.total from(
+SELECT COUNT(ndoc) AS 'qtde'
+FROM j246_analitivo_negativas an, atr_twitter_saida ts where 
+an.ndoc = ts.cpf_atbr and ts.identificacao='101763077'
+GROUP BY ndoc
+) as d
+,
+(
+select sum(qtde_negativas) as total from
+(
+SELECT COUNT(an.ndoc) as qtde_negativas
+FROM j246_analitivo_negativas an, atr_twitter_saida ts where 
+an.ndoc = ts.cpf_atbr and ts.identificacao IN
+(select id_target from relacionamento where id_source = '101763077')
+GROUP BY ndoc
+) as u
+) as t;
+
+
+--consulta full-time
+SELECT d.qtde/t.total AS grau_inadimplencia, t.total as quantidade_negativas_viz, d.qtde as negativas 
+FROM(
+SELECT COUNT(ndoc) AS 'qtde'
+FROM j246_analitivo_negativas an, atr_twitter_saida ts 
+WHERE an.ndoc = ts.cpf_atbr and ts.identificacao='105868888'
+GROUP BY ndoc) as d
+,
+(SELECT SUM(qtde_negativas) as total 
+FROM(
+SELECT COUNT(an.ndoc) as qtde_negativas
+FROM j246_analitivo_negativas an, atr_twitter_saida ts where 
+an.ndoc = ts.cpf_atbr and ts.identificacao IN
+(SELECT id_target 
+FROM relacionamento 
+WHERE id_source = '105868888')
+GROUP BY ndoc) as u
+) as t;
+
+
+
+
+
+
+
+
+
 
 
 select u.id_usuario, u.nome, s.texto, s.data_criacao from

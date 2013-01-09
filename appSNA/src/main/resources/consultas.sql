@@ -49,6 +49,11 @@ and id_usuario = 112871179;
 
 
 
+SELECT identificacao as 'Id Twitter' , ndoc as 'Nr Cpf', COUNT(ndoc) AS 'Qtde Negativas'
+FROM j246_analitivo_negativas an, atr_twitter_saida ts where 
+an.ndoc = ts.cpf_atbr and ts.identificacao='26671798'
+GROUP BY ndoc
+
 
 select u.id_usuario, u.nome, s.texto, s.data_criacao from
 usuario u, status s

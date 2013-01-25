@@ -13,6 +13,10 @@ public class EdgeTO {
 		this.id_target = id_target;
 		this.weight = weight;
 	}
+	
+	public EdgeTO() {		
+		
+	}
 
 
 	public long getId_source() {

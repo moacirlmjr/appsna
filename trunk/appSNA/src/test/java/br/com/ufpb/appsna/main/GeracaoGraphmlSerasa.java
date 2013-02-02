@@ -21,49 +21,49 @@ import br.com.ufpb.appSNAUtil.util.XMLUtil;
 public class GeracaoGraphmlSerasa {
 
 	public static void main(String[] args) {
+		
 		AccountCarrousel.startListReady();
 
-		// List<String> listaDeNomes = new ArrayList<String>();
-		//
-		// listaDeNomes.add("AIRTONGTORRES");
-		// listaDeNomes.add("alamorocha");
-		// listaDeNomes.add("ale_patricio");
-		// listaDeNomes.add("ALLYSONDINIZ");
-		// listaDeNomes.add("DEZINHAJPA");
-		// listaDeNomes.add("ARTHURFERRO");
-		// listaDeNomes.add("atila_jp");
-		// listaDeNomes.add("AYLTONJR");
-		// listaDeNomes.add("ELVISREI");
-		// listaDeNomes.add("evaldodesousa");
-		// listaDeNomes.add("fabianovidaltur");
-		// listaDeNomes.add("BRASILTONY");
-		// listaDeNomes.add("CHIQUELMEBATERA");
-		// listaDeNomes.add("FLUGARCEZ");
-		// listaDeNomes.add("IVANILDOPB");
-		// listaDeNomes.add("KellylopesLOPES");
-		// listaDeNomes.add("GALVAOJPA");
-		// listaDeNomes.add("luanadepaulane1");
-		// listaDeNomes.add("lucasduartereal");
-		// listaDeNomes.add("Mariacristin339");
-		// listaDeNomes.add("ONAMEN");
-		// listaDeNomes.add("jricardoamorim");
-		// listaDeNomes.add("RINALDOPESSOA");
-		// listaDeNomes.add("RIQUELSON");
-		// listaDeNomes.add("NTURISMO_JPPB");
-		// listaDeNomes.add("ThiagoADVJP");
-		//
-		// Map<String, Long> mapUsersTwitter = new LinkedHashMap<String,
-		// Long>();
-		// try {
-		// mapUsersTwitter = TwitterUtil.retornarUserId(listaDeNomes, false);
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
+		 List<String> listaDeNomes = new ArrayList<String>();
+		
+		 listaDeNomes.add("AIRTONGTORRES");
+		 listaDeNomes.add("alamorocha");
+		 listaDeNomes.add("ale_patricio");
+		 listaDeNomes.add("ALLYSONDINIZ");
+		 listaDeNomes.add("DEZINHAJPA");
+		 listaDeNomes.add("ARTHURFERRO");
+		 listaDeNomes.add("atila_jp");
+		 listaDeNomes.add("AYLTONJR");
+		 listaDeNomes.add("ELVISREI");
+		 listaDeNomes.add("evaldodesousa");
+		 listaDeNomes.add("fabianovidaltur");
+		 listaDeNomes.add("BRASILTONY");
+		 listaDeNomes.add("CHIQUELMEBATERA");
+		 listaDeNomes.add("FLUGARCEZ");
+		 listaDeNomes.add("IVANILDOPB");
+		 listaDeNomes.add("KellylopesLOPES");
+		 listaDeNomes.add("GALVAOJPA");
+		 listaDeNomes.add("luanadepaulane1");
+		 listaDeNomes.add("lucasduartereal");
+		 listaDeNomes.add("Mariacristin339");
+		 listaDeNomes.add("ONAMEN");
+		 listaDeNomes.add("jricardoamorim");
+		 listaDeNomes.add("RINALDOPESSOA");
+		 listaDeNomes.add("RIQUELSON");
+		 listaDeNomes.add("NTURISMO_JPPB");
+		 listaDeNomes.add("ThiagoADVJP");
+		
+		 Map<String, Long> mapUsersTwitter = new LinkedHashMap<String, Long>();
+		 try {
+			 mapUsersTwitter = TwitterUtil.retornarUserId(listaDeNomes, false);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 }
 
 		Map<String, SNAElement> mapUsers = new LinkedHashMap<String, SNAElement>();
-		// for(Long keyUser : mapUsersTwitter.values()){
-		//
-		// }
+		 for(Long keyUser : mapUsersTwitter.values()){
+		
+		 }
 
 		List<Relacionamento> relacionamentosList = new ArrayList<Relacionamento>();
 		RelacionamentoDAO RelacionamentosDao = new RelacionamentoDAOImpl();
@@ -124,11 +124,9 @@ public class GeracaoGraphmlSerasa {
 
 		for (SNAElement elem : mapUsers.values()) {
 			try {
-				InadimplenciaTO ina = SnaElementDao
-						.verificarDadosInadimplencia(elem.getId_usuario());
+				InadimplenciaTO ina = SnaElementDao.verificarDadosInadimplencia(elem.getId_usuario());
 				elem.setInadimplenciaTO(ina);
-				elem.setQteAmigosNegativados(SnaElementDao
-						.retornarQtdeAmigosNegativos(elem.getId_usuario()));
+				elem.setQteAmigosNegativados(SnaElementDao.retornarQtdeAmigosNegativos(elem.getId_usuario()));
 
 				XMLUtil.generateNodes(
 						elem.getId_usuario(), 
@@ -154,7 +152,7 @@ public class GeracaoGraphmlSerasa {
 		}
 		
 		XMLUtil.fechaArquivo();
-		XMLUtil.salvarXML("grafoSerafa478.graphml");
+		XMLUtil.salvarXML("grafoSerafa2345678.graphml");
 
 	}
 }

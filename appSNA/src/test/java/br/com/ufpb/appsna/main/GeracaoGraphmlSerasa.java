@@ -92,21 +92,15 @@ public class GeracaoGraphmlSerasa {
 			e.printStackTrace();
 		}
 
-		XmlTO x1 = new XmlTO("nome", true, "nome", TypeEnum.STRING_TYPE);
+		XmlTO x1 = new XmlTO("name", true, "name", TypeEnum.STRING_TYPE);
 		XmlTO x2 = new XmlTO("id_label", true, "id_label", TypeEnum.INT_TYPE);
-		XmlTO x3 = new XmlTO("id_twitter", true, "id_twitter",
-				TypeEnum.INT_TYPE);
+		XmlTO x3 = new XmlTO("id_twitter", true, "id_twitter", TypeEnum.INT_TYPE);
 		XmlTO x4 = new XmlTO("tipo", true, "tipo", TypeEnum.INT_TYPE);
-		XmlTO x5 = new XmlTO("negatividade", true, "negatividade",
-				TypeEnum.INT_TYPE);
-		XmlTO x6 = new XmlTO("vizinhanca_all", true, "vizinhanca_all",
-				TypeEnum.INT_TYPE);
-		XmlTO x7 = new XmlTO("vizinhanca_simple", true, "vizinhanca_simple",
-				TypeEnum.INT_TYPE);
-		XmlTO x8 = new XmlTO("neg_vizinhanca", true, "neg_vizinhanca",
-				TypeEnum.INT_TYPE);
-		XmlTO x9 = new XmlTO("inadimplencia", true, "inadimplencia",
-				TypeEnum.DOUBLE_TYPE);
+		XmlTO x5 = new XmlTO("negatividade", true, "negatividade", TypeEnum.INT_TYPE);
+		XmlTO x6 = new XmlTO("vizinhanca_all", true, "vizinhanca_all", TypeEnum.INT_TYPE);
+		XmlTO x7 = new XmlTO("vizinhanca_simple", true, "vizinhanca_simple", TypeEnum.INT_TYPE);
+		XmlTO x8 = new XmlTO("neg_vizinhanca", true, "neg_vizinhanca", TypeEnum.INT_TYPE);
+		XmlTO x9 = new XmlTO("inadimplencia", true, "inadimplencia", TypeEnum.DOUBLE_TYPE);
 
 		List<XmlTO> listXmlTO = new ArrayList<XmlTO>();
 
@@ -124,15 +118,18 @@ public class GeracaoGraphmlSerasa {
 
 		for (SNAElement elem : mapUsers.values()) {
 			try {
+				
 				InadimplenciaTO ina = SnaElementDao.verificarDadosInadimplencia(elem.getId_usuario());
 				elem.setInadimplenciaTO(ina);
 				elem.setQteAmigosNegativados(SnaElementDao.retornarQtdeAmigosNegativos(elem.getId_usuario()));
+				
+				System.out.print(elem.getNome());
 
 				XMLUtil.generateNodes(
 						elem.getId_usuario(), 
 						elem.getId_label(),
-						elem.getNome(), 
-						elem.getNegativado(), 
+						elem.getNome().toString(), 
+						elem.getNegativado().intValue(), 
 						elem.getInadimplenciaTO().getNegatividade() == null ? 0 : elem.getInadimplenciaTO().getNegatividade(), 
 						elem.getTotalFollowing(), 
 						elem.getQteAmigosNegativados() == null ? 0 : elem.getQteAmigosNegativados(), 

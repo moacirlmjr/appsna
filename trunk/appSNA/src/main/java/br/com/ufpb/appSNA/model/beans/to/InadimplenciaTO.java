@@ -1,8 +1,10 @@
 package br.com.ufpb.appSNA.model.beans.to;
 
 public class InadimplenciaTO {
-	private Integer negatividade;
-	private Integer vizinhanca;
+	
+	
+	private int negatividade;
+	private int vizinhanca;
 	private Float inadimplencia;
 
 	public Integer getNegatividade() {

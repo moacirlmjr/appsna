@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -217,5 +218,68 @@ public class ResultadoDAOImpl implements ResultadoDAO {
 		}
 
 	}
+	
+	public List<String> listaUsuariosMencionadors(int termo_id) throws Exception {
+		String query = "select r.screen_name from resultado r, monitorado m" +
+						"where r.monitorado_id = m.id and r.monitorado_id = ? group by r.screen_name;";
+
+		PreparedStatement stmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		List<String> listResult = new ArrayList<String>();
+		try {
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			stmt = conn.prepareStatement(query);
+			stmt.setInt(0, termo_id);			
+			rs = stmt.executeQuery();
+			String result = null;
+
+			while (rs.next()) {
+				result = rs.getString(0);
+				listResult.add(result);
+			}
+		} catch (SQLException e) {
+			AppSNALog.error(e.toString());
+		} finally {
+			stmt.close();
+			conn.close();
+		}
+
+		return listResult;
+	}
+	
+	public List<String> listaUsuariosMencionadors(int termo_id, String aaaa_mm_dd) throws Exception {
+		String query = "select r.screen_name from resultado r, monitorado m" +
+						"where r.monitorado_id = m.id and r.monitorado_id = ? and" +
+						"r.data > = ? group by r.screen_name;";
+
+		PreparedStatement stmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		List<String> listResult = new ArrayList<String>();
+		try {
+			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			stmt = conn.prepareStatement(query);
+			stmt.setInt(0, termo_id);	
+			stmt.setString(1, aaaa_mm_dd);	
+			rs = stmt.executeQuery();
+			String result = null;
+
+			while (rs.next()) {
+				result = rs.getString(0);
+				listResult.add(result);
+			}
+		} catch (SQLException e) {
+			AppSNALog.error(e.toString());
+		} finally {
+			stmt.close();
+			conn.close();
+		}
+
+		return listResult;
+	}
+	
+	
+	
 
 }

@@ -16,12 +16,16 @@
 
 package twitter4j.examples.timeline;
 
+import java.util.List;
+
+import junit.framework.TestResult;
+import twitter4j.Paging;
+import twitter4j.PagingTest;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
-
-import java.util.List;
+import twitter4j.conf.ConfigurationBuilder;
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
@@ -35,20 +39,21 @@ public class GetUserTimeline {
      */
     public static void main(String[] args) {
         // gets Twitter instance with default credentials
-        Twitter twitter = new TwitterFactory().getInstance();
+    	ConfigurationBuilder cb = new ConfigurationBuilder();
+		cb.setDebugEnabled(true)
+				.setOAuthConsumerKey("9D8Q5IFh9KDSUpFgFwVEZg")
+				.setOAuthConsumerSecret("amWG2soLvbc5Uk9hXYck185cHH4qVZ2vI803avAQw")
+				.setOAuthAccessToken("69753774-BlHvqdHCJHY82UNh4kyVGxdJRrrLexJxh6Abvq43Q")
+				.setOAuthAccessTokenSecret("saKgrvdXtv5qjwtlFXAu62IvAGSrh4w2ICmjfMV1yvI");
+
+        Twitter twitter = new TwitterFactory(cb.build()).getInstance();
         try {
             List<Status> statuses;
-            String user;
-            if (args.length == 1) {
-                user = args[0];
-                statuses = twitter.getUserTimeline(user);
-            } else {
-                user = twitter.verifyCredentials().getScreenName();
-                statuses = twitter.getUserTimeline();
-            }
+            String user = "moacirlmjr";
+            statuses = twitter.getUserTimeline("IVANILDOPB",new Paging(1, 1000));
             System.out.println("Showing @" + user + "'s user timeline.");
             for (Status status : statuses) {
-                System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
+                System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText() + " - " + status.getCreatedAt());
             }
         } catch (TwitterException te) {
             te.printStackTrace();

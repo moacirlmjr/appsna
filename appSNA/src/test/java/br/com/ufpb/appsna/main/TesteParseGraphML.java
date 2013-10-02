@@ -66,7 +66,7 @@ public class TesteParseGraphML {
 			}
 
 			for (EdgeTO edge : listaEdges) {
-				XMLUtil.generateEdges(edge.getId_source(), edge.getId_target(),	edge.getWeight());
+				XMLUtil.generateEdges(edge.getId_source()+"", edge.getId_target()+"",	edge.getWeight());
 			}
 
 			XMLUtil.fechaArquivo();

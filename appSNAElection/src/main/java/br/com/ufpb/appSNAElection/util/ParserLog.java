@@ -27,10 +27,11 @@ public class ParserLog {
 		FileReader fr = new FileReader(log);
 		BufferedReader in = new BufferedReader(fr);
 		String line;
+		int count = 0;
 		while ((line = in.readLine()) != null) {
 			LogTO logTo = new LogTO();
 			String lineArray[] = line.trim().split(";");
-
+			count++;
 			if (!(line.toLowerCase().contains("#vote13")
 					|| line.toLowerCase().contains(
 							"java.io.FileNotFoundException".toLowerCase())
@@ -41,6 +42,10 @@ public class ParserLog {
 					.toLowerCase().contains(
 							"Got a status deletion notice".toLowerCase()))) {
 				try {
+//					Calendar data = Calendar.getInstance();
+//					data.setTimeInMillis(Long.parseLong(lineArray[DATA]));
+//					logTo.setData(data);
+					
 					logTo.setData(tratarDataHora(lineArray[DATA]));
 					String parte2[] = lineArray[PARTE2].split(" - ");
 					logTo.setScreenName(parte2[SCREEN_NAME]);

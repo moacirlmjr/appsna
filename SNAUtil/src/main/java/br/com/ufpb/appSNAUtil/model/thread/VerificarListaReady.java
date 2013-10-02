@@ -2,7 +2,6 @@ package br.com.ufpb.appSNAUtil.model.thread;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import br.com.ufpb.appSNAUtil.SNATest;
 import br.com.ufpb.appSNAUtil.util.AccountCarrousel;
 import br.com.ufpb.appSNAUtil.util.AppSNALog;
 

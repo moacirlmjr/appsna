@@ -96,7 +96,7 @@
     <dependencies>
         <dependency>
             <groupId>org.twitter4j</groupId>
-            <artifactId>twitter4j-core</artifactId>
+            <artifactId>twitter4j-core-moacir</artifactId>
             <version>3.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -129,8 +129,6 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <archive>
-                        <manifestFile>src/main/resources/META-INF/MANIFEST.MF
-                        </manifestFile>
                         <manifest>
                             <addDefaultSpecificationEntries>true
                             </addDefaultSpecificationEntries>

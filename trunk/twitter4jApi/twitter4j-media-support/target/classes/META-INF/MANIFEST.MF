@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: twitter4j-media-support
+Implementation-Version: 3.0.0-SNAPSHOT
+Implementation-Vendor-Id: org.twitter4j
+Build-Jdk: 1.7.0_21
+Built-By: Moacir
+Created-By: Maven Integration for Eclipse
+Specification-Title: twitter4j-media-support
+Specification-Version: 3.0.0-SNAPSHOT
+

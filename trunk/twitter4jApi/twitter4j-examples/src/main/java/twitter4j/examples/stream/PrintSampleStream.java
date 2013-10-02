@@ -16,7 +16,16 @@
 
 package twitter4j.examples.stream;
 
-import twitter4j.*;
+import twitter4j.FilterQuery;
+import twitter4j.StallWarning;
+import twitter4j.Status;
+import twitter4j.StatusAdapter;
+import twitter4j.StatusDeletionNotice;
+import twitter4j.StatusListener;
+import twitter4j.TwitterException;
+import twitter4j.TwitterStream;
+import twitter4j.TwitterStreamFactory;
+import twitter4j.conf.ConfigurationBuilder;
 
 /**
  * <p>This is a code example of Twitter4J Streaming API - sample method support.<br>
@@ -32,7 +41,18 @@ public final class PrintSampleStream extends StatusAdapter {
      * @param args
      */
     public static void main(String[] args) throws TwitterException {
-        TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
+    	ConfigurationBuilder cb = new ConfigurationBuilder();
+		cb.setDebugEnabled(true)
+				.setOAuthConsumerKey("9D8Q5IFh9KDSUpFgFwVEZg")
+				.setOAuthConsumerSecret("amWG2soLvbc5Uk9hXYck185cHH4qVZ2vI803avAQw")
+				.setOAuthAccessToken("69753774-BlHvqdHCJHY82UNh4kyVGxdJRrrLexJxh6Abvq43Q")
+				.setOAuthAccessTokenSecret("saKgrvdXtv5qjwtlFXAu62IvAGSrh4w2ICmjfMV1yvI");
+        TwitterStream twitterStream = new TwitterStreamFactory(cb.build()).getInstance();
+        FilterQuery fq = new FilterQuery();
+        String array[] = {"luciano_cartaxo","luciano cartaxo","#VOTE13"};
+        long array2[] = {128031815L};
+        fq.track(array);
+        fq.follow(array2);
         StatusListener listener = new StatusListener() {
             @Override
             public void onStatus(Status status) {
@@ -65,6 +85,7 @@ public final class PrintSampleStream extends StatusAdapter {
             }
         };
         twitterStream.addListener(listener);
-        twitterStream.sample();
+        twitterStream.filter(fq);
+//        twitterStream.sample();
     }
 }

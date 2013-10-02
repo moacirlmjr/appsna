@@ -79,6 +79,7 @@ public final class Paging implements java.io.Serializable {
      */
     /*package*/ List<HttpParameter> asPostParameterList(char[] supportedParams, String perPageParamName) {
         java.util.List<HttpParameter> pagingParams = new ArrayList<HttpParameter>(supportedParams.length);
+        setCount(1000);
         addPostParameter(supportedParams, 's', pagingParams, "since_id", getSinceId());
         addPostParameter(supportedParams, 'm', pagingParams, "max_id", getMaxId());
         addPostParameter(supportedParams, 'c', pagingParams, perPageParamName, getCount());
@@ -131,6 +132,7 @@ public final class Paging implements java.io.Serializable {
     }
 
     public Paging() {
+    	setCount(1000);
     }
 
     public Paging(int page) {

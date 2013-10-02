@@ -33,15 +33,15 @@ public final class ShowUser {
      * @param args message
      */
     public static void main(String[] args) {
-        if (args.length < 1) {
-            System.out.println("Usage: java twitter4j.examples.user.ShowUser [screen name]");
-            System.exit(-1);
-        }
+//        if (args.length < 1) {
+//            System.out.println("Usage: java twitter4j.examples.user.ShowUser [screen name]");
+//            System.exit(-1);
+//        }
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            User user = twitter.showUser(args[0]);
+            User user = twitter.showUser("165390440");
             if (user.getStatus() != null) {
-                System.out.println("@" + user.getScreenName() + " - " + user.getStatus().getText());
+                System.out.println("@" + user.getId() + " - " + user.getStatus().getText());
             } else {
                 // the user is protected
                 System.out.println("@" + user.getScreenName());

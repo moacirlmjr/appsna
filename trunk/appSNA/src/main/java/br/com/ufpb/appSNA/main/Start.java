@@ -1,6 +1,7 @@
 package br.com.ufpb.appSNA.main;
 
 import br.com.ufpb.appSNA.model.beans.Graph;
+import br.com.ufpb.appSNA.view.ConfigureView;
 import br.com.ufpb.appSNAUtil.util.AccountCarrousel;
 
 public class Start {
@@ -10,7 +11,9 @@ public class Start {
 		try {
 			AccountCarrousel.startListReady();
 			Graph myGraph = new Graph();
-			myGraph.getG();
+			ConfigureView v = new ConfigureView();
+			v.configuration(myGraph.getG());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -16,6 +16,7 @@ import br.com.ufpb.appSNAElection.model.dao.ResultadoDAO;
 import br.com.ufpb.appSNAElection.model.dao.ResultadoDAOImpl;
 import br.com.ufpb.appSNAElection.model.dao.TermoDAO;
 import br.com.ufpb.appSNAElection.model.dao.TermoDAOImpl;
+import br.com.ufpb.appSNAElection.util.EntradaConfiguration;
 import br.com.ufpb.appSNAElection.util.ParserLog;
 import br.com.ufpb.appSNAUtil.util.Constantes;
 import br.com.ufpb.appSNAUtil.util.FileUtil;
@@ -28,10 +29,10 @@ public class PersistirBase {
 //			Termo t = new Termo();
 //			
 //			List<Termo> termos = new ArrayList<Termo>();
-			
+//			
 			MonitoradoDAO mDAO = new MonitoradoDAOImpl();
 			TermoDAO tDAO = new TermoDAOImpl();
-			
+//			
 //			int count = 1;
 //			for (String key : ec.getKeys()) {
 //				

@@ -11,6 +11,7 @@ import br.com.ufpb.appSNAElection.model.beans.Resultado;
 import br.com.ufpb.appSNAElection.model.beans.to.ElectionTO;
 import br.com.ufpb.appSNAElection.model.beans.to.LogTO;
 import br.com.ufpb.appSNAElection.util.ParserElectionCsv;
+import br.com.ufpb.appSNAElection.util.ParserLog;
 import br.com.ufpb.appSNAUtil.util.Constantes;
 import br.com.ufpb.appSNAUtil.util.FileUtil;
 
@@ -27,20 +28,13 @@ public class TestParserLog {
 		FileReader fr = new FileReader(log);
 		BufferedReader in = new BufferedReader(fr);
 		String line;
+		String lineAnterior = "";
 		while ((line = in.readLine()) != null) {
 			LogTO logTo = new LogTO();
-			String lineArray[] = line.split(";");
 
-			if (!(line.toLowerCase().contains("#vote13")
-					|| line.toLowerCase().contains(
-							"java.io.FileNotFoundException".toLowerCase())
-					|| line.toLowerCase().contains(
-							"java.io.IOException".toLowerCase())
-					|| line.toLowerCase().contains(
-							"java.lang.NullPointerException".toLowerCase()) || line
-					.toLowerCase().contains(
-							"Got a status deletion notice".toLowerCase()))) {
+			if (line.toLowerCase().contains("mysql".toLowerCase())) {
 				try {
+					String lineArray[] = lineAnterior.split(";");
 					logTo.setData(tratarDataHora(lineArray[DATA]));
 					String parte2[] = lineArray[PARTE2].split(" - ");
 					logTo.setScreenName(parte2[SCREEN_NAME]);
@@ -51,7 +45,7 @@ public class TestParserLog {
 					e.printStackTrace();
 				}
 			}
-
+			lineAnterior = line;
 		}
 		return list;
 	}
@@ -61,7 +55,7 @@ public class TestParserLog {
 
 		String dataHoraArray[] = dataHora.split(" ");
 		String dataArray[] = dataHoraArray[0].split("-");
-		data.set(Integer.valueOf(dataArray[0].substring(1)), Integer
+		data.set(Integer.valueOf(dataArray[0].replaceAll("[^\\p{ASCII}]", "")), Integer
 				.parseInt(dataArray[1]) == 0 ? Integer.parseInt(dataArray[1])
 				: (Integer.parseInt(dataArray[1]) - 1), Integer
 				.parseInt(dataArray[2]));
@@ -75,5 +69,30 @@ public class TestParserLog {
 				Integer.parseInt(tempo[2].replace(",", "/").split("/")[1]));
 
 		return data;
+	}
+	
+	public static void main(String[] args) throws Exception {
+		List<File> arquivosCsv = FileUtil.listarArquivosLog(Constantes.DIR_APPSNA);
+		for(File f: arquivosCsv){
+			List<LogTO> electionList = TestParserLog.realizarParserLog(f);
+			FileUtil.criaArquivo(Constantes.DIR_APPSNA
+					+ "\\arquivo2.csv", false);
+			for (LogTO log : electionList) {
+				FileUtil.escreveNoArquivo(log.getData().getTimeInMillis()+"");
+				FileUtil.quebra();
+				
+				FileUtil.escreveNoArquivo(log.getScreenName());
+				FileUtil.quebra();
+				
+				FileUtil.escreveNoArquivo(log.getStatus());
+				FileUtil.quebra();
+				
+				FileUtil.quebraLinha(1);
+
+				FileUtil.refresh();
+			}
+			
+			FileUtil.salvarArquivo();
+		}
 	}
 }

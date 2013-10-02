@@ -8,6 +8,7 @@ import java.util.Map;
 import br.com.ufpb.appSNAUtil.util.TwitterUtil;
 import br.com.ufpb.appSNAUtil.util.XMLUtil;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
+import edu.uci.ics.jung.graph.util.EdgeType;
 
 
 public class Graph {
@@ -71,7 +72,8 @@ public class Graph {
 			
 			listaAux.add(nodefor.getId());
 			
-			XMLUtil.generateNodes(nodefor.getId(), nodefor.getNome());
+//			XMLUtil.generateNodes(nodefor.getId(), nodefor.getNome());
+			g.addVertex(nodefor);
 			for(Long amigoId : nodefor.getListadeAmigos()){
 				if(!verificar(amigoId)){
 					listaNodesAmigos.put(amigoId, amigoId);
@@ -81,29 +83,30 @@ public class Graph {
 		}
 		
 		nodeSerasa = new MyNode(1, "serasa", listaAux );
-		XMLUtil.generateNodes(1, "serasa");
+//		XMLUtil.generateNodes(1, "serasa");
 		
-		listaNodes.add(nodeSerasa);
-		
+//		listaNodes.add(nodeSerasa);
+		g.addVertex(nodeSerasa);
 		for(Long amigo : listaNodesAmigos.keySet()){
-			if(amigo == 101412628){
-				System.out.println("");
-			}
-			XMLUtil.generateNodes(amigo, amigo.toString());
+//			if(amigo == 101412628){
+//				System.out.println("");
+//			}
+//			XMLUtil.generateNodes(amigo, amigo.toString());
+			g.addVertex(new MyNode(1, amigo + ""));
 		}
 		
-		//MyNode amigo = null;
+		MyNode amigo = null;
 		
 		for(MyNode n : listaNodes){
 			for(Long amigoId : n.getListadeAmigos()){
-				//amigo = new MyNode(amigoId.intValue(), "A"+ amigoId);
-				//g.addEdge(new MyLink(), n, amigo, EdgeType.DIRECTED);
-				XMLUtil.generateEdges(n.getId(), amigoId);
+				amigo = new MyNode(amigoId.intValue(), "A"+ amigoId);
+				g.addEdge(new MyLink(), n, amigo, EdgeType.DIRECTED);
+//				XMLUtil.generateEdges(n.getId(), amigoId);
 			}
 		}
 		
-		XMLUtil.fechaArquivo();
-		XMLUtil.salvarXML("grafo2.xml");
+//		XMLUtil.fechaArquivo();
+//		XMLUtil.salvarXML("grafo2.xml");
 		
 		
 		

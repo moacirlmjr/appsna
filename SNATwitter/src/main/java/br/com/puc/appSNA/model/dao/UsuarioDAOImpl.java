@@ -156,17 +156,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 				+ "localizacao,total_following,total_followers,total_tweets,"
 				+ "URL,timezone,linguagem,data_criacao,url_imagem, '1' as 'Tipo', id_label "
 				+ "from usuario "
-				+ "where id_usuario IN( "
-				+ "SELECT identificacao "
-				+ "FROM atr_twitter_saida "
-				+ ") and id_usuario = ? "
-				+ "UNION ALL "
-				+ "select id_usuario, nome,screen_name,biografia,"
-				+ "localizacao,total_following,total_followers,total_tweets,"
-				+ "URL,timezone,linguagem,data_criacao,url_imagem, '0' as 'Tipo', id_label "
-				+ "from usuario " + "where id_usuario NOT IN( "
-				+ "SELECT identificacao " + "FROM atr_twitter_saida "
-				+ ") and id_usuario = ?;";
+				+ "where id_usuario = ? ";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -178,7 +168,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 					BDUtil.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, id);
-			stmt.setLong(2, id);
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -210,17 +199,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		String query = "select id_usuario, nome,screen_name,biografia,"
 				+ "localizacao,total_following,total_followers,total_tweets,"
 				+ "URL,timezone,linguagem,data_criacao,url_imagem, '1' as 'Tipo', id_label "
-				+ "from usuario "
-				+ "where id_usuario IN( "
-				+ "SELECT identificacao "
-				+ "FROM atr_twitter_saida "
-				+ ") "
-				+ "UNION ALL "
-				+ "select id_usuario, nome,screen_name,biografia,"
-				+ "localizacao,total_following,total_followers,total_tweets,"
-				+ "URL,timezone,linguagem,data_criacao,url_imagem, '0' as 'Tipo', id_label "
-				+ "from usuario " + "where id_usuario NOT IN( "
-				+ "SELECT identificacao " + "FROM atr_twitter_saida " + ");";
+				+ "from usuario;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;

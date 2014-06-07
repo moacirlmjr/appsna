@@ -2,10 +2,10 @@ package br.com.puc.appSNA.model.beans;
 
 import java.util.Date;
 
-public class Status extends AppSNAEntityMaster{
-	
+public class Status extends AppSNAEntityMaster {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private long id_status;
 	private long id_usuario;
 	private Date dataDeCriacao;
@@ -13,7 +13,25 @@ public class Status extends AppSNAEntityMaster{
 	private double latitude;
 	private double longitude;
 	private long totalRetweet;
-	private boolean isRetweeted;	
+	private boolean isRetweeted;
+	private boolean isRetweet;
+	private String linguagem;
+
+	public String getLinguagem() {
+		return linguagem;
+	}
+
+	public void setLinguagem(String linguagem) {
+		this.linguagem = linguagem;
+	}
+
+	public boolean isRetweet() {
+		return isRetweet;
+	}
+
+	public void setRetweet(boolean isRetweet) {
+		this.isRetweet = isRetweet;
+	}
 
 	public long getId_status() {
 		return id_status;
@@ -22,7 +40,7 @@ public class Status extends AppSNAEntityMaster{
 	public void setId_status(long id_status) {
 		this.id_status = id_status;
 	}
-	
+
 	public long getId_usuario() {
 		return id_usuario;
 	}
@@ -54,7 +72,7 @@ public class Status extends AppSNAEntityMaster{
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
-	
+
 	public double getLongitude() {
 		return longitude;
 	}

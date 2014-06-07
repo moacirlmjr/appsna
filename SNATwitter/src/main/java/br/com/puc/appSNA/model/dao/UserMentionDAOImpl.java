@@ -19,7 +19,7 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 
 	@Override
 	public Long create(UserMention objeto) throws Exception {
-		String query = "Insert into UserMention (id_usuario, id_status, id_user_mentionade, usuario) values(?, ?, ?, ?);";
+		String query = "Insert into UserMention (id_usuario, id_status, id_user_mentionade) values(?, ?, ?);";
 		
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -31,7 +31,6 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 			stmt.setLong(1, objeto.getId_usuario());
 			stmt.setLong(2, objeto.getId_status());
 			stmt.setLong(3, objeto.getId_user_mentionade());
-			stmt.setString(4, objeto.getUsuario());
 			
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -50,7 +49,7 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 
 	@Override
 	public void create(List<UserMention> listaUserMentions) throws Exception {
-		String query = "Insert into UserMention (id_usuario, id_status, id_user_mentionade, usuario) values(?, ?, ?, ?);";
+		String query = "Insert into UserMention (id_usuario, id_status, id_user_mentionade) values(?, ?, ?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -65,7 +64,6 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 				stmt.setLong(1, user.getId_usuario());
 				stmt.setLong(2, user.getId_status());
 				stmt.setLong(3, user.getId_user_mentionade());
-				stmt.setString(4, user.getUsuario());
 				
 				stmt.addBatch();
 				if (((listaUserMentions.size() - 1) < 20 && count
@@ -86,7 +84,7 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 
 	@Override
 	public Long update(UserMention objeto) throws Exception {
-		String query = "update UserMention set id_usuario = ?, id_status = ?, usuario = ?" +
+		String query = "update UserMention set id_usuario = ?, id_status = ?" +
 				"where id_usermention = ?";
 
 		PreparedStatement stmt = null;
@@ -98,7 +96,6 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 			
 			stmt.setLong(0, objeto.getId_usuario());
 			stmt.setLong(1, objeto.getId_status());
-			stmt.setString(2, objeto.getUsuario());
 			
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -133,7 +130,6 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 				user.setId_usuario(rs.getLong(0));
 				user.setId_status(rs.getLong(1));
 				user.setId_usermention(rs.getLong(2));
-				user.setUsuario(rs.getString(4));				
 			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
@@ -164,7 +160,6 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 				user.setId_usuario(rs.getLong(0));
 				user.setId_status(rs.getLong(1));
 				user.setId_usermention(rs.getLong(2));
-				user.setUsuario(rs.getString(4));				
 				listUsers.add(user);
 			}
 		} catch (SQLException e) {

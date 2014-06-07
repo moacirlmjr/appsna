@@ -21,7 +21,6 @@ public class FilterStream {
 			StatusListener listener = new SNATwitterStatusListener();
 
 		    twitterStream.addListener(listener);
-		    // sample() method internally creates a thread which manipulates TwitterStream and calls these adequate listener methods continuously.
 		    twitterStream.sample();
 
 		} catch (Exception e) {

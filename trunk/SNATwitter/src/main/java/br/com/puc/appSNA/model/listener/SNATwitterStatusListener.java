@@ -1,5 +1,8 @@
 package br.com.puc.appSNA.model.listener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
@@ -8,6 +11,12 @@ import twitter4j.User;
 import twitter4j.UserMentionEntity;
 import br.com.puc.appSNA.model.beans.UserMention;
 import br.com.puc.appSNA.model.beans.Usuario;
+import br.com.puc.appSNA.model.dao.StatusDAO;
+import br.com.puc.appSNA.model.dao.StatusDAOImpl;
+import br.com.puc.appSNA.model.dao.UserMentionDAO;
+import br.com.puc.appSNA.model.dao.UserMentionDAOImpl;
+import br.com.puc.appSNA.model.dao.UsuarioDAO;
+import br.com.puc.appSNA.model.dao.UsuarioDAOImpl;
 import br.com.puc.appSNA.util.AppSNALog;
 
 public class SNATwitterStatusListener implements StatusListener {
@@ -19,24 +28,41 @@ public class SNATwitterStatusListener implements StatusListener {
 				AppSNALog.info("@" + statusTwitter.getUser().getScreenName() + " - "
 						+ statusTwitter.getText());
 				
-				User userTwitter = statusTwitter.getUser();
-				// verificar se usuario existe, caso exista e tem dados incompletos atualiza-lo
-				Usuario user = new Usuario();
-				user.setId_usuario(userTwitter.getId());
-				user.setScreename(userTwitter.getScreenName());
-				user.setLinguagem(userTwitter.getLang());
-				user.setLocalização(userTwitter.getLocation());
-				user.setDataDeCriacao(userTwitter.getCreatedAt());
-				user.setBiografia(userTwitter.getDescription());
-				user.setNome(userTwitter.getName());
-				user.setTimeZone(userTwitter.getTimeZone());
-				user.setTotalFollowers(userTwitter.getFollowersCount());
-				user.setTotalFollowing(userTwitter.getFavouritesCount());
-				user.setTotalTweets(userTwitter.getStatusesCount());
-				user.setURL(userTwitter.getURL());
-				user.setURLImagem(userTwitter.getBiggerProfileImageURL());
+				UsuarioDAO usuarioDAO = new UsuarioDAOImpl();
+				StatusDAO statusDAO = new StatusDAOImpl();
+				UserMentionDAO userMentionDAO = new UserMentionDAOImpl();
 				
-				//Salvar Usuario
+				User userTwitter = statusTwitter.getUser();
+				Usuario user = usuarioDAO.findById(userTwitter.getId());
+				if(user == null){
+					user = new Usuario();
+					user.setId_usuario(userTwitter.getId());
+					user.setScreename(userTwitter.getScreenName());
+					user.setLinguagem(userTwitter.getLang());
+					user.setLocalização(userTwitter.getLocation());
+					user.setDataDeCriacao(userTwitter.getCreatedAt());
+					user.setBiografia(userTwitter.getDescription());
+					user.setNome(userTwitter.getName());
+					user.setTimeZone(userTwitter.getTimeZone());
+					user.setTotalFollowers(userTwitter.getFollowersCount());
+					user.setTotalFollowing(userTwitter.getFavouritesCount());
+					user.setTotalTweets(userTwitter.getStatusesCount());
+					user.setURL(userTwitter.getURL());
+					user.setURLImagem(userTwitter.getBiggerProfileImageURL());
+					usuarioDAO.create(user);
+				}else if (user != null && user.getDataDeCriacao() == null){
+					user.setLinguagem(userTwitter.getLang());
+					user.setLocalização(userTwitter.getLocation());
+					user.setDataDeCriacao(userTwitter.getCreatedAt());
+					user.setBiografia(userTwitter.getDescription());
+					user.setTimeZone(userTwitter.getTimeZone());
+					user.setTotalFollowers(userTwitter.getFollowersCount());
+					user.setTotalFollowing(userTwitter.getFavouritesCount());
+					user.setTotalTweets(userTwitter.getStatusesCount());
+					user.setURL(userTwitter.getURL());
+					user.setURLImagem(userTwitter.getBiggerProfileImageURL());
+					usuarioDAO.update(user);
+				}
 				
 				br.com.puc.appSNA.model.beans.Status status = new br.com.puc.appSNA.model.beans.Status();
 				status.setDataDeCriacao(statusTwitter.getCreatedAt());
@@ -47,29 +73,30 @@ public class SNATwitterStatusListener implements StatusListener {
 				status.setRetweeted(statusTwitter.isRetweeted());
 				status.setTexto(statusTwitter.getText());
 				status.setTotalRetweet(statusTwitter.getRetweetCount());
-				
-				//Salvar Status
+				statusDAO.create(status);
 				
 				UserMentionEntity[] userMentions =  statusTwitter.getUserMentionEntities();
 				if(userMentions != null && userMentions.length > 0){
+					List<UserMention> mencoes = new ArrayList<>(); 
 					for(UserMentionEntity userMentionade: userMentions){
-						//pesquisar por id se existe na base se n, criar
-						user = new Usuario();
-						user.setId_usuario(userMentionade.getId());
-						user.setScreename(userMentionade.getScreenName());
-						user.setNome(userMentionade.getName());
-						
-						//salvar usuario
+						user = usuarioDAO.findById(userMentionade.getId());
+						if(user == null){
+							user = new Usuario();
+							user.setId_usuario(userMentionade.getId());
+							user.setScreename(userMentionade.getScreenName());
+							user.setNome(userMentionade.getName());
+							usuarioDAO.create(user);
+						}
 						
 						UserMention mencao = new UserMention();
 						mencao.setId_status(status.getId_status());
 						mencao.setId_usuario(status.getId_usuario());
 						mencao.setId_user_mentionade(userMentionade.getId());
 						mencao.setUsuario(userMentionade.getScreenName());
-						
-						//salvar mencao
-						
+						mencoes.add(mencao);
 					}
+					
+					userMentionDAO.create(mencoes);
 				}
 				
 			}

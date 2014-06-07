@@ -40,8 +40,13 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			stmt.setString(9, objeto.getURL());
 			stmt.setString(10, objeto.getTimeZone());
 			stmt.setString(11, objeto.getLinguagem());
-			stmt.setTimestamp(12, new Timestamp(objeto.getDataDeCriacao()
-					.getTime()));
+			if(objeto.getDataDeCriacao() == null){
+				stmt.setTimestamp(12, null);
+			}else{
+				stmt.setTimestamp(12, new Timestamp(objeto.getDataDeCriacao()
+						.getTime()));
+			}
+				
 			stmt.setString(13, objeto.getURLImagem());
 
 			stmt.executeUpdate();
@@ -154,7 +159,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	public Usuario findById(Long id) throws Exception {
 		String query = "select id_usuario, nome,screen_name,biografia,"
 				+ "localizacao,total_following,total_followers,total_tweets,"
-				+ "URL,timezone,linguagem,data_criacao,url_imagem, '1' as 'Tipo', id_label "
+				+ "URL,timezone,linguagem,data_criacao,url_imagem, '1' as 'Tipo' "
 				+ "from usuario "
 				+ "where id_usuario = ? ";
 
@@ -184,7 +189,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 				elem.setLinguagem(rs.getString(11));
 				elem.setDataDeCriacao(rs.getTimestamp(12));
 				elem.setURLImagem(rs.getString(13));
-				elem.setId_label(rs.getLong(15));
 			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
@@ -198,7 +202,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	public List<Usuario> list() throws Exception {
 		String query = "select id_usuario, nome,screen_name,biografia,"
 				+ "localizacao,total_following,total_followers,total_tweets,"
-				+ "URL,timezone,linguagem,data_criacao,url_imagem, '1' as 'Tipo', id_label "
+				+ "URL,timezone,linguagem,data_criacao,url_imagem, '1' as 'Tipo' "
 				+ "from usuario;";
 
 		PreparedStatement stmt = null;
@@ -229,7 +233,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 				elem.setLinguagem(rs.getString(11));
 				elem.setDataDeCriacao(rs.getTimestamp(12));
 				elem.setURLImagem(rs.getString(13));
-				elem.setId_label(rs.getLong(15));
 
 				listElem.add(elem);
 			}

@@ -20,7 +20,7 @@ public class StatusDAOImpl implements StatusDAO {
 	@Override
 	public Long create(Status objeto) throws Exception {
 		String query = "Insert into Status (id_status, id_usuario, data_criacao, texto, longitude, " +
-				"latitude, total_retweet, is_retweeted) values(?, ?, ?, ?, ?, ?, ?, ?);";
+				"latitude, total_retweet, is_retweeted, is_retweet, linguagem) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -37,7 +37,8 @@ public class StatusDAOImpl implements StatusDAO {
 			stmt.setString(6, String.valueOf(objeto.getLatitude()));
 			stmt.setLong(7, objeto.getTotalRetweet());
 			stmt.setInt(8, objeto.isRetweeted()? 1 : 0);
-			stmt.setInt(8, !objeto.isRetweeted() ? 0 : 1);
+			stmt.setInt(9, objeto.isRetweet() ? 1 : 0);
+			stmt.setString(10, objeto.getLinguagem());
 
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -57,7 +58,7 @@ public class StatusDAOImpl implements StatusDAO {
 	@Override
 	public void create(List<Status> listaStatus) throws Exception {
 		String query = "Insert into Status (id_usuario, id_status, data_criacao, texto, longitude, " +
-						"latitude, total_retweet, is_retweeted) values(?, ?, ?, ?, ?, ?, ?, ?);";
+				"latitude, total_retweet, is_retweeted, is_retweet, linguagem) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -75,7 +76,10 @@ public class StatusDAOImpl implements StatusDAO {
 				stmt.setString(4, String.valueOf(sta.getLongitude()));
 				stmt.setString(5, String.valueOf(sta.getLatitude()));
 				stmt.setLong(6, sta.getTotalRetweet());
-				stmt.setInt(7, !sta.isRetweeted()? 0 : 1);
+				stmt.setInt(7, sta.isRetweeted()? 1 : 0);
+				stmt.setInt(9, sta.isRetweet() ? 1 : 0);
+				stmt.setString(10, sta.getLinguagem());
+				
 				stmt.addBatch();
 				if (((listaStatus.size() - 1) < 20 && count % listaStatus.size() == 0) || (count != 0 && count % 20 == 0)) {
 					stmt.executeBatch();

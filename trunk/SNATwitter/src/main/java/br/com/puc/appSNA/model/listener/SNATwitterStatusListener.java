@@ -68,9 +68,13 @@ public class SNATwitterStatusListener implements StatusListener {
 				status.setDataDeCriacao(statusTwitter.getCreatedAt());
 				status.setId_status(statusTwitter.getId());
 				status.setId_usuario(user.getId_usuario());
-				status.setLatitude(statusTwitter.getGeoLocation().getLatitude());
-				status.setLongitude(statusTwitter.getGeoLocation().getLongitude());
+				status.setLinguagem(statusTwitter.getLang());
+				if(statusTwitter.getGeoLocation() != null){
+					status.setLatitude(statusTwitter.getGeoLocation().getLatitude());
+					status.setLongitude(statusTwitter.getGeoLocation().getLongitude());
+				}
 				status.setRetweeted(statusTwitter.isRetweeted());
+				status.setRetweet(statusTwitter.isRetweet());
 				status.setTexto(statusTwitter.getText());
 				status.setTotalRetweet(statusTwitter.getRetweetCount());
 				statusDAO.create(status);
@@ -80,7 +84,7 @@ public class SNATwitterStatusListener implements StatusListener {
 					List<UserMention> mencoes = new ArrayList<>(); 
 					for(UserMentionEntity userMentionade: userMentions){
 						user = usuarioDAO.findById(userMentionade.getId());
-						if(user == null){
+						if(user == null || user.getId_usuario() == null){
 							user = new Usuario();
 							user.setId_usuario(userMentionade.getId());
 							user.setScreename(userMentionade.getScreenName());

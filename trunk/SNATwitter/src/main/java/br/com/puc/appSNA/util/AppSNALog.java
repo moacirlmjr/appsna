@@ -12,7 +12,7 @@ public class AppSNALog {
 
 	static {
 		try {
-			logger = Logger.getLogger("br.com.ufpb");
+			logger = Logger.getLogger("br.com.puc");
 		} catch (Exception e) {
 			System.out.println("Não foi possível criar o mecanismo de log.");
 		}

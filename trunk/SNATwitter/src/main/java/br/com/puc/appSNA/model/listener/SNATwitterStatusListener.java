@@ -34,7 +34,7 @@ public class SNATwitterStatusListener implements StatusListener {
 				
 				User userTwitter = statusTwitter.getUser();
 				Usuario user = usuarioDAO.findById(userTwitter.getId());
-				if(user == null){
+				if(user == null || user.getId_usuario() == null){
 					user = new Usuario();
 					user.setId_usuario(userTwitter.getId());
 					user.setScreename(userTwitter.getScreenName());
@@ -50,7 +50,7 @@ public class SNATwitterStatusListener implements StatusListener {
 					user.setURL(userTwitter.getURL());
 					user.setURLImagem(userTwitter.getBiggerProfileImageURL());
 					usuarioDAO.create(user);
-				}else if (user != null && user.getDataDeCriacao() == null){
+				}else if ((user != null && user.getId_usuario() != null) && user.getDataDeCriacao() == null){
 					user.setLinguagem(userTwitter.getLang());
 					user.setLocalização(userTwitter.getLocation());
 					user.setDataDeCriacao(userTwitter.getCreatedAt());

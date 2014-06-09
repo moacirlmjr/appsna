@@ -24,7 +24,7 @@ public class SNATwitterStatusListener implements StatusListener {
 	@Override
 	public void onStatus(Status statusTwitter) {
 		try {
-			if(statusTwitter.getLang().contains("en") || statusTwitter.getLang().contains("pt")){
+			if(statusTwitter.getLang().contains("en")){
 				AppSNALog.info("@" + statusTwitter.getUser().getScreenName() + " - "
 						+ statusTwitter.getText());
 				

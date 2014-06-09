@@ -18,7 +18,7 @@ public class URLMentionDAOImpl implements URLMentionDAO {
 
 	@Override
 	public Long create(UrlMention objeto) throws Exception {
-		String query = "Insert into URLMention (id_usuario, id_status, url) values(?, ?, ?);";
+		String query = "Insert into urlmention (id_usuario, id_status, url) values(?, ?, ?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -84,7 +84,7 @@ public class URLMentionDAOImpl implements URLMentionDAO {
 
 	@Override
 	public Long update(UrlMention objeto) throws Exception {
-		String query = "update URLMention set id_usuario = ?, id_status = ?, url = ?"
+		String query = "update urlmention set id_usuario = ?, id_status = ?, url = ?"
 				+ "where id_urlmention = ?";
 
 		PreparedStatement stmt = null;
@@ -114,7 +114,7 @@ public class URLMentionDAOImpl implements URLMentionDAO {
 
 	@Override
 	public UrlMention findById(Long id) throws Exception {
-		String query = "select * from URLMention where id_urlmention = ?;";
+		String query = "select * from urlmention where id_urlmention = ?;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -145,7 +145,7 @@ public class URLMentionDAOImpl implements URLMentionDAO {
 
 	@Override
 	public List<UrlMention> list() throws Exception {
-		String query = "select * from URLMention;";
+		String query = "select * from urlmention;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -177,7 +177,7 @@ public class URLMentionDAOImpl implements URLMentionDAO {
 
 	@Override
 	public void remove(UrlMention objeto) throws Exception {
-		String query = "delete from URLMention where id_urlmention = ?;";
+		String query = "delete from urlmention where id_urlmention = ?;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;

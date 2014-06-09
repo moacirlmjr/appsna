@@ -19,7 +19,7 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 
 	@Override
 	public Long create(UserMention objeto) throws Exception {
-		String query = "Insert into UserMention (id_usuario, id_status, id_user_mentionade) values(?, ?, ?);";
+		String query = "Insert into usermention (id_usuario, id_status, id_user_mentionade) values(?, ?, ?);";
 		
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -49,7 +49,7 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 
 	@Override
 	public void create(List<UserMention> listaUserMentions) throws Exception {
-		String query = "Insert into UserMention (id_usuario, id_status, id_user_mentionade) values(?, ?, ?);";
+		String query = "Insert into usermention (id_usuario, id_status, id_user_mentionade) values(?, ?, ?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -84,7 +84,7 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 
 	@Override
 	public Long update(UserMention objeto) throws Exception {
-		String query = "update UserMention set id_usuario = ?, id_status = ?" +
+		String query = "update usermention set id_usuario = ?, id_status = ?" +
 				"where id_usermention = ?";
 
 		PreparedStatement stmt = null;
@@ -113,7 +113,7 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 
 	@Override
 	public UserMention findById(Long id) throws Exception {
-		String query = "select * from UserMention where id_usermention = ?;";
+		String query = "select * from usermention where id_usermention = ?;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -143,7 +143,7 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 
 	@Override
 	public List<UserMention> list() throws Exception {
-		String query = "select * from UserMention;";
+		String query = "select * from usermention;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -212,7 +212,7 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 
 	@Override
 	public void remove(UserMention objeto) throws Exception {
-		String query = "delete from UserMention where id_usermention = ?;";
+		String query = "delete from usermention where id_usermention = ?;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;

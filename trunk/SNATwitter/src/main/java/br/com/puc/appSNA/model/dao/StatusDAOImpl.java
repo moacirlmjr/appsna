@@ -19,7 +19,7 @@ public class StatusDAOImpl implements StatusDAO {
 
 	@Override
 	public Long create(Status objeto) throws Exception {
-		String query = "Insert into Status (id_status, id_usuario, data_criacao, texto, longitude, " +
+		String query = "Insert into status (id_status, id_usuario, data_criacao, texto, longitude, " +
 				"latitude, total_retweet, is_retweeted, is_retweet, linguagem) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 		PreparedStatement stmt = null;
@@ -57,7 +57,7 @@ public class StatusDAOImpl implements StatusDAO {
 
 	@Override
 	public void create(List<Status> listaStatus) throws Exception {
-		String query = "Insert into Status (id_usuario, id_status, data_criacao, texto, longitude, " +
+		String query = "Insert into status (id_usuario, id_status, data_criacao, texto, longitude, " +
 				"latitude, total_retweet, is_retweeted, is_retweet, linguagem) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 		PreparedStatement stmt = null;
@@ -96,7 +96,7 @@ public class StatusDAOImpl implements StatusDAO {
 
 	@Override
 	public Long update(Status objeto) throws Exception {
-		String query = "update Status set id_usuario = ?, data_criacao = ?, texto = ?, longitude = ?, " +
+		String query = "update status set id_usuario = ?, data_criacao = ?, texto = ?, longitude = ?, " +
 		"latitude = ?, total_retweet = ?, is_retweeted = ? ) values(?, ?, ?, ?, ?, ?, ?)" +
 		"where id_status = ?;";
 
@@ -132,7 +132,7 @@ public class StatusDAOImpl implements StatusDAO {
 
 	@Override
 	public Status findById(Long id) throws Exception {
-		String query = "select * from Status where id_status = ?;";
+		String query = "select * from status where id_status = ?;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -167,7 +167,7 @@ public class StatusDAOImpl implements StatusDAO {
 
 	@Override
 	public List<Status> list() throws Exception {
-		String query = "select * from Status;";
+		String query = "select * from status;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -203,7 +203,7 @@ public class StatusDAOImpl implements StatusDAO {
 
 	@Override
 	public void remove(Status objeto) throws Exception {
-		String query = "delete from Status where id_status = ?;";
+		String query = "delete from status where id_status = ?;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;

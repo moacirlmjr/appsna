@@ -114,7 +114,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	@Override
 	public Long update(Usuario objeto) throws Exception {
-		String query = "update Usuario set nome = ?, screen_name = ?, biografia = ?, localizacao = ?, total_Following = ?,"
+		String query = "update usuario set nome = ?, screen_name = ?, biografia = ?, localizacao = ?, total_Following = ?,"
 				+ "total_Followers = ?, total_Tweets = ?, URL = ?, timeZone = ?, linguagem = ?, data_criacao = ?, url_imagem = ? "
 				+ "where id_usuario = ?;";
 
@@ -248,7 +248,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	@Override
 	public void remove(Usuario objeto) throws Exception {
-		String query = "delete from Usuario where id_usuario = ?;";
+		String query = "delete from usuario where id_usuario = ?;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;

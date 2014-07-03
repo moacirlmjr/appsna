@@ -10,7 +10,7 @@ import java.util.List;
 import br.com.puc.appSNA.model.beans.UserMention;
 import br.com.puc.appSNA.model.beans.to.MentionTO;
 import br.com.puc.appSNA.util.AppSNALog;
-import br.com.puc.appSNA.util.BDUtil;
+import br.com.puc.appSNA.util.Constantes;
 import br.com.puc.appSNA.util.DAOUtil;
 
 import com.mysql.jdbc.Statement;
@@ -25,7 +25,7 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 		Connection conn = null;
 		Long result = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER, Constantes.SENHA);
 			stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
 			stmt.setLong(1, objeto.getId_usuario());
@@ -54,7 +54,7 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER,Constantes.SENHA);
 			conn.setAutoCommit(false);
 			stmt = conn.prepareStatement(query);
 			int count = 0;
@@ -91,7 +91,7 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 		Connection conn = null;
 		Long result = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER, Constantes.SENHA);
 			stmt = conn.prepareStatement(query);
 			
 			stmt.setLong(0, objeto.getId_usuario());
@@ -121,7 +121,7 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 		UserMention user = new UserMention();
 
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER, Constantes.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, id);
 			rs = stmt.getResultSet();
@@ -151,7 +151,7 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 		UserMention user = new UserMention();
 		List<UserMention> listUsers = new LinkedList<UserMention>();
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER, Constantes.SENHA);
 			stmt = conn.prepareStatement(query);
 			rs = stmt.getResultSet();
 
@@ -190,7 +190,7 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 		List<MentionTO> listMencionados = new LinkedList<MentionTO>();
 		
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER, Constantes.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, id_usuario);
 			rs = stmt.executeQuery();
@@ -217,7 +217,7 @@ public class UserMentionDAOImpl implements UserMentionDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER, BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER, Constantes.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, objeto.getId());
 			stmt.execute();

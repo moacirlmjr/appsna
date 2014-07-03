@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/paginas/template/main.xhtml">
+	<ui:define name="content">
+			Seja Bem Vindo!
+		<h:form id="form">
+			<p:fieldset legend="Filtros" style="width: 800px">
+				<h:panelGrid columns="1">
+					<h:panelGrid columns="3">
+						<p:outputLabel value="ScreenName" for="screenName" />
+						<p:inputText id="screenName"
+							value="#{pesquisaController.screenName}" />
+						<p:commandButton value="Adicionar"
+							actionListener="#{pesquisaController.adicionar}" update=":form">
+							<f:param name="action" value="screenName" />
+						</p:commandButton>
+					</h:panelGrid>
+
+					<p:dataGrid id="dataGridScreenName" var="screenName"
+						emptyMessage="" value="#{pesquisaController.screenNames}"
+						columns="5">
+						<h:panelGrid columns="2">
+							<h:outputText value="#{screenName}" />
+
+							<p:commandButton actionListener="#{pesquisaController.remover}"
+								update=":form:dataGridScreenName" icon="ui-icon-close" value="">
+								<f:param name="action" value="screenName" />
+								<f:param name="valor" value="#{screenName}" />
+							</p:commandButton>
+						</h:panelGrid>
+					</p:dataGrid>
+
+					<h:panelGrid columns="3">
+						<p:outputLabel value="Biografia" for="biografia" />
+						<p:inputText id="biografia"
+							value="#{pesquisaController.biografia}" />
+						<p:commandButton value="Adicionar"
+							actionListener="#{pesquisaController.adicionar}" update=":form">
+							<f:param name="action" value="biografia" />
+						</p:commandButton>
+					</h:panelGrid>
+
+					<p:dataGrid id="dataGridBiografia" var="biografia" emptyMessage=""
+						value="#{pesquisaController.biografias}" columns="5">
+						<h:panelGrid columns="2">
+							<h:outputText value="#{biografia}" />
+
+							<p:commandButton actionListener="#{pesquisaController.remover}"
+								update=":form:dataGridBiografia" icon="ui-icon-close" value="">
+								<f:param name="action" value="biografia" />
+								<f:param name="valor" value="#{biografia}" />
+							</p:commandButton>
+						</h:panelGrid>
+					</p:dataGrid>
+
+					<h:panelGrid columns="3">
+						<p:outputLabel value="Localização" for="localizacao" />
+						<p:inputText id="localizacao"
+							value="#{pesquisaController.localizacao}" />
+						<p:commandButton value="Adicionar"
+							actionListener="#{pesquisaController.adicionar}" update=":form">
+							<f:param name="action" value="localizacao" />
+						</p:commandButton>
+					</h:panelGrid>
+
+					<p:dataGrid id="dataGridLocalizacao" var="localizacao"
+						emptyMessage="" value="#{pesquisaController.localizacoes}"
+						columns="5">
+						<h:panelGrid columns="2">
+							<h:outputText value="#{localizacao}" />
+
+							<p:commandButton actionListener="#{pesquisaController.remover}"
+								update=":form:dataGridLocalizacao" icon="ui-icon-close" value="">
+								<f:param name="action" value="localizacao" />
+								<f:param name="valor" value="#{localizacao}" />
+							</p:commandButton>
+						</h:panelGrid>
+					</p:dataGrid>
+
+					<h:panelGrid columns="3">
+						<p:outputLabel value="Termos" for="termos" />
+						<p:inputText id="termos" value="#{pesquisaController.termo}"/>
+						<p:commandButton value="Adicionar"
+							actionListener="#{pesquisaController.adicionar}" update=":form">
+							<f:param name="action" value="termo" />
+						</p:commandButton>
+					</h:panelGrid>
+
+					<p:dataGrid id="dataGridTermo" var="termo" emptyMessage=""
+						value="#{pesquisaController.termos}" columns="5">
+						<h:panelGrid columns="2">
+							<h:outputText value="#{termo}" />
+
+							<p:commandButton actionListener="#{pesquisaController.remover}"
+								update=":form:dataGridTermo" icon="ui-icon-close" value="">
+								<f:param name="action" value="termo" />
+								<f:param name="valor" value="#{termo}" />
+							</p:commandButton>
+						</h:panelGrid>
+					</p:dataGrid>
+
+					<h:panelGrid columns="5">
+						<p:outputLabel value="Data Inicio" for="dataIni" />
+						<p:calendar id="dataIni" value="#{pesquisaController.dataInicio}" showOn="button"/>
+						<h:outputText value=" à " />
+						<p:outputLabel value="Data Fim" for="dataFim" />
+						<p:calendar id="dataFim" value="#{pesquisaController.dataFim}" showOn="button"/>
+					</h:panelGrid>
+				</h:panelGrid>
+				
+				<p:commandButton value="Buscar" actionListener="#{pesquisaController.buscar}" style="float: right;"/>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

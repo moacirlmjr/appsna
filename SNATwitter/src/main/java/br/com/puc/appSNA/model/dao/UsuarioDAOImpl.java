@@ -10,7 +10,7 @@ import java.util.List;
 
 import br.com.puc.appSNA.model.beans.Usuario;
 import br.com.puc.appSNA.util.AppSNALog;
-import br.com.puc.appSNA.util.BDUtil;
+import br.com.puc.appSNA.util.Constantes;
 import br.com.puc.appSNA.util.DAOUtil;
 
 public class UsuarioDAOImpl implements UsuarioDAO {
@@ -24,8 +24,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		Connection conn = null;
 		Long result = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
-					BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER,
+					Constantes.SENHA);
 			stmt = conn.prepareStatement(query,
 					com.mysql.jdbc.Statement.RETURN_GENERATED_KEYS);
 
@@ -71,8 +71,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
-					BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER,
+					Constantes.SENHA);
 			conn.setAutoCommit(false);
 			// run sql objects
 			stmt = conn.prepareStatement(query);
@@ -122,8 +122,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		Connection conn = null;
 		Long result = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
-					BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER,
+					Constantes.SENHA);
 			stmt = conn.prepareStatement(query);
 
 			stmt.setString(1, objeto.getNome());
@@ -169,8 +169,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		Usuario elem = new Usuario();
 
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
-					BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER,
+					Constantes.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, id);
 			rs = stmt.executeQuery();
@@ -211,8 +211,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		Usuario elem = new Usuario();
 		List<Usuario> listElem = new LinkedList<Usuario>();
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
-					BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER,
+					Constantes.SENHA);
 			stmt = conn.prepareStatement(query);
 			rs = stmt.executeQuery();
 
@@ -253,8 +253,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(BDUtil.URL, BDUtil.USER,
-					BDUtil.SENHA);
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER,
+					Constantes.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, objeto.getId());
 			stmt.execute();

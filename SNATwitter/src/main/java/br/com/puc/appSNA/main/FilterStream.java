@@ -15,7 +15,7 @@ public class FilterStream {
 		TwitterStream twitterStream;
 		try {
 			twitterStream = new TwitterStreamFactory(
-					TwitterUtil.createConfigurationBuilder(AuthEnum.MOACIR_KEY))
+					TwitterUtil.createConfigurationBuilder(AuthEnum.DANYLLO_KEY))
 					.getInstance();
 			
 			StatusListener listener = new SNATwitterStatusListener();

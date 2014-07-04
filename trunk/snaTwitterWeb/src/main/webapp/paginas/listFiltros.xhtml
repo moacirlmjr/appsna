@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="template/main.xhtml">
+	<ui:define name="content">
+			Listagem de Filtros
+		<h:form id="form">
+			<h:outputLink  value="#{facesContext.externalContext.requestContextPath}/index.jsf">
+				<h:outputText value="Inicio" />
+			</h:outputLink>
+			
+			<p:poll interval="10" update="@form"/>
+			
+			<p:dataTable id="tableFiltros"  value="#{filtroController.listFiltros}" var="filtro" paginator="true">
+				<f:facet name="header" >
+					Lista de Filtros
+				</f:facet>
+				
+				<p:column headerText="Criado Em">
+					<h:outputText value="#{filtro.dataCriacao}" >
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="ScreenNames">
+					<h:outputText value="#{filtro.screenNames}" />
+				</p:column>
+				
+				<p:column headerText="Biografias">
+					<h:outputText value="#{filtro.biografias}" />
+				</p:column>
+				
+				<p:column headerText="Localizações">
+					<h:outputText value="#{filtro.localizacoes}" />
+				</p:column>
+				
+				<p:column headerText="Termos">
+					<h:outputText value="#{filtro.termosStatus}" />
+				</p:column>
+				
+				<p:column headerText="Data Inicio">
+					<h:outputText value="#{filtro.dataInicio}" >
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Data Fim">
+					<h:outputText value="#{filtro.dataFim}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Graphml">
+					<p:graphicImage title="Erro" url="imagens/erro.png" rendered="#{filtro.status == 'ERRO'}"/>
+					<p:graphicImage title="Analisando" url="imagens/ajax-loader.gif" rendered="#{filtro.status == 'ANALISANDO'}"/>
+					<p:commandLink value="#{filtro.endGraphml}" actionListener="#{filtroController.carregarGraphml}" oncomplete="document.getElementById('form:linkDonwload').click();" rendered="#{filtro.status == 'TERMINADO'}">
+						<f:param name="graphml" value="#{filtro.endGraphml}"></f:param>
+					</p:commandLink>
+				</p:column>
+				
+				<p:column headerText="Excluir">
+					<p:commandLink value="x" actionListener="#{filtroController.excluirFiltro}" rendered="#{filtro.status != 'ANALISANDO'}" update=":form:tableFiltros">
+						<f:param name="filtro" value="#{filtro.id}"></f:param>
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+			<h:commandLink id="linkDonwload" value="" style="display:hidden;">
+				<p:fileDownload value="#{filtroController.graphml}"></p:fileDownload>
+			</h:commandLink>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

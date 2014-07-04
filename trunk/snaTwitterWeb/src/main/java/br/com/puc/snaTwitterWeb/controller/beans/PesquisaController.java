@@ -2,14 +2,24 @@ package br.com.puc.snaTwitterWeb.controller.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+
+import br.com.puc.appSNA.model.beans.Filtro;
+import br.com.puc.appSNA.model.dao.FiltroDAO;
+import br.com.puc.appSNA.model.dao.FiltroDAOImpl;
+import br.com.puc.appSNA.util.AppSNALog;
+import br.com.puc.snaTwitterWeb.threads.GerarGraphMLByFiltro;
+import br.com.puc.snaTwitterWeb.util.FacesUtil;
 
 @ManagedBean(name = "pesquisaController")
 @ViewScoped
@@ -19,13 +29,21 @@ public class PesquisaController implements Serializable {
 	private String biografia;
 	private String localizacao;
 	private String termo;
-	private Calendar dataInicio;
-	private Calendar dataFim;
+	private Date dataInicio;
+	private Date dataFim;
+
+	private Filtro filtro;
 
 	private List<String> screenNames;
 	private List<String> biografias;
 	private List<String> localizacoes;
 	private List<String> termos;
+
+	private static final int ACTIVES_TASK = 2;
+	private static final int NTHREADS = Runtime.getRuntime()
+			.availableProcessors() * 8;
+	private static final ExecutorService exec = Executors
+			.newFixedThreadPool(NTHREADS);
 
 	public PesquisaController() {
 		screenNames = new ArrayList<>();
@@ -70,12 +88,59 @@ public class PesquisaController implements Serializable {
 			termos.remove(valor);
 		}
 	}
-	
-	
-	public void buscar(ActionEvent ev){
-		
+
+	public String buscar() {
+		filtro = new Filtro();
+		filtro.setDataCriacao(new Date());
+		filtro.setEndGraphml("rede_" + filtro.getDataCriacao().getTime() + ".graphml");
+		filtro.setDataInicio(dataInicio);
+		filtro.setDataFim(dataFim);
+		filtro.setStatus("ANALISANDO");
+
+		try {
+			if (screenNames.size() != 0) {
+				filtro.setScreenNames(screenNames.toString()
+						.replaceAll(", ", ",").replaceAll("\\[", "")
+						.replaceAll("\\]", ""));
+			}
+
+			if (biografias.size() != 0) {
+				filtro.setBiografias(biografias.toString()
+						.replaceAll(", ", ",").replaceAll("\\[", "")
+						.replaceAll("\\]", ""));
+			}
+
+			if (localizacoes.size() != 0) {
+				filtro.setLocalizacoes(localizacoes.toString()
+						.replaceAll(", ", ",").replaceAll("\\[", "")
+						.replaceAll("\\]", ""));
+			}
+
+			if (termos.size() != 0) {
+				filtro.setTermosStatus(termos.toString().replaceAll(", ", ",")
+						.replaceAll("\\[", "").replaceAll("\\]", ""));
+			}
+
+			FiltroDAO filtroDAO = new FiltroDAOImpl();
+			Long id = filtroDAO.create(filtro);
+			filtro.setId(id);
+
+			screenNames = new ArrayList<>();
+			biografias = new ArrayList<>();
+			localizacoes = new ArrayList<>();
+			termos = new ArrayList<>();
+
+			GerarGraphMLByFiltro parser = new GerarGraphMLByFiltro();
+			parser.setFiltro(filtro);
+			exec.submit(parser);
+			
+			FacesUtil.registrarFacesMessage("Filtro Salvo com Sucesso. Em breve sua rede será gerada", FacesMessage.SEVERITY_INFO);
+		} catch (Exception e) {
+			FacesUtil.registrarFacesMessage("Ocorreu um erro ao salvar o filtro", FacesMessage.SEVERITY_ERROR);
+			AppSNALog.error(e);
+		}
+		return "paginas/listFiltros.jsf";
 	}
-	
 
 	public String getScreenName() {
 		return screenName;
@@ -109,19 +174,19 @@ public class PesquisaController implements Serializable {
 		this.termo = termo;
 	}
 
-	public Calendar getDataInicio() {
+	public Date getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(Calendar dataInicio) {
+	public void setDataInicio(Date dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 
-	public Calendar getDataFim() {
+	public Date getDataFim() {
 		return dataFim;
 	}
 
-	public void setDataFim(Calendar dataFim) {
+	public void setDataFim(Date dataFim) {
 		this.dataFim = dataFim;
 	}
 
@@ -155,6 +220,11 @@ public class PesquisaController implements Serializable {
 
 	public void setTermos(List<String> termos) {
 		this.termos = termos;
+	}
+
+	private static Integer getQteThreadsRunning() {
+		return Integer.parseInt(exec.toString().split(",")[ACTIVES_TASK]
+				.split("=")[1].replace(" ", ""));
 	}
 
 }

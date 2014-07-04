@@ -5,10 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
+import br.com.puc.appSNA.model.beans.Filtro;
 import br.com.puc.appSNA.model.beans.Status;
+import br.com.puc.appSNA.model.beans.to.MencaoTO;
 import br.com.puc.appSNA.util.AppSNALog;
 import br.com.puc.appSNA.util.Constantes;
 import br.com.puc.appSNA.util.DAOUtil;
@@ -19,24 +22,27 @@ public class StatusDAOImpl implements StatusDAO {
 
 	@Override
 	public Long create(Status objeto) throws Exception {
-		String query = "Insert into status (id_status, id_usuario, data_criacao, texto, longitude, " +
-				"latitude, total_retweet, is_retweeted, is_retweet, linguagem) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		String query = "Insert into status (id_status, id_usuario, data_criacao, texto, longitude, "
+				+ "latitude, total_retweet, is_retweeted, is_retweet, linguagem) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		Long result = null;
 		try {
-			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER, Constantes.SENHA);
-			stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-			
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER,
+					Constantes.SENHA);
+			stmt = conn
+					.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
 			stmt.setLong(1, objeto.getId_status());
 			stmt.setLong(2, objeto.getId_usuario());
-			stmt.setTimestamp(3, new Timestamp(objeto.getDataDeCriacao().getTime()));
+			stmt.setTimestamp(3, new Timestamp(objeto.getDataDeCriacao()
+					.getTime()));
 			stmt.setString(4, objeto.getTexto());
 			stmt.setString(5, String.valueOf(objeto.getLongitude()));
 			stmt.setString(6, String.valueOf(objeto.getLatitude()));
 			stmt.setLong(7, objeto.getTotalRetweet());
-			stmt.setInt(8, objeto.isRetweeted()? 1 : 0);
+			stmt.setInt(8, objeto.isRetweeted() ? 1 : 0);
 			stmt.setInt(9, objeto.isRetweet() ? 1 : 0);
 			stmt.setString(10, objeto.getLinguagem());
 
@@ -57,64 +63,70 @@ public class StatusDAOImpl implements StatusDAO {
 
 	@Override
 	public void create(List<Status> listaStatus) throws Exception {
-		String query = "Insert into status (id_usuario, id_status, data_criacao, texto, longitude, " +
-				"latitude, total_retweet, is_retweeted, is_retweet, linguagem) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		String query = "Insert into status (id_usuario, id_status, data_criacao, texto, longitude, "
+				+ "latitude, total_retweet, is_retweeted, is_retweet, linguagem) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER,Constantes.SENHA);
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER,
+					Constantes.SENHA);
 			conn.setAutoCommit(false);
 			stmt = conn.prepareStatement(query);
 			int count = 0;
 			for (Status sta : listaStatus) {
-				
+
 				stmt.setLong(0, sta.getId_usuario());
 				stmt.setLong(1, sta.getId_status());
-				stmt.setTimestamp(2, new Timestamp(sta.getDataDeCriacao().getTime()));
+				stmt.setTimestamp(2, new Timestamp(sta.getDataDeCriacao()
+						.getTime()));
 				stmt.setString(3, sta.getTexto());
 				stmt.setString(4, String.valueOf(sta.getLongitude()));
 				stmt.setString(5, String.valueOf(sta.getLatitude()));
 				stmt.setLong(6, sta.getTotalRetweet());
-				stmt.setInt(7, sta.isRetweeted()? 1 : 0);
+				stmt.setInt(7, sta.isRetweeted() ? 1 : 0);
 				stmt.setInt(9, sta.isRetweet() ? 1 : 0);
 				stmt.setString(10, sta.getLinguagem());
-				
+
 				stmt.addBatch();
-				if (((listaStatus.size() - 1) < 20 && count % listaStatus.size() == 0) || (count != 0 && count % 20 == 0)) {
+				if (((listaStatus.size() - 1) < 20 && count
+						% listaStatus.size() == 0)
+						|| (count != 0 && count % 20 == 0)) {
 					stmt.executeBatch();
 				}
-				count ++;
+				count++;
 			}
 			conn.commit();
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
 		} finally {
 			conn.close();
-		}		
+		}
 	}
 
 	@Override
 	public Long update(Status objeto) throws Exception {
-		String query = "update status set id_usuario = ?, data_criacao = ?, texto = ?, longitude = ?, " +
-		"latitude = ?, total_retweet = ?, is_retweeted = ? ) values(?, ?, ?, ?, ?, ?, ?)" +
-		"where id_status = ?;";
+		String query = "update status set id_usuario = ?, data_criacao = ?, texto = ?, longitude = ?, "
+				+ "latitude = ?, total_retweet = ?, is_retweeted = ? ) values(?, ?, ?, ?, ?, ?, ?)"
+				+ "where id_status = ?;";
 
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		Long result = null;
 		try {
-			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER, Constantes.SENHA);
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER,
+					Constantes.SENHA);
 			stmt = conn.prepareStatement(query);
-			
+
 			stmt.setLong(0, objeto.getId_usuario());
-			stmt.setTimestamp(1, new Timestamp(objeto.getDataDeCriacao().getTime()));
+			stmt.setTimestamp(1, new Timestamp(objeto.getDataDeCriacao()
+					.getTime()));
 			stmt.setString(2, objeto.getTexto());
 			stmt.setString(3, String.valueOf(objeto.getLongitude()));
 			stmt.setString(4, String.valueOf(objeto.getLatitude()));
 			stmt.setLong(4, objeto.getTotalRetweet());
 			stmt.setInt(6, !objeto.isRetweeted() ? 0 : 1);
-			
+
 			stmt.executeUpdate();
 
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -140,7 +152,8 @@ public class StatusDAOImpl implements StatusDAO {
 		Status sta = new Status();
 
 		try {
-			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER, Constantes.SENHA);
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER,
+					Constantes.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, id);
 			rs = stmt.getResultSet();
@@ -153,14 +166,14 @@ public class StatusDAOImpl implements StatusDAO {
 				sta.setLongitude(rs.getLong(4));
 				sta.setLatitude(rs.getLong(5));
 				sta.setTotalRetweet(rs.getInt(6));
-				sta.setRetweeted(rs.getInt(7) == 0 ? false : true);				
+				sta.setRetweeted(rs.getInt(7) == 0 ? false : true);
 			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
 		} finally {
 			conn.close();
 		}
-		
+
 		return sta;
 
 	}
@@ -175,7 +188,8 @@ public class StatusDAOImpl implements StatusDAO {
 		Status sta = new Status();
 		List<Status> listStatus = new LinkedList<Status>();
 		try {
-			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER, Constantes.SENHA);
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER,
+					Constantes.SENHA);
 			stmt = conn.prepareStatement(query);
 			rs = stmt.getResultSet();
 
@@ -188,7 +202,7 @@ public class StatusDAOImpl implements StatusDAO {
 				sta.setLongitude(rs.getLong(4));
 				sta.setLatitude(rs.getLong(5));
 				sta.setTotalRetweet(rs.getInt(6));
-				sta.setRetweeted(rs.getInt(7) == 0 ? false : true);				
+				sta.setRetweeted(rs.getInt(7) == 0 ? false : true);
 				listStatus.add(sta);
 			}
 		} catch (SQLException e) {
@@ -208,7 +222,8 @@ public class StatusDAOImpl implements StatusDAO {
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		try {
-			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER, Constantes.SENHA);
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER,
+					Constantes.SENHA);
 			stmt = conn.prepareStatement(query);
 			stmt.setLong(1, objeto.getId());
 			stmt.execute();
@@ -217,10 +232,136 @@ public class StatusDAOImpl implements StatusDAO {
 		} finally {
 			conn.close();
 		}
-		
+
 	}
 
+	@Override
+	public List<MencaoTO> listByFiltro(Filtro filtro) throws Exception {
+		String queryPrincipal = "select id_usuario, id_user_mentionade, count(*) from usermention"
+				+ " where id_status in (select id_status from status where texto like '%@%' "; // falta
+																								// parentese
+		String queryUsuarioStatus = "";
+		String groupBy = "group by id_usuario, id_user_mentionade";
+
+		if (filtro.getTermosStatus() != null) {
+			queryPrincipal += "and (";
+			int count = 0;
+			for (String termo : filtro.getTermosStatus().split(",")) {
+				queryPrincipal += "texto like '%" + termo + "%' ";
+				if (filtro.getTermosStatus().split(",").length > 1
+						&& count < (filtro.getTermosStatus().split(",").length - 1)) {
+					queryPrincipal += "or ";
+				}
+				count++;
+			}
+			queryPrincipal += ") ";
+		}
+
+		if (filtro.getDataInicio() != null && filtro.getDataFim() != null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			queryPrincipal += " and data_criacao between '"
+					+ sdf.format(filtro.getDataInicio().getTime()) + "' and '"
+					+ sdf.format(filtro.getDataFim().getTime()) + "' ";
+		}
+
+		if (filtro.getLocalizacoes() != null || filtro.getBiografias() != null
+				|| filtro.getScreenNames() != null) {
+			queryUsuarioStatus = " and id_usuario in(select id_usuario from usuario where ";
+			String queryLocalizacao = "";
+			String queryBiografia = "";
+			String queryScreenName = "";
+
+			if (filtro.getLocalizacoes() != null) {
+				queryLocalizacao += " (";
+				int count = 0;
+				for (String localizacao : filtro.getLocalizacoes().split(",")) {
+					queryLocalizacao += "localizacao like '%" + localizacao
+							+ "%' ";
+					if (filtro.getLocalizacoes().split(",").length > 1
+							&& count < (filtro.getLocalizacoes().split(",").length - 1)) {
+						queryLocalizacao += "or ";
+					}
+					count++;
+				}
+				queryLocalizacao += ") ";
+			}
+
+			if (filtro.getBiografias() != null) {
+				queryBiografia += " (";
+				int count = 0;
+				for (String biografia : filtro.getBiografias().split(",")) {
+					queryBiografia += "biografia like '%" + biografia + "%' ";
+					if (filtro.getBiografias().split(",").length > 1
+							&& count < (filtro.getBiografias().split(",").length - 1)) {
+						queryBiografia += "or ";
+					}
+					count++;
+				}
+				queryBiografia += ") ";
+			}
+
+			if (filtro.getScreenNames() != null) {
+				queryScreenName += " (";
+				int count = 0;
+				for (String screenname : filtro.getScreenNames().split(",")) {
+					queryScreenName += "screen_name like '%" + screenname
+							+ "%' ";
+					if (filtro.getScreenNames().split(",").length > 1
+							&& count < (filtro.getScreenNames().split(",").length - 1)) {
+						queryScreenName += "or ";
+					}
+					count++;
+				}
+				queryScreenName += ") ";
+			}
+
+			queryUsuarioStatus += (!queryLocalizacao.equals("") ? queryLocalizacao
+					+ " and "
+					: "")
+					+ (!queryBiografia.equals("") ? queryBiografia + " and "
+							: "")
+					+ queryScreenName + ")) ";
+			
+			queryUsuarioStatus += " and id_usuario in(select id_usuario from usuario where " + (!queryLocalizacao.equals("") ? queryLocalizacao
+					+ " and "
+					: "")
+					+ (!queryBiografia.equals("") ? queryBiografia + " and "
+							: "")
+					+ queryScreenName + ") ";
+			
+			queryPrincipal += queryUsuarioStatus + groupBy;
+		}else{
+			queryPrincipal += ") " + groupBy;
+		}
+
 		
+
+		PreparedStatement stmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		MencaoTO sta = new MencaoTO();
+		List<MencaoTO> listMencoes = new LinkedList<MencaoTO>();
+		try {
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER,
+					Constantes.SENHA);
+			stmt = conn.prepareStatement(queryPrincipal);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				sta = new MencaoTO();
+				sta.setIdTwitterOrigem(rs.getLong(1));
+				sta.setIdTwitterDestino(rs.getLong(2));
+				sta.setQteMencoes(rs.getInt(3));
+				listMencoes.add(sta);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			AppSNALog.error(e);
+		} finally {
+			conn.close();
+		}
+
+		return listMencoes;
 	}
 
-	
+}

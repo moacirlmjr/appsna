@@ -18,16 +18,14 @@ import br.com.puc.appSNA.model.dao.UserMentionDAOImpl;
 import br.com.puc.appSNA.model.dao.UsuarioDAO;
 import br.com.puc.appSNA.model.dao.UsuarioDAOImpl;
 import br.com.puc.appSNA.util.AppSNALog;
+import br.com.puc.appSNA.util.Constantes;
 
 public class SNATwitterStatusListener implements StatusListener {
 
 	@Override
 	public void onStatus(Status statusTwitter) {
 		try {
-			if(statusTwitter.getLang().contains("en")){
-				AppSNALog.info("@" + statusTwitter.getUser().getScreenName() + " - "
-						+ statusTwitter.getText());
-				
+			if(statusTwitter.getLang().contains(Constantes.LANG)){
 				UsuarioDAO usuarioDAO = new UsuarioDAOImpl();
 				StatusDAO statusDAO = new StatusDAOImpl();
 				UserMentionDAO userMentionDAO = new UserMentionDAOImpl();

@@ -16,6 +16,7 @@ import br.com.puc.appSNA.model.dao.UsuarioDAO;
 import br.com.puc.appSNA.model.dao.UsuarioDAOImpl;
 import br.com.puc.appSNA.util.Constantes;
 import br.com.puc.appSNA.util.PaperUtil;
+import br.com.puc.appSNA.util.XMLUtil;
 
 public class GerarGraphMLByFiltro implements Runnable {
 
@@ -49,6 +50,10 @@ public class GerarGraphMLByFiltro implements Runnable {
 						qteMencoes));
 			}
 
+			XMLUtil.arquivo = new StringBuffer(
+					"<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
+					.append("\n<!-- GraphML gerado eautomaticamente pela AppSNA -->")
+					.append("\n<graphml xmlns=\"http://graphml.graphdrawing.org/xmlns\">");
 			PaperUtil.criaCabecalho(true);
 			PaperUtil.criarNodos(listNodeTo);
 			PaperUtil.criarArestas(listEdgeTo);

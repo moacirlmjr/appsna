@@ -318,16 +318,16 @@ public class StatusDAOImpl implements StatusDAO {
 			queryUsuarioStatus += (!queryLocalizacao.equals("") ? queryLocalizacao
 					+ " and "
 					: "")
-					+ (!queryBiografia.equals("") ? queryBiografia + " and "
+					+ (!queryBiografia.equals("") ? queryBiografia
 							: "")
-					+ queryScreenName + ")) ";
+					+ (!queryScreenName.equals("")? " and "+ queryScreenName : "") + ") ";
 			
 			queryUsuarioStatus += " and id_usuario in(select id_usuario from usuario where " + (!queryLocalizacao.equals("") ? queryLocalizacao
 					+ " and "
 					: "")
-					+ (!queryBiografia.equals("") ? queryBiografia + " and "
+					+ (!queryBiografia.equals("") ? queryBiografia 
 							: "")
-					+ queryScreenName + ") ";
+					+ (!queryScreenName.equals("")? " and "+ queryScreenName : "") + ") ";
 			
 			queryPrincipal += queryUsuarioStatus + groupBy;
 		}else{

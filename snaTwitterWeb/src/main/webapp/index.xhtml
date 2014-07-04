@@ -10,6 +10,9 @@
 	<ui:define name="content">
 			Seja Bem Vindo!
 		<h:form id="form">
+			<p:commandLink value="Buscas Geradas" action="paginas/listFiltros.jsf">
+			
+			</p:commandLink>
 			<p:fieldset legend="Filtros" style="width: 800px">
 				<h:panelGrid columns="1">
 					<h:panelGrid columns="3">
@@ -114,7 +117,7 @@
 					</h:panelGrid>
 				</h:panelGrid>
 				
-				<p:commandButton value="Buscar" actionListener="#{pesquisaController.buscar}" style="float: right;"/>
+				<p:commandButton value="Buscar" action="#{pesquisaController.buscar}" style="float: right;" ajax="false"/>
 			</p:fieldset>
 		</h:form>
 	</ui:define>

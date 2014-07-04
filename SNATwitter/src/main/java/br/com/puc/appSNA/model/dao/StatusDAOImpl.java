@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -315,19 +316,27 @@ public class StatusDAOImpl implements StatusDAO {
 				queryScreenName += ") ";
 			}
 
-			queryUsuarioStatus += (!queryLocalizacao.equals("") ? queryLocalizacao
-					+ " and "
-					: "")
-					+ (!queryBiografia.equals("") ? queryBiografia
-							: "")
-					+ (!queryScreenName.equals("")? " and "+ queryScreenName : "") + ") ";
+			List<String> listQuery = new ArrayList<>();
+			if(!queryScreenName.equals(""))
+				listQuery.add(queryScreenName);
+			if(!queryBiografia.equals(""))
+				listQuery.add(queryBiografia);
+			if(!queryLocalizacao.equals(""))
+				listQuery.add(queryLocalizacao);
+			String queryAux = "";
+			int count = 0;
+			for(String query: listQuery){
+				if(count < (listQuery.size() - 1)){
+					queryAux += query + " and ";
+				}else{
+					queryAux += query;
+				}
+				count++;
+			}
 			
-			queryUsuarioStatus += " and id_usuario in(select id_usuario from usuario where " + (!queryLocalizacao.equals("") ? queryLocalizacao
-					+ " and "
-					: "")
-					+ (!queryBiografia.equals("") ? queryBiografia 
-							: "")
-					+ (!queryScreenName.equals("")? " and "+ queryScreenName : "") + ") ";
+			queryUsuarioStatus += queryAux + " )) ";
+			
+			queryUsuarioStatus += " and id_usuario in(select id_usuario from usuario where " + queryAux + ") ";
 			
 			queryPrincipal += queryUsuarioStatus + groupBy;
 		}else{

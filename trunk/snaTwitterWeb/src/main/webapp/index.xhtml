@@ -10,10 +10,12 @@
 	<ui:define name="content">
 			Seja Bem Vindo!
 		<h:form id="form">
-			<p:commandLink value="Buscas Geradas" action="paginas/listFiltros.jsf">
-			
+			<p:commandLink value="Buscas Geradas"
+				action="paginas/listFiltros.jsf">
+
 			</p:commandLink>
-			<p:fieldset legend="Filtros" style="width: 800px">
+			<p:fieldset legend="Filtros" style="width: 800px"
+				rendered="#{!pesquisaController.renderizarStream}">
 				<h:panelGrid columns="1">
 					<h:panelGrid columns="3">
 						<p:outputLabel value="ScreenName" for="screenName" />
@@ -88,7 +90,7 @@
 
 					<h:panelGrid columns="3">
 						<p:outputLabel value="Termos" for="termos" />
-						<p:inputText id="termos" value="#{pesquisaController.termo}"/>
+						<p:inputText id="termos" value="#{pesquisaController.termo}" />
 						<p:commandButton value="Adicionar"
 							actionListener="#{pesquisaController.adicionar}" update=":form">
 							<f:param name="action" value="termo" />
@@ -110,15 +112,39 @@
 
 					<h:panelGrid columns="5">
 						<p:outputLabel value="Data Inicio" for="dataIni" />
-						<p:calendar id="dataIni" value="#{pesquisaController.dataInicio}" showOn="button"/>
+						<p:calendar id="dataIni" value="#{pesquisaController.dataInicio}"
+							showOn="button" />
 						<h:outputText value=" à " />
 						<p:outputLabel value="Data Fim" for="dataFim" />
-						<p:calendar id="dataFim" value="#{pesquisaController.dataFim}" showOn="button"/>
+						<p:calendar id="dataFim" value="#{pesquisaController.dataFim}"
+							showOn="button" />
 					</h:panelGrid>
 				</h:panelGrid>
-				
-				<p:commandButton value="Buscar" action="#{pesquisaController.buscar}" style="float: right;" ajax="false"/>
+
+				<p:commandButton value="Buscar"
+					action="#{pesquisaController.buscar}" style="float: right;"
+					ajax="false" />
+
+				<p:commandButton value="Stream em Tempo Real"
+					actionListener="#{pesquisaController.filtroTempoReal}"
+					style="float: right;"
+					rendered="#{!pesquisaController.renderizarStream}" update="form" />
 			</p:fieldset>
+
+
+			<p:commandButton id="buttonPararStream" value="Parar Stream"
+				actionListener="#{pesquisaController.stopFiltroTempoReal}"
+				style="float: right;"
+				rendered="#{pesquisaController.renderizarStream}" update="form" />
+
+			<p:fieldset id="fieldsetStream" legend="Stream Tempo Real"
+				rendered="#{pesquisaController.renderizarStream}">
+				<h:outputText value="#{pesquisaController.stream}" escape="false" />
+			</p:fieldset>
+			<p:poll interval="1" update=":form:fieldsetStream"
+				listener="#{pesquisaController.verStream}" />
+			<p:sticky target=":form:buttonPararStream"
+				rendered="#{pesquisaController.renderizarStream}" />
 		</h:form>
 	</ui:define>
 </ui:composition>

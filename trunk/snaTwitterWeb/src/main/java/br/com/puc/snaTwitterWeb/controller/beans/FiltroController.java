@@ -2,7 +2,6 @@ package br.com.puc.snaTwitterWeb.controller.beans;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
@@ -17,11 +16,17 @@ import javax.faces.event.ActionEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
+import twitter4j.StatusListener;
+import twitter4j.TwitterStream;
+import twitter4j.TwitterStreamFactory;
 import br.com.puc.appSNA.model.beans.Filtro;
 import br.com.puc.appSNA.model.dao.FiltroDAO;
 import br.com.puc.appSNA.model.dao.FiltroDAOImpl;
+import br.com.puc.appSNA.model.enumeration.AuthEnum;
+import br.com.puc.appSNA.model.listener.SNATwitterStatusListenerArquivo;
 import br.com.puc.appSNA.util.AppSNALog;
 import br.com.puc.appSNA.util.Constantes;
+import br.com.puc.appSNA.util.TwitterUtil;
 import br.com.puc.snaTwitterWeb.util.FacesUtil;
 
 @ManagedBean(name = "filtroController")
@@ -51,7 +56,7 @@ public class FiltroController implements Serializable {
 		graphml = new DefaultStreamedContent(input, "application/graphml",
 				graphmlString);
 	}
-
+	
 	public void excluirFiltro(ActionEvent ev) throws Exception {
 		try {
 			Map<String, String> params = FacesContext.getCurrentInstance()

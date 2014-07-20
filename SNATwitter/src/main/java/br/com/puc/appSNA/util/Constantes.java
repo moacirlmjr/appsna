@@ -25,6 +25,9 @@ public class Constantes {
 	
 	public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 
-//	public static final String DIR_GRAPHML = "/usr/local/appSNA/graphmls/";
+//	public static final String DIR = "/usr/local/appSNA/";
+	public static final String DIR = "E:\\DESENVOLVIMENTO\\appSNA\\";
+
+//	public static final String DIR_GRAPHML = DIR + "/usr/local/appSNA/graphmls/";
 	public static final String DIR_GRAPHML = "E:\\DESENVOLVIMENTO\\appSNA\\";
 }

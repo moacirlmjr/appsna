@@ -197,6 +197,51 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		}
 		return elem;
 	}
+	
+	@Override
+	public Usuario findByScreenName(String screenName) throws Exception {
+		String query = "select id_usuario, nome,screen_name,biografia,"
+				+ "localizacao,total_following,total_followers,total_tweets,"
+				+ "URL,timezone,linguagem,data_criacao,url_imagem, '1' as 'Tipo' "
+				+ "from usuario "
+				+ "where screen_name = ? ";
+
+		PreparedStatement stmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		Usuario elem = new Usuario();
+
+		try {
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER,
+					Constantes.SENHA);
+			stmt = conn.prepareStatement(query);
+			stmt.setString(1, screenName);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				elem.setId_usuario(rs.getLong(1));
+				elem.setNome(rs.getString(2));
+				elem.setScreename(rs.getString(3));
+				elem.setBiografia(rs.getString(4));
+				elem.setLocalização(rs.getString(5));
+				elem.setTotalFollowing(rs.getInt(6));
+				elem.setTotalFollowers(rs.getInt(7));
+				elem.setTotalTweets(rs.getInt(8));
+				elem.setURL(rs.getString(9));
+				elem.setTimeZone(rs.getString(10));
+				elem.setLinguagem(rs.getString(11));
+				elem.setDataDeCriacao(rs.getTimestamp(12));
+				elem.setURLImagem(rs.getString(13));
+				break;
+			}
+		} catch (SQLException e) {
+			AppSNALog.error(e.toString());
+		} finally {
+			conn.close();
+		}
+		return elem;
+	}
+
 
 	@Override
 	public List<Usuario> list() throws Exception {

@@ -10,12 +10,7 @@
 	<ui:define name="content">
 			Seja Bem Vindo!
 		<h:form id="form">
-			<p:commandLink value="Buscas Geradas"
-				action="paginas/listFiltros.jsf">
-
-			</p:commandLink>
-			<p:fieldset legend="Filtros" style="width: 800px"
-				rendered="#{!pesquisaController.renderizarStream}">
+			<p:fieldset legend="Filtros" style="width: 800px">
 				<h:panelGrid columns="1">
 					<h:panelGrid columns="3">
 						<p:outputLabel value="ScreenName" for="screenName" />
@@ -121,30 +116,10 @@
 					</h:panelGrid>
 				</h:panelGrid>
 
-				<p:commandButton value="Buscar"
+				<p:commandButton value="Buscar" title="Pesquisa na Base de dados os resultados correspondentes ao filtro"
 					action="#{pesquisaController.buscar}" style="float: right;"
 					ajax="false" />
-
-				<p:commandButton value="Stream em Tempo Real"
-					actionListener="#{pesquisaController.filtroTempoReal}"
-					style="float: right;"
-					rendered="#{!pesquisaController.renderizarStream}" update="form" />
 			</p:fieldset>
-
-
-			<p:commandButton id="buttonPararStream" value="Parar Stream"
-				actionListener="#{pesquisaController.stopFiltroTempoReal}"
-				style="float: right;"
-				rendered="#{pesquisaController.renderizarStream}" update="form" />
-
-			<p:fieldset id="fieldsetStream" legend="Stream Tempo Real"
-				rendered="#{pesquisaController.renderizarStream}">
-				<h:outputText value="#{pesquisaController.stream}" escape="false" />
-			</p:fieldset>
-			<p:poll interval="1" update=":form:fieldsetStream"
-				listener="#{pesquisaController.verStream}" />
-			<p:sticky target=":form:buttonPararStream"
-				rendered="#{pesquisaController.renderizarStream}" />
 		</h:form>
 	</ui:define>
 </ui:composition>

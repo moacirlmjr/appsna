@@ -133,4 +133,32 @@ public class Usuario extends AppSNAEntityMaster {
 		URLImagem = uRLImagem;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((id_usuario == null) ? 0 : id_usuario.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (id_usuario == null) {
+			if (other.id_usuario != null)
+				return false;
+		} else if (id_usuario.longValue() != other.id_usuario.longValue())
+			return false;
+		return true;
+	}
+	
+	
+
 }

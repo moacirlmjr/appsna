@@ -14,6 +14,13 @@
 
 
 <h:body>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Buscas Geradas" action="paginas/listFiltros.jsf" />
+			<p:menuitem value="Stream em Tempo Real"
+				action="paginas/streamTempoReal.jsf" />
+		</p:menubar>
+	</h:form>
 	<p:growl globalOnly="true" id="messages" redisplay="false"
 		autoUpdate="true" />
 	<ui:insert name="content"></ui:insert>

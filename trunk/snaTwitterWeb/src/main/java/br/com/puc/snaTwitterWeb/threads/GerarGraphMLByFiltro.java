@@ -14,6 +14,7 @@ import br.com.puc.appSNA.model.dao.StatusDAO;
 import br.com.puc.appSNA.model.dao.StatusDAOImpl;
 import br.com.puc.appSNA.model.dao.UsuarioDAO;
 import br.com.puc.appSNA.model.dao.UsuarioDAOImpl;
+import br.com.puc.appSNA.util.AppSNALog;
 import br.com.puc.appSNA.util.Constantes;
 import br.com.puc.appSNA.util.PaperUtil;
 import br.com.puc.appSNA.util.XMLUtil;
@@ -24,6 +25,7 @@ public class GerarGraphMLByFiltro implements Runnable {
 
 	@Override
 	public void run() {
+		AppSNALog.info("Entrou na Tread - Filtro: " + filtro.toString());
 		StatusDAO statusDAO = new StatusDAOImpl();
 		try {
 			List<MencaoTO> list = statusDAO.listByFiltro(filtro);
@@ -69,10 +71,11 @@ public class GerarGraphMLByFiltro implements Runnable {
 			try {
 				filtroDAO.update(filtro);
 			} catch (Exception e1) {
-				e1.printStackTrace();
+				AppSNALog.error(e1);
 			}
-			e.printStackTrace();
+			AppSNALog.error(e);
 		}
+		AppSNALog.info("Terminou Tread - Filtro: " + filtro.toString());
 	}
 
 	public Filtro getFiltro() {

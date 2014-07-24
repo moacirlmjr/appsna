@@ -14,7 +14,7 @@
 				<h:outputText value="Inicio" />
 			</h:outputLink>
 			
-			<p:poll interval="10" update="@form"/>
+			<p:poll interval="3" update=":form"/>
 			
 			<p:dataTable id="tableFiltros"  value="#{filtroController.listFiltros}" var="filtro" paginator="true">
 				<f:facet name="header" >
@@ -57,14 +57,16 @@
 				
 				<p:column headerText="Graphml">
 					<p:graphicImage title="Erro" url="imagens/erro.png" rendered="#{filtro.status == 'ERRO'}"/>
-					<p:graphicImage title="Analisando" url="imagens/ajax-loader.gif" rendered="#{filtro.status == 'ANALISANDO'}"/>
+					<p:graphicImage title="Consultando" url="imagens/sql-icon.png" rendered="#{filtro.status == 'CONSULTANDO'}"/>
+					<p:graphicImage title="Gerando Graphml" url="imagens/5-128.png" width="16" rendered="#{filtro.status == 'GERANDOGRAPHML'}"/>
+					<p:graphicImage title="Analisando" url="imagens/ajax-loader.gif" rendered="#{filtro.status != 'ERRO' and filtro.status != 'TERMINADO'}"/>
 					<p:commandLink value="#{filtro.endGraphml}" actionListener="#{filtroController.carregarGraphml}" oncomplete="document.getElementById('form:linkDonwload').click();" rendered="#{filtro.status == 'TERMINADO'}">
 						<f:param name="graphml" value="#{filtro.endGraphml}"></f:param>
 					</p:commandLink>
 				</p:column>
 				
 				<p:column headerText="Excluir">
-					<p:commandLink value="x" actionListener="#{filtroController.excluirFiltro}" rendered="#{filtro.status != 'ANALISANDO'}" update=":form:tableFiltros">
+					<p:commandLink value="x" actionListener="#{filtroController.excluirFiltro}" rendered="#{filtro.status != 'ANALISANDO'}" update=":form">
 						<f:param name="filtro" value="#{filtro.id}"></f:param>
 					</p:commandLink>
 				</p:column>

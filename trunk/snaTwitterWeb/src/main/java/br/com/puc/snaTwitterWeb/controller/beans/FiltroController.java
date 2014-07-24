@@ -39,12 +39,6 @@ public class FiltroController implements Serializable {
 
 	public FiltroController() {
 		filtro = new Filtro();
-		FiltroDAO filtroDAO = new FiltroDAOImpl();
-		try {
-			listFiltros = filtroDAO.list();
-		} catch (Exception e) {
-			AppSNALog.error(e);
-		}
 	}
 
 	public void carregarGraphml(ActionEvent ev) throws Exception {
@@ -86,6 +80,12 @@ public class FiltroController implements Serializable {
 	}
 
 	public List<Filtro> getListFiltros() {
+		FiltroDAO filtroDAO = new FiltroDAOImpl();
+		try {
+			listFiltros = filtroDAO.list();
+		} catch (Exception e) {
+			AppSNALog.error(e);
+		}
 		return listFiltros;
 	}
 

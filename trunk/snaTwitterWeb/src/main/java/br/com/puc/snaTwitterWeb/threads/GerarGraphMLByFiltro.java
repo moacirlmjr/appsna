@@ -28,9 +28,12 @@ public class GerarGraphMLByFiltro implements Runnable {
 		AppSNALog.info("Entrou na Tread - Filtro: " + filtro.toString());
 		StatusDAO statusDAO = new StatusDAOImpl();
 		try {
+			FiltroDAO filtroDAO = new FiltroDAOImpl();
 			List<MencaoTO> list = statusDAO.listByFiltro(filtro);
 
-			UsuarioDAO userDAO = new UsuarioDAOImpl();
+			filtro.setStatus("GERANDOGRAPHML");
+			filtroDAO.update(filtro);
+
 			List<NodeTO> listNodeTo = new LinkedList<>();
 			List<EdgeTO> listEdgeTo = new LinkedList<>();
 
@@ -39,14 +42,10 @@ public class GerarGraphMLByFiltro implements Runnable {
 				Long idUserDestino = mencao.getIdTwitterDestino();
 				Integer qteMencoes = mencao.getQteMencoes();
 
-				Usuario userOrigem;
-				userOrigem = userDAO.findById(idUserOrigem);
-				Usuario userDestino = userDAO.findById(idUserDestino);
-
-				listNodeTo.add(new NodeTO(idUserOrigem, userOrigem
-						.getScreename()));
-				listNodeTo.add(new NodeTO(idUserDestino, userDestino
-						.getScreename()));
+				listNodeTo.add(new NodeTO(idUserOrigem, mencao
+						.getOrigem()));
+				listNodeTo.add(new NodeTO(idUserDestino, mencao
+						.getDestino()));
 
 				listEdgeTo.add(new EdgeTO(idUserOrigem, idUserDestino,
 						qteMencoes));
@@ -63,7 +62,6 @@ public class GerarGraphMLByFiltro implements Runnable {
 					+ filtro.getEndGraphml());
 
 			filtro.setStatus("TERMINADO");
-			FiltroDAO filtroDAO = new FiltroDAOImpl();
 			filtroDAO.update(filtro);
 		} catch (Exception e) {
 			filtro.setStatus("ERRO");

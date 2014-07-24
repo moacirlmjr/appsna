@@ -11,11 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -34,6 +36,7 @@ import br.com.puc.appSNA.model.listener.SNATwitterStatusListenerArquivo;
 import br.com.puc.appSNA.util.AppSNALog;
 import br.com.puc.appSNA.util.Constantes;
 import br.com.puc.appSNA.util.TwitterUtil;
+import br.com.puc.snaTwitterWeb.util.FacesUtil;
 
 @ManagedBean(name = "streamTempoRealController")
 @SessionScoped
@@ -62,7 +65,7 @@ public class StreamTempoRealController implements Serializable {
 		try {
 			twitterStream = new TwitterStreamFactory(
 					TwitterUtil
-							.createConfigurationBuilder(AuthEnum.MOACIR_KEY2))
+							.createConfigurationBuilder(AuthEnum.MOACIR_KEY4))
 					.getInstance();
 			twitter = new TwitterFactory(
 					TwitterUtil
@@ -78,15 +81,21 @@ public class StreamTempoRealController implements Serializable {
 				.getExternalContext().getRequestParameterMap();
 		String action = params.get("action");
 
-		if (action.equals("usuario")) {
-			if(!users.contains(user)){
-				users.add(user);
-			}
-			user = new Usuario();
-		} else if (action.equals("termo")) {
+		if (action.equals("termo")) {
 			termos.add(termo);
+			FacesUtil.registrarFacesMessage("Termo Adicionado",
+					FacesMessage.SEVERITY_INFO);
 			termo = "";
 		}
+	}
+
+	public void onItemSelect(SelectEvent event) {
+		if (!users.contains(user)) {
+			users.add(user);
+			FacesUtil.registrarFacesMessage("Usuário Adicionado",
+					FacesMessage.SEVERITY_INFO);
+		}
+		user = new Usuario();
 	}
 
 	public void remover(ActionEvent ev) {
@@ -99,8 +108,12 @@ public class StreamTempoRealController implements Serializable {
 				UsuarioDAO uDAO = new UsuarioDAOImpl();
 				Usuario u = uDAO.findByScreenName(valor);
 				users.remove(u);
+				FacesUtil.registrarFacesMessage("Usuário Removido",
+						FacesMessage.SEVERITY_INFO);
 			} else if (action.equals("termo")) {
 				termos.remove(valor);
+				FacesUtil.registrarFacesMessage("Termo Removido",
+						FacesMessage.SEVERITY_INFO);
 			}
 		} catch (Exception e) {
 			AppSNALog.error(e.toString());
@@ -118,6 +131,8 @@ public class StreamTempoRealController implements Serializable {
 					}
 				}
 			}
+			FacesUtil.registrarFacesMessage(listUsers.size()
+					+ " Usuário(s) Encontrado(s)", FacesMessage.SEVERITY_INFO);
 			return listUsers;
 		} catch (Exception e) {
 			AppSNALog.error(e.toString());
@@ -171,19 +186,31 @@ public class StreamTempoRealController implements Serializable {
 			users = new ArrayList<>();
 			termos = new ArrayList<>();
 		} catch (Exception e) {
+			if (e.getMessage().contains(
+					"Too many login attempts in a short period of time.")) {
+				FacesUtil.registrarFacesMessage(
+						"Limite de Conexões Execedido Tente Mais Tarde",
+						FacesMessage.SEVERITY_ERROR);
+				renderizarStream = false;
+				twitterStream.shutdown();
+				user = new Usuario();
+			}
 			AppSNALog.error(e.toString());
 		}
 	}
 
 	public void stopFiltroTempoReal() {
-		twitterStream.shutdown();
-		renderizarStream = false;
 		try {
+			twitterStream.shutdown();
+			user = new Usuario();
+			renderizarStream = false;
 			arquivo = new DefaultStreamedContent(new FileInputStream(
 					Constantes.DIR + "streamCompleto.txt"), "application/txt",
 					"StreamCompleto.txt");
+			FacesUtil.registrarFacesMessage("Stream Parado", FacesMessage.SEVERITY_INFO);
 		} catch (FileNotFoundException e) {
 			AppSNALog.error(e.toString());
+			FacesUtil.registrarFacesMessage("Erro ao Terminar Stream", FacesMessage.SEVERITY_ERROR);
 		}
 	}
 

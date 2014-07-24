@@ -2,10 +2,12 @@ package br.com.puc.appSNA.model.beans.to;
 
 import java.io.Serializable;
 
-public class MencaoTO implements Serializable{
+public class MencaoTO implements Serializable {
 
 	private Long idTwitterOrigem;
+	private String origem;
 	private Long idTwitterDestino;
+	private String destino;
 	private Integer qteMencoes;
 
 	public Long getIdTwitterOrigem() {
@@ -30,6 +32,22 @@ public class MencaoTO implements Serializable{
 
 	public void setQteMencoes(Integer qteMencoes) {
 		this.qteMencoes = qteMencoes;
+	}
+
+	public String getOrigem() {
+		return origem;
+	}
+
+	public void setOrigem(String origem) {
+		this.origem = origem;
+	}
+
+	public String getDestino() {
+		return destino;
+	}
+
+	public void setDestino(String destino) {
+		this.destino = destino;
 	}
 
 }

@@ -1,5 +1,8 @@
 package br.com.puc.appSNA.util;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import org.apache.log4j.Logger;
 
 
@@ -16,6 +19,14 @@ public class AppSNALog {
 		} catch (Exception e) {
 			System.out.println("Não foi possível criar o mecanismo de log.");
 		}
+	}
+	
+	private static String tratarExcecao(Exception e){
+		StringWriter strWriter = new StringWriter();
+		PrintWriter writer = new PrintWriter(strWriter);
+		e.printStackTrace(writer);
+		writer.close();
+		return strWriter.getBuffer().toString();
 	}
 
 	public static void debug(String message) {
@@ -39,19 +50,19 @@ public class AppSNALog {
 	}
 
 	public static void debug(Exception e) {
-		logger.debug(e.getCause().getMessage());
+		logger.debug(tratarExcecao(e));
 	}
 
 	public static void info(Exception e) {
-		logger.info(e.getCause().getMessage());
+		logger.info(tratarExcecao(e));
 	}
 
 	public static void warn(Exception e) {
-		logger.warn(e.getCause().getMessage());
+		logger.warn(tratarExcecao(e));
 	}
 
 	public static void error(Exception e) {
-		logger.error(e.getCause().getMessage());
+		logger.error(tratarExcecao(e));
 	}
 
 }

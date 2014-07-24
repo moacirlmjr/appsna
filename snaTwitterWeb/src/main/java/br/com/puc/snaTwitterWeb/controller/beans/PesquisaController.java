@@ -60,15 +60,23 @@ public class PesquisaController implements Serializable {
 		if (action.equals("screenName")) {
 			screenNames.add(screenName);
 			screenName = "";
+			FacesUtil.registrarFacesMessage("Screenname Adicionado",
+					FacesMessage.SEVERITY_INFO);
 		} else if (action.equals("biografia")) {
 			biografias.add(biografia);
 			biografia = "";
+			FacesUtil.registrarFacesMessage("Biografia Adicionada",
+					FacesMessage.SEVERITY_INFO);
 		} else if (action.equals("localizacao")) {
 			localizacoes.add(localizacao);
 			localizacao = "";
+			FacesUtil.registrarFacesMessage("Localização Adicionada",
+					FacesMessage.SEVERITY_INFO);
 		} else if (action.equals("termo")) {
 			termos.add(termo);
 			termo = "";
+			FacesUtil.registrarFacesMessage("Termo Adicionado",
+					FacesMessage.SEVERITY_INFO);
 		}
 	}
 
@@ -80,12 +88,20 @@ public class PesquisaController implements Serializable {
 
 		if (action.equals("screenName")) {
 			screenNames.remove(valor);
+			FacesUtil.registrarFacesMessage("Screenname Removido",
+					FacesMessage.SEVERITY_INFO);
 		} else if (action.equals("biografia")) {
 			biografias.remove(valor);
+			FacesUtil.registrarFacesMessage("Biografia Removida",
+					FacesMessage.SEVERITY_INFO);
 		} else if (action.equals("localizacao")) {
 			localizacoes.remove(valor);
+			FacesUtil.registrarFacesMessage("Localização Removida",
+					FacesMessage.SEVERITY_INFO);
 		} else if (action.equals("termo")) {
 			termos.remove(valor);
+			FacesUtil.registrarFacesMessage("Termo Removido",
+					FacesMessage.SEVERITY_INFO);
 		}
 	}
 
@@ -96,7 +112,7 @@ public class PesquisaController implements Serializable {
 				+ ".graphml");
 		filtro.setDataInicio(dataInicio);
 		filtro.setDataFim(dataFim);
-		filtro.setStatus("ANALISANDO");
+		filtro.setStatus("CONSULTANDO");
 
 		try {
 			if (screenNames.size() != 0) {

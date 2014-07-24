@@ -238,9 +238,10 @@ public class StatusDAOImpl implements StatusDAO {
 
 	@Override
 	public List<MencaoTO> listByFiltro(Filtro filtro) throws Exception {
-		String queryPrincipal = "select id_usuario, id_user_mentionade, count(*) from usermention"
-				+ " where id_status in (select id_status from status where texto like '%@%' "; // falta
-																								// parentese
+		String queryPrincipal = "select u2.id_usuario,(select screen_name from usuario u where u.id_usuario = u2.id_usuario ) as origem, "
+				+ "id_user_mentionade,(select screen_name from usuario u where u.id_usuario = u2.id_user_mentionade) as destino, count(*) "
+				+ "from usermention u2"
+				+ " where id_status in (select id_status from status where texto like '%@%' "; 
 		String queryUsuarioStatus = "";
 		String groupBy = "group by id_usuario, id_user_mentionade";
 
@@ -359,13 +360,12 @@ public class StatusDAOImpl implements StatusDAO {
 			while (rs.next()) {
 				sta = new MencaoTO();
 				sta.setIdTwitterOrigem(rs.getLong(1));
-				sta.setIdTwitterDestino(rs.getLong(2));
-				sta.setQteMencoes(rs.getInt(3));
+				sta.setOrigem(rs.getString(2));
+				sta.setIdTwitterDestino(rs.getLong(3));
+				sta.setDestino(rs.getString(4));
+				sta.setQteMencoes(rs.getInt(5));
 				listMencoes.add(sta);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			AppSNALog.error(e);
 		} finally {
 			conn.close();
 		}

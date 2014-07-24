@@ -14,6 +14,52 @@ public class Filtro extends AppSNAEntityMaster {
 	private String endGraphml;
 	private String status;
 
+	private boolean grau;
+	private boolean grauEntrada;
+	private boolean grauSaida;
+	private boolean pageRank;
+	private boolean betweeness;
+
+	public boolean isGrau() {
+		return grau;
+	}
+
+	public void setGrau(boolean grau) {
+		this.grau = grau;
+	}
+
+	public boolean isGrauEntrada() {
+		return grauEntrada;
+	}
+
+	public void setGrauEntrada(boolean grauEntrada) {
+		this.grauEntrada = grauEntrada;
+	}
+
+	public boolean isGrauSaida() {
+		return grauSaida;
+	}
+
+	public void setGrauSaida(boolean grauSaida) {
+		this.grauSaida = grauSaida;
+	}
+
+	public boolean isPageRank() {
+		return pageRank;
+	}
+
+	public void setPageRank(boolean pageRank) {
+		this.pageRank = pageRank;
+	}
+
+	public boolean isBetweeness() {
+		return betweeness;
+	}
+
+	public void setBetweeness(boolean betweeness) {
+		this.betweeness = betweeness;
+	}
+
 	public String getStatus() {
 		return status;
 	}
@@ -85,10 +131,12 @@ public class Filtro extends AppSNAEntityMaster {
 	public void setEndGraphml(String endGraphml) {
 		this.endGraphml = endGraphml;
 	}
-	
+
 	@Override
 	public String toString() {
-		return dataCriacao.toString() + " - Screeenames: " + screenNames + " - Biografias: " + biografias + " - Loc: " + localizacoes + " - Termos: " + termosStatus + " - Situacao: " + status ;
+		return dataCriacao.toString() + " - Screeenames: " + screenNames
+				+ " - Biografias: " + biografias + " - Loc: " + localizacoes
+				+ " - Termos: " + termosStatus + " - Situacao: " + status;
 	}
 
 }

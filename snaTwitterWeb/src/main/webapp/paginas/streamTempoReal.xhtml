@@ -9,17 +9,23 @@
 <ui:composition template="/paginas/template/main.xhtml">
 	<ui:define name="content">
 		<h:form id="form">
+			<p:poll id="teste" widgetVar="poll" interval="1"
+				update=":form:fieldsetStream"
+				listener="#{streamTempoRealController.verStream}" />
 			<p:panel header="Stream em Tempo Real" style="width: 800px"
 				rendered="#{!streamTempoRealController.renderizarStream}">
 				<h:panelGrid columns="1">
-					<h:panelGrid columns="3">
+					<h:panelGrid id="gridUsuario" columns="3">
 						<p:outputLabel value="Usuário" for="usuario" />
 						<p:autoComplete id="usuario"
 							value="#{streamTempoRealController.user}"
 							completeMethod="#{streamTempoRealController.completeUser}"
 							var="user" itemLabel="#{user.screename}" itemValue="#{user}"
 							converter="userConverter" forceSelection="true">
-
+							<p:ajax event="itemSelect"
+								listener="#{streamTempoRealController.onItemSelect}"
+								update=":form">
+							</p:ajax>
 							<p:column>
 								<p:graphicImage url="#{user.URLImagem}" />
 							</p:column>
@@ -28,20 +34,15 @@
 								<h:outputText value="#{user.screename}" />
 							</p:column>
 						</p:autoComplete>
-						<p:commandButton value="Adicionar"
-							actionListener="#{streamTempoRealController.adicionar}"
-							update=":form">
-							<f:param name="action" value="usuario" />
-						</p:commandButton>
 					</h:panelGrid>
 
-					<p:dataGrid id="dataGridScreenName" var="user" emptyMessage="" 
+					<p:dataGrid id="dataGridScreenName" var="user" emptyMessage=""
 						value="#{streamTempoRealController.users}" columns="5">
 						<h:panelGrid columns="3">
 							<p:graphicImage url="#{user.URLImagem}" />
 							<h:outputText value="#{user.screename}" />
 
-							<p:commandButton 
+							<p:commandButton
 								actionListener="#{streamTempoRealController.remover}"
 								update=":form:dataGridScreenName" icon="ui-icon-close" value="">
 								<f:param name="action" value="usuario" />
@@ -78,17 +79,17 @@
 
 				<p:commandButton value="Começar Stream"
 					actionListener="#{streamTempoRealController.filtroTempoReal}"
-					style="float: right;" oncomplete="poll.start();"
+					style="float: right;"
 					rendered="#{!streamTempoRealController.renderizarStream}"
 					update="form" />
 			</p:panel>
 
 
 			<p:commandButton id="buttonPararStream" value="Parar Stream"
-				actionListener="#{streamTempoRealController.stopFiltroTempoReal}"
-				style="float: right;"
+				action="#{streamTempoRealController.stopFiltroTempoReal}"
+				style="float: right;" ajax="false"
 				rendered="#{streamTempoRealController.renderizarStream}"
-				update="form">
+				update=":form">
 				<p:fileDownload value="#{streamTempoRealController.arquivo}" />
 			</p:commandButton>
 
@@ -97,10 +98,6 @@
 				<h:outputText value="#{streamTempoRealController.stream}"
 					escape="false" />
 			</p:panel>
-			<p:poll widgetVar="poll" interval="1" update=":form:fieldsetStream" autoStart="false"
-				listener="#{streamTempoRealController.verStream}" />
-			<p:sticky target=":form:buttonPararStream"
-				rendered="#{streamTempoRealController.renderizarStream}" />
 		</h:form>
 	</ui:define>
 </ui:composition>

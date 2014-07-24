@@ -21,6 +21,7 @@ public class SNATwitterStatusListenerArquivo implements StatusListener {
 	public void onStatus(Status statusTwitter) {
 		try {
 			synchronized (statusTwitter) {
+				
 				File file = new File(Constantes.DIR + "stream.txt");
 				InputStream is = new FileInputStream(file);
 				InputStreamReader isr = new InputStreamReader(is);
@@ -37,8 +38,17 @@ public class SNATwitterStatusListenerArquivo implements StatusListener {
 					}
 				}
 				
-				
 				FileOutputStream fos = new FileOutputStream(file,true); 
+				fos.write(("<strong>" + statusTwitter.getUser().getScreenName() + ": </strong> "
+						+ statusTwitter.getText() + "\n").getBytes());  
+				fos.flush();
+				fos.close();
+				
+				file = new File(Constantes.DIR + "streamCompleto.txt");
+				is = new FileInputStream(file);
+				isr = new InputStreamReader(is);
+				br = new BufferedReader(isr);
+				fos = new FileOutputStream(file,true);
 				fos.write(("<strong>" + statusTwitter.getUser().getScreenName() + ": </strong> "
 						+ statusTwitter.getText() + "\n").getBytes());  
 				fos.flush();

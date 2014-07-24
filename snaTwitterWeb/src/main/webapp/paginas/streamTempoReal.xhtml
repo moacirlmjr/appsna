@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/paginas/template/main.xhtml">
+	<ui:define name="content">
+		<h:form id="form">
+			<p:panel header="Stream em Tempo Real" style="width: 800px"
+				rendered="#{!streamTempoRealController.renderizarStream}">
+				<h:panelGrid columns="1">
+					<h:panelGrid columns="3">
+						<p:outputLabel value="Usuário" for="usuario" />
+						<p:autoComplete id="usuario"
+							value="#{streamTempoRealController.user}"
+							completeMethod="#{streamTempoRealController.completeUser}"
+							var="user" itemLabel="#{user.screename}" itemValue="#{user}"
+							converter="userConverter" forceSelection="true">
+
+							<p:column>
+								<p:graphicImage url="#{user.URLImagem}" />
+							</p:column>
+
+							<p:column>
+								<h:outputText value="#{user.screename}" />
+							</p:column>
+						</p:autoComplete>
+						<p:commandButton value="Adicionar"
+							actionListener="#{streamTempoRealController.adicionar}"
+							update=":form">
+							<f:param name="action" value="usuario" />
+						</p:commandButton>
+					</h:panelGrid>
+
+					<p:dataGrid id="dataGridScreenName" var="user" emptyMessage="" 
+						value="#{streamTempoRealController.users}" columns="5">
+						<h:panelGrid columns="3">
+							<p:graphicImage url="#{user.URLImagem}" />
+							<h:outputText value="#{user.screename}" />
+
+							<p:commandButton 
+								actionListener="#{streamTempoRealController.remover}"
+								update=":form:dataGridScreenName" icon="ui-icon-close" value="">
+								<f:param name="action" value="usuario" />
+								<f:param name="valor" value="#{user.screename}" />
+							</p:commandButton>
+						</h:panelGrid>
+					</p:dataGrid>
+
+					<h:panelGrid columns="3">
+						<p:outputLabel value="Termos" for="termos" />
+						<p:inputText id="termos"
+							value="#{streamTempoRealController.termo}" />
+						<p:commandButton value="Adicionar"
+							actionListener="#{streamTempoRealController.adicionar}"
+							update=":form">
+							<f:param name="action" value="termo" />
+						</p:commandButton>
+					</h:panelGrid>
+
+					<p:dataGrid id="dataGridTermo" var="termo" emptyMessage=""
+						value="#{streamTempoRealController.termos}" columns="5">
+						<h:panelGrid columns="2">
+							<h:outputText value="#{termo}" />
+
+							<p:commandButton
+								actionListener="#{streamTempoRealController.remover}"
+								update=":form:dataGridTermo" icon="ui-icon-close" value="">
+								<f:param name="action" value="termo" />
+								<f:param name="valor" value="#{termo}" />
+							</p:commandButton>
+						</h:panelGrid>
+					</p:dataGrid>
+				</h:panelGrid>
+
+				<p:commandButton value="Começar Stream"
+					actionListener="#{streamTempoRealController.filtroTempoReal}"
+					style="float: right;" oncomplete="poll.start();"
+					rendered="#{!streamTempoRealController.renderizarStream}"
+					update="form" />
+			</p:panel>
+
+
+			<p:commandButton id="buttonPararStream" value="Parar Stream"
+				actionListener="#{streamTempoRealController.stopFiltroTempoReal}"
+				style="float: right;"
+				rendered="#{streamTempoRealController.renderizarStream}"
+				update="form">
+				<p:fileDownload value="#{streamTempoRealController.arquivo}" />
+			</p:commandButton>
+
+			<p:panel id="fieldsetStream" header="Stream Tempo Real"
+				rendered="#{streamTempoRealController.renderizarStream}">
+				<h:outputText value="#{streamTempoRealController.stream}"
+					escape="false" />
+			</p:panel>
+			<p:poll widgetVar="poll" interval="1" update=":form:fieldsetStream" autoStart="false"
+				listener="#{streamTempoRealController.verStream}" />
+			<p:sticky target=":form:buttonPararStream"
+				rendered="#{streamTempoRealController.renderizarStream}" />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

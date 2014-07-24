@@ -85,5 +85,10 @@ public class Filtro extends AppSNAEntityMaster {
 	public void setEndGraphml(String endGraphml) {
 		this.endGraphml = endGraphml;
 	}
+	
+	@Override
+	public String toString() {
+		return dataCriacao.toString() + " - Screeenames: " + screenNames + " - Biografias: " + biografias + " - Loc: " + localizacoes + " - Termos: " + termosStatus + " - Situacao: " + status ;
+	}
 
 }

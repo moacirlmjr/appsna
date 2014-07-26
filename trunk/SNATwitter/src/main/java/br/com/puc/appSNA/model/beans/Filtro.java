@@ -15,10 +15,17 @@ public class Filtro extends AppSNAEntityMaster {
 	private String status;
 
 	private boolean grau;
-	private boolean grauEntrada;
-	private boolean grauSaida;
 	private boolean pageRank;
-	private boolean betweeness;
+	private boolean centralidade;
+	private boolean direcionado;
+
+	public boolean isDirecionado() {
+		return direcionado;
+	}
+
+	public void setDirecionado(boolean direcionado) {
+		this.direcionado = direcionado;
+	}
 
 	public boolean isGrau() {
 		return grau;
@@ -26,46 +33,6 @@ public class Filtro extends AppSNAEntityMaster {
 
 	public void setGrau(boolean grau) {
 		this.grau = grau;
-	}
-
-	public boolean isGrauEntrada() {
-		return grauEntrada;
-	}
-
-	public void setGrauEntrada(boolean grauEntrada) {
-		this.grauEntrada = grauEntrada;
-	}
-
-	public boolean isGrauSaida() {
-		return grauSaida;
-	}
-
-	public void setGrauSaida(boolean grauSaida) {
-		this.grauSaida = grauSaida;
-	}
-
-	public boolean isPageRank() {
-		return pageRank;
-	}
-
-	public void setPageRank(boolean pageRank) {
-		this.pageRank = pageRank;
-	}
-
-	public boolean isBetweeness() {
-		return betweeness;
-	}
-
-	public void setBetweeness(boolean betweeness) {
-		this.betweeness = betweeness;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public Date getDataCriacao() {
@@ -132,7 +99,30 @@ public class Filtro extends AppSNAEntityMaster {
 		this.endGraphml = endGraphml;
 	}
 
-	@Override
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public boolean isPageRank() {
+		return pageRank;
+	}
+
+	public void setPageRank(boolean pageRank) {
+		this.pageRank = pageRank;
+	}
+
+	public boolean isCentralidade() {
+		return centralidade;
+	}
+
+	public void setCentralidade(boolean centralidade) {
+		this.centralidade = centralidade;
+	}
+
 	public String toString() {
 		return dataCriacao.toString() + " - Screeenames: " + screenNames
 				+ " - Biografias: " + biografias + " - Loc: " + localizacoes

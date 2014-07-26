@@ -114,9 +114,34 @@
 						<p:calendar id="dataFim" value="#{pesquisaController.dataFim}"
 							showOn="button" />
 					</h:panelGrid>
+
+					<p:fieldset legend="Confirguações do Grafo:">
+						<h:panelGrid columns="6">
+							<p:outputLabel value="Grau" for="grau" />
+							<p:selectBooleanCheckbox id="grau"
+								value="#{pesquisaController.grau}" />
+							<p:tooltip for="grau" value="Calcula Grau, Grau de Entrada e Grau de Saida" />
+
+							<p:outputLabel value="Centralidade" for="centralidade" />
+							<p:selectBooleanCheckbox id="centralidade"
+								value="#{pesquisaController.centralidade}" />
+							<p:tooltip for="centralidade" value="Calcula Closeness, Betwenness e Eccentry" />
+
+							<p:outputLabel value="PageRank" for="pagerank" />
+							<p:selectBooleanCheckbox id="pagerank"
+								value="#{pesquisaController.pageRank}" />
+							<p:tooltip for="pagerank" value="Calcula o PageRank" />
+
+							<p:outputLabel value="Direcionado" for="direcionado" />
+							<p:selectBooleanCheckbox id="direcionado"
+								value="#{pesquisaController.direcionado}" />
+							<p:tooltip for="direcionado" value="Torna o Grafo Direcionado" />
+						</h:panelGrid>
+					</p:fieldset>
 				</h:panelGrid>
 
-				<p:commandButton value="Buscar" title="Pesquisa na Base de dados os resultados correspondentes ao filtro"
+				<p:commandButton value="Buscar"
+					title="Pesquisa na Base de dados os resultados correspondentes ao filtro"
 					action="#{pesquisaController.buscar}" style="float: right;"
 					ajax="false" />
 			</p:fieldset>

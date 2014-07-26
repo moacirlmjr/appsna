@@ -32,6 +32,11 @@ public class PesquisaController implements Serializable {
 	private Date dataInicio;
 	private Date dataFim;
 
+	private boolean grau;
+	private boolean pageRank;
+	private boolean centralidade;
+	private boolean direcionado;
+
 	private Filtro filtro;
 
 	private List<String> screenNames;
@@ -109,7 +114,7 @@ public class PesquisaController implements Serializable {
 		filtro = new Filtro();
 		filtro.setDataCriacao(new Date());
 		filtro.setEndGraphml("rede_" + filtro.getDataCriacao().getTime()
-				+ ".graphml");
+				+ ".gexf");
 		filtro.setDataInicio(dataInicio);
 		filtro.setDataFim(dataFim);
 		filtro.setStatus("CONSULTANDO");
@@ -142,14 +147,27 @@ public class PesquisaController implements Serializable {
 			Long id = filtroDAO.create(filtro);
 			filtro.setId(id);
 
+			filtro.setGrau(grau);
+			filtro.setCentralidade(centralidade);
+			filtro.setPageRank(pageRank);
+			filtro.setDirecionado(direcionado);
+
+			GerarGraphMLByFiltro parser = new GerarGraphMLByFiltro();
+			parser.setFiltro(filtro);
+			exec.submit(parser);
+
 			screenNames = new ArrayList<>();
 			biografias = new ArrayList<>();
 			localizacoes = new ArrayList<>();
 			termos = new ArrayList<>();
 
-			GerarGraphMLByFiltro parser = new GerarGraphMLByFiltro();
-			parser.setFiltro(filtro);
-			exec.submit(parser);
+			grau = false;
+			centralidade = false;
+			pageRank = false;
+			direcionado = false;
+			
+			dataInicio = null;
+			dataFim = null;
 
 			FacesUtil.registrarFacesMessage(
 					"Filtro Salvo com Sucesso. Em breve sua rede será gerada",
@@ -254,5 +272,37 @@ public class PesquisaController implements Serializable {
 
 	public void setFiltro(Filtro filtro) {
 		this.filtro = filtro;
+	}
+
+	public boolean isGrau() {
+		return grau;
+	}
+
+	public void setGrau(boolean grau) {
+		this.grau = grau;
+	}
+
+	public boolean isPageRank() {
+		return pageRank;
+	}
+
+	public void setPageRank(boolean pageRank) {
+		this.pageRank = pageRank;
+	}
+
+	public boolean isCentralidade() {
+		return centralidade;
+	}
+
+	public void setCentralidade(boolean centralidade) {
+		this.centralidade = centralidade;
+	}
+
+	public boolean isDirecionado() {
+		return direcionado;
+	}
+
+	public void setDirecionado(boolean direcionado) {
+		this.direcionado = direcionado;
 	}
 }

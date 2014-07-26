@@ -8,72 +8,85 @@
 
 <ui:composition template="template/main.xhtml">
 	<ui:define name="content">
-			Listagem de Filtros
 		<h:form id="form">
-			<h:outputLink  value="#{facesContext.externalContext.requestContextPath}/index.jsf">
-				<h:outputText value="Inicio" />
-			</h:outputLink>
-			
-			<p:poll interval="3" update=":form"/>
-			
-			<p:dataTable id="tableFiltros"  value="#{filtroController.listFiltros}" var="filtro" paginator="true">
-				<f:facet name="header" >
+			<p:poll interval="1" update=":form"/>
+			<p:dataTable id="tableFiltros"
+				value="#{filtroController.listFiltros}" var="filtro"
+				paginator="true">
+				<f:facet name="header">
 					Lista de Filtros
 				</f:facet>
-				
+
 				<p:column headerText="Criado Em">
-					<h:outputText value="#{filtro.dataCriacao}" >
-						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+					<h:outputText value="#{filtro.dataCriacao}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
 					</h:outputText>
 				</p:column>
-				
+
 				<p:column headerText="ScreenNames">
 					<h:outputText value="#{filtro.screenNames}" />
 				</p:column>
-				
+
 				<p:column headerText="Biografias">
 					<h:outputText value="#{filtro.biografias}" />
 				</p:column>
-				
+
 				<p:column headerText="Localizações">
 					<h:outputText value="#{filtro.localizacoes}" />
 				</p:column>
-				
+
 				<p:column headerText="Termos">
 					<h:outputText value="#{filtro.termosStatus}" />
 				</p:column>
-				
+
 				<p:column headerText="Data Inicio">
-					<h:outputText value="#{filtro.dataInicio}" >
-						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+					<h:outputText value="#{filtro.dataInicio}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
 					</h:outputText>
 				</p:column>
-				
+
 				<p:column headerText="Data Fim">
 					<h:outputText value="#{filtro.dataFim}">
-						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
 					</h:outputText>
 				</p:column>
-				
+
 				<p:column headerText="Graphml">
-					<p:graphicImage title="Erro" url="imagens/erro.png" rendered="#{filtro.status == 'ERRO'}"/>
-					<p:graphicImage title="Consultando" url="imagens/sql-icon.png" rendered="#{filtro.status == 'CONSULTANDO'}"/>
-					<p:graphicImage title="Gerando Graphml" url="imagens/5-128.png" width="16" rendered="#{filtro.status == 'GERANDOGRAPHML'}"/>
-					<p:graphicImage title="Analisando" url="imagens/ajax-loader.gif" rendered="#{filtro.status != 'ERRO' and filtro.status != 'TERMINADO'}"/>
-					<p:commandLink value="#{filtro.endGraphml}" actionListener="#{filtroController.carregarGraphml}" oncomplete="document.getElementById('form:linkDonwload').click();" rendered="#{filtro.status == 'TERMINADO'}">
+					<h:graphicImage title="Erro" value="imagens/erro.png" width="16"
+						rendered="#{filtro.status == 'ERRO'}" />
+					<h:graphicImage title="Consultando" value="imagens/sql-icon.png" width="16"
+						rendered="#{filtro.status == 'CONSULTANDO'}" />
+					<h:graphicImage title="Gerando Graphml" value="imagens/5-128.png" width="16"
+						rendered="#{filtro.status == 'GERANDOGRAPHML'}" />
+					<h:graphicImage title="Calculando Metricas"
+						value="imagens/metrica.png" width="16"
+						rendered="#{filtro.status == 'CALCULANDOMETRICAS'}" />
+					<h:graphicImage title="Analisando" value="imagens/ajax-loader.gif" width="16"
+						rendered="#{filtro.status != 'ERRO' and filtro.status != 'TERMINADO'}" />
+						
+					<p:commandLink value="#{filtro.endGraphml}"
+						actionListener="#{filtroController.carregarGraphml}"
+						oncomplete="document.getElementById('form:linkDonwload').click();"
+						rendered="#{filtro.status == 'TERMINADO'}">
 						<f:param name="graphml" value="#{filtro.endGraphml}"></f:param>
 					</p:commandLink>
 				</p:column>
-				
-				<p:column headerText="Excluir">
-					<p:commandLink value="x" actionListener="#{filtroController.excluirFiltro}" rendered="#{filtro.status != 'ANALISANDO'}" update=":form">
-						<f:param name="filtro" value="#{filtro.id}"></f:param>
-					</p:commandLink>
+
+				<p:column headerText="Ações">
+					<p:commandButton icon="iconRede" title="Ver Rede" styleClass="buttonTable" update=":form"
+						actionListener="#{filtroController.carregarFiltro(filtro)}" rendered="#{filtro.status == 'TERMINADO'}">
+					</p:commandButton>
+
+					<p:commandButton value="x" title="Excluir" styleClass="buttonTable"
+						actionListener="#{filtroController.excluirFiltro(filtro)}"
+						rendered="#{filtro.status != 'ANALISANDO'}" update=":form">
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 			<h:commandLink id="linkDonwload" value="" style="display:hidden;">
 				<p:fileDownload value="#{filtroController.graphml}"></p:fileDownload>
 			</h:commandLink>
+
 		</h:form>
 	</ui:define>
 </ui:composition>

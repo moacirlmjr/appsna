@@ -3,25 +3,35 @@ package br.com.puc.snaTwitterWeb.threads;
 import java.io.File;
 import java.util.List;
 
+import org.gephi.data.attributes.api.AttributeColumn;
 import org.gephi.data.attributes.api.AttributeController;
 import org.gephi.data.attributes.api.AttributeModel;
-import org.gephi.graph.api.DirectedGraph;
 import org.gephi.graph.api.Edge;
 import org.gephi.graph.api.Graph;
 import org.gephi.graph.api.GraphController;
 import org.gephi.graph.api.GraphModel;
 import org.gephi.graph.api.Node;
-import org.gephi.graph.api.UndirectedGraph;
 import org.gephi.io.exporter.api.ExportController;
+import org.gephi.partition.api.Partition;
+import org.gephi.partition.api.PartitionController;
+import org.gephi.partition.plugin.NodeColorTransformer;
 import org.gephi.project.api.ProjectController;
-import org.gephi.project.api.Workspace;
+import org.gephi.ranking.api.Ranking;
+import org.gephi.ranking.api.RankingController;
+import org.gephi.ranking.api.Transformer;
+import org.gephi.ranking.plugin.transformer.AbstractSizeTransformer;
+import org.gephi.statistics.plugin.Degree;
 import org.gephi.statistics.plugin.GraphDistance;
+import org.gephi.statistics.plugin.Modularity;
+import org.gephi.statistics.plugin.PageRank;
 import org.gephi.statistics.plugin.builder.DegreeBuilder;
+import org.gephi.statistics.plugin.builder.ModularityBuilder;
 import org.gephi.statistics.plugin.builder.PageRankBuilder;
 import org.gephi.statistics.spi.Statistics;
 import org.openide.util.Lookup;
 
 import br.com.puc.appSNA.model.beans.Filtro;
+import br.com.puc.appSNA.model.beans.Filtro.TipoRankSize;
 import br.com.puc.appSNA.model.beans.to.MencaoTO;
 import br.com.puc.appSNA.model.dao.FiltroDAO;
 import br.com.puc.appSNA.model.dao.FiltroDAOImpl;
@@ -74,19 +84,23 @@ public class GerarGraphMLByFiltro implements Runnable {
 				if (filtro.isDirecionado()) {
 					graph = graphModel.getDirectedGraph();
 					boolean teste1 = true, teste2 = true;
-					for(Node n: graph.getNodes().toArray()){
-						if(((String)n.getAttributes().getValue("id")).equals(((String)n0.getAttributes().getValue("id")))){
+					for (Node n : graph.getNodes().toArray()) {
+						if (((String) n.getAttributes().getValue("id"))
+								.equals(((String) n0.getAttributes().getValue(
+										"id")))) {
 							teste1 = false;
 							break;
 						}
 					}
-					
+
 					if (teste1) {
 						graph.addNode(n0);
 					}
-					
-					for(Node n: graph.getNodes().toArray()){
-						if(((String)n.getAttributes().getValue("id")).equals(((String)n1.getAttributes().getValue("id")))){
+
+					for (Node n : graph.getNodes().toArray()) {
+						if (((String) n.getAttributes().getValue("id"))
+								.equals(((String) n1.getAttributes().getValue(
+										"id")))) {
 							teste2 = false;
 							break;
 						}
@@ -95,15 +109,17 @@ public class GerarGraphMLByFiltro implements Runnable {
 					if (teste2) {
 						graph.addNode(n1);
 					}
-					
-					if(teste1 && teste2){
+
+					if (teste1 && teste2) {
 						graph.addEdge(e1);
 					}
 				} else {
 					graph = graphModel.getUndirectedGraph();
 					boolean teste1 = true, teste2 = true;
-					for(Node n: graph.getNodes()){
-						if(((String)n.getAttributes().getValue("id")).equals(((String)n0.getAttributes().getValue("id")))){
+					for (Node n : graph.getNodes()) {
+						if (((String) n.getAttributes().getValue("id"))
+								.equals(((String) n0.getAttributes().getValue(
+										"id")))) {
 							teste1 = false;
 							break;
 						}
@@ -111,9 +127,11 @@ public class GerarGraphMLByFiltro implements Runnable {
 					if (teste1) {
 						graph.addNode(n0);
 					}
-					
-					for(Node n: graph.getNodes()){
-						if(((String)n.getAttributes().getValue("id")).equals(((String)n1.getAttributes().getValue("id")))){
+
+					for (Node n : graph.getNodes()) {
+						if (((String) n.getAttributes().getValue("id"))
+								.equals(((String) n1.getAttributes().getValue(
+										"id")))) {
 							teste2 = false;
 							break;
 						}
@@ -147,20 +165,71 @@ public class GerarGraphMLByFiltro implements Runnable {
 				distance.setDirected(true);
 				distance.execute(graphModel, attributeModel);
 			}
+
 			Statistics statistics = null;
 			if (filtro.isGrau()) {
 				// Get Degree
-				DegreeBuilder zzz = new DegreeBuilder();
-				statistics = zzz.getStatistics();
+				DegreeBuilder dBuilder = new DegreeBuilder();
+				statistics = dBuilder.getStatistics();
 				statistics.execute(graphModel, attributeModel);
 			}
 
-			if (filtro.isCentralidade()) {
+			if (filtro.isPageRank()) {
 				// Get PageRank
 				PageRankBuilder pgb = new PageRankBuilder();
 				statistics = pgb.getStatistics();
 				statistics.execute(graphModel, attributeModel);
+
 			}
+
+			if (filtro.isModularity()) {
+				ModularityBuilder mdb = new ModularityBuilder();
+				statistics = mdb.getStatistics();
+				statistics.execute(graphModel, attributeModel);
+			}
+
+			RankingController rankingController = Lookup.getDefault().lookup(
+					RankingController.class);
+			AttributeColumn column = null;
+
+			if (filtro.getTipoRankSize().equals(
+					TipoRankSize.RANKINGSIZEPAGERANK)) {
+				column = attributeModel.getNodeTable().getColumn(
+						PageRank.PAGERANK);
+			} else if (filtro.getTipoRankSize().equals(
+					TipoRankSize.RANKINGSIZEGRAU)
+					&& filtro.isDirecionado()) {
+				column = attributeModel.getNodeTable().getColumn(
+						Degree.INDEGREE);
+			} else if (filtro.getTipoRankSize().equals(
+					TipoRankSize.RANKINGSIZEGRAU)
+					&& !filtro.isDirecionado()) {
+				column = attributeModel.getNodeTable().getColumn(Degree.DEGREE);
+			} else if (filtro.getTipoRankSize().equals(
+					TipoRankSize.RANKINGSIZECENTRAILIDADE)) {
+				column = attributeModel.getNodeTable().getColumn(
+						GraphDistance.BETWEENNESS);
+			}
+
+			if (filtro.getTipoRankSize() != null) {
+				Ranking ranking = rankingController.getModel().getRanking(
+						Ranking.NODE_ELEMENT, column.getId());
+				AbstractSizeTransformer sizeTransformer = (AbstractSizeTransformer) rankingController
+						.getModel().getTransformer(Ranking.NODE_ELEMENT,
+								Transformer.RENDERABLE_SIZE);
+				sizeTransformer.setMinSize(30);
+				sizeTransformer.setMaxSize(300);
+				rankingController.transform(ranking, sizeTransformer);
+			}
+
+			PartitionController partitionController = Lookup.getDefault()
+					.lookup(PartitionController.class);
+			Partition p = partitionController.buildPartition(attributeModel
+					.getNodeTable().getColumn(Modularity.MODULARITY_CLASS),
+					graph);
+			NodeColorTransformer nodeColorTransformer = new NodeColorTransformer();
+			nodeColorTransformer.randomizeColors(p);
+			partitionController.transform(p, nodeColorTransformer);
 
 			// Export to GRaphml
 			ExportController ec = Lookup.getDefault().lookup(

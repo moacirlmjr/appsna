@@ -4,6 +4,14 @@ import java.util.Date;
 
 public class Filtro extends AppSNAEntityMaster {
 
+	public enum TipoRankSize {
+		RANKINGSIZEGRAU, RANKINGSIZEPAGERANK, RANKINGSIZECENTRAILIDADE;
+	}
+
+	public enum TipoRankColor {
+		RANKINGCOLORGRAU, RANKINGCOLORPAGERANK, RANKINGCOLORCENTRAILIDADE, RANKINGCOLORMODULARITY;
+	}
+
 	private Date dataCriacao;
 	private String screenNames;
 	private String biografias;
@@ -17,6 +25,11 @@ public class Filtro extends AppSNAEntityMaster {
 	private boolean grau;
 	private boolean pageRank;
 	private boolean centralidade;
+	private boolean modularity;
+
+	private TipoRankColor tipoRankColor;
+	private TipoRankSize tipoRankSize;
+
 	private boolean direcionado;
 
 	public boolean isDirecionado() {
@@ -127,6 +140,30 @@ public class Filtro extends AppSNAEntityMaster {
 		return dataCriacao.toString() + " - Screeenames: " + screenNames
 				+ " - Biografias: " + biografias + " - Loc: " + localizacoes
 				+ " - Termos: " + termosStatus + " - Situacao: " + status;
+	}
+
+	public boolean isModularity() {
+		return modularity;
+	}
+
+	public void setModularity(boolean modularity) {
+		this.modularity = modularity;
+	}
+
+	public TipoRankColor getTipoRankColor() {
+		return tipoRankColor;
+	}
+
+	public void setTipoRankColor(TipoRankColor tipoRankColor) {
+		this.tipoRankColor = tipoRankColor;
+	}
+
+	public TipoRankSize getTipoRankSize() {
+		return tipoRankSize;
+	}
+
+	public void setTipoRankSize(TipoRankSize tipoRankSize) {
+		this.tipoRankSize = tipoRankSize;
 	}
 
 }

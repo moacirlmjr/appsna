@@ -52,16 +52,16 @@
 				</p:column>
 
 				<p:column headerText="Graphml">
-					<h:graphicImage title="Erro" value="imagens/erro.png" width="16"
+					<h:graphicImage title="Erro" value="/imagens/erro.png" width="16"
 						rendered="#{filtro.status == 'ERRO'}" />
-					<h:graphicImage title="Consultando" value="imagens/sql-icon.png" width="16"
+					<h:graphicImage title="Consultando" value="/imagens/sql-icon.png" width="16"
 						rendered="#{filtro.status == 'CONSULTANDO'}" />
-					<h:graphicImage title="Gerando Graphml" value="imagens/5-128.png" width="16"
+					<h:graphicImage title="Gerando Graphml" value="/imagens/5-128.png" width="16"
 						rendered="#{filtro.status == 'GERANDOGRAPHML'}" />
 					<h:graphicImage title="Calculando Metricas"
 						value="imagens/metrica.png" width="16"
 						rendered="#{filtro.status == 'CALCULANDOMETRICAS'}" />
-					<h:graphicImage title="Analisando" value="imagens/ajax-loader.gif" width="16"
+					<h:graphicImage title="Analisando" value="/imagens/ajax-loader.gif" width="16"
 						rendered="#{filtro.status != 'ERRO' and filtro.status != 'TERMINADO'}" />
 						
 					<p:commandLink value="#{filtro.endGraphml}"
@@ -73,8 +73,8 @@
 				</p:column>
 
 				<p:column headerText="Ações">
-					<p:commandButton icon="iconRede" title="Ver Rede" styleClass="buttonTable" update=":form"
-						actionListener="#{filtroController.carregarFiltro(filtro)}" rendered="#{filtro.status == 'TERMINADO'}">
+					<p:commandButton icon="iconRede" title="Ver Rede" styleClass="buttonTable" ajax="false"
+						action="#{filtroController.carregarFiltro(filtro)}" rendered="#{filtro.status == 'TERMINADO'}">
 					</p:commandButton>
 
 					<p:commandButton value="x" title="Excluir" styleClass="buttonTable"

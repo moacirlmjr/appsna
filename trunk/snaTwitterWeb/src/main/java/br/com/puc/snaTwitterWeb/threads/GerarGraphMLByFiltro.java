@@ -31,6 +31,7 @@ import org.gephi.statistics.spi.Statistics;
 import org.openide.util.Lookup;
 
 import br.com.puc.appSNA.model.beans.Filtro;
+import br.com.puc.appSNA.model.beans.Filtro.TipoRankColor;
 import br.com.puc.appSNA.model.beans.Filtro.TipoRankSize;
 import br.com.puc.appSNA.model.beans.to.MencaoTO;
 import br.com.puc.appSNA.model.dao.FiltroDAO;
@@ -192,44 +193,73 @@ public class GerarGraphMLByFiltro implements Runnable {
 					RankingController.class);
 			AttributeColumn column = null;
 
-			if (filtro.getTipoRankSize().equals(
-					TipoRankSize.RANKINGSIZEPAGERANK)) {
-				column = attributeModel.getNodeTable().getColumn(
-						PageRank.PAGERANK);
-			} else if (filtro.getTipoRankSize().equals(
-					TipoRankSize.RANKINGSIZEGRAU)
-					&& filtro.isDirecionado()) {
-				column = attributeModel.getNodeTable().getColumn(
-						Degree.INDEGREE);
-			} else if (filtro.getTipoRankSize().equals(
-					TipoRankSize.RANKINGSIZEGRAU)
-					&& !filtro.isDirecionado()) {
-				column = attributeModel.getNodeTable().getColumn(Degree.DEGREE);
-			} else if (filtro.getTipoRankSize().equals(
-					TipoRankSize.RANKINGSIZECENTRAILIDADE)) {
-				column = attributeModel.getNodeTable().getColumn(
-						GraphDistance.BETWEENNESS);
-			}
-
 			if (filtro.getTipoRankSize() != null) {
-				Ranking ranking = rankingController.getModel().getRanking(
-						Ranking.NODE_ELEMENT, column.getId());
+				if (filtro.getTipoRankSize().equals(
+						TipoRankSize.RANKINGSIZEPAGERANK)) {
+					column = attributeModel.getNodeTable().getColumn(
+							PageRank.PAGERANK);
+				} else if (filtro.getTipoRankSize().equals(
+						TipoRankSize.RANKINGSIZEGRAU)
+						&& filtro.isDirecionado()) {
+					column = attributeModel.getNodeTable().getColumn(
+							Degree.INDEGREE);
+				} else if (filtro.getTipoRankSize().equals(
+						TipoRankSize.RANKINGSIZEGRAU)
+						&& !filtro.isDirecionado()) {
+					column = attributeModel.getNodeTable().getColumn(
+							Degree.DEGREE);
+				} else if (filtro.getTipoRankSize().equals(
+						TipoRankSize.RANKINGSIZECENTRAILIDADE)) {
+					column = attributeModel.getNodeTable().getColumn(
+							GraphDistance.BETWEENNESS);
+				}
+
 				AbstractSizeTransformer sizeTransformer = (AbstractSizeTransformer) rankingController
 						.getModel().getTransformer(Ranking.NODE_ELEMENT,
 								Transformer.RENDERABLE_SIZE);
 				sizeTransformer.setMinSize(30);
 				sizeTransformer.setMaxSize(300);
+
+				Ranking ranking = rankingController.getModel().getRanking(
+						Ranking.NODE_ELEMENT, column.getId());
 				rankingController.transform(ranking, sizeTransformer);
 			}
 
-			PartitionController partitionController = Lookup.getDefault()
-					.lookup(PartitionController.class);
-			Partition p = partitionController.buildPartition(attributeModel
-					.getNodeTable().getColumn(Modularity.MODULARITY_CLASS),
-					graph);
-			NodeColorTransformer nodeColorTransformer = new NodeColorTransformer();
-			nodeColorTransformer.randomizeColors(p);
-			partitionController.transform(p, nodeColorTransformer);
+			if (filtro.getTipoRankColor() != null) {
+				if (filtro.getTipoRankSize().equals(
+						TipoRankColor.RANKINGCOLORCENTRAILIDADE)) {
+					column = attributeModel.getNodeTable().getColumn(
+							GraphDistance.BETWEENNESS);
+				} else if (filtro.getTipoRankSize().equals(
+						TipoRankColor.RANKINGCOLORGRAU)
+						&& filtro.isDirecionado()) {
+					column = attributeModel.getNodeTable().getColumn(
+							Degree.INDEGREE);
+				} else if (filtro.getTipoRankSize().equals(
+						TipoRankColor.RANKINGCOLORGRAU)
+						&& !filtro.isDirecionado()) {
+					column = attributeModel.getNodeTable().getColumn(
+							Degree.DEGREE);
+				} else if (filtro.getTipoRankSize().equals(
+						TipoRankColor.RANKINGCOLORMODULARITY)
+						&& !filtro.isDirecionado()) {
+					column = attributeModel.getNodeTable().getColumn(
+							Modularity.MODULARITY_CLASS);
+				} else if (filtro.getTipoRankSize().equals(
+						TipoRankColor.RANKINGCOLORPAGERANK)) {
+					column = attributeModel.getNodeTable().getColumn(
+							PageRank.PAGERANK);
+				}
+				
+				PartitionController partitionController = Lookup.getDefault()
+						.lookup(PartitionController.class);
+				Partition p = partitionController.buildPartition(column,
+						graph);
+				NodeColorTransformer nodeColorTransformer = new NodeColorTransformer();
+				nodeColorTransformer.randomizeColors(p);
+				partitionController.transform(p, nodeColorTransformer);
+			}
+			
 
 			// Export to GRaphml
 			ExportController ec = Lookup.getDefault().lookup(

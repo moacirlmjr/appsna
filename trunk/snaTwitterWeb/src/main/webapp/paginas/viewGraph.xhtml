@@ -1,104 +1,303 @@
-<!DOCTYPE html>
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-<h:head>
-	<title>Grafo</title>
-	<style type="text/css">
-.ui-widget {
-	font-size: 90%;
-}
+<ui:composition template="template/main.xhtml">
+	<ui:define name="content">
+		<p:panel styleClass="panelGrafo" header="Grafo" style="border: none;">
+			<h:panelGroup id="container" styleClass="sigma-expand" layout="block" />
+			<script type="text/javascript">
+		  //<![CDATA[
+		  		var sigInst, canvas, $GP, thisGraphControl;
+				
+				$(document).ready(initSigma());
+								
+				function initSigma() {
+					var data='/snaTwitterWeb/gexf/#{filtroController.filtro.endGraphml}'
+					
+					var drawProps, graphProps,mouseProps;
+					drawProps={
+				        defaultLabelColor: "#000",
+				        defaultLabelSize: 14,
+				        defaultLabelBGColor: "#ddd",
+				        defaultHoverLabelBGColor: "#002147",
+				        defaultLabelHoverColor: "#fff",
+				        labelThreshold: 10,
+				        edgeColor: 'source',
+				        defaultEdgeType: 'curve',
+				        defaultEdgeArrow: 'target',
+				        hoverFontStyle: "bold",
+				        fontStyle: "bold",
+				        activeFontStyle: "bold"
+				    };
+				    
+				    graphProps={
+				        minNodeSize: 1,
+					    maxNodeSize: 10,
+					    minEdgeSize: 3,
+					    maxEdgeSize: 3
+				   	};
+					
+					mouseProps={
+				     maxRatio: 450,
+				      minRatio: .1,
+				      marginRatio: 1,
+				      zoomDelta: 0.1,
+				      dragDelta: 0.3,
+				      zoomMultiply: 1.5,
+				      inertia: 1.1
+				    };
+					
+				    var a = sigma.init(document.getElementById("container")).drawingProperties(drawProps).graphProperties(graphProps).mouseProperties(mouseProps);
+				    sigInst = a;
+				    a.active = !1;
+				    a.neighbors = {};
+				    a.detail = !1;
+				
+				    dataReady = function() {//This is called as soon as data is loaded
+											
+						a.bind("upnodes", function (a) {
+						    nodeActive(a.content[0])
+						});
+				
+						a.draw();
+						configSigmaElements();
+					}
+				
+				    if (data.indexOf("gexf")>0 || data.indexOf("xml")>0)
+				        a.parseGexf(data,dataReady);
+				    else
+					    a.parseJson(data,dataReady);
+				    gexf = sigmaInst = null;
+			    }
+			    
+			    function configSigmaElements() {
+				    var greyColor = '#ccc';
+					sigInst.bind('overnodes',function(event){
+						var nodes = event.content;
+						var neighbors = {};
+					sigInst.iterEdges(function(e){
+						if (nodes.indexOf(e.source) < 0 && nodes.indexOf(e.target) < 0) {
+				          if (!e.attr['grey']) {
+				            e.attr['true_color'] = e.color;
+				            e.color = greyColor;
+				            e.attr['grey'] = 1;
+				          }
+				        } else {
+				          e.color = e.attr['grey'] ? e.attr['true_color'] : e.color;
+				          e.attr['grey'] = 0;
+				
+				          neighbors[e.source] = 1;
+				          neighbors[e.target] = 1;
+				        }
+				      }).iterNodes(function(n) {
+				        if (!neighbors[n.id]) {
+				          if (!n.attr['grey']) {
+				            n.attr['true_color'] = n.color;
+				            n.color = greyColor;
+				            n.attr['grey'] = 1;
+				          }
+				        } else {
+				          n.color = n.attr['grey'] ? n.attr['true_color'] : n.color;
+				          n.attr['grey'] = 0;
+				        }
+					}).draw(2,2,2);
+					}).bind('outnodes',function(){
+						resetColor();
+				    }).bind('upnodes', function(event) {
+				      if (ignoreNextMouseUp) {
+				        ignoreNextMouseUp = false;
+				      } else {
+				        recursiveNodeDrop(event.content[0]);
+				        resetColor();
+				        sigInst.draw();
+				        $('#btnUndoNodeDeletions').attr('disabled', false);
+				        $('#btnUndoNodeDeletions').addClass('btn-danger');
+				      }
+				    });
+				}
+				
+				var resetColor = function() {
+				    sigInst.iterEdges(function(e) {
+				      e.color = e.attr['grey'] ? e.attr['true_color'] : e.color;
+				      e.attr['grey'] = 0;
+				    }).iterNodes(function(n) {
+				      n.color = n.attr['grey'] ? n.attr['true_color'] : n.color;
+				      n.attr['grey'] = 0;
+				    }).draw(2, 2, 2);
+				  };
+				
+				  var recursiveNodeDrop = function(inNodeId) {
+				    if (nodeOutgoingEdges[inNodeId]) {
+				      var thisEdge;
+				      for (var i = 0; i < nodeOutgoingEdges[inNodeId].length; i++) {
+				        try {
+				          thisEdge = sigInst.getEdges(nodeOutgoingEdges[inNodeId][i]);
+				        } catch (err) {}
+				
+				        if (thisEdge) {
+				          recursiveNodeDrop(thisEdge['target']);
+				        }
+				      }
+				
+				      delete nodeOutgoingEdges[inNodeId];
+				    }
+				
+				    sigInst.dropNode(inNodeId);
+				  };	
+				
+				function showGroups(a) {
+				    a ? ($GP.intro.find("#showGroups").text("Hide groups"), $GP.bg.show(), $GP.bg2.hide(), $GP.showgroup = !0) : ($GP.intro.find("#showGroups").text("View Groups"), $GP.bg.hide(), $GP.bg2.show(), $GP.showgroup = !1)
+				}
+				
+				function nodeNormal() {
+				    !0 != $GP.calculating && !1 != sigInst.detail && (showGroups(!1), $GP.calculating = !0, sigInst.detail = !0, $GP.info.delay(400).animate({width:'hide'},350),$GP.cluster.hide(), sigInst.iterEdges(function (a) {
+				        a.attr.color = !1;
+				        a.hidden = !1
+				    }), sigInst.iterNodes(function (a) {
+				        a.hidden = !1;
+				        a.attr.color = !1;
+				        a.attr.lineWidth = !1;
+				        a.attr.size = !1
+				    }), sigInst.draw(2, 2, 2, 2), sigInst.neighbors = {}, sigInst.active = !1, $GP.calculating = !1, window.location.hash = "")
+				}
+				
+				function nodeActive(a) {
 
-#container {
-	max-width: 600px;
-	height: 500px;
-	margin: auto;
-}
-</style>
-</h:head>
-
-<h:body>
-	<p:panel>
-		<h:panelGroup id="container" layout="block" />
-		<script src="../js/sigma.min.js"></script>
-		<script src="../js/sigma.plugins.animate.min.js"></script>
-		<script src="../js/sigma.layout.forceAtlas2.min.js"></script>
-		<script src="../js/sigma.parsers.gexf.min.js"></script>
-		<script type="text/javascript">
-
-		  // Add a method to the graph model that returns an
-		  // object with every neighbors of a node inside:
-		  sigma.classes.graph.addMethod('neighbors', function(nodeId) {
-		    var k,
-		        neighbors = {},
-		        index = this.allNeighborsIndex[nodeId] || {};
-		
-		    for (k in index)
-		      neighbors[k] = this.nodesIndex[k];
-		
-		    return neighbors;
-		  });
-		
-		 sigma.parsers.gexf('/snaTwitterWeb/gexf/#{filtroController.filtro.endGraphml}',
-						    {container: 'container',settings: {
-		    }},
-		    function(s) {
-		      // We first need to save the original colors of our
-		      // nodes and edges, like this:
-		      s.graph.nodes().forEach(function(n) {
-		        n.originalColor = n.color;
-		      });
-		      s.graph.edges().forEach(function(e) {
-		        e.originalColor = e.color;
-		      });
-		
-		      // When a node is clicked, we check for each node
-		      // if it is a neighbor of the clicked one. If not,
-		      // we set its color as grey, and else, it takes its
-		      // original color.
-		      // We do the same for the edges, and we only keep
-		      // edges that have both extremities colored.
-		      s.bind('clickNode', function(e) {
-		        var nodeId = e.data.node.id,
-		            toKeep = s.graph.neighbors(nodeId);
-		        toKeep[nodeId] = e.data.node;
-		
-		        s.graph.nodes().forEach(function(n) {
-		          if (toKeep[n.id])
-		            n.color = n.originalColor;
-		          else
-		            n.color = '#eee';
-		        });
-		
-		        s.graph.edges().forEach(function(e) {
-		            e.color = '#eee';
-		        });
-		
-		        // Since the data has been modified, we need to
-		        // call the refresh method to make the colors
-		        // update effective.
-		        s.refresh();
-		      });
-		
-		      // When the stage is clicked, we just color each
-		      // node and edge with its original color.
-		      s.bind('clickStage', function(e) {
-		        s.graph.nodes().forEach(function(n) {
-		          n.color = n.originalColor;
-		        });
-		
-		        s.graph.edges().forEach(function(e) {
-		          e.color = e.originalColor;
-		        });
-		
-		        // Same as in the previous event:
-		        s.refresh();
-		      });
-		    }
-		  );
-	</script>
-	</p:panel>
-</h:body>
-
+					var groupByDirection=false;
+					if (config.informationPanel.groupByEdgeDirection && config.informationPanel.groupByEdgeDirection==true)	groupByDirection=true;
+					
+				    sigInst.neighbors = {};
+				    sigInst.detail = !0;
+				    var b = sigInst._core.graph.nodesIndex[a];
+				    showGroups(!1);
+					var outgoing={},incoming={},mutual={};//SAH
+				    sigInst.iterEdges(function (b) {
+				        b.attr.lineWidth = !1;
+				        b.hidden = !0;
+				        
+				        n={
+				            name: b.label,
+				            colour: b.color
+				        };
+				        
+				   	   if (a==b.source) outgoing[b.target]=n;		//SAH
+					   else if (a==b.target) incoming[b.source]=n;		//SAH
+				       if (a == b.source || a == b.target) sigInst.neighbors[a == b.target ? b.source : b.target] = n;
+				       b.hidden = !1, b.attr.color = "rgba(0, 0, 0, 1)";
+				    });
+				    var f = [];
+				    sigInst.iterNodes(function (a) {
+				        a.hidden = !0;
+				        a.attr.lineWidth = !1;
+				        a.attr.color = a.color
+				    });
+				    
+				    if (groupByDirection) {
+						//SAH - Compute intersection for mutual and remove these from incoming/outgoing
+						for (e in outgoing) {
+							//name=outgoing[e];
+							if (e in incoming) {
+								mutual[e]=outgoing[e];
+								delete incoming[e];
+								delete outgoing[e];
+							}
+						}
+				    }
+				    
+					/*console.log("mutual:");
+					console.log(mutual);
+					console.log("incoming:");
+					console.log(incoming);
+					console.log("outgoing:");
+					console.log(outgoing);*/
+					
+					
+					var f=[];
+					
+					//console.log("neighbors:");
+					//console.log(sigInst.neighbors);
+				
+					//b is object of active node -- SAH
+				    b.hidden = !1;
+				    b.attr.color = b.color;
+				    b.attr.lineWidth = 6;
+				    b.attr.strokeStyle = "#000000";
+				    sigInst.draw(2, 2, 2, 2);
+				
+				    sigInst.active = a;
+				    window.location.hash = b.label;
+				}	 
+				
+				function setArrowType(inArrowType) {
+				  if (!inArrowType) {
+				    inArrowType = "target";
+				  }
+				
+				  thisGraphControl.setArrowType(inArrowType);
+				
+				  switch (inArrowType) {
+				    case 'target':
+				      inArrowType = 'Target';
+				      break;
+				    case 'source':
+				      inArrowType = 'Source';
+				      break;
+				    case 'both':
+				      inArrowType = 'Both';
+				      break;
+				    case 'none':
+				      inArrowType = 'None';
+				  }
+				
+				  $('#btnArrowType').html(inArrowType + '&nbsp;&nbsp;<span class="caret"></span>');
+				}
+				
+				function setEdgeType(inEdgeType) {
+				  if (!inEdgeType) {
+				    inEdgeType = "curve";
+				  }
+				
+				  thisGraphControl.setEdgeType(inEdgeType);
+				
+				  switch (inEdgeType) {
+				    case 'curve':
+				      inEdgeType = 'Curve';
+				      break;
+				    case 'line':
+				      inEdgeType = 'Line';
+				  }
+				
+				  $('#btnEdgeType').html(inEdgeType + '&nbsp;&nbsp;<span class="caret"></span>');
+				}
+				
+				function setEdgeSize(inEdgeSize) {
+				  if (!inEdgeSize) {
+				    inEdgeSize = "medium";
+				  }
+				
+				  thisGraphControl.setEdgeSize(inEdgeSize);
+				
+				  switch (inEdgeSize) {
+				    case 'thin':
+				      inEdgeSize = 'Thin';
+				      break;
+				    case 'medium':
+				      inEdgeSize = 'Medium';
+				      break;
+				    case 'thick':
+				      inEdgeSize = 'Thick';
+				  }
+				
+				  $('#btnEdgeSize').html(inEdgeSize + '&nbsp;&nbsp;<span class="caret"></span>');
+				}
+		  //]]>
+		</script>
+		</p:panel>
+	</ui:define>
+</ui:composition>
 </html>

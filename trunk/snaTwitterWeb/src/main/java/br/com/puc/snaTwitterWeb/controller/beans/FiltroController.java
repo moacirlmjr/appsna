@@ -67,24 +67,20 @@ public class FiltroController implements Serializable {
 		}
 	}
 
-	public void carregarFiltro(Filtro f) {
+	public String carregarFiltro(Filtro f) {
 		try {
 			if (f != null) {
 				filtro = f;
 			}
-			Map<String, Object> options = new HashMap<String, Object>();
-			options.put("modal", true);
-			options.put("draggable", false);
-			options.put("resizable", false);
-
-			RequestContext.getCurrentInstance().openDialog("viewGraph", options,
-					null);
+			
+			return "viewGraph.jsf";
 		} catch (Exception e) {
 			FacesUtil.registrarFacesMessage(
 					"Ocorreu um erro ao carregar a rede",
 					FacesMessage.SEVERITY_ERROR);
 			AppSNALog.error(e);
 		}
+		return "";
 	}
 
 	public Filtro getFiltro() {

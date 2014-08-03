@@ -9,10 +9,12 @@
 <ui:composition template="template/main.xhtml">
 	<ui:define name="content">
 		<h:form id="form">
-			<p:poll interval="1" update=":form"/>
+			<p:poll interval="1" update=":form:tableFiltros" />
 			<p:dataTable id="tableFiltros"
 				value="#{filtroController.listFiltros}" var="filtro"
-				paginator="true">
+				paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15" rows="10">
 				<f:facet name="header">
 					Lista de Filtros
 				</f:facet>
@@ -50,20 +52,48 @@
 						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
 					</h:outputText>
 				</p:column>
+				
+				<p:column headerText="Metricas">
+					<h:panelGroup>
+						<h:outputText value="DIR |" title="Direcionado" rendered="#{filtro.direcionado}" styleClass="gridMetrica"/>
+						<h:outputText value="G |" title="Grau" rendered="#{filtro.grau}" styleClass="gridMetrica"/>
+						<h:outputText value="GE |" title="Grau de Entrada" rendered="#{filtro.direcionado and filtro.grau}" styleClass="gridMetrica"/>
+						<h:outputText value="GS |" title="Grau de Saída" rendered="#{filtro.direcionado and filtro.grau}" styleClass="gridMetrica"/>
+						<h:outputText value="BT |" title="Betweenness" rendered="#{filtro.centralidade}" styleClass="gridMetrica"/>
+						<h:outputText value="CS |" title="Closeness" rendered="#{filtro.centralidade}" styleClass="gridMetrica"/>
+						<h:outputText value="EC |" title="Eccentricity" rendered="#{filtro.centralidade}" styleClass="gridMetrica"/>
+						<h:outputText value="PR |" title="Page Rank" rendered="#{filtro.pageRank}" styleClass="gridMetrica"/>
+						<h:outputText value="M |" title="Modularidade" rendered="#{filtro.modularity}" styleClass="gridMetrica"/>
+					</h:panelGroup>
+				</p:column>
+				
+				<p:column headerText="Rank">
+					<h:outputText value="PTG |" title="Particionado por Grau" rendered="#{filtro.tipoRankColor.myName == 'GRAU'}" styleClass="gridMetrica"/>
+					<h:outputText value="PTGE |" title="Particionado por Grau de Entrada" rendered="#{filtro.tipoRankColor.myName == 'GRAU' and filtro.direcionado}" styleClass="gridMetrica"/>
+					<h:outputText value="PTBT |" title="Particionado por Betweenness" rendered="#{filtro.tipoRankColor.myName == 'CENTRALIDADE'}" styleClass="gridMetrica"/>
+					<h:outputText value="PTPR |" title="Particionado por PageRank" rendered="#{filtro.tipoRankColor.myName == 'PAGERANK'}" styleClass="gridMetrica"/>
+					<h:outputText value="PTM |" title="Particionado por Modularidade" rendered="#{filtro.tipoRankColor.myName == 'MODULARITY'}" styleClass="gridMetrica"/>
+					
+					<h:outputText value="SZG" title="Classificado por Grau" rendered="#{filtro.tipoRankSize.myName == 'GRAU'}" styleClass="gridMetrica"/>
+					<h:outputText value="SZGE" title="Classificado por Grau de Entrada" rendered="#{filtro.tipoRankSize.myName == 'GRAU' and filtro.direcionado}" styleClass="gridMetrica"/>
+					<h:outputText value="SZBT" title="Classificado por Betweenness" rendered="#{filtro.tipoRankSize.myName == 'CENTRALIDADE'}" styleClass="gridMetrica"/>
+					<h:outputText value="SZPR" title="Classificado por PageRank" rendered="#{filtro.tipoRankSize.myName == 'PAGERANK'}" styleClass="gridMetrica"/>
+				</p:column>
 
 				<p:column headerText="Graphml">
 					<h:graphicImage title="Erro" value="/imagens/erro.png" width="16"
 						rendered="#{filtro.status == 'ERRO'}" />
-					<h:graphicImage title="Consultando" value="/imagens/sql-icon.png" width="16"
-						rendered="#{filtro.status == 'CONSULTANDO'}" />
-					<h:graphicImage title="Gerando Graphml" value="/imagens/5-128.png" width="16"
-						rendered="#{filtro.status == 'GERANDOGRAPHML'}" />
+					<h:graphicImage title="Consultando" value="/imagens/sql-icon.png"
+						width="16" rendered="#{filtro.status == 'CONSULTANDO'}" />
+					<h:graphicImage title="Gerando Graphml" value="/imagens/5-128.png"
+						width="16" rendered="#{filtro.status == 'GERANDOGRAPHML'}" />
 					<h:graphicImage title="Calculando Metricas"
 						value="imagens/metrica.png" width="16"
 						rendered="#{filtro.status == 'CALCULANDOMETRICAS'}" />
-					<h:graphicImage title="Analisando" value="/imagens/ajax-loader.gif" width="16"
+					<h:graphicImage title="Analisando" value="/imagens/ajax-loader.gif"
+						width="16"
 						rendered="#{filtro.status != 'ERRO' and filtro.status != 'TERMINADO'}" />
-						
+
 					<p:commandLink value="#{filtro.endGraphml}"
 						actionListener="#{filtroController.carregarGraphml}"
 						oncomplete="document.getElementById('form:linkDonwload').click();"
@@ -73,8 +103,22 @@
 				</p:column>
 
 				<p:column headerText="Ações">
-					<p:commandButton icon="iconRede" title="Ver Rede" styleClass="buttonTable" ajax="false"
-						action="#{filtroController.carregarFiltro(filtro)}" rendered="#{filtro.status == 'TERMINADO'}">
+					<p:commandButton icon="iconRede" title="Ver Rede"
+						styleClass="buttonTable" ajax="false"
+						action="#{filtroController.carregarFiltro(filtro)}"
+						rendered="#{filtro.status == 'TERMINADO'}">
+					</p:commandButton>
+
+					<p:commandButton icon="iconRede2" title="Ver Componente Gigante"
+						styleClass="buttonTable" ajax="false"
+						action="#{filtroController.carregarFiltroCG(filtro)}"
+						rendered="#{filtro.status == 'TERMINADO'}">
+					</p:commandButton>
+
+					<p:commandButton icon="iconExibir" title="Ver Nós"
+						styleClass="buttonTable" oncomplete="PF('labDados').show();"
+						actionListener="#{filtroController.carregarMetricasNos(filtro)}"
+						rendered="#{filtro.status == 'TERMINADO'}">
 					</p:commandButton>
 
 					<p:commandButton value="x" title="Excluir" styleClass="buttonTable"
@@ -87,6 +131,61 @@
 				<p:fileDownload value="#{filtroController.graphml}"></p:fileDownload>
 			</h:commandLink>
 
+			<p:dialog header="Laboratório de Dados" widgetVar="labDados"
+				modal="true" height="500" dynamic="true">
+				<p:dataTable id="tableNodes" value="#{filtroController.listNodes}"
+					var="node" paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15" rows="10">
+					<p:column headerText="Id" sortBy="#{node.id_node}">
+						<h:outputText value="#{node.id_node}" />
+					</p:column>
+
+					<p:column headerText="Label" sortBy="#{node.nome}">
+						<h:outputText value="#{node.nome}" />
+					</p:column>
+
+					<p:column headerText="Grau" sortBy="#{node.grau}"
+						rendered="#{filtroController.filtro.grau}">
+						<h:outputText value="#{node.grau}" />
+					</p:column>
+
+					<p:column headerText="Grau de Entrada" sortBy="#{node.grauEntrada}"
+						rendered="#{filtroController.filtro.grau and filtroController.filtro.direcionado}">
+						<h:outputText value="#{node.grauEntrada}" />
+					</p:column>
+
+					<p:column headerText="Grau de Saída" sortBy="#{node.grauSaida}"
+						rendered="#{filtroController.filtro.grau and filtroController.filtro.direcionado}">
+						<h:outputText value="#{node.grauSaida}" />
+					</p:column>
+
+					<p:column headerText="Closeness" sortBy="#{node.closeness}"
+						rendered="#{filtroController.filtro.centralidade}">
+						<h:outputText value="#{node.closeness}" />
+					</p:column>
+
+					<p:column headerText="Betweenness" sortBy="#{node.betweenness}"
+						rendered="#{filtroController.filtro.centralidade}">
+						<h:outputText value="#{node.betweenness}" />
+					</p:column>
+
+					<p:column headerText="Eccentricity" sortBy="#{node.eccentricity}"
+						rendered="#{filtroController.filtro.centralidade}">
+						<h:outputText value="#{node.eccentricity}" />
+					</p:column>
+
+					<p:column headerText="Page Rank" sortBy="#{node.pageRank}"
+						rendered="#{filtroController.filtro.pageRank}">
+						<h:outputText value="#{node.pageRank}" />
+					</p:column>
+
+					<p:column headerText="Modularidade" sortBy="#{node.modularidade}"
+						rendered="#{filtroController.filtro.modularity}">
+						<h:outputText value="#{node.modularidade}" />
+					</p:column>
+				</p:dataTable>
+			</p:dialog>
 		</h:form>
 	</ui:define>
 </ui:composition>

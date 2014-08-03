@@ -20,7 +20,7 @@ html,body {
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	top: 0;
+	top: 90px;
 	left: 0;
 	background-color: #eee;
 	background-position: center center;
@@ -33,8 +33,24 @@ html,body {
 	user-select: none;
 }
 
+.gridMetrica{
+	padding-left: 2px;
+	font-size: 10pt;
+	font-weight: bolder;
+}
+
 .iconRede {
 	background-image: url(../imagens/5-128-16x16.png) !important;
+	background-repeat: no-repeat;
+}
+
+.iconRede2 {
+	background-image: url(../imagens/5-128CG-16x16.png) !important;
+	background-repeat: no-repeat;
+}
+
+.iconExibir {
+	background-image: url(../imagens/icone_busca.png) !important;
 	background-repeat: no-repeat;
 }
 

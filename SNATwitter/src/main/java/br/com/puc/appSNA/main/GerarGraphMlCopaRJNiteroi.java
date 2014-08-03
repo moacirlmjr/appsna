@@ -31,8 +31,8 @@ public class GerarGraphMlCopaRJNiteroi {
 			Usuario userOrigem = userDAO.findById(idUserOrigem);
 			Usuario userDestino = userDAO.findById(idUserDestino);
 			
-			listNodeTo.add(new NodeTO(idUserOrigem, userOrigem.getScreename()));
-			listNodeTo.add(new NodeTO(idUserDestino, userDestino.getScreename()));
+//			listNodeTo.add(new NodeTO(idUserOrigem, userOrigem.getScreename()));
+//			listNodeTo.add(new NodeTO(idUserDestino, userDestino.getScreename()));
 			
 			listEdgeTo.add(new EdgeTO(idUserOrigem, idUserDestino, qteMencoes));
 		}

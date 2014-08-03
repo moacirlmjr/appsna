@@ -13,8 +13,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 import br.com.puc.appSNA.model.beans.Filtro;
+import br.com.puc.appSNA.model.beans.Filtro.TipoDistribuicao;
+import br.com.puc.appSNA.model.beans.Filtro.TipoRankColor;
+import br.com.puc.appSNA.model.beans.Filtro.TipoRankSize;
 import br.com.puc.appSNA.model.dao.FiltroDAO;
 import br.com.puc.appSNA.model.dao.FiltroDAOImpl;
 import br.com.puc.appSNA.util.AppSNALog;
@@ -36,6 +40,11 @@ public class PesquisaController implements Serializable {
 	private boolean pageRank;
 	private boolean centralidade;
 	private boolean direcionado;
+	private boolean modularity;
+
+	private TipoRankColor tipoRankColor;
+	private TipoRankSize tipoRankSize;
+	private TipoDistribuicao tipoDistribuicao;
 
 	private Filtro filtro;
 
@@ -55,6 +64,30 @@ public class PesquisaController implements Serializable {
 		biografias = new ArrayList<>();
 		localizacoes = new ArrayList<>();
 		termos = new ArrayList<>();
+	}
+	
+	public List<SelectItem> getSelectRankByColor(){
+		List<SelectItem> list = new ArrayList<>();
+		for(TipoRankColor tp: TipoRankColor.values()){
+			list.add(new SelectItem(tp,tp.name()));
+		}
+		return list;
+	}
+	
+	public List<SelectItem> getSelectRankBySize(){
+		List<SelectItem> list = new ArrayList<>();
+		for(TipoRankSize tp: TipoRankSize.values()){
+			list.add(new SelectItem(tp,tp.name()));
+		}
+		return list;
+	}
+	
+	public List<SelectItem> getSelectDistribuicao(){
+		List<SelectItem> list = new ArrayList<>();
+		for(TipoDistribuicao tp: TipoDistribuicao.values()){
+			list.add(new SelectItem(tp,tp.name()));
+		}
+		return list;
 	}
 
 	public void adicionar(ActionEvent ev) {
@@ -142,15 +175,19 @@ public class PesquisaController implements Serializable {
 				filtro.setTermosStatus(termos.toString().replaceAll(", ", ",")
 						.replaceAll("\\[", "").replaceAll("\\]", ""));
 			}
+			filtro.setGrau(grau);
+			filtro.setCentralidade(centralidade);
+			filtro.setPageRank(pageRank);
+			filtro.setModularity(modularity);
+			filtro.setDirecionado(direcionado);
+			filtro.setTipoRankColor(tipoRankColor);
+			filtro.setTipoRankSize(tipoRankSize);
+			filtro.setTipoDistribuicao(tipoDistribuicao);
 
 			FiltroDAO filtroDAO = new FiltroDAOImpl();
 			Long id = filtroDAO.create(filtro);
 			filtro.setId(id);
 
-			filtro.setGrau(grau);
-			filtro.setCentralidade(centralidade);
-			filtro.setPageRank(pageRank);
-			filtro.setDirecionado(direcionado);
 
 			GerarGraphMLByFiltro parser = new GerarGraphMLByFiltro();
 			parser.setFiltro(filtro);
@@ -165,7 +202,12 @@ public class PesquisaController implements Serializable {
 			centralidade = false;
 			pageRank = false;
 			direcionado = false;
-			
+			modularity = false;
+			tipoDistribuicao = null;
+			tipoRankColor = null;
+			tipoRankSize = null;
+			tipoDistribuicao = null;
+
 			dataInicio = null;
 			dataFim = null;
 
@@ -304,5 +346,37 @@ public class PesquisaController implements Serializable {
 
 	public void setDirecionado(boolean direcionado) {
 		this.direcionado = direcionado;
+	}
+
+	public TipoRankColor getTipoRankColor() {
+		return tipoRankColor;
+	}
+
+	public void setTipoRankColor(TipoRankColor tipoRankColor) {
+		this.tipoRankColor = tipoRankColor;
+	}
+
+	public TipoRankSize getTipoRankSize() {
+		return tipoRankSize;
+	}
+
+	public void setTipoRankSize(TipoRankSize tipoRankSize) {
+		this.tipoRankSize = tipoRankSize;
+	}
+
+	public boolean isModularity() {
+		return modularity;
+	}
+
+	public void setModularity(boolean modularity) {
+		this.modularity = modularity;
+	}
+
+	public TipoDistribuicao getTipoDistribuicao() {
+		return tipoDistribuicao;
+	}
+
+	public void setTipoDistribuicao(TipoDistribuicao tipoDistribuicao) {
+		this.tipoDistribuicao = tipoDistribuicao;
 	}
 }

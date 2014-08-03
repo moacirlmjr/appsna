@@ -136,6 +136,35 @@
 							<p:selectBooleanCheckbox id="direcionado"
 								value="#{pesquisaController.direcionado}" />
 							<p:tooltip for="direcionado" value="Torna o Grafo Direcionado" />
+							
+							<p:outputLabel value="Modularidade" for="modularidade" />
+							<p:selectBooleanCheckbox id="modularidade"
+								value="#{pesquisaController.modularity}" />
+							<p:tooltip for="modularidade" value="Calcula a Modularidade" />
+							
+							<p:outputLabel value="Rank By Color" for="rankByColor" />
+							<p:selectOneMenu id="rankByColor"
+								value="#{pesquisaController.tipoRankColor}">
+								<f:selectItem itemLabel="Select One" itemValue="" />	
+								<f:selectItems value="#{pesquisaController.selectRankByColor}" />
+							</p:selectOneMenu>
+							<p:tooltip for="rankByColor" value="Faz o Particinamento do Grafo" />
+							
+							<p:outputLabel value="Rank By Size" for="rankBySize" />
+							<p:selectOneMenu id="rankBySize"
+								value="#{pesquisaController.tipoRankSize}">
+								<f:selectItem itemLabel="Select One" itemValue="" />	
+								<f:selectItems value="#{pesquisaController.selectRankBySize}" />
+							</p:selectOneMenu>
+							<p:tooltip for="rankBySize" value="Faz a Classificação dos Nós" />
+							
+							<p:outputLabel value="Distribuicao" for="distribuicao" />
+							<p:selectOneMenu id="distribuicao"
+								value="#{pesquisaController.tipoDistribuicao}">
+								<f:selectItem itemLabel="Select One" itemValue="" />	
+								<f:selectItems value="#{pesquisaController.selectDistribuicao}" />
+							</p:selectOneMenu>
+							<p:tooltip for="distribuicao" value="Faz a Distribuição dos Nós" />
 						</h:panelGrid>
 					</p:fieldset>
 				</h:panelGrid>

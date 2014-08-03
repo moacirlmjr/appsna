@@ -10,7 +10,7 @@
 	<ui:define name="content">
 		<p:panel  style="border: none;">
 			<f:facet name="header">
-			Grafo
+			Componente Gigante
 			</f:facet>
 			<h:panelGroup id="container" styleClass="sigma-expand" layout="block" />
 			<script type="text/javascript">
@@ -20,7 +20,7 @@
 				$(document).ready(initSigma());
 								
 				function initSigma() {
-					var data='/snaTwitterWeb/gexf/#{filtroController.filtro.endGraphml}'
+					var data='/snaTwitterWeb/gexf/CG_#{filtroController.filtro.endGraphml}'
 					
 					var drawProps, graphProps,mouseProps;
 					drawProps={

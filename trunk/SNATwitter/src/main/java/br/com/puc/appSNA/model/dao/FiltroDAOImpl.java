@@ -11,6 +11,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import br.com.puc.appSNA.model.beans.Filtro;
+import br.com.puc.appSNA.model.beans.Filtro.TipoDistribuicao;
+import br.com.puc.appSNA.model.beans.Filtro.TipoRankColor;
+import br.com.puc.appSNA.model.beans.Filtro.TipoRankSize;
 import br.com.puc.appSNA.util.AppSNALog;
 import br.com.puc.appSNA.util.Constantes;
 import br.com.puc.appSNA.util.DAOUtil;
@@ -19,8 +22,9 @@ public class FiltroDAOImpl implements FiltroDAO {
 
 	@Override
 	public Long create(Filtro objeto) throws Exception {
-		String query = "Insert into filtro(data_criacao,screenNames,biografias,localizacoes,termosStatus,dataInicio,dataFim,end_graphml,status) values(?,?,?,?,?,?,?,?,?);";
-
+		String query = "Insert into filtro(data_criacao,screenNames,biografias,localizacoes,termosStatus,dataInicio,dataFim,end_graphml,status"
+				+ ", grau, pagerank, centralidade, modularidade, tipoRankColor, tipoRankSize, tipoDistribuicao, direcionado) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+		
 		PreparedStatement stmt = null;
 		Connection conn = null;
 		Long result = null;
@@ -56,8 +60,15 @@ public class FiltroDAOImpl implements FiltroDAO {
 			
 			stmt.setString(8, objeto.getEndGraphml());
 			stmt.setString(9, objeto.getStatus());
+			stmt.setBoolean(10, objeto.isGrau());
+			stmt.setBoolean(11, objeto.isPageRank());
+			stmt.setBoolean(12, objeto.isCentralidade());
+			stmt.setBoolean(13, objeto.isModularity());
+			stmt.setString(14, objeto.getTipoRankColor().name());
+			stmt.setString(15, objeto.getTipoRankSize().name());
+			stmt.setString(16, objeto.getTipoDistribuicao().name());
+			stmt.setBoolean(17, objeto.isDirecionado());
 				
-
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
 			while (rs.next()) {
@@ -74,7 +85,8 @@ public class FiltroDAOImpl implements FiltroDAO {
 
 	@Override
 	public void create(List<Filtro> listaSNAElem) throws Exception {
-		String query = "Insert into filtro(data_criacao,screenNames,biografias,localizacoes,termosStatus,dataInicio,dataFim,end_graphml,status) values(?,?,?,?,?,?,?,?,?);";
+		String query = "Insert into filtro(data_criacao,screenNames,biografias,localizacoes,termosStatus,dataInicio,dataFim,end_graphml,status"
+				+ ", grau, pagerank, centralidade, modularidade, tipoRankColor, tipoRankSize, tipoDistribuicao, direcionado) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 		
 		PreparedStatement stmt = null;
 		Connection conn = null;
@@ -113,6 +125,14 @@ public class FiltroDAOImpl implements FiltroDAO {
 				
 				stmt.setString(8, objeto.getEndGraphml());
 				stmt.setString(9, objeto.getStatus());
+				stmt.setBoolean(10, objeto.isGrau());
+				stmt.setBoolean(11, objeto.isPageRank());
+				stmt.setBoolean(12, objeto.isCentralidade());
+				stmt.setBoolean(13, objeto.isModularity());
+				stmt.setString(14, objeto.getTipoRankColor().name());
+				stmt.setString(15, objeto.getTipoRankSize().name());
+				stmt.setString(16, objeto.getTipoDistribuicao().name());
+				stmt.setBoolean(17, objeto.isDirecionado());
 
 				stmt.addBatch();
 				if (((listaSNAElem.size() - 1) < 20 && count
@@ -164,6 +184,7 @@ public class FiltroDAOImpl implements FiltroDAO {
 	@Override
 	public Filtro findById(Long id) throws Exception {
 		String query = "select id, data_criacao,screenNames,biografias,localizacoes,termosStatus,dataInicio,dataFim,end_graphml,status "
+				+ ", grau, pagerank, centralidade, modularidade, tipoRankColor, tipoRankSize, tipoDistribuicao, direcionado "
 				+ "from filtro "
 				+ "where id = ? ";
 
@@ -195,6 +216,33 @@ public class FiltroDAOImpl implements FiltroDAO {
 				}
 				elem.setEndGraphml(rs.getString(9));
 				elem.setStatus(rs.getString(10));
+				elem.setGrau(rs.getBoolean(11));
+				elem.setPageRank(rs.getBoolean(12));
+				elem.setCentralidade(rs.getBoolean(13));
+				elem.setModularity(rs.getBoolean(14));
+				
+				for(TipoRankColor tp: TipoRankColor.values()){
+					if(tp.name().equals(rs.getString(15))){
+						elem.setTipoRankColor(tp);
+						break;
+					}
+				}
+				
+				for(TipoRankSize tp: TipoRankSize.values()){
+					if(tp.name().equals(rs.getString(16))){
+						elem.setTipoRankSize(tp);
+						break;
+					}
+				}
+				
+				for(TipoDistribuicao tp: TipoDistribuicao.values()){
+					if(tp.name().equals(rs.getString(17))){
+						elem.setTipoDistribuicao(tp);
+						break;
+					}
+				}
+				
+				elem.setDirecionado(rs.getBoolean(18));
 			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
@@ -207,6 +255,7 @@ public class FiltroDAOImpl implements FiltroDAO {
 	@Override
 	public List<Filtro> list() throws Exception {
 		String query = "select id, data_criacao,screenNames,biografias,localizacoes,termosStatus,dataInicio,dataFim,end_graphml,status "
+				+ ", grau, pagerank, centralidade, modularidade, tipoRankColor, tipoRankSize, tipoDistribuicao, direcionado "
 				+ "from filtro;";
 
 		PreparedStatement stmt = null;
@@ -239,6 +288,34 @@ public class FiltroDAOImpl implements FiltroDAO {
 				}
 				elem.setEndGraphml(rs.getString(9));
 				elem.setStatus(rs.getString(10));
+				elem.setStatus(rs.getString(10));
+				elem.setGrau(rs.getBoolean(11));
+				elem.setPageRank(rs.getBoolean(12));
+				elem.setCentralidade(rs.getBoolean(13));
+				elem.setModularity(rs.getBoolean(14));
+				
+				for(TipoRankColor tp: TipoRankColor.values()){
+					if(tp.name().equals(rs.getString(15))){
+						elem.setTipoRankColor(tp);
+						break;
+					}
+				}
+				
+				for(TipoRankSize tp: TipoRankSize.values()){
+					if(tp.name().equals(rs.getString(16))){
+						elem.setTipoRankSize(tp);
+						break;
+					}
+				}
+				
+				for(TipoDistribuicao tp: TipoDistribuicao.values()){
+					if(tp.name().equals(rs.getString(17))){
+						elem.setTipoDistribuicao(tp);
+						break;
+					}
+				}
+				
+				elem.setDirecionado(rs.getBoolean(18));
 
 				listElem.add(elem);
 			}

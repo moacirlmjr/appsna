@@ -5,11 +5,24 @@ import java.util.Date;
 public class Filtro extends AppSNAEntityMaster {
 
 	public enum TipoRankSize {
-		RANKINGSIZEGRAU, RANKINGSIZEPAGERANK, RANKINGSIZECENTRAILIDADE;
+		GRAU, PAGERANK, CENTRAILIDADE;
+		
+		
+		public String getMyName(){
+			return this.name();
+		}
 	}
 
 	public enum TipoRankColor {
-		RANKINGCOLORGRAU, RANKINGCOLORPAGERANK, RANKINGCOLORCENTRAILIDADE, RANKINGCOLORMODULARITY;
+		GRAU, PAGERANK, CENTRALIDADE, MODULARITY;
+		
+		public String getMyName(){
+			return this.name();
+		}
+	}
+
+	public enum TipoDistribuicao {
+		FORCE_ATLAS, YIFAN_HU;
 	}
 
 	private Date dataCriacao;
@@ -29,6 +42,7 @@ public class Filtro extends AppSNAEntityMaster {
 
 	private TipoRankColor tipoRankColor;
 	private TipoRankSize tipoRankSize;
+	private TipoDistribuicao tipoDistribuicao;
 
 	private boolean direcionado;
 
@@ -164,6 +178,14 @@ public class Filtro extends AppSNAEntityMaster {
 
 	public void setTipoRankSize(TipoRankSize tipoRankSize) {
 		this.tipoRankSize = tipoRankSize;
+	}
+
+	public TipoDistribuicao getTipoDistribuicao() {
+		return tipoDistribuicao;
+	}
+
+	public void setTipoDistribuicao(TipoDistribuicao tipoDistribuicao) {
+		this.tipoDistribuicao = tipoDistribuicao;
 	}
 
 }

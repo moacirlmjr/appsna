@@ -6,16 +6,28 @@ import java.util.List;
 import org.gephi.data.attributes.api.AttributeColumn;
 import org.gephi.data.attributes.api.AttributeController;
 import org.gephi.data.attributes.api.AttributeModel;
+import org.gephi.filters.api.FilterController;
+import org.gephi.filters.api.Query;
+import org.gephi.filters.plugin.graph.GiantComponentBuilder.GiantComponentFilter;
 import org.gephi.graph.api.Edge;
 import org.gephi.graph.api.Graph;
 import org.gephi.graph.api.GraphController;
 import org.gephi.graph.api.GraphModel;
+import org.gephi.graph.api.GraphView;
 import org.gephi.graph.api.Node;
 import org.gephi.io.exporter.api.ExportController;
+import org.gephi.io.exporter.spi.GraphExporter;
+import org.gephi.layout.plugin.force.StepDisplacement;
+import org.gephi.layout.plugin.force.yifanHu.YifanHuLayout;
+import org.gephi.layout.plugin.forceAtlas2.ForceAtlas2;
+import org.gephi.layout.plugin.forceAtlas2.ForceAtlas2Builder;
 import org.gephi.partition.api.Partition;
 import org.gephi.partition.api.PartitionController;
 import org.gephi.partition.plugin.NodeColorTransformer;
+import org.gephi.plugins.layout.noverlap.NoverlapLayout;
+import org.gephi.plugins.layout.noverlap.NoverlapLayoutBuilder;
 import org.gephi.project.api.ProjectController;
+import org.gephi.project.api.Workspace;
 import org.gephi.ranking.api.Ranking;
 import org.gephi.ranking.api.RankingController;
 import org.gephi.ranking.api.Transformer;
@@ -31,6 +43,7 @@ import org.gephi.statistics.spi.Statistics;
 import org.openide.util.Lookup;
 
 import br.com.puc.appSNA.model.beans.Filtro;
+import br.com.puc.appSNA.model.beans.Filtro.TipoDistribuicao;
 import br.com.puc.appSNA.model.beans.Filtro.TipoRankColor;
 import br.com.puc.appSNA.model.beans.Filtro.TipoRankSize;
 import br.com.puc.appSNA.model.beans.to.MencaoTO;
@@ -75,12 +88,6 @@ public class GerarGraphMLByFiltro implements Runnable {
 				Node n1 = graphModel.factory().newNode(idUserDestino + "");
 				n1.getNodeData().setLabel(mencao.getDestino());
 				Edge e1 = null;
-				if (filtro.isDirecionado()) {
-					e1 = graphModel.factory().newEdge(n0, n1, qteMencoes, true);
-				} else {
-					e1 = graphModel.factory()
-							.newEdge(n0, n1, qteMencoes, false);
-				}
 				Graph graph = null;
 				if (filtro.isDirecionado()) {
 					graph = graphModel.getDirectedGraph();
@@ -89,6 +96,7 @@ public class GerarGraphMLByFiltro implements Runnable {
 						if (((String) n.getAttributes().getValue("id"))
 								.equals(((String) n0.getAttributes().getValue(
 										"id")))) {
+							n0 = n;
 							teste1 = false;
 							break;
 						}
@@ -102,6 +110,7 @@ public class GerarGraphMLByFiltro implements Runnable {
 						if (((String) n.getAttributes().getValue("id"))
 								.equals(((String) n1.getAttributes().getValue(
 										"id")))) {
+							n1 = n;
 							teste2 = false;
 							break;
 						}
@@ -110,10 +119,9 @@ public class GerarGraphMLByFiltro implements Runnable {
 					if (teste2) {
 						graph.addNode(n1);
 					}
-
-					if (teste1 && teste2) {
-						graph.addEdge(e1);
-					}
+					
+					e1 = graphModel.factory().newEdge(n0, n1, qteMencoes, true);
+					graph.addEdge(e1);
 				} else {
 					graph = graphModel.getUndirectedGraph();
 					boolean teste1 = true, teste2 = true;
@@ -121,6 +129,7 @@ public class GerarGraphMLByFiltro implements Runnable {
 						if (((String) n.getAttributes().getValue("id"))
 								.equals(((String) n0.getAttributes().getValue(
 										"id")))) {
+							n0 = n;
 							teste1 = false;
 							break;
 						}
@@ -133,6 +142,7 @@ public class GerarGraphMLByFiltro implements Runnable {
 						if (((String) n.getAttributes().getValue("id"))
 								.equals(((String) n1.getAttributes().getValue(
 										"id")))) {
+							n1 = n;
 							teste2 = false;
 							break;
 						}
@@ -141,6 +151,8 @@ public class GerarGraphMLByFiltro implements Runnable {
 					if (teste2) {
 						graph.addNode(n1);
 					}
+					e1 = graphModel.factory()
+							.newEdge(n0, n1, qteMencoes, false);
 					graph.addEdge(e1);
 				}
 			}
@@ -194,22 +206,19 @@ public class GerarGraphMLByFiltro implements Runnable {
 			AttributeColumn column = null;
 
 			if (filtro.getTipoRankSize() != null) {
-				if (filtro.getTipoRankSize().equals(
-						TipoRankSize.RANKINGSIZEPAGERANK)) {
+				if (filtro.getTipoRankSize().equals(TipoRankSize.PAGERANK)) {
 					column = attributeModel.getNodeTable().getColumn(
 							PageRank.PAGERANK);
-				} else if (filtro.getTipoRankSize().equals(
-						TipoRankSize.RANKINGSIZEGRAU)
+				} else if (filtro.getTipoRankSize().equals(TipoRankSize.GRAU)
 						&& filtro.isDirecionado()) {
 					column = attributeModel.getNodeTable().getColumn(
 							Degree.INDEGREE);
-				} else if (filtro.getTipoRankSize().equals(
-						TipoRankSize.RANKINGSIZEGRAU)
+				} else if (filtro.getTipoRankSize().equals(TipoRankSize.GRAU)
 						&& !filtro.isDirecionado()) {
 					column = attributeModel.getNodeTable().getColumn(
 							Degree.DEGREE);
 				} else if (filtro.getTipoRankSize().equals(
-						TipoRankSize.RANKINGSIZECENTRAILIDADE)) {
+						TipoRankSize.CENTRAILIDADE)) {
 					column = attributeModel.getNodeTable().getColumn(
 							GraphDistance.BETWEENNESS);
 				}
@@ -217,8 +226,8 @@ public class GerarGraphMLByFiltro implements Runnable {
 				AbstractSizeTransformer sizeTransformer = (AbstractSizeTransformer) rankingController
 						.getModel().getTransformer(Ranking.NODE_ELEMENT,
 								Transformer.RENDERABLE_SIZE);
-				sizeTransformer.setMinSize(30);
-				sizeTransformer.setMaxSize(300);
+				sizeTransformer.setMinSize(10);
+				sizeTransformer.setMaxSize(100);
 
 				Ranking ranking = rankingController.getModel().getRanking(
 						Ranking.NODE_ELEMENT, column.getId());
@@ -226,46 +235,98 @@ public class GerarGraphMLByFiltro implements Runnable {
 			}
 
 			if (filtro.getTipoRankColor() != null) {
-				if (filtro.getTipoRankSize().equals(
-						TipoRankColor.RANKINGCOLORCENTRAILIDADE)) {
+				if (filtro.getTipoRankColor().equals(
+						TipoRankColor.CENTRALIDADE)) {
 					column = attributeModel.getNodeTable().getColumn(
 							GraphDistance.BETWEENNESS);
-				} else if (filtro.getTipoRankSize().equals(
-						TipoRankColor.RANKINGCOLORGRAU)
+				} else if (filtro.getTipoRankColor().equals(TipoRankColor.GRAU)
 						&& filtro.isDirecionado()) {
 					column = attributeModel.getNodeTable().getColumn(
 							Degree.INDEGREE);
-				} else if (filtro.getTipoRankSize().equals(
-						TipoRankColor.RANKINGCOLORGRAU)
+				} else if (filtro.getTipoRankColor().equals(TipoRankColor.GRAU)
 						&& !filtro.isDirecionado()) {
 					column = attributeModel.getNodeTable().getColumn(
 							Degree.DEGREE);
-				} else if (filtro.getTipoRankSize().equals(
-						TipoRankColor.RANKINGCOLORMODULARITY)
-						&& !filtro.isDirecionado()) {
+				} else if (filtro.getTipoRankColor().equals(
+						TipoRankColor.MODULARITY)) {
 					column = attributeModel.getNodeTable().getColumn(
 							Modularity.MODULARITY_CLASS);
-				} else if (filtro.getTipoRankSize().equals(
-						TipoRankColor.RANKINGCOLORPAGERANK)) {
+				} else if (filtro.getTipoRankColor().equals(
+						TipoRankColor.PAGERANK)) {
 					column = attributeModel.getNodeTable().getColumn(
 							PageRank.PAGERANK);
 				}
-				
+
 				PartitionController partitionController = Lookup.getDefault()
 						.lookup(PartitionController.class);
-				Partition p = partitionController.buildPartition(column,
-						graph);
+				Partition p = partitionController.buildPartition(column, graph);
 				NodeColorTransformer nodeColorTransformer = new NodeColorTransformer();
 				nodeColorTransformer.randomizeColors(p);
 				partitionController.transform(p, nodeColorTransformer);
 			}
-			
+
+			if (filtro.getTipoDistribuicao() != null) {
+				if (filtro.getTipoDistribuicao().equals(
+						TipoDistribuicao.FORCE_ATLAS)) {
+					ForceAtlas2 layout = new ForceAtlas2(
+							new ForceAtlas2Builder());
+					layout.setGraphModel(graphModel);
+					layout.resetPropertiesValues();
+					layout.setAdjustSizes(true);
+					layout.setOutboundAttractionDistribution(true);
+
+					layout.initAlgo();
+					for (int i = 0; i < 100 && layout.canAlgo(); i++) {
+						layout.goAlgo();
+					}
+					layout.endAlgo();
+
+				} else if (filtro.getTipoDistribuicao().equals(
+						TipoDistribuicao.YIFAN_HU)) {
+					YifanHuLayout layout = new YifanHuLayout(null,
+							new StepDisplacement(1f));
+					layout.setGraphModel(graphModel);
+					layout.resetPropertiesValues();
+					layout.setOptimalDistance(200f);
+
+					layout.initAlgo();
+					for (int i = 0; i < 100 && layout.canAlgo(); i++) {
+						layout.goAlgo();
+					}
+					layout.endAlgo();
+				}
+
+				NoverlapLayout layout2 = new NoverlapLayout(
+						new NoverlapLayoutBuilder());
+				layout2.setGraphModel(graphModel);
+				layout2.resetPropertiesValues();
+
+				layout2.initAlgo();
+				for (int i = 0; i < 100 && layout2.canAlgo(); i++) {
+					layout2.goAlgo();
+				}
+				layout2.endAlgo();
+			}
 
 			// Export to GRaphml
 			ExportController ec = Lookup.getDefault().lookup(
 					ExportController.class);
 			ec.exportFile(new File(Constantes.DIR_GRAPHML
 					+ filtro.getEndGraphml()));
+			
+			FilterController filterController = Lookup.getDefault().lookup(FilterController.class);
+	        GiantComponentFilter gcf = new GiantComponentFilter();
+	        gcf.init(graphModel.getGraph());
+	        Query query = filterController.createQuery(gcf);
+	        GraphView view = filterController.filter(query);
+	        graphModel.setVisibleView(view);
+	        
+	        GraphExporter exporter = (GraphExporter) ec.getExporter("gexf");     //Get GEXF exporter
+	        exporter.setExportVisible(true);  //Only exports the visible (filtered) graph
+	        Workspace workspace = pc.getCurrentWorkspace();
+	        exporter.setWorkspace(workspace);
+	        ec.exportFile(new File(Constantes.DIR_GRAPHML + "CG_"
+					+ filtro.getEndGraphml()),exporter);
 
 			filtro.setStatus("TERMINADO");
 			filtroDAO.update(filtro);

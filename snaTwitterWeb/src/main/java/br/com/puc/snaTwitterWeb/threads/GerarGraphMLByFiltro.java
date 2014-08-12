@@ -125,7 +125,7 @@ public class GerarGraphMLByFiltro implements Runnable {
 				} else {
 					graph = graphModel.getUndirectedGraph();
 					boolean teste1 = true, teste2 = true;
-					for (Node n : graph.getNodes()) {
+					for (Node n : graph.getNodes().toArray()) {
 						if (((String) n.getAttributes().getValue("id"))
 								.equals(((String) n0.getAttributes().getValue(
 										"id")))) {
@@ -138,7 +138,7 @@ public class GerarGraphMLByFiltro implements Runnable {
 						graph.addNode(n0);
 					}
 
-					for (Node n : graph.getNodes()) {
+					for (Node n : graph.getNodes().toArray()) {
 						if (((String) n.getAttributes().getValue("id"))
 								.equals(((String) n1.getAttributes().getValue(
 										"id")))) {

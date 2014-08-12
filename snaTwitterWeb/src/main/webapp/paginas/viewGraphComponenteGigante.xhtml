@@ -20,7 +20,7 @@
 				$(document).ready(initSigma());
 								
 				function initSigma() {
-					var data='/snaTwitterWeb/gexf/CG_#{filtroController.filtro.endGraphml}'
+					var data='/SnaTwitterWeb/gexf/CG_#{filtroController.filtro.endGraphml}'
 					
 					var drawProps, graphProps,mouseProps;
 					drawProps={
@@ -41,8 +41,8 @@
 				    graphProps={
 				        minNodeSize: 1,
 					    maxNodeSize: 7,
-					    minEdgeSize: 0.2,
-        			    maxEdgeSize: 0.5
+					    minEdgeSize: 0.5,
+        			    maxEdgeSize: 2
 				   	};
 					
 				    var a = sigma.init(document.getElementById("container")).drawingProperties(drawProps).graphProperties(graphProps);

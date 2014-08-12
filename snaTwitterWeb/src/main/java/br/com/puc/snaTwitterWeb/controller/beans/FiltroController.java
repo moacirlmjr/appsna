@@ -14,8 +14,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-import org.gephi.graph.api.Attributes;
-import org.gephi.graph.api.DirectedGraph;
+import org.gephi.graph.api.Edge;
+import org.gephi.graph.api.Graph;
 import org.gephi.graph.api.GraphController;
 import org.gephi.graph.api.GraphModel;
 import org.gephi.graph.api.Node;
@@ -30,6 +30,7 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 import br.com.puc.appSNA.model.beans.Filtro;
+import br.com.puc.appSNA.model.beans.to.EdgeTO;
 import br.com.puc.appSNA.model.beans.to.NodeTO;
 import br.com.puc.appSNA.model.dao.FiltroDAO;
 import br.com.puc.appSNA.model.dao.FiltroDAOImpl;
@@ -44,7 +45,10 @@ public class FiltroController implements Serializable {
 	private Filtro filtro;
 	private List<Filtro> listFiltros;
 	private List<NodeTO> listNodes;
+	private List<EdgeTO> listEdges;
 	private StreamedContent graphml;
+	private Integer nodeCount;
+	private Integer edgeCount;
 
 	public FiltroController() {
 		filtro = new Filtro();
@@ -118,6 +122,7 @@ public class FiltroController implements Serializable {
 				filtro = f;
 			}
 			listNodes = new ArrayList<>();
+			listEdges = new ArrayList<>();
 			ProjectController pc = Lookup.getDefault().lookup(
 					ProjectController.class);
 			pc.newProject();
@@ -144,8 +149,15 @@ public class FiltroController implements Serializable {
 
 			GraphModel graphModel = Lookup.getDefault()
 					.lookup(GraphController.class).getModel();
-
-			DirectedGraph dg = graphModel.getDirectedGraph();
+			
+			Graph dg = null;
+			if (filtro.isDirecionado()) {
+				dg = graphModel.getDirectedGraph();
+			}else{
+				dg = graphModel.getUndirectedGraph();
+			}
+			nodeCount = dg.getNodeCount();
+			edgeCount = dg.getEdgeCount();
 			for(Node node:dg.getNodes()){
 				NodeTO nodeTO = new NodeTO();
 				nodeTO.setId_node(Long.parseLong((String) node.getAttributes().getValue("id")));
@@ -175,7 +187,14 @@ public class FiltroController implements Serializable {
 				
 				listNodes.add(nodeTO);
 			}
-			System.out.println();
+			
+			for(Edge edge:dg.getEdges()){
+				EdgeTO edgeTO = new EdgeTO();
+				edgeTO.setId_source(Long.parseLong((String) edge.getSource().getAttributes().getValue("id")));
+				edgeTO.setId_target(Long.parseLong((String) edge.getTarget().getAttributes().getValue("id")));
+				edgeTO.setWeight(((Float)edge.getWeight()).intValue());
+				listEdges.add(edgeTO);
+			}
 		} catch (Exception e) {
 			FacesUtil.registrarFacesMessage(
 					"Ocorreu um erro ao carregar a rede",
@@ -220,6 +239,30 @@ public class FiltroController implements Serializable {
 
 	public void setListNodes(List<NodeTO> listNodes) {
 		this.listNodes = listNodes;
+	}
+
+	public List<EdgeTO> getListEdges() {
+		return listEdges;
+	}
+
+	public void setListEdges(List<EdgeTO> listEdges) {
+		this.listEdges = listEdges;
+	}
+
+	public Integer getNodeCount() {
+		return nodeCount;
+	}
+
+	public void setNodeCount(Integer nodeCount) {
+		this.nodeCount = nodeCount;
+	}
+
+	public Integer getEdgeCount() {
+		return edgeCount;
+	}
+
+	public void setEdgeCount(Integer edgeCount) {
+		this.edgeCount = edgeCount;
 	}
 
 }

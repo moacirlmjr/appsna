@@ -184,20 +184,11 @@ public class PesquisaController implements Serializable {
 			filtro.setTipoRankSize(tipoRankSize);
 			filtro.setTipoDistribuicao(tipoDistribuicao);
 
-			FiltroDAO filtroDAO = new FiltroDAOImpl();
-			Long id = filtroDAO.create(filtro);
-			filtro.setId(id);
-
-
-			GerarGraphMLByFiltro parser = new GerarGraphMLByFiltro();
-			parser.setFiltro(filtro);
-			exec.submit(parser);
-
 			screenNames = new ArrayList<>();
 			biografias = new ArrayList<>();
 			localizacoes = new ArrayList<>();
 			termos = new ArrayList<>();
-
+			
 			grau = false;
 			centralidade = false;
 			pageRank = false;
@@ -207,9 +198,19 @@ public class PesquisaController implements Serializable {
 			tipoRankColor = null;
 			tipoRankSize = null;
 			tipoDistribuicao = null;
-
+			
 			dataInicio = null;
 			dataFim = null;
+			
+			FiltroDAO filtroDAO = new FiltroDAOImpl();
+			Long id = filtroDAO.create(filtro);
+			filtro.setId(id);
+
+
+			GerarGraphMLByFiltro parser = new GerarGraphMLByFiltro();
+			parser.setFiltro(filtro);
+			exec.submit(parser);
+
 
 			FacesUtil.registrarFacesMessage(
 					"Filtro Salvo com Sucesso. Em breve sua rede será gerada",

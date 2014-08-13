@@ -209,6 +209,7 @@ public class PesquisaController implements Serializable {
 
 			GerarGraphMLByFiltro parser = new GerarGraphMLByFiltro();
 			parser.setFiltro(filtro);
+			parser.setArquivoTermos(FacesUtil.obterCaminhoReal("termoASeremRetirados.txt"));
 			exec.submit(parser);
 
 

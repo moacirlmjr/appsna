@@ -64,7 +64,8 @@ import br.com.puc.snaTwitterWeb.util.FacesUtil;
 public class GerarGraphMLByFiltro implements Runnable {
 
 	private Filtro filtro;
-
+	private String arquivoTermos; 
+	
 	@Override
 	public void run() {
 		AppSNALog.info("Entrou na Tread - Filtro: " + filtro.toString());
@@ -349,8 +350,7 @@ public class GerarGraphMLByFiltro implements Runnable {
 					.getModel();
 
 			List<String> termosASeremDesconsiderados = new ArrayList<>();
-			FileReader fr = new FileReader(
-					"E:\\DESENVOLVIMENTO\\Ambiente\\Avaty\\workspace\\workspace-oepe\\snaTwitterWeb\\src\\main\\webapp\\WEB-INF\\termoASeremRetirados.txt");
+			FileReader fr = new FileReader(arquivoTermos);
 			BufferedReader in = new BufferedReader(fr);
 			String line;
 			while ((line = in.readLine()) != null) {
@@ -552,23 +552,20 @@ public class GerarGraphMLByFiltro implements Runnable {
 						+ filtro.getEndGraphml()), exporter);
 	}
 
-	private static boolean verificar(String id, List<String> lista) {
-
-		for (String teste : lista) {
-			if (id.equals(teste)) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
 	public Filtro getFiltro() {
 		return filtro;
 	}
 
 	public void setFiltro(Filtro filtro) {
 		this.filtro = filtro;
+	}
+
+	public String getArquivoTermos() {
+		return arquivoTermos;
+	}
+
+	public void setArquivoTermos(String arquivoTermos) {
+		this.arquivoTermos = arquivoTermos;
 	}
 
 }

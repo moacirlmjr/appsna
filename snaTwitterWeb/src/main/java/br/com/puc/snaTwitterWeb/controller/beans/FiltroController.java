@@ -63,6 +63,16 @@ public class FiltroController implements Serializable {
 		graphml = new DefaultStreamedContent(input, "application/graphml",
 				graphmlString);
 	}
+	
+	public void carregarGraphmlTermo(ActionEvent ev) throws Exception {
+		Map<String, String> params = FacesContext.getCurrentInstance()
+				.getExternalContext().getRequestParameterMap();
+		String graphmlString = params.get("graphml");
+		InputStream input = new FileInputStream(new File(Constantes.DIR_GRAPHML
+				+ graphmlString));
+		graphml = new DefaultStreamedContent(input, "application/graphml",
+				graphmlString);
+	}
 
 	public void excluirFiltro(Filtro f) throws Exception {
 		try {
@@ -99,6 +109,22 @@ public class FiltroController implements Serializable {
 		}
 		return "";
 	}
+	
+	public String carregarFiltroTermo(Filtro f) {
+		try {
+			if (f != null) {
+				filtro = f;
+			}
+
+			return "viewGraphTermo.jsf";
+		} catch (Exception e) {
+			FacesUtil.registrarFacesMessage(
+					"Ocorreu um erro ao carregar a rede",
+					FacesMessage.SEVERITY_ERROR);
+			AppSNALog.error(e);
+		}
+		return "";
+	}
 
 	public String carregarFiltroCG(Filtro f) {
 		try {
@@ -107,6 +133,22 @@ public class FiltroController implements Serializable {
 			}
 
 			return "viewGraphComponenteGigante.jsf";
+		} catch (Exception e) {
+			FacesUtil.registrarFacesMessage(
+					"Ocorreu um erro ao carregar a rede",
+					FacesMessage.SEVERITY_ERROR);
+			AppSNALog.error(e);
+		}
+		return "";
+	}
+	
+	public String carregarFiltroTermoCG(Filtro f) {
+		try {
+			if (f != null) {
+				filtro = f;
+			}
+
+			return "viewGraphTermoComponenteGigante.jsf";
 		} catch (Exception e) {
 			FacesUtil.registrarFacesMessage(
 					"Ocorreu um erro ao carregar a rede",

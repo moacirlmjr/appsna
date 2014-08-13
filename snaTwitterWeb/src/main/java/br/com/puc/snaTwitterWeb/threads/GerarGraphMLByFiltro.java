@@ -1,6 +1,11 @@
 package br.com.puc.snaTwitterWeb.threads;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.gephi.data.attributes.api.AttributeColumn;
@@ -46,6 +51,7 @@ import br.com.puc.appSNA.model.beans.Filtro;
 import br.com.puc.appSNA.model.beans.Filtro.TipoDistribuicao;
 import br.com.puc.appSNA.model.beans.Filtro.TipoRankColor;
 import br.com.puc.appSNA.model.beans.Filtro.TipoRankSize;
+import br.com.puc.appSNA.model.beans.Status;
 import br.com.puc.appSNA.model.beans.to.MencaoTO;
 import br.com.puc.appSNA.model.dao.FiltroDAO;
 import br.com.puc.appSNA.model.dao.FiltroDAOImpl;
@@ -53,6 +59,7 @@ import br.com.puc.appSNA.model.dao.StatusDAO;
 import br.com.puc.appSNA.model.dao.StatusDAOImpl;
 import br.com.puc.appSNA.util.AppSNALog;
 import br.com.puc.appSNA.util.Constantes;
+import br.com.puc.snaTwitterWeb.util.FacesUtil;
 
 public class GerarGraphMLByFiltro implements Runnable {
 
@@ -119,7 +126,7 @@ public class GerarGraphMLByFiltro implements Runnable {
 					if (teste2) {
 						graph.addNode(n1);
 					}
-					
+
 					e1 = graphModel.factory().newEdge(n0, n1, qteMencoes, true);
 					graph.addEdge(e1);
 				} else {
@@ -235,8 +242,8 @@ public class GerarGraphMLByFiltro implements Runnable {
 			}
 
 			if (filtro.getTipoRankColor() != null) {
-				if (filtro.getTipoRankColor().equals(
-						TipoRankColor.CENTRALIDADE)) {
+				if (filtro.getTipoRankColor()
+						.equals(TipoRankColor.CENTRALIDADE)) {
 					column = attributeModel.getNodeTable().getColumn(
 							GraphDistance.BETWEENNESS);
 				} else if (filtro.getTipoRankColor().equals(TipoRankColor.GRAU)
@@ -313,20 +320,49 @@ public class GerarGraphMLByFiltro implements Runnable {
 					ExportController.class);
 			ec.exportFile(new File(Constantes.DIR_GRAPHML
 					+ filtro.getEndGraphml()));
-			
-			FilterController filterController = Lookup.getDefault().lookup(FilterController.class);
-	        GiantComponentFilter gcf = new GiantComponentFilter();
-	        gcf.init(graphModel.getGraph());
-	        Query query = filterController.createQuery(gcf);
-	        GraphView view = filterController.filter(query);
-	        graphModel.setVisibleView(view);
-	        
-	        GraphExporter exporter = (GraphExporter) ec.getExporter("gexf");     //Get GEXF exporter
-	        exporter.setExportVisible(true);  //Only exports the visible (filtered) graph
-	        Workspace workspace = pc.getCurrentWorkspace();
-	        exporter.setWorkspace(workspace);
-	        ec.exportFile(new File(Constantes.DIR_GRAPHML + "CG_"
-					+ filtro.getEndGraphml()),exporter);
+
+			FilterController filterController = Lookup.getDefault().lookup(
+					FilterController.class);
+			GiantComponentFilter gcf = new GiantComponentFilter();
+			gcf.init(graphModel.getGraph());
+			Query query = filterController.createQuery(gcf);
+			GraphView view = filterController.filter(query);
+			graphModel.setVisibleView(view);
+
+			GraphExporter exporter = (GraphExporter) ec.getExporter("gexf"); // Get
+																				// GEXF
+																				// exporter
+			exporter.setExportVisible(true); // Only exports the visible
+												// (filtered) graph
+			Workspace workspace = pc.getCurrentWorkspace();
+			exporter.setWorkspace(workspace);
+			ec.exportFile(
+					new File(Constantes.DIR_GRAPHML + "CG_"
+							+ filtro.getEndGraphml()), exporter);
+
+			List<Status> listStatus = statusDAO.listStatusByFiltro(filtro);
+
+			pc = Lookup.getDefault().lookup(ProjectController.class);
+			pc.newProject();
+
+			graphModel = Lookup.getDefault().lookup(GraphController.class)
+					.getModel();
+
+			List<String> termosASeremDesconsiderados = new ArrayList<>();
+			FileReader fr = new FileReader(
+					"E:\\DESENVOLVIMENTO\\Ambiente\\Avaty\\workspace\\workspace-oepe\\snaTwitterWeb\\src\\main\\webapp\\WEB-INF\\termoASeremRetirados.txt");
+			BufferedReader in = new BufferedReader(fr);
+			String line;
+			while ((line = in.readLine()) != null) {
+				String texto = Normalizer.normalize(
+						line.replaceAll("[^\\p{L}\\p{Z}]", ""),
+						Normalizer.Form.NFD);
+				texto = texto.replaceAll("[^\\p{ASCII}]", "");
+				termosASeremDesconsiderados.add(texto);
+			}
+
+			extractRedePalavras(pc, graphModel, listStatus,
+					termosASeremDesconsiderados);
 
 			filtro.setStatus("TERMINADO");
 			filtroDAO.update(filtro);
@@ -341,6 +377,190 @@ public class GerarGraphMLByFiltro implements Runnable {
 			AppSNALog.error(e);
 		}
 		AppSNALog.info("Terminou Tread - Filtro: " + filtro.toString());
+	}
+
+	private void extractRedePalavras(ProjectController pc,
+			GraphModel graphModel, List<Status> listStatus,
+			List<String> termosASeremDesconsiderados) throws IOException {
+		Graph graph;
+		AttributeModel attributeModel;
+		Statistics statistics;
+		RankingController rankingController;
+		AttributeColumn column;
+		ExportController ec;
+		FilterController filterController;
+		GiantComponentFilter gcf;
+		Query query;
+		GraphView view;
+		GraphExporter exporter;
+		Workspace workspace;
+		for (Status mencao : listStatus) {
+			String status = mencao.getTexto();
+			List<Node> nodes = new ArrayList<>();
+			for (String tema : status.toLowerCase().split(" ")) {
+				String texto = Normalizer.normalize(
+						tema.replaceAll("[^\\p{L}\\p{Z}]", ""),
+						Normalizer.Form.NFD);
+				texto = texto.replaceAll("[^\\p{ASCII}]", "");
+				if (!texto.equals("")
+						&& !termosASeremDesconsiderados.contains(texto)) {
+					Node n0 = graphModel.factory().newNode(texto + "");
+					n0.getNodeData().setLabel(texto);
+
+					graph = graphModel.getUndirectedGraph();
+					boolean teste1 = true;
+					for (Node n : graph.getNodes().toArray()) {
+						if (((String) n.getAttributes().getValue("id"))
+								.equals(((String) n0.getAttributes().getValue(
+										"id")))) {
+							n0 = n;
+							teste1 = false;
+							break;
+						}
+					}
+
+					if (teste1) {
+						nodes.add(n0);
+						graph.addNode(n0);
+					}
+				}
+			}
+
+			graph = graphModel.getUndirectedGraph();
+			for (Node n : nodes) {
+				for (Node n1 : nodes) {
+					if (!((String) n.getAttributes().getValue("id"))
+							.equals(((String) n1.getAttributes().getValue("id")))) {
+						Edge e1 = graphModel.factory().newEdge(n, n1, 1, false);
+
+						graph.addEdge(e1);
+					}
+				}
+			}
+
+		}
+
+		graph = graphModel.getUndirectedGraph();
+		System.out.println("Nodes: " + graph.getNodeCount());
+		System.out.println("Edges: " + graph.getEdgeCount());
+
+		// Export full graph
+		attributeModel = Lookup.getDefault().lookup(AttributeController.class)
+				.getModel();
+
+		statistics = null;
+		DegreeBuilder dBuilder = new DegreeBuilder();
+		statistics = dBuilder.getStatistics();
+		statistics.execute(graphModel, attributeModel);
+
+		PageRankBuilder pgb = new PageRankBuilder();
+		statistics = pgb.getStatistics();
+		statistics.execute(graphModel, attributeModel);
+
+		ModularityBuilder mdb = new ModularityBuilder();
+		statistics = mdb.getStatistics();
+		statistics.execute(graphModel, attributeModel);
+
+		rankingController = Lookup.getDefault().lookup(RankingController.class);
+		column = null;
+
+		column = attributeModel.getNodeTable().getColumn(Degree.DEGREE);
+
+		AbstractSizeTransformer sizeTransformer = (AbstractSizeTransformer) rankingController
+				.getModel().getTransformer(Ranking.NODE_ELEMENT,
+						Transformer.RENDERABLE_SIZE);
+		sizeTransformer.setMinSize(10);
+		sizeTransformer.setMaxSize(100);
+
+		Ranking ranking = rankingController.getModel().getRanking(
+				Ranking.NODE_ELEMENT, column.getId());
+		rankingController.transform(ranking, sizeTransformer);
+
+		column = attributeModel.getNodeTable().getColumn(
+				Modularity.MODULARITY_CLASS);
+
+		PartitionController partitionController = Lookup.getDefault().lookup(
+				PartitionController.class);
+		Partition p = partitionController.buildPartition(column, graph);
+		NodeColorTransformer nodeColorTransformer = new NodeColorTransformer();
+		nodeColorTransformer.randomizeColors(p);
+		partitionController.transform(p, nodeColorTransformer);
+
+		if (filtro.getTipoDistribuicao() != null) {
+			if (filtro.getTipoDistribuicao().equals(
+					TipoDistribuicao.FORCE_ATLAS)) {
+				ForceAtlas2 layout = new ForceAtlas2(new ForceAtlas2Builder());
+				layout.setGraphModel(graphModel);
+				layout.resetPropertiesValues();
+				layout.setAdjustSizes(true);
+				layout.setOutboundAttractionDistribution(true);
+
+				layout.initAlgo();
+				for (int i = 0; i < 100 && layout.canAlgo(); i++) {
+					layout.goAlgo();
+				}
+				layout.endAlgo();
+
+			} else if (filtro.getTipoDistribuicao().equals(
+					TipoDistribuicao.YIFAN_HU)) {
+				YifanHuLayout layout = new YifanHuLayout(null,
+						new StepDisplacement(1f));
+				layout.setGraphModel(graphModel);
+				layout.resetPropertiesValues();
+				layout.setOptimalDistance(200f);
+
+				layout.initAlgo();
+				for (int i = 0; i < 100 && layout.canAlgo(); i++) {
+					layout.goAlgo();
+				}
+				layout.endAlgo();
+			}
+
+			NoverlapLayout layout2 = new NoverlapLayout(
+					new NoverlapLayoutBuilder());
+			layout2.setGraphModel(graphModel);
+			layout2.resetPropertiesValues();
+
+			layout2.initAlgo();
+			for (int i = 0; i < 100 && layout2.canAlgo(); i++) {
+				layout2.goAlgo();
+			}
+			layout2.endAlgo();
+		}
+
+		// Export to GRaphml
+		ec = Lookup.getDefault().lookup(ExportController.class);
+		ec.exportFile(new File(Constantes.DIR_GRAPHML + "TEMA_"
+				+ filtro.getEndGraphml()));
+
+		filterController = Lookup.getDefault().lookup(FilterController.class);
+		gcf = new GiantComponentFilter();
+		gcf.init(graphModel.getGraph());
+		query = filterController.createQuery(gcf);
+		view = filterController.filter(query);
+		graphModel.setVisibleView(view);
+
+		exporter = (GraphExporter) ec.getExporter("gexf"); // Get
+															// GEXF
+															// exporter
+		exporter.setExportVisible(true); // Only exports the visible
+											// (filtered) graph
+		workspace = pc.getCurrentWorkspace();
+		exporter.setWorkspace(workspace);
+		ec.exportFile(
+				new File(Constantes.DIR_GRAPHML + "TEMA_CG_"
+						+ filtro.getEndGraphml()), exporter);
+	}
+
+	private static boolean verificar(String id, List<String> lista) {
+
+		for (String teste : lista) {
+			if (id.equals(teste)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	public Filtro getFiltro() {

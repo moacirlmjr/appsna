@@ -123,12 +123,18 @@
 					<h:graphicImage title="Analisando" value="/imagens/ajax-loader.gif"
 						width="16"
 						rendered="#{filtro.status != 'ERRO' and filtro.status != 'TERMINADO'}" />
-
-					<p:commandLink value="#{filtro.endGraphml}"
+					<p:commandLink value="rede de mençoes"
 						actionListener="#{filtroController.carregarGraphml}"
 						oncomplete="document.getElementById('form:linkDonwload').click();"
 						rendered="#{filtro.status == 'TERMINADO'}">
 						<f:param name="graphml" value="#{filtro.endGraphml}"></f:param>
+					</p:commandLink>
+					<br/>
+					<p:commandLink value="rede de termos"
+						actionListener="#{filtroController.carregarGraphmlTermo}"
+						oncomplete="document.getElementById('form:linkDonwload').click();"
+						rendered="#{filtro.status == 'TERMINADO'}">
+						<f:param name="graphml" value="TEMA_#{filtro.endGraphml}"></f:param>
 					</p:commandLink>
 				</p:column>
 
@@ -142,6 +148,19 @@
 					<p:commandButton icon="iconRede2" title="Ver Componente Gigante"
 						styleClass="buttonTable" ajax="false"
 						action="#{filtroController.carregarFiltroCG(filtro)}"
+						rendered="#{filtro.status == 'TERMINADO'}">
+					</p:commandButton>
+
+					<p:commandButton icon="iconRede" title="Ver Rede de Termos"
+						styleClass="buttonTable" ajax="false"
+						action="#{filtroController.carregarFiltroTermo(filtro)}"
+						rendered="#{filtro.status == 'TERMINADO'}">
+					</p:commandButton>
+
+					<p:commandButton icon="iconRede2"
+						title="Ver Componente Gigante da Rede de Termos"
+						styleClass="buttonTable" ajax="false"
+						action="#{filtroController.carregarFiltroTermoCG(filtro)}"
 						rendered="#{filtro.status == 'TERMINADO'}">
 					</p:commandButton>
 
@@ -226,20 +245,17 @@
 
 						<h:commandLink>
 							<p:graphicImage library="imagens" name="excel.png" />
-							<p:dataExporter type="xls" target="tableNodes"
-								fileName="nodes" />
+							<p:dataExporter type="xls" target="tableNodes" fileName="nodes" />
 						</h:commandLink>
 
 						<h:commandLink>
 							<p:graphicImage library="imagens" name="pdf.png" />
-							<p:dataExporter type="pdf" target="tableNodes"
-								fileName="nodes" />
+							<p:dataExporter type="pdf" target="tableNodes" fileName="nodes" />
 						</h:commandLink>
 
 						<h:commandLink>
 							<p:graphicImage library="imagens" name="xml.png" />
-							<p:dataExporter type="xml" target="tableNodes"
-								fileName="nodes" />
+							<p:dataExporter type="xml" target="tableNodes" fileName="nodes" />
 						</h:commandLink>
 					</p:tab>
 					<p:tab title="Arestas">
@@ -262,20 +278,17 @@
 
 						<h:commandLink>
 							<p:graphicImage library="imagens" name="excel.png" />
-							<p:dataExporter type="xls" target="tableEdges"
-								fileName="edges" />
+							<p:dataExporter type="xls" target="tableEdges" fileName="edges" />
 						</h:commandLink>
 
 						<h:commandLink>
 							<p:graphicImage library="imagens" name="pdf.png" />
-							<p:dataExporter type="pdf" target="tableEdges"
-								fileName="edges" />
+							<p:dataExporter type="pdf" target="tableEdges" fileName="edges" />
 						</h:commandLink>
 
 						<h:commandLink>
 							<p:graphicImage library="imagens" name="xml.png" />
-							<p:dataExporter type="xml" target="tableEdges"
-								fileName="edges" />
+							<p:dataExporter type="xml" target="tableEdges" fileName="edges" />
 						</h:commandLink>
 					</p:tab>
 				</p:tabView>

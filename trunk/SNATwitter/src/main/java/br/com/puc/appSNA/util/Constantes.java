@@ -19,15 +19,15 @@ public class Constantes {
 
 	public static String USER = "root";
 
-//	public static String SENHA = "mv13wavaty";
+	public static String SENHA = "mv13wavaty";
 	
-	public static String SENHA = "";
+//	public static String SENHA = "";
 	
 	public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 
-//	public static final String DIR = "/usr/local/appSNA/";
-	public static final String DIR = "E:\\DESENVOLVIMENTO\\appSNA\\";
+	public static final String DIR = "/usr/local/appSNA/";
+//	public static final String DIR = "E:\\DESENVOLVIMENTO\\appSNA\\";
 
-//	public static final String DIR_GRAPHML = DIR + "graphmls/";
-	public static final String DIR_GRAPHML = "E:\\DESENVOLVIMENTO\\appSNA\\";
+	public static final String DIR_GRAPHML = DIR + "graphmls/";
+//	public static final String DIR_GRAPHML = "E:\\DESENVOLVIMENTO\\appSNA\\";
 }

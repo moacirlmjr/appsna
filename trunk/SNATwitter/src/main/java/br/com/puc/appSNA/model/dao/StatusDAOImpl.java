@@ -372,5 +372,142 @@ public class StatusDAOImpl implements StatusDAO {
 
 		return listMencoes;
 	}
+	
+	
+	@Override
+	public List<Status> listStatusByFiltro(Filtro filtro) throws Exception {
+		String queryPrincipal = "select id_usuario,(select screen_name from usuario u where u.id_usuario = u2.id_usuario ) as origem, "
+				+ "id_status, (select texto from status s where s.id_usuario = u2.id_usuario and s.id_status = u2.id_status) as status "
+				+ "from usermention u2"
+				+ " where id_status in (select id_status from status where texto like '%@%' "; 
+		String queryUsuarioStatus = "";
+		String groupBy = "group by id_usuario, id_status";
+
+		if (filtro.getTermosStatus() != null) {
+			queryPrincipal += "and (";
+			int count = 0;
+			for (String termo : filtro.getTermosStatus().split(",")) {
+				queryPrincipal += "texto like '%" + termo + "%' ";
+				if (filtro.getTermosStatus().split(",").length > 1
+						&& count < (filtro.getTermosStatus().split(",").length - 1)) {
+					queryPrincipal += "or ";
+				}
+				count++;
+			}
+			queryPrincipal += ") ";
+		}
+
+		if (filtro.getDataInicio() != null && filtro.getDataFim() != null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			queryPrincipal += " and data_criacao between '"
+					+ sdf.format(filtro.getDataInicio().getTime()) + "' and '"
+					+ sdf.format(filtro.getDataFim().getTime()) + "' ";
+		}
+
+		if (filtro.getLocalizacoes() != null || filtro.getBiografias() != null
+				|| filtro.getScreenNames() != null) {
+			queryUsuarioStatus = " and id_usuario in(select id_usuario from usuario where ";
+			String queryLocalizacao = "";
+			String queryBiografia = "";
+			String queryScreenName = "";
+
+			if (filtro.getLocalizacoes() != null) {
+				queryLocalizacao += " (";
+				int count = 0;
+				for (String localizacao : filtro.getLocalizacoes().split(",")) {
+					queryLocalizacao += "localizacao like '%" + localizacao
+							+ "%' ";
+					if (filtro.getLocalizacoes().split(",").length > 1
+							&& count < (filtro.getLocalizacoes().split(",").length - 1)) {
+						queryLocalizacao += "or ";
+					}
+					count++;
+				}
+				queryLocalizacao += ") ";
+			}
+
+			if (filtro.getBiografias() != null) {
+				queryBiografia += " (";
+				int count = 0;
+				for (String biografia : filtro.getBiografias().split(",")) {
+					queryBiografia += "biografia like '%" + biografia + "%' ";
+					if (filtro.getBiografias().split(",").length > 1
+							&& count < (filtro.getBiografias().split(",").length - 1)) {
+						queryBiografia += "or ";
+					}
+					count++;
+				}
+				queryBiografia += ") ";
+			}
+
+			if (filtro.getScreenNames() != null) {
+				queryScreenName += " (";
+				int count = 0;
+				for (String screenname : filtro.getScreenNames().split(",")) {
+					queryScreenName += "screen_name like '%" + screenname
+							+ "%' ";
+					if (filtro.getScreenNames().split(",").length > 1
+							&& count < (filtro.getScreenNames().split(",").length - 1)) {
+						queryScreenName += "or ";
+					}
+					count++;
+				}
+				queryScreenName += ") ";
+			}
+
+			List<String> listQuery = new ArrayList<>();
+			if(!queryScreenName.equals(""))
+				listQuery.add(queryScreenName);
+			if(!queryBiografia.equals(""))
+				listQuery.add(queryBiografia);
+			if(!queryLocalizacao.equals(""))
+				listQuery.add(queryLocalizacao);
+			String queryAux = "";
+			int count = 0;
+			for(String query: listQuery){
+				if(count < (listQuery.size() - 1)){
+					queryAux += query + " and ";
+				}else{
+					queryAux += query;
+				}
+				count++;
+			}
+			
+			queryUsuarioStatus += queryAux + " )) ";
+			
+			queryUsuarioStatus += " and id_usuario in(select id_usuario from usuario where " + queryAux + ") ";
+			
+			queryPrincipal += queryUsuarioStatus + groupBy;
+		}else{
+			queryPrincipal += ") " + groupBy;
+		}
+
+		
+
+		PreparedStatement stmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		Status sta = new Status();
+		List<Status> listMencoes = new LinkedList<Status>();
+		try {
+			conn = DAOUtil.returnConnection(Constantes.URL, Constantes.USER,
+					Constantes.SENHA);
+			stmt = conn.prepareStatement(queryPrincipal);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				sta = new Status();
+				sta.setId_usuario(rs.getLong(1));
+				sta.setId_status(rs.getLong(3));
+				sta.setTexto(rs.getString(4));
+				listMencoes.add(sta);
+			}
+		} finally {
+			conn.close();
+		}
+
+		return listMencoes;
+	}
+
 
 }

@@ -143,6 +143,7 @@ public class StreamTempoRealController implements Serializable {
 	public void filtroTempoReal() {
 		try {
 			renderizarStream = true;
+			twitterStream.clearListeners();
 			StatusListener listener = new SNATwitterStatusListenerArquivo();
 			File file = new File(Constantes.DIR + "stream.txt");
 			if (file.exists()) {

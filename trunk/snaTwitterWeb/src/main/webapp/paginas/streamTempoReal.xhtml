@@ -87,11 +87,14 @@
 
 			<p:commandButton id="buttonPararStream" value="Parar Stream"
 				action="#{streamTempoRealController.stopFiltroTempoReal}"
-				style="float: right;" ajax="false"
+				style="float: right;"
 				rendered="#{streamTempoRealController.renderizarStream}"
 				update=":form">
-				<p:fileDownload value="#{streamTempoRealController.arquivo}" />
 			</p:commandButton>
+			
+			 <p:blockUI block=":form" trigger="buttonPararStream">
+			 	<p:graphicImage value="/imagens/carregando.gif" />
+			 </p:blockUI>
 
 			<p:panel id="fieldsetStream" header="Stream Tempo Real"
 				rendered="#{streamTempoRealController.renderizarStream}">

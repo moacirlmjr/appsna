@@ -6,17 +6,16 @@ public class Filtro extends AppSNAEntityMaster {
 
 	public enum TipoRankSize {
 		GRAU, PAGERANK, CENTRAILIDADE;
-		
-		
-		public String getMyName(){
+
+		public String getMyName() {
 			return this.name();
 		}
 	}
 
 	public enum TipoRankColor {
 		GRAU, PAGERANK, CENTRALIDADE, MODULARITY;
-		
-		public String getMyName(){
+
+		public String getMyName() {
 			return this.name();
 		}
 	}
@@ -34,6 +33,7 @@ public class Filtro extends AppSNAEntityMaster {
 	private Date dataFim;
 	private String endGraphml;
 	private String status;
+	private String erro;
 
 	private boolean grau;
 	private boolean pageRank;
@@ -186,6 +186,14 @@ public class Filtro extends AppSNAEntityMaster {
 
 	public void setTipoDistribuicao(TipoDistribuicao tipoDistribuicao) {
 		this.tipoDistribuicao = tipoDistribuicao;
+	}
+
+	public String getErro() {
+		return erro;
+	}
+
+	public void setErro(String erro) {
+		this.erro = erro;
 	}
 
 }

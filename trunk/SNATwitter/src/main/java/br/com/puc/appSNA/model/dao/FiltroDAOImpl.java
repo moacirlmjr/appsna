@@ -154,7 +154,7 @@ public class FiltroDAOImpl implements FiltroDAO {
 
 	@Override
 	public Long update(Filtro objeto) throws Exception {
-		String query = "update filtro set status = ? "
+		String query = "update filtro set status = ?, erro = ? "
 				+ "where id = ?;";
 
 		PreparedStatement stmt = null;
@@ -166,7 +166,8 @@ public class FiltroDAOImpl implements FiltroDAO {
 			stmt = conn.prepareStatement(query);
 
 			stmt.setString(1, objeto.getStatus());
-			stmt.setLong(2, objeto.getId());
+			stmt.setString(2, objeto.getErro());
+			stmt.setLong(3, objeto.getId());
 			stmt.executeUpdate();
 
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -184,7 +185,7 @@ public class FiltroDAOImpl implements FiltroDAO {
 	@Override
 	public Filtro findById(Long id) throws Exception {
 		String query = "select id, data_criacao,screenNames,biografias,localizacoes,termosStatus,dataInicio,dataFim,end_graphml,status "
-				+ ", grau, pagerank, centralidade, modularidade, tipoRankColor, tipoRankSize, tipoDistribuicao, direcionado "
+				+ ", grau, pagerank, centralidade, modularidade, tipoRankColor, tipoRankSize, tipoDistribuicao, direcionado, erro "
 				+ "from filtro "
 				+ "where id = ? ";
 
@@ -243,6 +244,7 @@ public class FiltroDAOImpl implements FiltroDAO {
 				}
 				
 				elem.setDirecionado(rs.getBoolean(18));
+				elem.setErro(rs.getString(19));
 			}
 		} catch (SQLException e) {
 			AppSNALog.error(e.toString());
@@ -255,7 +257,7 @@ public class FiltroDAOImpl implements FiltroDAO {
 	@Override
 	public List<Filtro> list() throws Exception {
 		String query = "select id, data_criacao,screenNames,biografias,localizacoes,termosStatus,dataInicio,dataFim,end_graphml,status "
-				+ ", grau, pagerank, centralidade, modularidade, tipoRankColor, tipoRankSize, tipoDistribuicao, direcionado "
+				+ ", grau, pagerank, centralidade, modularidade, tipoRankColor, tipoRankSize, tipoDistribuicao, direcionado, erro "
 				+ "from filtro;";
 
 		PreparedStatement stmt = null;
@@ -316,7 +318,7 @@ public class FiltroDAOImpl implements FiltroDAO {
 				}
 				
 				elem.setDirecionado(rs.getBoolean(18));
-
+				elem.setErro(rs.getString(19));
 				listElem.add(elem);
 			}
 		} catch (SQLException e) {

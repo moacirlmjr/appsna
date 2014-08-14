@@ -344,7 +344,7 @@ public class StatusDAOImpl implements StatusDAO {
 			queryPrincipal += ") " + groupBy;
 		}
 
-		
+		System.out.println(queryPrincipal);
 
 		PreparedStatement stmt = null;
 		Connection conn = null;

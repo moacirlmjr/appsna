@@ -2,7 +2,7 @@ package br.com.puc.appSNA.model.beans.to;
 
 public class NodeTO {
 
-	private Long id_node;
+	private String id_node;
 	private String nome;
 	private Integer grau;
 	private Integer grauEntrada;
@@ -17,11 +17,11 @@ public class NodeTO {
 
 	}
 
-	public Long getId_node() {
+	public String getId_node() {
 		return id_node;
 	}
 
-	public void setId_node(Long id_node) {
+	public void setId_node(String id_node) {
 		this.id_node = id_node;
 	}
 

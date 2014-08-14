@@ -54,6 +54,11 @@ html,body {
 	background-repeat: no-repeat;
 }
 
+.iconAtualizar {
+	background-image: url(../images/icone_atualizar.png) !important;
+	background-repeat: no-repeat;
+}
+
 .buttonTable {
 	border: none !important;
 	background: none !important;

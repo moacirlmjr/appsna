@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,8 +66,8 @@ import br.com.puc.snaTwitterWeb.util.FacesUtil;
 public class GerarGraphMLByFiltro implements Runnable {
 
 	private Filtro filtro;
-	private String arquivoTermos; 
-	
+	private String arquivoTermos;
+
 	@Override
 	public void run() {
 		AppSNALog.info("Entrou na Tread - Filtro: " + filtro.toString());
@@ -368,7 +370,9 @@ public class GerarGraphMLByFiltro implements Runnable {
 			filtroDAO.update(filtro);
 		} catch (Exception e) {
 			filtro.setStatus("ERRO");
+			filtro.setErro(e.getMessage());
 			FiltroDAO filtroDAO = new FiltroDAOImpl();
+
 			try {
 				filtroDAO.update(filtro);
 			} catch (Exception e1) {
@@ -397,15 +401,20 @@ public class GerarGraphMLByFiltro implements Runnable {
 		for (Status mencao : listStatus) {
 			String status = mencao.getTexto();
 			List<Node> nodes = new ArrayList<>();
-			for (String tema : status.toLowerCase().split(" ")) {
-				String texto = Normalizer.normalize(
-						tema.replaceAll("[^\\p{L}\\p{Z}]", ""),
+			for (String termo : status.toLowerCase().split(" ")) {
+				String termoNorm = Normalizer.normalize(termo,
 						Normalizer.Form.NFD);
-				texto = texto.replaceAll("[^\\p{ASCII}]", "");
-				if (!texto.equals("")
-						&& !termosASeremDesconsiderados.contains(texto)) {
-					Node n0 = graphModel.factory().newNode(texto + "");
-					n0.getNodeData().setLabel(texto);
+				termoNorm = termoNorm.replaceAll("ç", "c").replaceAll("á", "a")
+						.replaceAll("à", "a").replaceAll("â", "a")
+						.replaceAll("ã", "a").replaceAll("ó", "o")
+						.replaceAll("ô", "o").replaceAll("õ", "o")
+						.replaceAll("ú", "u").replaceAll("û", "u")
+						.replaceAll("é", "e").replaceAll("ê", "e")
+						.replaceAll("[^\\p{ASCII}]", "");
+				if (!termoNorm.equals("")
+						&& !termosASeremDesconsiderados.contains(termoNorm)) {
+					Node n0 = graphModel.factory().newNode(termoNorm + "");
+					n0.getNodeData().setLabel(termoNorm);
 
 					graph = graphModel.getUndirectedGraph();
 					boolean teste1 = true;

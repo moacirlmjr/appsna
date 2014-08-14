@@ -113,6 +113,14 @@
 				<p:column headerText="Graphml">
 					<h:graphicImage title="Erro" value="/imagens/erro.png" width="16"
 						rendered="#{filtro.status == 'ERRO'}" />
+					<p:tooltip title="Erro" value="#{filtro.erro}"
+						rendered="#{filtro.status == 'ERRO'}" />
+					<p:commandButton icon="iconAtualizar" title="ReBuscar"
+						styleClass="buttonTable"
+						actionListener="#{filtroController.reBuscar(filtro)}"
+						rendered="#{filtro.status == 'ERRO'}">
+					</p:commandButton>
+
 					<h:graphicImage title="Consultando" value="/imagens/sql-icon.png"
 						width="16" rendered="#{filtro.status == 'CONSULTANDO'}" />
 					<h:graphicImage title="Gerando Graphml" value="/imagens/5-128.png"
@@ -123,13 +131,14 @@
 					<h:graphicImage title="Analisando" value="/imagens/ajax-loader.gif"
 						width="16"
 						rendered="#{filtro.status != 'ERRO' and filtro.status != 'TERMINADO'}" />
+
 					<p:commandLink value="rede de mençoes"
 						actionListener="#{filtroController.carregarGraphml}"
 						oncomplete="document.getElementById('form:linkDonwload').click();"
 						rendered="#{filtro.status == 'TERMINADO'}">
 						<f:param name="graphml" value="#{filtro.endGraphml}"></f:param>
 					</p:commandLink>
-					<br/>
+					<br />
 					<p:commandLink value="rede de termos"
 						actionListener="#{filtroController.carregarGraphmlTermo}"
 						oncomplete="document.getElementById('form:linkDonwload').click();"
@@ -182,114 +191,223 @@
 
 			<p:dialog header="Laboratório de Dados" widgetVar="labDados"
 				modal="true" height="500" dynamic="true">
-				<h:panelGrid>
-					<h:outputText value="Nós: #{filtroController.nodeCount}" />
-					<h:outputText value="Arestas: #{filtroController.edgeCount}" />
-				</h:panelGrid>
+				<p:tabView id="tabViewMain">
+					<p:tab title="Rede de Menções">
+						<h:panelGrid>
+							<h:outputText value="Nós: #{filtroController.nodeCount}" />
+							<h:outputText value="Arestas: #{filtroController.edgeCount}" />
+						</h:panelGrid>
 
-				<p:tabView id="tabView">
-					<p:tab title="Nós">
-						<p:dataTable id="tableNodes" value="#{filtroController.listNodes}"
-							var="node" paginator="true"
-							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							rowsPerPageTemplate="5,10,15" rows="10">
-							<p:column headerText="Id" sortBy="#{node.id_node}">
-								<h:outputText value="#{node.id_node}" />
-							</p:column>
+						<p:tabView id="tabView">
+							<p:tab title="Nós">
+								<p:dataTable id="tableNodes"
+									value="#{filtroController.listNodes}" var="node"
+									paginator="true"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+									rowsPerPageTemplate="5,10,15" rows="10">
+									<p:column headerText="Id" sortBy="#{node.id_node}">
+										<h:outputText value="#{node.id_node}" />
+									</p:column>
 
-							<p:column headerText="Label" sortBy="#{node.nome}">
-								<h:outputText value="#{node.nome}" />
-							</p:column>
+									<p:column headerText="Label" sortBy="#{node.nome}">
+										<h:outputText value="#{node.nome}" />
+									</p:column>
 
-							<p:column headerText="Grau" sortBy="#{node.grau}"
-								rendered="#{filtroController.filtro.grau}">
-								<h:outputText value="#{node.grau}" />
-							</p:column>
+									<p:column headerText="Grau" sortBy="#{node.grau}"
+										rendered="#{filtroController.filtro.grau}">
+										<h:outputText value="#{node.grau}" />
+									</p:column>
 
-							<p:column headerText="Grau de Entrada"
-								sortBy="#{node.grauEntrada}"
-								rendered="#{filtroController.filtro.grau and filtroController.filtro.direcionado}">
-								<h:outputText value="#{node.grauEntrada}" />
-							</p:column>
+									<p:column headerText="Grau de Entrada"
+										sortBy="#{node.grauEntrada}"
+										rendered="#{filtroController.filtro.grau and filtroController.filtro.direcionado}">
+										<h:outputText value="#{node.grauEntrada}" />
+									</p:column>
 
-							<p:column headerText="Grau de Saída" sortBy="#{node.grauSaida}"
-								rendered="#{filtroController.filtro.grau and filtroController.filtro.direcionado}">
-								<h:outputText value="#{node.grauSaida}" />
-							</p:column>
+									<p:column headerText="Grau de Saída" sortBy="#{node.grauSaida}"
+										rendered="#{filtroController.filtro.grau and filtroController.filtro.direcionado}">
+										<h:outputText value="#{node.grauSaida}" />
+									</p:column>
 
-							<p:column headerText="Closeness" sortBy="#{node.closeness}"
-								rendered="#{filtroController.filtro.centralidade}">
-								<h:outputText value="#{node.closeness}" />
-							</p:column>
+									<p:column headerText="Closeness" sortBy="#{node.closeness}"
+										rendered="#{filtroController.filtro.centralidade}">
+										<h:outputText value="#{node.closeness}" />
+									</p:column>
 
-							<p:column headerText="Betweenness" sortBy="#{node.betweenness}"
-								rendered="#{filtroController.filtro.centralidade}">
-								<h:outputText value="#{node.betweenness}" />
-							</p:column>
+									<p:column headerText="Betweenness" sortBy="#{node.betweenness}"
+										rendered="#{filtroController.filtro.centralidade}">
+										<h:outputText value="#{node.betweenness}" />
+									</p:column>
 
-							<p:column headerText="Eccentricity" sortBy="#{node.eccentricity}"
-								rendered="#{filtroController.filtro.centralidade}">
-								<h:outputText value="#{node.eccentricity}" />
-							</p:column>
+									<p:column headerText="Eccentricity"
+										sortBy="#{node.eccentricity}"
+										rendered="#{filtroController.filtro.centralidade}">
+										<h:outputText value="#{node.eccentricity}" />
+									</p:column>
 
-							<p:column headerText="Page Rank" sortBy="#{node.pageRank}"
-								rendered="#{filtroController.filtro.pageRank}">
-								<h:outputText value="#{node.pageRank}" />
-							</p:column>
+									<p:column headerText="Page Rank" sortBy="#{node.pageRank}"
+										rendered="#{filtroController.filtro.pageRank}">
+										<h:outputText value="#{node.pageRank}" />
+									</p:column>
 
-							<p:column headerText="Modularidade" sortBy="#{node.modularidade}"
-								rendered="#{filtroController.filtro.modularity}">
-								<h:outputText value="#{node.modularidade}" />
-							</p:column>
-						</p:dataTable>
+									<p:column headerText="Modularidade"
+										sortBy="#{node.modularidade}"
+										rendered="#{filtroController.filtro.modularity}">
+										<h:outputText value="#{node.modularidade}" />
+									</p:column>
+								</p:dataTable>
 
-						<h:commandLink>
-							<p:graphicImage value="/imagens/excel.png" />
-							<p:dataExporter type="xls" target="tableNodes" fileName="nodes" />
-						</h:commandLink>
+								<h:commandLink>
+									<p:graphicImage value="/imagens/excel.png" />
+									<p:dataExporter type="xls" target="tableNodes" fileName="nodes" />
+								</h:commandLink>
 
-						<h:commandLink>
-							<p:graphicImage value="/imagens/pdf.png" />
-							<p:dataExporter type="pdf" target="tableNodes" fileName="nodes" />
-						</h:commandLink>
+								<h:commandLink>
+									<p:graphicImage value="/imagens/pdf.png" />
+									<p:dataExporter type="pdf" target="tableNodes" fileName="nodes" />
+								</h:commandLink>
 
-						<h:commandLink>
-							<p:graphicImage value="/imagens/xml.png" />
-							<p:dataExporter type="xml" target="tableNodes" fileName="nodes" />
-						</h:commandLink>
+								<h:commandLink>
+									<p:graphicImage value="/imagens/xml.png" />
+									<p:dataExporter type="xml" target="tableNodes" fileName="nodes" />
+								</h:commandLink>
+							</p:tab>
+							<p:tab title="Arestas">
+								<p:dataTable id="tableEdges"
+									value="#{filtroController.listEdges}" var="edge"
+									paginator="true"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+									rowsPerPageTemplate="5,10,15" rows="10">
+									<p:column headerText="Source" sortBy="#{edge.id_source}">
+										<h:outputText value="#{edge.id_source}" />
+									</p:column>
+
+									<p:column headerText="Target" sortBy="#{edge.id_target}">
+										<h:outputText value="#{edge.id_target}" />
+									</p:column>
+
+									<p:column headerText="Weight" sortBy="#{edge.weight}">
+										<h:outputText value="#{edge.weight}" />
+									</p:column>
+								</p:dataTable>
+
+								<h:commandLink>
+									<p:graphicImage value="/imagens/excel.png" />
+									<p:dataExporter type="xls" target="tableEdges" fileName="nodes" />
+								</h:commandLink>
+
+								<h:commandLink>
+									<p:graphicImage value="/imagens/pdf.png" />
+									<p:dataExporter type="pdf" target="tableEdges" fileName="nodes" />
+								</h:commandLink>
+
+								<h:commandLink>
+									<p:graphicImage value="/imagens/xml.png" />
+									<p:dataExporter type="xml" target="tableEdges" fileName="nodes" />
+								</h:commandLink>
+							</p:tab>
+						</p:tabView>
 					</p:tab>
-					<p:tab title="Arestas">
-						<p:dataTable id="tableEdges" value="#{filtroController.listEdges}"
-							var="edge" paginator="true"
-							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							rowsPerPageTemplate="5,10,15" rows="10">
-							<p:column headerText="Source" sortBy="#{edge.id_source}">
-								<h:outputText value="#{edge.id_source}" />
-							</p:column>
 
-							<p:column headerText="Target" sortBy="#{edge.id_target}">
-								<h:outputText value="#{edge.id_target}" />
-							</p:column>
+					<p:tab title="Rede de Termos">
+						<h:panelGrid>
+							<h:outputText value="Nós: #{filtroController.nodeCountTermos}" />
+							<h:outputText
+								value="Arestas: #{filtroController.edgeCountTermos}" />
+						</h:panelGrid>
 
-							<p:column headerText="Weight" sortBy="#{edge.weight}">
-								<h:outputText value="#{edge.weight}" />
-							</p:column>
-						</p:dataTable>
+						<p:tabView id="tabViewTermos">
+							<p:tab title="Nós">
+								<p:dataTable id="tableNodesTermos"
+									value="#{filtroController.listNodesTermos}" var="node"
+									paginator="true"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+									rowsPerPageTemplate="5,10,15" rows="10">
+									<p:column headerText="Id" sortBy="#{node.id_node}">
+										<h:outputText value="#{node.id_node}" />
+									</p:column>
 
-						<h:commandLink>
-							<p:graphicImage value="/imagens/excel.png" />
-							<p:dataExporter type="xls" target="tableNodes" fileName="nodes" />
-						</h:commandLink>
+									<p:column headerText="Label" sortBy="#{node.nome}">
+										<h:outputText value="#{node.nome}" />
+									</p:column>
 
-						<h:commandLink>
-							<p:graphicImage value="/imagens/pdf.png" />
-							<p:dataExporter type="pdf" target="tableNodes" fileName="nodes" />
-						</h:commandLink>
+									<p:column headerText="Grau" sortBy="#{node.grau}">
+										<h:outputText value="#{node.grau}" />
+									</p:column>
 
-						<h:commandLink>
-							<p:graphicImage value="/imagens/xml.png" />
-							<p:dataExporter type="xml" target="tableNodes" fileName="nodes" />
-						</h:commandLink>
+									<p:column headerText="Betweenness" sortBy="#{node.betweenness}">
+										<h:outputText value="#{node.betweenness}" />
+									</p:column>
+
+									<p:column headerText="Page Rank" sortBy="#{node.pageRank}">
+										<h:outputText value="#{node.pageRank}" />
+									</p:column>
+
+									<p:column headerText="Modularidade"
+										sortBy="#{node.modularidade}">
+										<h:outputText value="#{node.modularidade}" />
+									</p:column>
+								</p:dataTable>
+
+								<h:commandLink>
+									<p:graphicImage value="/imagens/excel.png" />
+									<p:dataExporter type="xls" target="tableNodesTermos"
+										fileName="nodes" />
+								</h:commandLink>
+
+								<h:commandLink>
+									<p:graphicImage value="/imagens/pdf.png" />
+									<p:dataExporter type="pdf" target="tableNodesTermos"
+										fileName="nodes" />
+								</h:commandLink>
+
+								<h:commandLink>
+									<p:graphicImage value="/imagens/xml.png" />
+									<p:dataExporter type="xml" target="tableNodesTermos"
+										fileName="nodes" />
+								</h:commandLink>
+							</p:tab>
+							<p:tab title="Arestas">
+								<p:dataTable id="tableEdgesTermos"
+									value="#{filtroController.listEdgesTermos}" var="edge"
+									paginator="true"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+									rowsPerPageTemplate="5,10,15" rows="10">
+									<p:column headerText="Source" sortBy="#{edge.id_source}">
+										<h:outputText value="#{edge.id_source}" />
+									</p:column>
+
+									<p:column headerText="Target" sortBy="#{edge.id_target}">
+										<h:outputText value="#{edge.id_target}" />
+									</p:column>
+
+									<p:column headerText="Weight" sortBy="#{edge.weight}">
+										<h:outputText value="#{edge.weight}" />
+									</p:column>
+								</p:dataTable>
+
+								<h:commandLink>
+									<p:graphicImage value="/imagens/excel.png" />
+									<p:dataExporter type="xls" target="tableEdgesTermos"
+										fileName="nodes" />
+								</h:commandLink>
+
+								<h:commandLink>
+									<p:graphicImage value="/imagens/pdf.png" />
+									<p:dataExporter type="pdf" target="tableEdgesTermos"
+										fileName="nodes" />
+								</h:commandLink>
+
+								<h:commandLink>
+									<p:graphicImage value="/imagens/xml.png" />
+									<p:dataExporter type="xml" target="tableEdgesTermos"
+										fileName="nodes" />
+								</h:commandLink>
+							</p:tab>
+						</p:tabView>
+					</p:tab>
+					<p:tab title="Nuvem de Tags">
+						<p:tagCloud model="#{filtroController.model}" style="width: 100%"></p:tagCloud>
 					</p:tab>
 				</p:tabView>
 			</p:dialog>

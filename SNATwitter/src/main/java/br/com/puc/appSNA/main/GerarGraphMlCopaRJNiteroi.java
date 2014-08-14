@@ -34,7 +34,7 @@ public class GerarGraphMlCopaRJNiteroi {
 //			listNodeTo.add(new NodeTO(idUserOrigem, userOrigem.getScreename()));
 //			listNodeTo.add(new NodeTO(idUserDestino, userDestino.getScreename()));
 			
-			listEdgeTo.add(new EdgeTO(idUserOrigem, idUserDestino, qteMencoes));
+			listEdgeTo.add(new EdgeTO(idUserOrigem.toString(), idUserDestino.toString(), qteMencoes));
 		}
 		
 		PaperUtil.criaCabecalho(true);

@@ -28,7 +28,7 @@ public class PaperUtil {
 	public static void criarNodos(List<NodeTO> list) throws Exception {
 
 		XMLUtil.addSpace(2);
-		List<Long> listaNodes = new ArrayList<>();
+		List<String> listaNodes = new ArrayList<>();
 		for (NodeTO node : list) {
 			if (verificar(node.getId_node(), listaNodes)) {
 				XMLUtil.generateNodes(node.getId_node(), node.getNome());
@@ -54,10 +54,10 @@ public class PaperUtil {
 
 	}
 
-	public static boolean verificar(Long id, List<Long> lista) {
+	public static boolean verificar(String id, List<String> lista) {
 
-		for (Long teste : lista) {
-			if (id.longValue() == teste.longValue()) {
+		for (String teste : lista) {
+			if (id.equals(teste)) {
 				return false;
 			}
 		}

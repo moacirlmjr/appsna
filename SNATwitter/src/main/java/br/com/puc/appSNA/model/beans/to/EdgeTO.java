@@ -1,6 +1,8 @@
 package br.com.puc.appSNA.model.beans.to;
 
-public class EdgeTO {
+import java.io.Serializable;
+
+public class EdgeTO implements Serializable{
 	
 	String id_source;
 	String id_target;

@@ -19,9 +19,9 @@ public class Constantes {
 
 	public static String USER = "root";
 
-	public static String SENHA = "mv13wavaty";
+//	public static String SENHA = "mv13wavaty";
 	
-//	public static String SENHA = "";
+	public static String SENHA = "";
 	
 	public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 

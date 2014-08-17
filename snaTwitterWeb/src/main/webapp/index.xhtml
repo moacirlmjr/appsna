@@ -8,9 +8,9 @@
 
 <ui:composition template="/paginas/template/main.xhtml">
 	<ui:define name="content">
-			Seja Bem Vindo!
+			
 		<h:form id="form">
-			<p:fieldset legend="Filtros" style="width: 800px">
+			<p:panel header="Filtros" style="width: 800px">
 				<h:panelGrid columns="1">
 					<h:panelGrid columns="3">
 						<p:outputLabel value="ScreenName" for="screenName" />
@@ -168,12 +168,14 @@
 						</h:panelGrid>
 					</p:fieldset>
 				</h:panelGrid>
-
+				<br/>
+				<p:separator></p:separator>
+				<br/>
 				<p:commandButton value="Buscar"
 					title="Pesquisa na Base de dados os resultados correspondentes ao filtro"
-					action="#{pesquisaController.buscar}" style="float: right;"
+					action="#{pesquisaController.buscar}"
 					ajax="false" />
-			</p:fieldset>
+			</p:panel>
 		</h:form>
 	</ui:define>
 </ui:composition>

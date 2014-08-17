@@ -10,12 +10,15 @@
 	<title>SNA Twitter WEB</title>
 	<link type="text/css" rel="stylesheet"
 		href="#{facesContext.externalContext.requestContextPath}/css/style.css" />
-	<script src="#{facesContext.externalContext.requestContextPath}/js/sigma-0.1.min.js"></script>
-	<script src="#{facesContext.externalContext.requestContextPath}/js/sigma.parsers.gexf-0.1.js"></script>
+	<script
+		src="#{facesContext.externalContext.requestContextPath}/js/sigma-0.1.min.js"></script>
+	<script
+		src="#{facesContext.externalContext.requestContextPath}/js/sigma.parsers.gexf-0.1.js"></script>
 </h:head>
 
 
 <h:body>
+	<ui:include src="header.xhtml" />
 	<h:form>
 		<p:menubar>
 			<p:menuitem value="Home" action="/index.jsf" />
@@ -27,5 +30,6 @@
 	<p:growl globalOnly="true" id="messages" redisplay="false"
 		autoUpdate="true" life="10000" />
 	<ui:insert name="content"></ui:insert>
+	<ui:include src="footer.xhtml" />
 </h:body>
 </html>

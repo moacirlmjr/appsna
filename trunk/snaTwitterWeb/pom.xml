@@ -57,5 +57,11 @@
 			<artifactId>SNATwitter</artifactId>
 			<version>1.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>br.com.puc</groupId>
+			<artifactId>snatwitter-theme</artifactId>
+			<version>1.0</version>
+		</dependency>
 	</dependencies>
 </project>

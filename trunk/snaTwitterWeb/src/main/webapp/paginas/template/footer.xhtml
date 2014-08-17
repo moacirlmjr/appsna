@@ -3,9 +3,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition>
-
+	<h:panelGroup id="footer" layout="block">
+		<p:separator style="height:10px;"></p:separator>
+		<br />
+		<h:graphicImage id="logoIdeaBox" value="/imagens/logo_ideaBox.png" />
+		<br /> <br />		
+		<h:outputText value="Copyright (c) 2014 PucBase. All rights reserved. Design by Idea Box - Software Solutions" />
+	</h:panelGroup>
 </ui:composition>
 </html>
